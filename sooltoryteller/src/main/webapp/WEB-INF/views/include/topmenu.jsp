@@ -27,13 +27,13 @@
             width: 40px;
         }
         .logo{
-            width: 50%;
+            width: 55%;
             text-align: right;
             display: inline-block;
             margin-bottom: 10px;
         }
         .usermenu{
-            width: 50%;
+            width: 45%;
             font-size: 13px;
             text-align: right;
             display: inline-block;
@@ -86,7 +86,7 @@
 <body>
     <div class="logobar">
         <div class="logo">
-        <img src='img/pngwing.png'>
+        <img src='/resources/img/logo.png'>
         <a href="#" id="company-name">술토리텔러</a>
         </div><div class='usermenu'>
             <a href='#'>로그인 ㅣ</a>
