@@ -6,26 +6,23 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	//시퀀스(1차 테스트 끝나고 삭제하기)
-	private int memberSeq;
+	//회원아이디
+	private Long memberId;
 	
 	// 이메일 
-    private String memberEmail;
+    private String email;
 
     // 닉네임 
-    private String memberName;
+    private String name;
 
     // 비밀번호 
-    private String memberPwd;
+    private String pwd;
 
     // 전화번호 
-    private String memberTelno;
-
-    // 술BTI 
-    private String memberSoolBti;
+    private String telno;
 
     // 프로필 사진 
-    private String memberImg;
+    private String img;
 
     // 가입일시 
     private Date regdate;
