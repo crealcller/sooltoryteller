@@ -49,7 +49,7 @@ display: inline-block;
 .h-login-content{
 height: 450px;
 width: 450px;
-border: 3px solid purple;
+border: 3px solid rgb(181, 135, 189);
 border-radius: 25%;
 display: inline-block;
 margin-left: 170px;
@@ -65,6 +65,7 @@ overflow: hidden;
   border: none;
   margin: 10px;
   border-radius: 5%;
+  color:white;
   background-color: rgb(181, 135, 189);
 }
 .snslogin{
