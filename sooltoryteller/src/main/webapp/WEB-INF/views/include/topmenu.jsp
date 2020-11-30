@@ -57,12 +57,12 @@ if (email != null) {
             width: 55%;
             text-align: right;
             display: inline-block;
-            margin-bottom: 10px;
         }
         .usermenu{
             width: 45%;
             font-size: 13px;
             text-align: right;
+            padding-right:10px;
             display: inline-block;
         }
         .mainMenu{

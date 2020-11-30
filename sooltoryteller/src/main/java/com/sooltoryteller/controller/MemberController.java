@@ -66,4 +66,9 @@ public class MemberController {
 			session.invalidate();  
 			return "redirect:/";
 		}
+		
+		
+		//회원가입
+		@GetMapping("/join")
+		public void join() {}
 }
