@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.MemberMapper">
+
+<!-- 모든 회원 정보 불러오기 -->
+<select id="getList" resultType="com.sooltoryteller.domain.MemberVO">
+<![CDATA[
+select * from member
+]]>
+</select>
+
+<!-- 회원 이력관리(회원가입, 회원정보 수정) -->
+<!-- 회원정보 수정 되면 이력에 추가 -->
+<insert id="insertHist">
+Insert into member_hist(member_hist_seq, member_email, member_name, member_pwd, member_telno, member_img)
+values (#{memberSeq}, #{memberEmail}, #{memberName}, #{memberPwd}, #{memberTelno}, #{memberImg})
+</insert>
+
+<!-- 회원가입시 회원정보 등록 0 -->
+<insert id ="insert">
+	INSERT INTO member (member_email, member_name, member_pwd, member_telno, member_img, regdate, updatedate)
+	VALUES (#{memberEmail}, #{memberName}, #{memberPwd}, #{memberTelno}, #{memberImg}, sysdate, sysdate)
+</insert>
+
+<!-- 회원정보 불러오기(회원정보 수정란에 비밀번호 제외하고) 0-->
+<select id ="read" resultType="com.sooltoryteller.domain.MemberVO">
+	select member_email, member_name, member_pwd, member_telno, member_sool_bti, member_img
+	from member
+	where member_email = #{memberEmail}
+</select>
+
+<!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
+<update id="updateInfo">
+	update member
+	set member_name = #{memberName},
+	member_telno = #{memberTelno},
+	member_img = #{memberImg},
+	updatedate = sysdate
+	where member_email = #{memberEmail}
+</update>
+
+<!-- 회원탈퇴 -->
+<update id="updateRegstus">
+	update member
+	set regstus = 'SECSN',
+	updatedate = sysdate
+	where member_email = #{memberEmail}
+</update>
+</mapper>
