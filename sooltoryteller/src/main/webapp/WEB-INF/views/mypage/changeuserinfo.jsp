@@ -24,18 +24,23 @@
 <title>회원정보수정</title>
 </head>
 <body>
-<h1>회원정보 수정/ 회원탈퇴</h1>
-<div class="modify-content">
-<form action ="/mypage/changeuserinfo" method="post" onsubmit="return validate()">
-<p>이메일 : <input type = "text" name="email" id="email"value="<c:out value = "${member.email }"/>" readonly="readonly">
-<p>닉네임 : <input type = "text" name="name" id="name" value="<c:out value = "${member.name }"/>" >
-<p>핸드폰번호 : <input type = "text" name="telno" id="telno"value="<c:out value = "${member.telno }"/>" >
-<p>프로필사진 : <input type = "text" name="img" id="img"value="<c:out value = "${member.img }"/>" ><button type="button">첨부</button>
-
-<div><button type="submit">회원수정</button>
-	<button type="button" id="withdrawal" >회원탈퇴</button></div>
-	
-	</form>
+<div class="h-back">
+        <div class="h-imgarea">
+        <img id="h-backImg" src="/resources/img/zzan.JPG">
+        
+        </div><div class="h-modify-content">
+        <h3 style="margin-bottom: 40px;">회원정보 수정/ 회원탈퇴</h3>
+        <form action ="/mypage/changeuserinfo" method="post" onsubmit="return validate()">
+        <div class="h-photo"><img src=${member.img }></div>
+        <p><input type="file" class="h-addfile"></p>
+	    <p>이메일 : &nbsp<input type = "text" name="email" id="email" value=${member.email } readonly="readonly">
+	    <p>닉네임 : &nbsp<input type = "text" name="name" id="name" value=${member.name } >
+	    <p>핸드폰번호 : <input type = "text" name="telno" id="telno" value=${member.telno }>
+	    <p><button type="submit" class="h-modibtn">회원수정</button>	<button type="button" id="withdrawal" class="h-modibtn">회원탈퇴</button></p>
+    
+	</form> 
+    </div>
+    </div>
 
 	<div id="h-myModal" class="h-modal">
     <div class="h-modal-content">
@@ -44,7 +49,6 @@
 	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES...</button> <button type="button" class="h-btn" id="h-NObtn">NO!!!!</button></p>
    </div>
 
-</div>
 </div>
 <script>
 //회원 탈퇴 확인 모달창
