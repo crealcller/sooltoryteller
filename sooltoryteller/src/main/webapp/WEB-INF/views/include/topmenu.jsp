@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%
+	String email = (String) session.getAttribute("email");
+	String loginDisplay = ""; 
+	String logoutDisplay = ""; 
+	
+//세션에 로그인 정보가 담겼다면 로그인/회원가입 버튼 비활성화
+if (email != null) {
+	loginDisplay = "none";
+} else {
+	logoutDisplay =  "none";
+}
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +22,26 @@
     <title>Document</title>
 
     <style>
+    @font-face {
+    font-family: '전소민체';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/전소민체.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+    * {
+          margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           }
         a{
             text-decoration: none;
             color: black;
         }
 
         #company-name{
-            font-size: 25px;
+            font-family: '전소민체';
+            font-size: 40px;
+            font-weight: bold;
         }
         
         .logobar{
@@ -27,15 +54,15 @@
             width: 40px;
         }
         .logo{
-            width: 50%;
+            width: 55%;
             text-align: right;
             display: inline-block;
-            margin-bottom: 10px;
         }
         .usermenu{
-            width: 50%;
+            width: 45%;
             font-size: 13px;
             text-align: right;
+            padding-right:10px;
             display: inline-block;
         }
         .mainMenu{
@@ -86,11 +113,12 @@
 <body>
     <div class="logobar">
         <div class="logo">
-        <img src='img/pngwing.png'>
-        <a href="#" id="company-name">술토리텔러</a>
+        <img src='/resources/img/logo.png'>
+        <a href="/" id="company-name">술토리텔러</a>
         </div><div class='usermenu'>
-            <a href='#'>로그인 ㅣ</a>
-            <a href='#'>회원가입 ㅣ</a>
+            <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
+            <a href='/logout' style="display:<%=logoutDisplay%>">로그아웃 ㅣ</a>
+            <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
             <a href='#'>마이페이지 ㅣ</a>
             <a href='#'>고객센터</a>
         </div>

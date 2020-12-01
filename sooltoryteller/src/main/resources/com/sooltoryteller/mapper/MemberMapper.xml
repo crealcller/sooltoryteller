@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.MemberMapper">
+
+<!-- 모든 회원 정보 불러오기 -->
+<select id="getList" resultType="com.sooltoryteller.domain.MemberVO">
+<![CDATA[
+select * from member
+]]>
+</select>
+
+<!-- 회원 이력관리(회원가입, 회원정보 수정) -->
+<!-- 회원정보 수정 되면 이력에 추가 -->
+<insert id="insertHist">
+Insert into member_hist(hist_id, member_id, email, name, pwd, telno, img)
+values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img})
+</insert>
+
+<!-- 회원가입시 회원정보 등록 0 -->
+<insert id ="insert">
+	INSERT INTO member (member_id, email, name, pwd, telno, img)
+	VALUES (member_id.nextval, #{email}, #{name}, #{pwd}, #{telno}, #{img})
+</insert>
+
+<!-- 회원정보 불러오기 0-->
+<select id ="read" resultType="com.sooltoryteller.domain.MemberVO">
+	select *
+	from member
+	where email = #{email}
+</select>
+
+<select id="getLoginInfo" resultType="com.sooltoryteller.domain.MemberVO">
+	select email, pwd
+	from member
+	where email = #{email}
+	and pwd = #{pwd}
+</select>
+
+<select id="getEmail" resultType="int">
+	select count(*)
+	from member
+	where email = #{email}
+</select>
+<!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
+<update id="updateInfo">
+	update member
+	set name = #{name},
+	telno = #{telno},
+	img = #{img},
+	updatedate = sysdate
+	where email = #{email}
+</update>
+
+<!-- 회원탈퇴 -->
+<update id="updateRegstus">
+	update member
+	set regstus = 'WD',
+	updatedate = sysdate
+	where email = #{email}
+</update>
+</mapper>
