@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,13 +77,15 @@ public class MemberController {
 		@GetMapping("/join")
 		public void join() {}
 		
-		//회원가입 아이디 중복체크
-		@RequestMapping(value = "/overlapCheck", method= {RequestMethod.POST, RequestMethod.GET})
-		@ResponseBody
-		public boolean overlapCheck(@RequestParam("email") String email) {
-			System.out.println("email:"+email);
-			System.out.println(service.checkEmail(email));
-			return service.checkEmail(email);
-		}
+		//회원가입 아이디 중복체크(보류)
+//		@RequestMapping(value = "/overlapCheck", method = RequestMethod.POST)
+//		@ResponseBody
+//		public  int overlapCheck(String email ) {
+//			System.out.println("email:"+email);
+//			int cnt = service.checkEmail(email);
+//			System.out.println(cnt);
+//			return cnt;
+//			
+//		}
 		
 }

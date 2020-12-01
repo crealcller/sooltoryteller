@@ -70,9 +70,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean checkEmail(String email) {
+	public int checkEmail(String email) {
 		
-		return mapper.getEmail(email) ==1;
+		return mapper.getEmail(email);
 	}
 
 }

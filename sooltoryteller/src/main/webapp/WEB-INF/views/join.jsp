@@ -14,7 +14,7 @@
     <h4 style="margin-left:50px;">기본정보</h4>
     
     <form action="/join" method="POST" onsubmit="return validate()">
-    <p style="margin-left:50px;">이메일 &nbsp<input type="email" id="email" name="email"><button type="button" class="overlapCheck">중복확인</button></p>
+    <p style="margin-left:50px;">이메일 &nbsp<input type="email" id="email" name="email"><button type="button" id="checkId" class="overlapCheck">중복확인</button></p>
     <p style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name"></p>
     <p style="font-size:5px" id="nameMsg">닉네임은 2~8자리 입력해주세요</p>
     <p style="margin-left:35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd"></p>
@@ -26,7 +26,7 @@
       <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
     <p><input type="checkbox" class="drink">소주<input type="checkbox" class="drink">맥주<input type="checkbox" class="drink">막걸리<input type="checkbox" class="drink">칵테일 </p>
     <p><input type="checkbox" class="drink">보드카<input type="checkbox" class="drink">양주<input type="checkbox" class="drink">와인<input type="checkbox" class="drink">기타 </p>
-    <p style="text-align: center;"><button type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
+    <p style="text-align: center; margin:0;"><button style="margin: 0" type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
     <button type="button" class="join-btn" >취소</button></p>
     </div>
     </form>
@@ -36,15 +36,15 @@
 </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
+  <script type="text/javascript">
   
 	const jEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일
 	const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]).{8,16}$/; // 대문자/소문자/특수문자 1개씩은 포함해서 8자리~16자리
 	const jName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리
 	const jTelno = /^\d{3}\d{3,4}\d{4}$/; //전화번호 정규식 '-'빼고 숫자만 01063517402
 	const blank = /\s/g;
-  
-	//아이디 중복체크 확인
+/*  
+	//아이디 중복체크 확인(보류)
     $(function(){
 		
 		$(".overlapCheck").click(function(){
@@ -52,24 +52,15 @@
 			let btn = document.getElementById("reg");
 			let email = $("#email").val();
 			
-			//정규식으로 형식검사 +공백체크
-			/* if(!jEmail.test(email) || blank.test(email)){
-				alert("이메일 형식에 맞지 않습니다.");
-				btn.disabled = "disabled";
-			} */
 			//입력했는지 검사
 			if(email == ""){
 				alert("이메일을 입력하여 주세요");
 	    		btn.disabled = "disabled";
 			}
 			
-			//객제에 담아서
-			let send = {'email' : email}
-			
 			$.ajax({
-				async : true,
 				type : 'post',
-				data : send,
+				data : {'email' : email},
 				url : "/overlapCheck",
 				success : function(data){
 					alert(data);
@@ -78,27 +69,28 @@
 						if(!jEmail.test(email) || blank.test(email)){
 							alert("이메일 형식에 맞지 않습니다.");
 							btn.disabled = "disabled";
-						}
-						
-						if(data){
-							alert("중복된 아이디가 존재합니다.");
-					    	   btn.disabled = "disabled";
 						}else{
-							if(jEmail.test(email)){
-									alert("사용 가능한 아이디입니다.");
-							    	   btn.disabled = false;
-							 	 }
-						}
 						
+							if(data>0){
+								alert("중복된 아이디가 존재합니다.");
+					    	   	btn.disabled = "disabled";
+					    	   	
+							}else{
+								if(jEmail.test(email)){
+									alert("사용 가능한 아이디입니다.");
+								    btn.disabled = false;
+							 	 }
+						    }
+					  } //else end
 					}
+				}	
 					
-			}
 		
 	})
 	})
 	})
   
-  
+  */
   </script>
   
 </body>
