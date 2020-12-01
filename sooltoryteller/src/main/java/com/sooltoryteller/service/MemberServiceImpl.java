@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService{
 		log.info("modify..."+member);
 		
 		if(mapper.updateInfo(member) == 1) {
-			mapper.insertHist(member);
+			mapper.insertHist(mapper.read(member.getEmail()));
 			return true;
 		}
 		return false;

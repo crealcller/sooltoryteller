@@ -31,18 +31,23 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	where email = #{email}
 </select>
 
+<!-- 로그인시 이메일, 비밀번호 체크 -->
 <select id="getLoginInfo" resultType="com.sooltoryteller.domain.MemberVO">
 	select email, pwd
 	from member
 	where email = #{email}
 	and pwd = #{pwd}
+	and regstus = 'JN'
 </select>
 
+<!-- 이메일 중복확인 탈퇴회원은 제외-->
 <select id="getEmail" resultType="int">
 	select count(*)
 	from member
 	where email = #{email}
+	and regstus = 'JN'
 </select>
+
 <!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
 <update id="updateInfo">
 	update member

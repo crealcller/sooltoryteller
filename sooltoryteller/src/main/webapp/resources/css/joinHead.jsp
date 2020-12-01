@@ -11,7 +11,7 @@ p{
 }
 .h-body{
   height: 500px;
-  width: 1277px;
+  width: 100%;
   background-color: rgb(245, 245, 245);
 }
 .h-left{
