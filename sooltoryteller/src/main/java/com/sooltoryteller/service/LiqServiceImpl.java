@@ -1,5 +1,7 @@
 package com.sooltoryteller.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,14 @@ public class LiqServiceImpl implements LiqService{
 		return mapper.get(liqSeq);
 	}
 
+	@Override
+	public List<LiqVO> getAll() {
+		log.info("getAll....");
+		return mapper.getAll();
+	}
+
+	@Override
+	public List<LiqVO> getAllByKind(String kind) {
+		return mapper.getAllByKind(kind);
+	}
 }

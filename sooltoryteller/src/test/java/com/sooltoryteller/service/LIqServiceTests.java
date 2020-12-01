@@ -1,5 +1,7 @@
 package com.sooltoryteller.service;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sooltoryteller.domain.LiqVO;
-import com.sooltoryteller.service.LiqService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -21,6 +22,11 @@ public class LIqServiceTests {
 	private LiqService service;
 	
 	@Test
+	public void testGetAll() {
+		List<LiqVO> allLiq = service.getAll();
+		allLiq.forEach(liq->log.info(liq));
+	}
+	
 	public void testGetLiq() {
 		LiqVO liq = service.get(2L);
 		log.info(liq);

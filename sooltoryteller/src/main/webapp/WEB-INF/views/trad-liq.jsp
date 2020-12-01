@@ -57,7 +57,6 @@
        
          /* 리뷰 부분 con*/
         .d-revws-con{
-        	position: relative;
         	width : 65%;
         	display:inline-block;
         	border-style : solid;
@@ -281,28 +280,45 @@ $(document).ready(function(){
 </script>
 
 	<!--카카오 지도 api -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0e7b9cd1679ce3dedf526e66a6c1a860&libraries=services,clusterer,drawing"></script>
-	<script>
-	var lat =${liq.liqCo.liqCoLat};
-	var lng =${liq.liqCo.liqCoLng};
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-        level: 5 // 지도의 확대 레벨
-    };
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12d8a59ec91065369e7c717d28c1c667&libraries=services,clusterer,drawing"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 7 // 지도의 확대 레벨
+    };  
 
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-	// 마커가 표시될 위치입니다 
-	var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+var targetAddr = '${liq.liqCo.liqCoAddr}';
+var targetNm = '${liq.liqCo.liqCoNm}';
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(targetAddr , function(result, status) {
 
-	// 마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-    position: markerPosition
-	});
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
 
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);
-	</script>
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+targetNm+'</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
 </body>
 </html>

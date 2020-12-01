@@ -19,12 +19,6 @@ public class LiqCoVO {
     // 양조장 주소 
     private String liqCoAddr;
 
-    // 양조장 위도 
-    private float liqCoLat;
-
-    // 양조장 경도 
-    private float liqCoLng;
-
     // 홈페이지 
     private String liqCoHmpg;
 

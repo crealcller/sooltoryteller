@@ -21,4 +21,37 @@ public class LiqController {
 		log.info("get liq........."+liqSeq);
 		model.addAttribute("liq", service.get(liqSeq));
 	}
+	
+	@GetMapping("/all-liq")
+	public void allLiq(Model model) {
+		log.info("get allLiq......");
+		model.addAttribute("allLiq", service.getAll());
+	}
+	@GetMapping("/takju")
+	public void allTakju(Model model) {
+		model.addAttribute("allLiq", service.getAllByKind("탁주"));
+	}
+	
+	@GetMapping("/yakju-cheongju")
+	public void allYakjuCheongju(Model model) {
+		model.addAttribute("allLiq", service.getAllByKind("약주 청주"));
+	}
+	
+	@GetMapping("/fruit-wine")
+	public void allFruitWine(Model model) {
+		model.addAttribute("allLiq", service.getAllByKind("과실주"));
+	}
+	
+	@GetMapping("/distilled-spirits")
+	public void allDistilledSpirits(Model model) {
+		model.addAttribute("allLiq", service.getAllByKind("증류주"));
+	}
+	
+	
+	@GetMapping("/others")
+	public void allOthers(Model model) {
+		model.addAttribute("allLiq", service.getAllByKind("기타류"));
+	}
+	
+	
 }

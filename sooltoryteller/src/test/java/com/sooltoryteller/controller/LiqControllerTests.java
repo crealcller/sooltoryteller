@@ -31,6 +31,15 @@ public class LiqControllerTests {
 	}
 	
 	@Test
+	public void testGetAll() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders
+				.get("/all-liq"))
+				.andReturn()
+				.getModelAndView().getModelMap());
+		
+	}
+	
+	
 	public void testGetLiq() throws Exception{
 		log.info(mockMvc.perform(MockMvcRequestBuilders
 				.get("/trad-liq")

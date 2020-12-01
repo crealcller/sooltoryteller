@@ -26,8 +26,6 @@
 		<result column="liq_co_seq" property="liqCoSeq" />
 		<result column="liq_co_nm" property="liqCoNm" />
 		<result column="liq_co_addr" property="liqCoAddr" />
-		<result column="liq_co_lat" property="liqCoLat" />
-		<result column="liq_co_lng" property="liqCoLng" />
 		<result column="liq_co_hmpg" property="liqCoHmpg" />
 		<result column="liq_co_telno" property="liqCoTelno" />
 		</association>
@@ -38,11 +36,36 @@
 select 
  l.liq_seq,l.liq_nm,l.liq_prc,l.liq_cate,l.liq_capct,l.liq_lv,l.liq_irdnt,l.liq_ards,l.liq_img,
  n.liq_intro,n.liq_pair,
- o.liq_co_nm,o.liq_co_addr,o.liq_co_lat,o.liq_co_lng,o.liq_co_hmpg,o.liq_co_telno
- from liq l, liq_cn n, liq_co o
+ c.liq_co_nm,c.liq_co_addr,c.liq_co_hmpg,c.liq_co_telno
+ from liq l, liq_cn n, liq_co c
  where l.liq_seq=n.liq_seq
- and l.liq_co_seq=o.liq_co_seq
- and  l.liq_seq =#{liqSeq}
+ and l.liq_co_seq=c.liq_co_seq
+ and l.liq_seq =#{liqSeq}
 </select>
+
+<select id="getAll" resultMap="LiqVO">
+<![CDATA[
+select 
+l.liq_seq, c.liq_co_seq, l.liq_nm, l.liq_prc,l.liq_cate,l.liq_capct,l.liq_lv, l.liq_irdnt,l.liq_img,
+c.liq_co_nm
+from liq l,liq_co c
+where l.liq_co_seq=c.liq_co_seq
+and l.liq_seq>0
+]]>
+</select>
+<select id="getAllByKind" resultMap="LiqVO">
+<![CDATA[
+select 
+l.liq_seq, c.liq_co_seq, l.liq_nm, l.liq_prc,l.liq_cate,l.liq_capct,l.liq_lv, l.liq_irdnt,l.liq_img,
+c.liq_co_nm
+from liq l,liq_co c
+where l.liq_co_seq=c.liq_co_seq
+and l.liq_cate = #{kind}
+and l.liq_seq>0
+]]>
+</select>
+
+
+
 
 </mapper>
