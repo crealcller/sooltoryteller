@@ -9,7 +9,7 @@ import com.sooltoryteller.domain.LiqVO;
 
 public interface LiqMapper {
 
-	public LiqVO get(Long liqSeq);
+	public LiqVO get(Long liqId);
 	
 	public List<LiqVO> getAll();
 	

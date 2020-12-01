@@ -2,69 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooltoryteller.mapper.LiqRevwMapper">
 	<resultMap id="LiqRevwVO" type="com.sooltoryteller.domain.LiqRevwVO">
-		<result column="revw_seq" property="revwSeq" />
-		<result column="liq_seq" property="liqSeq" />
-		<result column="member_name" property="memberName" />
-		<result column="revw_cn" property="revwCn" />
-		<result column="revw_rate" property="revwRate" />
+		<result column="revw_id" property="revwId" />
+		<result column="liq_id" property="liqId" />
+		<result column="member_id" property="memberId" />
+		<result column="cn" property="cn" />
+		<result column="rate" property="rate" />
 		<result column="regdate" property="regdate" />
 		<result column="updatedate" property="updatedate" />
 		
 		<!-- 회원 -->
 		<association property="member" javaType="com.sooltoryteller.domain.MemberVO">
-		<result column="member_email" property="memberEmail" />
-		<result column="member_name" property="memberName" />
-		<result column="member_pwd" property="memberPwd" />
-		<result column="member_img" property="memberImg" />
+		<result column="member_id" property="memberId" />
+		<result column="email" property="email" />
+		<result column="member_name" property="name" />
+		<result column="pwd" property="pwd" />
+		<result column="telno" property="telno" />
+		<result column="member_img" property="img" />
 		<result column="regdate" property="regdate" />
+		<result column="updatedate" property="updatedate" />
 		</association>
 	
 </resultMap>
 	
 	<insert id="insert">
-		insert into liq_revw (revw_seq,liq_seq,member_name,revw_cn,revw_rate,regdate)
-		values(LIQ_REVW_SEQ.nextval,#{liqSeq},#{memberName},#{revwCn},#{revwRate},sysdate)
+		insert into liq_revw (revw_id,liq_id,member_id,cn,rate,regdate)
+		values(LIQ_REVW_SEQ.nextval,#{liqId},#{memberId},#{cn},#{rate},sysdate)
 	</insert>
 	
 	<select id="read" resultType="com.sooltoryteller.domain.LiqRevwVO">
-		select revw_seq,liq_seq,member_name,revw_cn,revw_rate,regdate,updatedate
+		select revw_id,liq_id,member_id,cn,rate,regdate,updatedate
 		from liq_revw
-		where revw_seq = #{revwSeq}
+		where revw_id = #{revwId}
 	</select>
 	
 	<delete id="delete">
 		delete from liq_revw
-		where revw_seq = #{revwSeq}
+		where revw_id = #{revwId}
 	</delete>
 	
 	<update id="update">
 		update liq_revw
-		set revw_cn = #{revwCn},
-		revw_rate = #{revwRate},
+		set cn = #{cn},
+		rate = #{rate},
 		updatedate = sysdate
-		where revw_seq=#{revwSeq}
+		where revw_id=#{revwId}
 	</update>
 	
 	<select id="getListWithPaging" resultMap="LiqRevwVO">
 		<!-- 조인조건 순서에 따라 index 힌트가 안먹을 수 있음 조인문을 먼저 작성시 member순으로 정렬됨(sql에선 상관없었음)-->		
 		<![CDATA[
-		select rv.liq_seq,rv.revw_seq,rv.member_name,rv.revw_cn,rv.revw_rate,rv.regdate,rv.updatedate,rv.member_img
+		select rv.liq_id,rv.revw_id,rv.member_name,rv.cn,rv.rate,rv.regdate,rv.member_img
 		from(
 		select /*+INDEX(r idx_revw) */
-		rownum rn,r.liq_seq,r.revw_seq,r.member_name,r.revw_cn,r.revw_rate,r.regdate,r.updatedate,m.member_img
+		rownum rn, r.liq_id,r.revw_id, r.cn, r.rate, r.regdate, m.img member_img, m.name member_name
 		from liq_revw r, member m
-        where liq_seq = #{liqSeq}
-		and revw_seq>0
-		and r.member_name=m.member_name
-		and rownum <= #{cri.pageNum}*#{cri.amount}
+        where liq_id = #{liqId}
+		and revw_id>0
+		and r.member_id=m.member_id
+		and rownum <=#{cri.pageNum}*#{cri.amount}
 		)rv where rn > (#{cri.pageNum} -1)*#{cri.amount}
 		]]>
 	</select>
 	
-	<select id="getCountByLiqSeq" resultType="int">
+	<select id="getCountByLiqId" resultType="int">
 	<![CDATA[
-	select count(liq_seq) from liq_revw 
-	where liq_seq = #{liqSeq}
+	select count(liq_id) from liq_revw 
+	where liq_id = #{liqId}
 	
 	]]>
 	</select>

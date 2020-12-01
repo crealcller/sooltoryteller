@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LiqCoVO {
 	// 양조장 일련번호 
-    private Long coId;
+    private Long liqCoId;
 
     // 양조장 이름 
     private String nm;

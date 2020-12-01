@@ -18,7 +18,7 @@ public class LiqRevwVO {
     private Long liqId;
 
     // 작성자 
-    private String name;
+    private Long memberId;
 
     // 작성내용 
     private String cn;

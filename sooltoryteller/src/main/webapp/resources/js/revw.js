@@ -23,9 +23,9 @@ var revwService=(function(){
 	}
 	
 	function getList(param, callback, error){
-		var liqSeq = param.liqSeq;
+		var liqId = param.liqId;
 		var page = param.page || 1;
-		$.getJSON("/revws/pages/"+liqSeq+"/"+page+".json",
+		$.getJSON("/revws/pages/"+liqId+"/"+page+".json",
 				function(data){
 					if(callback){
 						callback(data.revwCnt,data.list);
@@ -37,10 +37,10 @@ var revwService=(function(){
 		});
 	}
 	
-	function remove(revwSeq, callback, error){
+	function remove(revwId, callback, error){
 		$.ajax({
 			type:'delete',
-			url : '/revws/'+revwSeq,
+			url : '/revws/'+revwId,
 			success : function(deleteResult, status, xhr){
 				if(callback){
 					callback(deleteResult);
@@ -55,11 +55,11 @@ var revwService=(function(){
 	}
 	
 	function update(revw,callback,error){
-		console.log("revwSeq: "+revw.revwSeq);
+		console.log("revwId: "+revw.revwId);
 		
 		$.ajax({
 			type : 'put',
-			url : '/revws/'+revw.revwSeq,
+			url : '/revws/'+revw.revwId,
 			data : JSON.stringify(revw),
 			contentType : "application/json; charset=utf-8",
 			success :  function(result, status, xhr){
@@ -75,8 +75,8 @@ var revwService=(function(){
 		});
 	}
 	
-	function get(revwSeq, callback, error){
-		$.get("/revws/"+revwSeq+".json", function(result){
+	function get(revwId, callback, error){
+		$.get("/revws/"+revwId+".json", function(result){
 			if(callback){
 				callback(result);
 			}

@@ -31,4 +31,10 @@ public class MemberVO {
 
 	// 가입일시 
 	private Date regdate;
+	
+	// 변경일시
+	private Date udpatedate;
+	
+	// 가입상태
+	private String regstus = "JN";
 }

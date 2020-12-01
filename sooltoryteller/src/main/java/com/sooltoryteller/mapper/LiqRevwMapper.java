@@ -11,15 +11,15 @@ public interface LiqRevwMapper {
 
 	public int insert(LiqRevwVO vo);
 	
-	public LiqRevwVO read(Long revwSeq);
+	public LiqRevwVO read(Long revwId);
 	
-	public int delete(Long revwSeq);
+	public int delete(Long revwId);
 	
 	public int update(LiqRevwVO vo);
 	
 	public List<LiqRevwVO> getListWithPaging(
-						@Param("liqSeq") Long liqSeq,
+						@Param("liqId") Long liqId,
 						@Param("cri") Criteria cri);
 	
-	public int getCountByLiqSeq(Long liqSeq);
+	public int getCountByLiqId(Long liqId);
 }

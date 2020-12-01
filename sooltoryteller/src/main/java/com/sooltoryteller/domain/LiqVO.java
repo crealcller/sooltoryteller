@@ -15,7 +15,7 @@ public class LiqVO {
     private Long liqId;
 
     // 양조장 일련번호 
-    private Long coId;
+    private Long LiqCoId;
 
     // 이름 
     private String nm;

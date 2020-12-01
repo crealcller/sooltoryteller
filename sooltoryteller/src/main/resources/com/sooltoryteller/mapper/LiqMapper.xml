@@ -3,65 +3,65 @@
 
 <mapper namespace="com.sooltoryteller.mapper.LiqMapper">
 <resultMap id="LiqVO" type="com.sooltoryteller.domain.LiqVO">
-		<result column="liq_seq" property="liqSeq" />
-		<result column="liq_co_seq" property="liqCoSeq" />
-		<result column="liq_nm" property="liqNm" />
-		<result column="liq_prc" property="liqPrc" />
-		<result column="liq_cate" property="liqCate" />
-		<result column="liq_capct" property="liqCapct" />
-		<result column="liq_lv" property="liqLv" />
-		<result column="liq_irdnt" property="liqIrdnt" />
-		<result column="liq_ards" property="liqArds" />
-		<result column="liq_img" property="liqImg" />
+		<result column="liq_id" property="liqId" />
+		<result column="liq_co_id" property="liqCoId" />
+		<result column="nm" property="nm" />
+		<result column="prc" property="prc" />
+		<result column="cate" property="cate" />
+		<result column="capct" property="capct" />
+		<result column="lv" property="lv" />
+		<result column="irdnt" property="irdnt" />
+		<result column="ards" property="ards" />
+		<result column="img" property="img" />
 		
 		<!-- 전통주내용 -->
 		<association property="liqCn" javaType="com.sooltoryteller.domain.LiqCnVO">
-		<result column="liq_seq" property="liqSeq" />
-		<result column="liq_intro" property="liqIntro" />
-		<result column="liq_pair" property="liqPair" />
+		<result column="liq_id" property="liqId" />
+		<result column="intro" property="intro" />
+		<result column="pair" property="pair" />
 		</association>
 		
 		<!-- 양조장-->
 		<association property="liqCo" javaType="com.sooltoryteller.domain.LiqCoVO">
-		<result column="liq_co_seq" property="liqCoSeq" />
-		<result column="liq_co_nm" property="liqCoNm" />
-		<result column="liq_co_addr" property="liqCoAddr" />
-		<result column="liq_co_hmpg" property="liqCoHmpg" />
-		<result column="liq_co_telno" property="liqCoTelno" />
+		<result column="liq_co_id" property="liqCoId" />
+		<result column="co_name" property="nm" />
+		<result column="addr" property="addr" />
+		<result column="hmpg" property="hmpg" />
+		<result column="telno" property="telno" />
 		</association>
 </resultMap>
 
 
 <select id="get" resultMap = "LiqVO">
 select 
- l.liq_seq,l.liq_nm,l.liq_prc,l.liq_cate,l.liq_capct,l.liq_lv,l.liq_irdnt,l.liq_ards,l.liq_img,
- n.liq_intro,n.liq_pair,
- c.liq_co_nm,c.liq_co_addr,c.liq_co_hmpg,c.liq_co_telno
+ l.liq_id,l.nm,l.prc,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.img,
+ n.intro,n.pair,
+ c.nm co_name,c.addr,c.hmpg,c.telno
  from liq l, liq_cn n, liq_co c
- where l.liq_seq=n.liq_seq
- and l.liq_co_seq=c.liq_co_seq
- and l.liq_seq =#{liqSeq}
+ where l.liq_id=n.liq_id
+ and l.liq_co_id=c.liq_co_id
+ and l.liq_id =#{liqId}
 </select>
 
 <select id="getAll" resultMap="LiqVO">
 <![CDATA[
 select 
-l.liq_seq, c.liq_co_seq, l.liq_nm, l.liq_prc,l.liq_cate,l.liq_capct,l.liq_lv, l.liq_irdnt,l.liq_img,
-c.liq_co_nm
+l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
+c.nm co_name
 from liq l,liq_co c
-where l.liq_co_seq=c.liq_co_seq
-and l.liq_seq>0
+where l.liq_co_id=c.liq_co_id
+and l.liq_id>0
 ]]>
 </select>
 <select id="getAllByKind" resultMap="LiqVO">
 <![CDATA[
 select 
-l.liq_seq, c.liq_co_seq, l.liq_nm, l.liq_prc,l.liq_cate,l.liq_capct,l.liq_lv, l.liq_irdnt,l.liq_img,
-c.liq_co_nm
+l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
+c.nm co_name
 from liq l,liq_co c
-where l.liq_co_seq=c.liq_co_seq
-and l.liq_cate = #{kind}
-and l.liq_seq>0
+where l.liq_co_id=c.liq_co_id
+and l.cate = #{kind}
+and l.liq_id>0
 ]]>
 </select>
 

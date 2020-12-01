@@ -110,34 +110,34 @@
 	<div class="d-trad-liq-info">
 	
 		<div class="d-trad-liq-info-con">
-				<img class="d-trad-liq-img-con" src='/resources/img/<c:out value="${liq.liqImg}" />'>
+				<img class="d-trad-liq-img-con" src='/resources/img/<c:out value="${liq.img}" />'>
 		<div class="d-trad-liq-text-con">
 		<button style="float:right;">하트</button><br>
 		<h1>
-			<c:out value="${liq.liqNm}" />
+			<c:out value="${liq.nm}" />
 		</h1><br>
 		<p>
-		주종 : <c:out value="${liq.liqCate}" />
+		주종 : <c:out value="${liq.cate}" />
 		</p>
 		<p>
-		용량 : <c:out value="${liq.liqCapct}" />ml
+		용량 : <c:out value="${liq.capct}" />ml
 		</p>
 		<p>
-		도수 : <c:out value="${liq.liqLv}" />%
+		도수 : <c:out value="${liq.lv}" />%
 		</p>
 		<p>
-		주재료 : <c:out value="${liq.liqIrdnt}" />
+		주재료 : <c:out value="${liq.irdnt}" />
 		</p>
-		<c:if test="${liq.liqArds ne null}">
+		<c:if test="${liq.ards ne null}">
 		<p>
-		수상내역 : <c:out value="${liq.liqArds}" />
+		수상내역 : <c:out value="${liq.ards}" />
 		</p>
 		</c:if>
 		<p>
 		가격 : 
 			\
 			<fmt:formatNumber type="number" maxFractionDigits="3"
-				value="${liq.liqPrc}" />
+				value="${liq.prc}" />
 		</p><br>
 		<button type="button" style="padding:0px 10px 0px 10px;">-</button>
 		<input  type="text" style="width: 30px;" value="1">
@@ -154,14 +154,14 @@
 		
 		<h1>INTRO</h1><br>
 		<p>
-			<c:out value="${liq.liqCn.liqIntro}" />
+			<c:out value="${liq.liqCn.intro}" />
 		</p>
 		</div>
-		<c:if test="${liq.liqCn.liqPair ne null}">
+		<c:if test="${liq.liqCn.pair ne null}">
 		<div class="d-trad-liq-column">
 		<h1>TASTING NORE & PAIRING</h1><br>
 		<p>
-			<c:out value="${liq.liqCn.liqPair}" />
+			<c:out value="${liq.liqCn.pair}" />
 		</p>
 		</div>
 		</c:if>
@@ -183,16 +183,16 @@
 			<h1>BREWERY INFO</h1><br>
 			<div class="d-trad-liq-text-con">
 			<p>
-				<c:out value="${liq.liqCo.liqCoNm}" />
+				<c:out value="${liq.liqCo.nm}" />
 			</p>
 			<p>
-				<c:out value="${liq.liqCo.liqCoAddr}" />
+				<c:out value="${liq.liqCo.addr}" />
 			</p>
 			<p>
-				<c:out value="${liq.liqCo.liqCoHmpg}" />
+				<c:out value="${liq.liqCo.hmpg}" />
 			</p>
 			<p>
-				<c:out value="${liq.liqCo.liqCoTelno}" />
+				<c:out value="${liq.liqCo.telno}" />
 			</p>
 			</div>
 			<div id="map"
@@ -206,7 +206,7 @@
 <script type="text/javascript" src="/resources/js/revw.js"></script>
 <script>
 $(document).ready(function(){
-	var liqSeqValue = '<c:out value="${liq.liqSeq}"/>'
+	var liqIdValue = '<c:out value="${liq.liqId}"/>'
 	var revwUL = $(".d-revws");
 	var pageNum = 1;
 	var revwPageFooter =$(".d-revw-footer");
@@ -252,7 +252,7 @@ $(document).ready(function(){
 	});
 	
 	function showList(page){
-		revwService.getList({liqSeq:liqSeqValue,page: page||1},function(revwCnt,list){
+		revwService.getList({liqId:liqIdValue,page: page||1},function(revwCnt,list){
 			if(page == -1){
 				pageNum = Math.ceil(revwCnt/10.0);
 				showList(pageNum);
@@ -264,13 +264,13 @@ $(document).ready(function(){
 				return;
 			}
 			for(var i=0,len = list.length || 0; i<len; i++){
-				str += "<li class='d-revw-con' data-revwSeq = '"+list[i].revwSeq+"'>";
-				str += "<div><div class='header'><img src='/resources/img/"+list[i].member.memberImg+"'>";
-				str += "<strong>"+list[i].memberName+"</strong>";
-				str += "<small>"+list[i].revwRate+"</small>"
+				str += "<li class='d-revw-con' data-revwId = '"+list[i].revwId+"'>";
+				str += "<div><div class='header'><img src='/resources/img/"+list[i].member.img+"'>";
+				str += "<strong>"+list[i].member.name+"</strong>";
+				str += "<small>"+list[i].rate+"</small>"
 				str += "<small>"+revwService.displayTime(list[i].regdate)+"</small></div>";
 				
-				str += "<p>"+list[i].revwCn+"</p></div></li>"
+				str += "<p>"+list[i].cn+"</p></div></li>"
 			}
 			revwUL.html(str);
 			showRevwPage(revwCnt);
@@ -293,8 +293,8 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
-var targetAddr = '${liq.liqCo.liqCoAddr}';
-var targetNm = '${liq.liqCo.liqCoNm}';
+var targetAddr = '${liq.liqCo.addr}';
+var targetNm = '${liq.liqCo.nm}';
 // 주소로 좌표를 검색합니다
 geocoder.addressSearch(targetAddr , function(result, status) {
 

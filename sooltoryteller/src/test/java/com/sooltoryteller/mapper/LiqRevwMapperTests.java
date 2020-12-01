@@ -22,7 +22,7 @@ public class LiqRevwMapperTests {
 	@Setter(onMethod_ =@Autowired )
 	private LiqRevwMapper mapper;
 	
-	@Test
+	
 	public void testGetListWithPaging() {
 		Criteria cri = new Criteria(2,5);
 		List<LiqRevwVO> revws = mapper.getListWithPaging(1L, cri);
@@ -31,19 +31,19 @@ public class LiqRevwMapperTests {
 	
 	public void testUpdate() {
 		LiqRevwVO vo = new LiqRevwVO();
-		vo.setRevwId(23L);
+		vo.setRevwId(2L);
 		vo.setCn("매실 수정");
 		vo.setRate(4);
 		int result = mapper.update(vo);
 		log.info(result);
 		
 	}
-	
 	public void testDelete() {
-		int result = mapper.delete(3L);
+		int result = mapper.delete(23L);
 		log.info(result);
 	}
 	
+	@Test
 	public void testRead() {
 		LiqRevwVO vo = mapper.read(1L);
 		log.info(vo);
@@ -52,7 +52,7 @@ public class LiqRevwMapperTests {
 	public void testInsert() {
 		LiqRevwVO vo = new LiqRevwVO();
 		vo.setLiqId(1L);
-		vo.setName("ehf");
+		vo.setMemberId(1L);
 		vo.setCn("doyouknow nono");
 		vo.setRate(2);
 		log.info(vo);

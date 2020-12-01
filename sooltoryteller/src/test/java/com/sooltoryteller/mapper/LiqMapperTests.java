@@ -22,7 +22,7 @@ public class LiqMapperTests {
 	private LiqMapper mapper;
 	
 	@Test
-	public void testGetOthers(){
+	public void testGetAllByKind(){
 		List<LiqVO> liqList = mapper.getAllByKind("탁주");
 		liqList.forEach(liq->log.info(liq));
 	}
@@ -33,6 +33,7 @@ public class LiqMapperTests {
 		List<LiqVO> liqList = mapper.getAll();
 		liqList.forEach(liq->log.info(liq));
 	}
+	
 	
 	public void testGetLiq() {
 		LiqVO liq = mapper.get(1L);

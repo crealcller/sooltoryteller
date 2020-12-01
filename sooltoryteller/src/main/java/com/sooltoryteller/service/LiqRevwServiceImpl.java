@@ -29,9 +29,9 @@ public class LiqRevwServiceImpl implements LiqRevwService {
 	}
 
 	@Override
-	public LiqRevwVO get(Long revwSeq) {
-		log.info("get...."+revwSeq);
-		return mapper.read(revwSeq);
+	public LiqRevwVO get(Long revwId) {
+		log.info("get...."+revwId);
+		return mapper.read(revwId);
 	}
 
 	@Override
@@ -41,20 +41,20 @@ public class LiqRevwServiceImpl implements LiqRevwService {
 	}
 
 	@Override
-	public int remove(Long revwSeq) {
-		log.info("remove........"+revwSeq);
-		return mapper.delete(revwSeq);
+	public int remove(Long revwId) {
+		log.info("remove........"+revwId);
+		return mapper.delete(revwId);
 	}
 
 	@Override
-	public List<LiqRevwVO> getList(Long liqSeq, Criteria cri) {
-		log.info("get revw list "+liqSeq);
-		return mapper.getListWithPaging(liqSeq, cri);
+	public List<LiqRevwVO> getList(Long liqId, Criteria cri) {
+		log.info("get revw list "+liqId);
+		return mapper.getListWithPaging(liqId, cri);
 	}
 
 	@Override
-	public LiqRevwPageDTO getListPage(Long liqSeq, Criteria cri) {
-		return new LiqRevwPageDTO(mapper.getCountByLiqSeq(liqSeq),mapper.getListWithPaging(liqSeq, cri));
+	public LiqRevwPageDTO getListPage(Long liqId, Criteria cri) {
+		return new LiqRevwPageDTO(mapper.getCountByLiqId(liqId),mapper.getListWithPaging(liqId, cri));
 	}
 
 }

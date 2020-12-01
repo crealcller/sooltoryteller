@@ -17,9 +17,9 @@ public class LiqController {
 	private LiqService service;
 	
 	@GetMapping("/trad-liq")
-	public void liq(Long liqSeq, Model model) {
-		log.info("get liq........."+liqSeq);
-		model.addAttribute("liq", service.get(liqSeq));
+	public void liq(Long liqId, Model model) {
+		log.info("get liq........."+liqId);
+		model.addAttribute("liq", service.get(liqId));
 	}
 	
 	@GetMapping("/all-liq")
