@@ -72,5 +72,4 @@ public class BbstMapperTests {
 		log.info("========== UPDATE COUNT: " + count + " ==========");
 	}
 	
-	
 }

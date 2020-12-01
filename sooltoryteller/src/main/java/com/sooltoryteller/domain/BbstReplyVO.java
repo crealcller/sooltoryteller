@@ -2,7 +2,14 @@ package com.sooltoryteller.domain;
 
 import java.util.Date;
 
-//게시글 댓글 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+//게시글 댓글
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BbstReplyVO {
 
 	// 일련번호 

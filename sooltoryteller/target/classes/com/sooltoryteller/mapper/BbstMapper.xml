@@ -5,32 +5,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.sooltoryteller.mapper.BbstMapper">
 
-<!-- <resultMap id="BbstVO" type="com.sooltoryteller.domain.BbstVO">
-	<result column="bbst_id" property="bbstId" />
-	<result column="member_id" property="memberId" />
-	<result column="title" property="title" />
-	<result column="img" property="img" />
-	<result column="cn" property="cn" />
-	<result column="regdate" property="regdate" />
-	<result column="updatedate" property="updatedate" />
-	<result column="inqr_num" property="inqrNum" />
-	<result column="likes_num" property="likesNum" />
-	<result column="reply_num" property="replyNum" />
-	
-	회원 닉네임
-	<associaton property="member" javaType="com.sooltoryteller.domain.MemberVO">
-		<result column="name" property="name" /> 
-	</associaton>
-</resultMap> -->
-
 <!-- 모든 게시글 조회 (무한스크롤) -->
 <select id="getBbstList" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
 	<![CDATA[
-		select b.bbst_id, m.name, b.title, b.img, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
-		from bbst b, member m
-		where b.member_id = m.member_id
-		and b.bbst_id > 0
-		order by b.bbst_id desc
+		select * from (
+			select b.bbst_id, m.name, b.title, b.img, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
+			from bbst b, member m
+			where b.member_id = m.member_id
+			and b.bbst_id > 0
+			order by b.bbst_id desc
+		)
+		where rownum between 1 and 9
 	]]>
 </select>
 

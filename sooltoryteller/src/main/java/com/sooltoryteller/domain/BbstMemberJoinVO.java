@@ -6,10 +6,14 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-//게시판 
+//게시판
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BbstMemberJoinVO {
 
 	// 게시글 일련번호

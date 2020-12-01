@@ -1,6 +1,15 @@
 package com.sooltoryteller.domain;
 
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 //게시글 조회, 좋아요 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BbstDtlVO {
 
 	// 일련번호 
