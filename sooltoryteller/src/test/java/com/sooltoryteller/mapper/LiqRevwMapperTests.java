@@ -31,9 +31,9 @@ public class LiqRevwMapperTests {
 	
 	public void testUpdate() {
 		LiqRevwVO vo = new LiqRevwVO();
-		vo.setRevwSeq(23L);
-		vo.setRevwCn("매실 수정");
-		vo.setRevwRate(4);
+		vo.setRevwId(23L);
+		vo.setCn("매실 수정");
+		vo.setRate(4);
 		int result = mapper.update(vo);
 		log.info(result);
 		
@@ -51,10 +51,10 @@ public class LiqRevwMapperTests {
 	
 	public void testInsert() {
 		LiqRevwVO vo = new LiqRevwVO();
-		vo.setLiqSeq(1L);
-		vo.setMemberName("ehf");
-		vo.setRevwCn("doyouknow nono");
-		vo.setRevwRate(2);
+		vo.setLiqId(1L);
+		vo.setName("ehf");
+		vo.setCn("doyouknow nono");
+		vo.setRate(2);
 		log.info(vo);
 		mapper.insert(vo);
 		

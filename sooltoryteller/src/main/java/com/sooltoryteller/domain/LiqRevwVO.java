@@ -12,19 +12,19 @@ import lombok.NoArgsConstructor;
 public class LiqRevwVO {
 
 	// 리뷰일련번호 
-    private Long revwSeq;
+    private Long revwId;
 
     // 전통주 일련번호 
-    private Long liqSeq;
+    private Long liqId;
 
     // 작성자 
-    private String memberName;
+    private String name;
 
     // 작성내용 
-    private String revwCn;
+    private String cn;
 
     // 평점 
-    private Integer revwRate;
+    private Integer rate;
 
     // 작성일시 
     private Date regdate;

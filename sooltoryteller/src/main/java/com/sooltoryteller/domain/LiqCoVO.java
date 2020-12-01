@@ -11,19 +11,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LiqCoVO {
 	// 양조장 일련번호 
-    private Long liqCoSeq;
+    private Long coId;
 
     // 양조장 이름 
-    private String liqCoNm;
+    private String nm;
 
     // 양조장 주소 
-    private String liqCoAddr;
+    private String addr;
 
     // 홈페이지 
-    private String liqCoHmpg;
+    private String hmpg;
 
     // 전화번호 
-    private String liqCoTelno;
+    private String telno;
 
     // 등록일시 
     private Date regdate;

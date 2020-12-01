@@ -12,34 +12,34 @@ import lombok.NoArgsConstructor;
 public class LiqVO {
 
     // 전통주 일련번호 
-    private Long liqSeq;
+    private Long liqId;
 
     // 양조장 일련번호 
-    private Long liqCoSeq;
+    private Long coId;
 
     // 이름 
-    private String liqNm;
+    private String nm;
 
     // 가격 
-    private int liqPrc;
+    private int prc;
 
     // 주종 
-    private String liqCate;
+    private String cate;
 
     // 용량 
-    private int liqCapct;
+    private int capct;
 
     // 도수 
-    private int liqLv;
+    private int lv;
 
     // 원재료 
-    private String liqIrdnt;
+    private String irdnt;
 
     // 수상내역 
-    private String liqArds;
+    private String ards;
 
     // 전통주 사진 
-    private String liqImg;
+    private String img;
 
     // 등록일시 
     private Date regdate;

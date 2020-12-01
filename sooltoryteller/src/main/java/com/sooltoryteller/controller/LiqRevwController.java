@@ -81,7 +81,7 @@ public class LiqRevwController {
 	public ResponseEntity<String> update(
 			@RequestBody LiqRevwVO vo,
 			@PathVariable("revwSeq") Long revwSeq){
-		vo.setRevwSeq(revwSeq);
+		vo.setRevwId(revwSeq);
 		log.info("revwSeq : "+revwSeq);
 		log.info("modify: "+vo);
 		return service.modify(vo) ==1?
