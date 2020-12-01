@@ -1,11 +1,17 @@
 package com.sooltoryteller.domain;
 
 import java.util.Date;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 //회원 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberVO {
-
-	// 회원아이디 
+	
+	//회원아이디
 	private Long memberId;
 
 	// 이메일 
@@ -34,4 +40,5 @@ public class MemberVO {
 
 	// 가입상태 
 	private String regstus = "JN";
+	
 }

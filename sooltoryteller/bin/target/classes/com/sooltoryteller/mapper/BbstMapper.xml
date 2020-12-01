@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sooltoryteller.mapper.BbstMapper">
+
+<!-- <resultMap id="BbstVO" type="com.sooltoryteller.domain.BbstVO">
+	<result column="bbst_id" property="bbstId" />
+	<result column="member_id" property="memberId" />
+	<result column="title" property="title" />
+	<result column="img" property="img" />
+	<result column="cn" property="cn" />
+	<result column="regdate" property="regdate" />
+	<result column="updatedate" property="updatedate" />
+	<result column="inqr_num" property="inqrNum" />
+	<result column="likes_num" property="likesNum" />
+	<result column="reply_num" property="replyNum" />
+	
+	회원 닉네임
+	<associaton property="member" javaType="com.sooltoryteller.domain.MemberVO">
+		<result column="name" property="name" /> 
+	</associaton>
+</resultMap> -->
+
+<!-- 모든 게시글 조회 (무한스크롤) -->
+<select id="getBbstList" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
+	<![CDATA[
+		select b.bbst_id, m.name, b.title, b.img, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
+		from bbst b, member m
+		where b.member_id = m.member_id
+		and b.bbst_id > 0
+		order by b.bbst_id desc
+	]]>
+</select>
+
+<!-- 게시글 등록 -->
+<insert id="insertBbstWithKey">
+	<selectKey keyProperty="bbstId" order="BEFORE" resultType="Long">
+		select bbst_seq.nextval from dual
+	</selectKey>
+	
+	insert into bbst (bbst_id, member_id, title, img, cn, regdate, updatedate, inqr_num, likes_num, reply_num)
+	values (#{bbstId}, #{memberId}, #{title}, #{img}, #{cn}, sysdate, sysdate, #{inqrNum}, #{likesNum}, #{replyNum})
+</insert>
+
+<!-- 게시글 조회 -->
+<select id="readBbst" resultType="com.sooltoryteller.domain.BbstVO">
+	select * from bbst
+	where bbst_id = #{bbstId} 
+</select>
+
+<!-- 게시글 삭제 -->
+<delete id="deleteBbst">
+	delete from bbst
+	where bbst_id = #{bbstId}
+</delete>
+
+<!-- 게시글 수정 -->
+<update id="updateBbst">
+	update bbst
+	set	title = #{title},
+	img = #{img},
+	cn = #{cn},
+	updatedate = sysdate
+	where bbst_id = #{bbstId}
+</update>
+
+
+
+
+
+
+</mapper>
