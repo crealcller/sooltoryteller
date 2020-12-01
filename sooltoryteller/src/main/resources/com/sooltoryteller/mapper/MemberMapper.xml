@@ -14,38 +14,50 @@ select * from member
 <!-- 회원 이력관리(회원가입, 회원정보 수정) -->
 <!-- 회원정보 수정 되면 이력에 추가 -->
 <insert id="insertHist">
-Insert into member_hist(member_hist_seq, member_email, member_name, member_pwd, member_telno, member_img)
-values (#{memberSeq}, #{memberEmail}, #{memberName}, #{memberPwd}, #{memberTelno}, #{memberImg})
+Insert into member_hist(hist_id, member_id, email, name, pwd, telno, img)
+values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img})
 </insert>
 
 <!-- 회원가입시 회원정보 등록 0 -->
 <insert id ="insert">
-	INSERT INTO member (member_email, member_name, member_pwd, member_telno, member_img, regdate, updatedate)
-	VALUES (#{memberEmail}, #{memberName}, #{memberPwd}, #{memberTelno}, #{memberImg}, sysdate, sysdate)
+	INSERT INTO member (member_id, email, name, pwd, telno, img)
+	VALUES (member_id.nextval, #{email}, #{name}, #{pwd}, #{telno}, #{img})
 </insert>
 
-<!-- 회원정보 불러오기(회원정보 수정란에 비밀번호 제외하고) 0-->
+<!-- 회원정보 불러오기 0-->
 <select id ="read" resultType="com.sooltoryteller.domain.MemberVO">
-	select member_email, member_name, member_pwd, member_telno, member_sool_bti, member_img
+	select *
 	from member
-	where member_email = #{memberEmail}
+	where email = #{email}
 </select>
 
+<select id="getLoginInfo" resultType="com.sooltoryteller.domain.MemberVO">
+	select email, pwd
+	from member
+	where email = #{email}
+	and pwd = #{pwd}
+</select>
+
+<select id="getEmail" resultType="int">
+	select count(*)
+	from member
+	where email = #{email}
+</select>
 <!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
 <update id="updateInfo">
 	update member
-	set member_name = #{memberName},
-	member_telno = #{memberTelno},
-	member_img = #{memberImg},
+	set name = #{name},
+	telno = #{telno},
+	img = #{img},
 	updatedate = sysdate
-	where member_email = #{memberEmail}
+	where email = #{email}
 </update>
 
 <!-- 회원탈퇴 -->
 <update id="updateRegstus">
 	update member
-	set regstus = 'SECSN',
+	set regstus = 'WD',
 	updatedate = sysdate
-	where member_email = #{memberEmail}
+	where email = #{email}
 </update>
 </mapper>

@@ -27,14 +27,14 @@ public class MemberMapperTests {
 //	@Test
 	public void testInsert() {
 		MemberVO member = new MemberVO();
-		member.setMemberSeq(8);
-		member.setMemberEmail("iiii@iiii.com");
-		member.setMemberName("iiii");
-		member.setMemberPwd("4444");
-		member.setMemberTelno("01099999999");
+		member.setEmail("iiii@iiii.com");
+		member.setName("iiii");
+		member.setPwd("4444");
+		member.setTelno("01099999999");
 		
 		mapper.insert(member);
-		mapper.insertHist(member);
+		
+		mapper.insertHist(mapper.read(member.getEmail()));
 		log.info(member);
 	}
 	
@@ -50,31 +50,34 @@ public class MemberMapperTests {
 		
 		MemberVO member = new MemberVO();
 		
-		member.setMemberEmail("ggg@ggg.com");
+		member.setEmail("bbb@bbb.com");
 		
-		MemberVO result = mapper.read(member.getMemberEmail());
 		
-		result.setMemberSeq(12);
-//		result.setMemberName("test4");
-//		result.setMemberTelno("01098769876");
-		result.setMemberImg("abc.jpg");
+		member.setName("test4");
+		member.setTelno("01098769876");
+		member.setImg("a11.jpg");
 		
-		mapper.updateInfo(result);
-		mapper.insertHist(result);
+		mapper.updateInfo(member);
+		mapper.insertHist(mapper.read(member.getEmail()));
 		
-		log.info(result);
 		log.info(member);
 	}
 	
-	@Test
+//	@Test
 	public void testStusUpdate() {
-		MemberVO member = new MemberVO();
 		
-		member.setMemberEmail("fff@fff.com");
+		mapper.updateRegstus("iiii@iiii.com");
 		
-		mapper.updateRegstus(member.getMemberEmail());
-		
-		log.info(member);
 	}
 	
+//	@Test
+	public void testGetLoginInfo() {
+		log.info(mapper.getLoginInfo("aaa@aaa.com", "1111"));
+		
+	}
+	
+//	@Test
+	public void testGetEmail() {
+		log.info(mapper.getEmail("aaa@aaa.com"));
+	}
 }
