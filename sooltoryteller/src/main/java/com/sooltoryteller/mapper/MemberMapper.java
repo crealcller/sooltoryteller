@@ -11,6 +11,9 @@ public interface MemberMapper {
 	//회원 전체 불러오기
 	public List<MemberVO> getList();
 	
+	//회원가입시 아이디 중복체크
+	public int getEmail(String email);
+	
 	//회원가입시 회원정보 등록
 	public void insert(MemberVO member);
 	

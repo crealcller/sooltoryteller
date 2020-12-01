@@ -38,6 +38,11 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	and pwd = #{pwd}
 </select>
 
+<select id="getEmail" resultType="int">
+	select count(*)
+	from member
+	where email = #{email}
+</select>
 <!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
 <update id="updateInfo">
 	update member

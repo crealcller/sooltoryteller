@@ -6,6 +6,9 @@ import com.sooltoryteller.domain.MemberVO;
 
 public interface MemberService {
 	
+	//회원가입 이메일 중복체크
+	public boolean checkEmail(String email);
+	
 	//회원가입
 	public void join(MemberVO member);
 	

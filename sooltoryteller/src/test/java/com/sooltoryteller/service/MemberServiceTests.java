@@ -68,9 +68,14 @@ public class MemberServiceTests {
 		service.modifyRegStus("gustn@gustn.com");
 	}
 	
-	@Test
+//	@Test
 	public void testLogin() {
 		System.out.println(service.loginCheck("aaa@aaa.com", "1111"));
 		
+	}
+	
+	@Test
+	public void testCheckEmail() {
+		log.info(service.checkEmail("aaa@aaa.com"));
 	}
 }

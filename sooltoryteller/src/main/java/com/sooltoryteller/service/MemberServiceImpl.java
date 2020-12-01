@@ -69,4 +69,10 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.updateRegstus(email) == 1;
 	}
 
+	@Override
+	public boolean checkEmail(String email) {
+		
+		return mapper.getEmail(email) ==1;
+	}
+
 }

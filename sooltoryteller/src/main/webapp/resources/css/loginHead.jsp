@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>로그인페이지</title>
 
 <style type="text/css">
 p{
-  margin: 10px;
+  padding: 8.5px;
 }
 .h-body{
   height: 500px;
   width: 1277px;
   background-color: rgb(245, 245, 245);
+  
 }
 .h-left{
   height: 450px;
@@ -30,7 +32,7 @@ height: 450px;
 width: 910px;
 display: inline-block;
 }
-.h-join-content{
+.h-login-content{
 height: 450px;
 width: 450px;
 border: 3px solid rgb(181, 135, 189);
@@ -43,32 +45,18 @@ overflow: hidden;
 .h-content{
   margin: 20px;
 }
-.join-btn{
-  height: 30px;
-  width: 70px;
+.login-btn{
+  height: 40px;
+  width: 160px;
   border: none;
-  border-radius: 5%;
   margin: 10px;
-  color: white;
-  background-color: rgb(181, 135, 189);
-}
-.h-fav-drink{
-    margin-top: 25px;
-    border-top: 1.5px solid rgb(181, 135, 189);
-}
-.drink{
-    margin-left: 35px;
-}
-#checkId{
-  height: 25px;
-  width: 60px;
-  font-size: 5px;
-  border: none;
   border-radius: 5%;
-  font-weight: bold;
-  margin-left: 5px;
-  color: white;
+  color:white;
   background-color: rgb(181, 135, 189);
+}
+.snslogin{
+  height: 40px;
+  width: 350px;
 }
   </style>
 </head>
