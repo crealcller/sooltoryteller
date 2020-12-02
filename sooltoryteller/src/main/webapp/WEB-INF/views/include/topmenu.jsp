@@ -126,13 +126,17 @@ if (email != null) {
     </div>
 
     <div class="mainMenu">
-        
+        <!-- 다울추가 -->
         <div id="dropdown1" class="dropdown">
         <button id="dropbtn1" class="dropbtn">전통주</button>
         <div id="dropdown-content1" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/all-liq">전체</a>
+            <a href="/takju">탁주</a>
+            <a href="/yakju-cheongju">약주/청주</a>
+            <a href="/fruit-wine">과실주</a>
+            <a href="/distilled-spirits">증류주</a>
+            <a href="/others">기타류</a>
+         
         </div>
     </div>
         <div id="dropdown2" class="dropdown">

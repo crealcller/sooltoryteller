@@ -64,8 +64,4 @@ and l.cate = #{kind}
 and l.liq_id>0
 ]]>
 </select>
-
-
-
-
 </mapper>

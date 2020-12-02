@@ -7,11 +7,6 @@
 <html>
 <head>
  <style>
-        * {
-           margin: 0;
-           padding: 0;
-           box-sizing: border-box;
-       }
         
          /* 구메정보부분 배경 */
         .d-trad-liq-info{
@@ -112,7 +107,7 @@
 		<div class="d-trad-liq-info-con">
 				<img class="d-trad-liq-img-con" src='/resources/img/<c:out value="${liq.img}" />'>
 		<div class="d-trad-liq-text-con">
-		<button style="float:right;">하트</button><br>
+		<img id='like' src='/resources/img/heart1.png' style="float:right;width:30px;height:30px;"><br>
 		<h1>
 			<c:out value="${liq.nm}" />
 		</h1><br>
@@ -204,6 +199,7 @@
 <!-- 리뷰 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>
+<script type="text/javascript" src="/resources/js/like.js"></script>
 <script>
 $(document).ready(function(){
 	var liqIdValue = '<c:out value="${liq.liqId}"/>'
@@ -222,20 +218,20 @@ $(document).ready(function(){
 		if(endNum*5>=revwCnt){
 			endNum = Math.ceil(revwCnt/5.0);
 		}
-		if(endNum *5<revwCnt){
+		if(endNum*5<revwCnt){
 			next =true;
 		}
 		var str = "<ul>";
 		
 		if(prev){
-			str+="<li><a href='"+(startNum-1)+"'>Previous</a></li>";
+			str += "<li><a href='" + (startNum - 1)+ "'>Previous</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
 			var active = pageNum == i? "active":"";
-			str+="<li '"+active+"'><a href="+i+">"+i+"</a></li>";
+			str+="<li><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
-			str+="<li '"+active+"'><a href='"+i+">Next</a></li>";
+			str+="<li><a href='"+ (endNum + 1)+"'>Next</a></li>";
 		}
 		
 		str += "</ul>";
@@ -254,7 +250,7 @@ $(document).ready(function(){
 	function showList(page){
 		revwService.getList({liqId:liqIdValue,page: page||1},function(revwCnt,list){
 			if(page == -1){
-				pageNum = Math.ceil(revwCnt/10.0);
+				pageNum = Math.ceil(revwCnt/5.0);
 				showList(pageNum);
 				return;
 			}
@@ -279,46 +275,54 @@ $(document).ready(function(){
 });
 </script>
 
-	<!--카카오 지도 api -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12d8a59ec91065369e7c717d28c1c667&libraries=services,clusterer,drawing"></script>
+
+<!-- 좋아요 버튼 회원에 따라 페이지로 들어왔을 때 상태 보여줌 --> 
 <script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 7 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-var targetAddr = '${liq.liqCo.addr}';
-var targetNm = '${liq.liqCo.nm}';
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch(targetAddr , function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+targetNm+'</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
+	var memberIdValue = '${member.memberId}' ==''? -1:'${member.memberId}';
+	var liqIdValue = ${liq.liqId};
+$(document).ready(function(){
+	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
+		if(data){
+			$('#like').attr('src', '/resources/img/heart2.png');
+			
+			
+		}else{
+			$('#like').attr('src', '/resources/img/heart1.png');
+		}
+	});
+});
 </script>
+<!-- 버튼 눌렀을때 좋아요/취소 --> 
+<script>
+$('#like').on({'click': function() {
+	
+	if(memberIdValue != -1){
+	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
+		if(data){
+			likeService.cancelLike({memberId:memberIdValue,liqId:liqIdValue}, function(count){
+				console.log("cancel");
+					if(count === "success"){
+						$('#like').attr('src', '/resources/img/heart1.png');
+					}
+				});
+			return;
+			
+		}else{
+			likeService.like({memberId:memberIdValue,liqId:liqIdValue}, function(count){
+				console.log("like");
+					if(count === "success"){
+						$('#like').attr('src', '/resources/img/heart2.png');
+					}
+				});
+		}
+	});
+	}else{
+		alert("로그인");
+		return;
+	}
+}	
+});
+</script>
+
 </body>
 </html>

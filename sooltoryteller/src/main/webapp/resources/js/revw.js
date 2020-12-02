@@ -19,7 +19,7 @@ var revwService=(function(){
 					error(er);
 				}
 			}
-		})
+		});
 	}
 	
 	function getList(param, callback, error){
@@ -94,7 +94,7 @@ var revwService=(function(){
 		var dateObj = new Date(timeValue);
 		var str="";
 		//확인필요 1000넣어야함
-		if(gap < (60*60*24)){
+		if(gap < (1000*60*60*24)){
 			
 			var hh = dateObj.getHours();
 			var mi = dateObj.getMinutes();

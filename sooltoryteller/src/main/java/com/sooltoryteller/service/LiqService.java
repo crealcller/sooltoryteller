@@ -11,5 +11,5 @@ public interface LiqService {
 		public List<LiqVO> getAll();
 		
 		public List<LiqVO> getAllByKind(String kind);
-
+		
 }

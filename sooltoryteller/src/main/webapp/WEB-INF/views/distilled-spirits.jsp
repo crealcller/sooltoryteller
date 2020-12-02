@@ -9,6 +9,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+.d-con h1{
+	margin:50px;
+}
 .d-con{
 	width:60%;
 	margin:auto;

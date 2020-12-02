@@ -28,6 +28,7 @@ public class LiqRevwController {
 
 	private LiqRevwService service;
 	
+	//리뷰 작성
 	@PostMapping(value="/new",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -40,6 +41,7 @@ public class LiqRevwController {
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	//페이지와 함께 리뷰리스트 가져오기
 	@GetMapping(value="/pages/{liqId}/{page}",
 			produces= {
 					MediaType.APPLICATION_XML_VALUE,
@@ -56,6 +58,7 @@ public class LiqRevwController {
 		return new ResponseEntity<>(service.getListPage(liqId, cri), HttpStatus.OK);
 	}
 	
+	//리뷰만 가져오기(한개)
 	@GetMapping(value="/{revwId}",
 			produces= {MediaType.APPLICATION_XML_VALUE,
 					   MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -65,6 +68,7 @@ public class LiqRevwController {
 		return new ResponseEntity<>(service.get(revwId),HttpStatus.OK);
 	}
 	
+	//리뷰 삭제
 	@DeleteMapping(value="/{revwId}",produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> remove(@PathVariable("revwId")Long revwId){
 		
@@ -74,6 +78,7 @@ public class LiqRevwController {
 		
 	}
 	
+	//리뷰 수정
 	@RequestMapping(method = {RequestMethod.PUT,RequestMethod.PATCH},
 			value="/{revwId}",
 			consumes ="application/json",

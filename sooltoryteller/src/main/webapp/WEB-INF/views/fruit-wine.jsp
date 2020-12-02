@@ -13,6 +13,10 @@
 	width:60%;
 	margin:auto;
 }
+
+.d-con h1{
+	margin:50px;
+}
 .d-liq-con{
 	border-style:solid;
 	border-color:rgba(138, 134, 134, 0.199);
