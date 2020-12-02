@@ -21,6 +21,12 @@ public interface MemberService {
 	//회원정보 수정
 	public boolean modify(MemberVO member);
 	
+	//비밀번호 꺼내오기
+	public String getPwd(String email);
+	
+	//비밀번호 변경
+	public boolean modifyPwd(String email, String pwd);
+	
 	//회원탈퇴
 	public boolean modifyRegStus(String email);
 	

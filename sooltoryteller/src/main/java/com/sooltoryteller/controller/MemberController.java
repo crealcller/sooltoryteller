@@ -139,5 +139,22 @@ public class MemberController {
 	
 	@GetMapping("/mypage/changepwd")
 	public void changepwd() {}
+	
+	@PostMapping("/mypage/changepwd")
+	@ResponseBody
+	public boolean changepwd(String pwd, String newpwd, HttpSession session) {
+
+		String email = (String) session.getAttribute("email");
+		
+		//회원의 현재 비밀번호 불러오기
+		String result = service.getPwd(email);
+		
+		if(result.equals(pwd)) {
+			service.modifyPwd(email, newpwd);
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

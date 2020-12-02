@@ -74,8 +74,18 @@ public class MemberServiceTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testCheckEmail() {
 		log.info(service.checkEmail("aaa@aaa.com"));
+	}
+	
+//	@Test
+	public void testGetPwd() {
+		System.out.println(service.getPwd("gustn@gustn.com"));
+	}
+	
+	@Test
+	public void testUpdatePwd() {
+		log.info(service.modifyPwd("gustn@gustn.com", "7777"));
 	}
 }

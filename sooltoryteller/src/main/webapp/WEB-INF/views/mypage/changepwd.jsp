@@ -28,9 +28,9 @@
     <div class="h-pass">
     <div class="h-pass-content">
         <h1>비밀번호 변경~~~</h1>
-        <form action="#" method="post">
-        	<p style="margin-left: 20px;"><input type="password" placeholder="현재 비밀번호"></p>
-        	<p style="margin-left: 20px;"><input type="password" placeholder="새 비밀번호"></p>
+        <form action="/mypage/changepwd" method="post">
+        	<p style="margin-left: 20px;"><input type="password" name="pwd" placeholder="현재 비밀번호"></p>
+        	<p style="margin-left: 20px;"><input type="password" name="newpwd" placeholder="새 비밀번호"></p>
         	<p style="margin-left: 20px;"><input type="password" placeholder="새 비밀번호 확인"></p>
         	<div style="text-align: center;"><button type="submit" class="h-passbtn">변경</button> <button type="button" class="h-passbtn">취소</button></div>
 		</form>

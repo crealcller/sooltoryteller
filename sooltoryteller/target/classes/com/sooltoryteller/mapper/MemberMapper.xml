@@ -58,6 +58,21 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	where email = #{email}
 </update>
 
+<!-- 비밀번호 꺼내기 -->
+<select id="getPwd" resultType="String">
+	select pwd
+	from member
+	where email = #{email}
+</select>
+
+<!-- 비밀번호 변경 -->
+<update id="updatePwd">
+	update member
+	set pwd = #{pwd},
+	updatedate = sysdate
+	where email = #{email}
+</update>
+
 <!-- 회원탈퇴 -->
 <update id="updateRegstus">
 	update member

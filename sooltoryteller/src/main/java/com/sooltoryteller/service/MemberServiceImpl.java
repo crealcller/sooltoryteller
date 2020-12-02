@@ -75,4 +75,21 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.getEmail(email);
 	}
 
+	@Override
+	public String getPwd(String email) {
+		
+		return mapper.getPwd(email);
+	}
+
+	@Override
+	public boolean modifyPwd(String email, String pwd) {
+		
+		if(mapper.updatePwd(email, pwd) ==1) {
+			mapper.insertHist(mapper.read(email));
+			return true;
+		}
+		
+		return false;
+	}
+
 }
