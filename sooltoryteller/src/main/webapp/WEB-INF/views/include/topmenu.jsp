@@ -119,7 +119,7 @@ if (email != null) {
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
-            <a href='#'>마이페이지 ㅣ</a>
+            <a href='/mypage'>마이페이지 ㅣ</a>
             <a href='#'>고객센터</a>
         </div>
 

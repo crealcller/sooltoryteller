@@ -4,11 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <script>
-    //로그인이 안된 상태면 메인페이지로 넘어가게
+    //로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = '${msg}';
 		if(msg != ""){
 			alert(msg);
-			location.href = '/';
+			location.href = '/login';
 		}
 		
 		let success = '${success}';
@@ -29,15 +29,20 @@
         <img id="h-backImg" src="/resources/img/zzan.JPG">
         
         </div><div class="h-modify-content">
-        <h3 style="margin-bottom: 40px;">회원정보 수정/ 회원탈퇴</h3>
+        <h3 style="margin-bottom: 15px;">회원정보 수정/ 회원탈퇴</h3>
         <form action ="/mypage/changeuserinfo" method="post" onsubmit="return validate()">
         <div class="h-photo"><img src=${member.img }></div>
         <p><input type="file" class="h-addfile"></p>
-	    <p>이메일 : &nbsp<input type = "text" name="email" id="email" value=${member.email } readonly="readonly">
-	    <p>닉네임 : &nbsp<input type = "text" name="name" id="name" value=${member.name } >
-	    <p>핸드폰번호 : <input type = "text" name="telno" id="telno" value=${member.telno }>
-	    <p><button type="submit" class="h-modibtn">회원수정</button>	<button type="button" id="withdrawal" class="h-modibtn">회원탈퇴</button></p>
-    
+	    <p>이메일 : &nbsp<input type = "text" name="email" id="email" value=${member.email } readonly="readonly"></p>
+	    <p>닉네임 : &nbsp<input type = "text" name="name" id="name" value=${member.name } ></p>
+	    <p>핸드폰번호 : <input type = "text" name="telno" id="telno" value=${member.telno }></p>
+	    
+	    <div class="h-fav-drink">
+      <h5 style="margin:5px; text-align: left;">선호하는 주종(2가지 선택)</h5>
+  	   <p><input type="checkbox" class="h-drink">소주<input type="checkbox" class="h-drink">맥주<input type="checkbox" class="h-drink">막걸리<input type="checkbox" class="h-drink">칵테일 </p>
+   	   <p><input type="checkbox" class="h-drink">보드카<input type="checkbox" class="h-drink">양주<input type="checkbox" class="h-drink">와인<input type="checkbox" class="h-drink">기타 </p>
+	   <p><button type="submit" class="h-modibtn">회원수정</button>	<button type="button" id="withdrawal" class="h-modibtn">회원탈퇴</button></p>
+    </div>
 	</form> 
     </div>
     </div>

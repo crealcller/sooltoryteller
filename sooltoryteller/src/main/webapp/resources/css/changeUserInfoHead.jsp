@@ -96,4 +96,12 @@
 	  background-color: rgb(181, 135, 189);
 	}
 	
+	.h-fav-drink{
+    margin-top: 25px;
+    border-top: 1.5px solid rgb(181, 135, 189);
+}
+	.h-drink{
+    margin-left: 15px;
+}
+	
 	</style>

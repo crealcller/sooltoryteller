@@ -7,7 +7,7 @@
 <title>로그인페이지</title>
 
 <style type="text/css">
-p{
+.h-login-p{
   padding: 8.5px;
 }
 .h-body{

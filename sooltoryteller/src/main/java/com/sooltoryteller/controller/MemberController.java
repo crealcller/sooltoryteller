@@ -91,9 +91,15 @@ public class MemberController {
 
 	// 마이페이지
 	@GetMapping("/mypage")
-	public void mypage() {
-	}
+	public void mypage(HttpSession session, Model model) {
+		String email = (String) session.getAttribute("email");
 
+		if (email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		}
+	}
+	
+	
 	// 회원정보 수정 보여줌
 	@GetMapping("/mypage/changeuserinfo")
 	public void changeuserinfo(HttpSession session, Model model) {
@@ -138,22 +144,27 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypage/changepwd")
-	public void changepwd() {}
+	public void changepwd(HttpSession session, Model model) {
+		String email = (String) session.getAttribute("email");
+
+		if (email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		}
+	}
 	
 	@PostMapping("/mypage/changepwd")
-	@ResponseBody
-	public boolean changepwd(String pwd, String newpwd, HttpSession session) {
+	public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
 
 		String email = (String) session.getAttribute("email");
 		
 		//회원의 현재 비밀번호 불러오기
-		String result = service.getPwd(email);
+		String tmp = service.getPwd(email);
 		
-		if(result.equals(pwd)) {
+		if(tmp.equals(pwd)) {
 			service.modifyPwd(email, newpwd);
-			return true;
+			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
 		}else {
-			return false;
+			model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
 		}
 	}
 

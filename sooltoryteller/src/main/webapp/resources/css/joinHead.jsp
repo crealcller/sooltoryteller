@@ -6,7 +6,7 @@
 <title>회원가입</title>
 
 <style type="text/css">
-p{
+.h-join-p{
   margin: 10px;
 }
 .h-body{
@@ -56,7 +56,7 @@ overflow: hidden;
     margin-top: 25px;
     border-top: 1.5px solid rgb(181, 135, 189);
 }
-.drink{
+.h-drink{
     margin-left: 35px;
 }
 #checkId{
