@@ -8,6 +8,9 @@ import com.sooltoryteller.domain.MemberVO;
 
 public interface MemberMapper {
 
+	//회원아이디만 불러오기
+	public Long getMemberId(String email);
+	
 	//회원 전체 불러오기
 	public List<MemberVO> getList();
 	

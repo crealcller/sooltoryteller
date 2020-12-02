@@ -11,6 +11,13 @@ select * from member
 ]]>
 </select>
 
+<!-- 회원 아이디만 불러오기 -->
+<select id="getMemberId" resultType="Long">
+	select member_id
+	from member
+	where email = #{email}
+</select>
+
 <!-- 회원 이력관리(회원가입, 회원정보 수정) -->
 <!-- 회원정보 수정 되면 이력에 추가 -->
 <insert id="insertHist">

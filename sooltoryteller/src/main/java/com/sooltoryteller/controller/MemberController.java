@@ -79,15 +79,15 @@ public class MemberController {
 	}
 
 	// 회원가입 아이디 중복체크(보류)
-//		@RequestMapping(value = "/overlapCheck", method = RequestMethod.POST)
-//		@ResponseBody
-//		public  int overlapCheck(String email ) {
-//			System.out.println("email:"+email);
-//			int cnt = service.checkEmail(email);
-//			System.out.println(cnt);
-//			return cnt;
-//			
-//		}
+		@RequestMapping(value = "/overlapCheck", method = RequestMethod.POST)
+		@ResponseBody
+		public  int overlapCheck(String email ) {
+			System.out.println("email:"+email);
+			int cnt = service.checkEmail(email);
+			System.out.println(cnt);
+			return cnt;
+			
+		}
 
 	// 마이페이지
 	@GetMapping("/mypage")

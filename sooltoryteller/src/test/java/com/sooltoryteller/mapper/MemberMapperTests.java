@@ -86,10 +86,16 @@ public class MemberMapperTests {
 		log.info(mapper.getPwd("aaa@aaa.com"));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdatePwd() {
 		String email = "gustn@gustn.com";
 		mapper.updatePwd(email, "0000");
 		mapper.insertHist(mapper.read(email));
+	}
+	
+//	@Test
+	public void testGetId() {
+		log.info(mapper.getMemberId("aaa@aaa.com"));
+		
 	}
 }

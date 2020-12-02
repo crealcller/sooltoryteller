@@ -92,4 +92,9 @@ public class MemberServiceImpl implements MemberService{
 		return false;
 	}
 
+	@Override
+	public Long getMemberId(String email) {
+		return mapper.getMemberId(email);
+	}
+
 }

@@ -84,8 +84,14 @@ public class MemberServiceTests {
 		System.out.println(service.getPwd("gustn@gustn.com"));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdatePwd() {
 		log.info(service.modifyPwd("gustn@gustn.com", "7777"));
+	}
+	
+	@Test
+	public void testGetMemberId() {
+		log.info(service.getMemberId("aaa@aaa.com"));
+		
 	}
 }
