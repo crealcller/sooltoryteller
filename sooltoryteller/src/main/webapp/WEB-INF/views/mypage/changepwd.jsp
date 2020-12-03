@@ -34,7 +34,7 @@ let success = '${success}';
             <h3 style="margin: 40px 0 40px 0;">비밀번호 변경</h3>
             <form action="/mypage/changepwd" method="post" onsubmit="return validate()">
                 <p class="h-pwd-p"><input type="password" id ="pwd" name="pwd" placeholder="현재 비밀번호"></p>
-                <p class="h-pwd-p" style="font-size:10px;">비밀번호는 대,소문자 특수문자 포함 5~16자리를 입력해주세요</p>
+                <p class="h-pwd-p" style="font-size:10px;">비밀번호는 대문자 또는 소문자 및 특수문자 1개 이상 포함해서 5자리~16자리로 입력하여주세요</p>
                 <p class="h-pwd-p"><input type="password" id ="newpwd" name="newpwd" placeholder="새 비밀번호"></p>
                 <p class="h-pwd-p"><input type="password" id="repwd" placeholder="새 비밀번호 확인" onblur="checkPwd()"></p>
                 <p class="h-pwd-p" id="repwdmsg"></p>
@@ -45,7 +45,7 @@ let success = '${success}';
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
-		const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]).{5,16}$/; // 대문자,소문자,특수문자 1개씩은 포함해서 5자리~16자리
+		const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]).{5,16}$/; // 대문자 OR 소문자,특수문자 1개씩은 포함해서 5자리~16자리
 		const blank = /\s/g;
     
 		//1. 비밀번호와 비밀번호 확인이 일치하는지 확인

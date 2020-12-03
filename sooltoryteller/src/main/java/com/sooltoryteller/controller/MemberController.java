@@ -1,12 +1,18 @@
 package com.sooltoryteller.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.Joinable;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +34,7 @@ import lombok.extern.log4j.Log4j;
 public class MemberController {
 
 	private MemberService service;
-
+	//로그인 view
 	@GetMapping("/login")
 	public void login() {
 	}
@@ -73,23 +79,46 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 회원가입
+	// 회원가입 view
 	@GetMapping("/join")
-	public void join() {
-	}
+	public void join() {	}
 
 	// 회원가입 아이디 중복체크(보류)
 		@RequestMapping(value = "/overlapCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public  int overlapCheck(String email ) {
-			System.out.println("email:"+email);
 			int cnt = service.checkEmail(email);
-			System.out.println(cnt);
 			return cnt;
 			
 		}
-
-	// 마이페이지
+		
+	//회원가입
+	@PostMapping("/join")
+	public String join(@Valid MemberVO member, BindingResult result, HttpServletRequest request, 
+			HttpServletResponse response, Model model, RedirectAttributes rttr) {
+		
+		//에러발생시
+		if( result.hasErrors()) {
+			model.addAttribute("member", member);
+			model.addAttribute("msg", "회원가입 실패");
+			return "/join";
+		}
+			
+		service.join(member);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("name", member.getName());
+		session.setAttribute("email", member.getEmail());
+		
+		return "redirect:/userInfo";
+		
+	}
+	
+	//회원가입 후 회원정보 view
+	@GetMapping("/userInfo")
+	public void userInfo() {}
+	
+	// 마이페이지 view
 	@GetMapping("/mypage")
 	public void mypage(HttpSession session, Model model) {
 		String email = (String) session.getAttribute("email");
@@ -100,7 +129,7 @@ public class MemberController {
 	}
 	
 	
-	// 회원정보 수정 보여줌
+	// 회원정보 수정 view
 	@GetMapping("/mypage/changeuserinfo")
 	public void changeuserinfo(HttpSession session, Model model) {
 		// 로그인 성공 후 세션에 저장된 email 정보를 꺼내와서 member 정보를 불러옴
@@ -127,7 +156,7 @@ public class MemberController {
 		model.addAttribute("member", service.get(member.getEmail()));
 	}
 	
-	//회원탈퇴
+	//회원탈퇴 
 	@GetMapping("/withdrawal")
 	public String withdrawal(HttpSession session, RedirectAttributes rttr) {
 		
@@ -143,6 +172,7 @@ public class MemberController {
 		
 	}
 	
+	//비밀번호 변경 view
 	@GetMapping("/mypage/changepwd")
 	public void changepwd(HttpSession session, Model model) {
 		String email = (String) session.getAttribute("email");
@@ -152,6 +182,7 @@ public class MemberController {
 		}
 	}
 	
+	//비밀번호 변경
 	@PostMapping("/mypage/changepwd")
 	public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
 

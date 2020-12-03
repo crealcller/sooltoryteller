@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void join(MemberVO member) {
 		
+		if(member != null)
 		log.info("register...");
 		mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));

@@ -33,9 +33,9 @@
         <form action ="/mypage/changeuserinfo" method="post" onsubmit="return validate()">
         <div class="h-photo"><img src=${member.img }></div>
         <p><input type="file" class="h-addfile"></p>
-	    <p>이메일 : &nbsp<input type = "text" name="email" id="email" value=${member.email } readonly="readonly"></p>
-	    <p>닉네임 : &nbsp<input type = "text" name="name" id="name" value=${member.name } ></p>
-	    <p>핸드폰번호 : <input type = "text" name="telno" id="telno" value=${member.telno }></p>
+	    <p>이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
+	    <p>닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/> "></p>
+	    <p>핸드폰번호 : <input type = "text" name="telno" id="telno" value="<c:out value='${member.telno }'/>"></p>
 	    
 	    <div class="h-fav-drink">
       <h5 style="margin:5px; text-align: left;">선호하는 주종(2가지 선택)</h5>
