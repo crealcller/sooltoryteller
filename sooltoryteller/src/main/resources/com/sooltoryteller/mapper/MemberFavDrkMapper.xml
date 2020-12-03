@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.MemberFavDrkMapper">
+
+<!-- 회원 가입시 선호하는 술 등록 -->
+<insert id="insert">
+	Insert into member_fav_drk(fav_drk_id, member_id, drk_cd_id)
+	values (fav_drk_id.nextval, #{memberId}, #{drkCdId})
+</insert>
+
+<!-- 회원의 선호하는 술 목록 가져오기 -->
+<select id ="get" resultType="Integer">
+	select drk_cd_id
+	from member_fav_drk
+	where member_id = #{memberId}
+</select>
+
+<!-- 술 일련번호(시퀀스) 가져오기 -->
+<select id ="getFavDrkId" resultType="Long">
+	select fav_drk_id
+	from member_fav_drk
+	where member_id = #{memberId}
+</select>
+
+<!-- 회원의 선호하는 술 종류 변경하기 -->
+<update id="updateFavDrk">
+	update member_fav_drk
+	set drk_cd_id = #{drkCdId}
+	where fav_drk_id = #{favDrkId}
+</update>
+</mapper>

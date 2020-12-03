@@ -11,6 +11,13 @@ select * from member
 ]]>
 </select>
 
+<!-- 회원 아이디만 불러오기 -->
+<select id="getMemberId" resultType="Long">
+	select member_id
+	from member
+	where email = #{email}
+</select>
+
 <!-- 회원 이력관리(회원가입, 회원정보 수정) -->
 <!-- 회원정보 수정 되면 이력에 추가 -->
 <insert id="insertHist">
@@ -31,24 +38,44 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	where email = #{email}
 </select>
 
+<!-- 로그인시 이메일, 비밀번호 체크 -->
 <select id="getLoginInfo" resultType="com.sooltoryteller.domain.MemberVO">
 	select email, pwd
 	from member
 	where email = #{email}
 	and pwd = #{pwd}
+	and regstus = 'JN'
 </select>
 
+<!-- 이메일 중복확인 탈퇴회원은 제외-->
 <select id="getEmail" resultType="int">
 	select count(*)
 	from member
 	where email = #{email}
+	and regstus = 'JN'
 </select>
+
 <!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
 <update id="updateInfo">
 	update member
 	set name = #{name},
 	telno = #{telno},
 	img = #{img},
+	updatedate = sysdate
+	where email = #{email}
+</update>
+
+<!-- 비밀번호 꺼내기 -->
+<select id="getPwd" resultType="String">
+	select pwd
+	from member
+	where email = #{email}
+</select>
+
+<!-- 비밀번호 변경 -->
+<update id="updatePwd">
+	update member
+	set pwd = #{pwd},
 	updatedate = sysdate
 	where email = #{email}
 </update>
@@ -60,11 +87,4 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	updatedate = sysdate
 	where email = #{email}
 </update>
-<!-- 다울추가 -->
-<select id="getMemberId" resultType="Long">
-select member_id
-from member
-where email =#{email}
-
-</select>
 </mapper>

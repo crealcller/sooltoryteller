@@ -22,6 +22,11 @@
             </div>
         </div>
         <div class="d-mypage-right">
+        
+        <!-- 현수 추가 -->
+        <button type = "button" onclick="location.href='/mypage/changeuserinfo'">회원정보수정</button>
+		<button type = "button" onclick="location.href='/mypage/changepwd'">비밀번호 변경</button>
+		
         <p><a href="/mypage/like">like</a></p><p><a href="/mypage/revw">revw</a></p>
         <div class="d-con">
 		<c:forEach items="${myLikeList}" var="myLikeList">

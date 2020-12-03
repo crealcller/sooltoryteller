@@ -7,12 +7,12 @@
 <title>로그인페이지</title>
 
 <style type="text/css">
-p{
+.h-login-p{
   padding: 8.5px;
 }
 .h-body{
   height: 500px;
-  width: 1277px;
+  width: 100%;
   background-color: rgb(245, 245, 245);
   
 }

@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void join(MemberVO member) {
 		
+		if(member != null)
 		log.info("register...");
 		mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));
@@ -51,7 +52,7 @@ public class MemberServiceImpl implements MemberService{
 		log.info("modify..."+member);
 		
 		if(mapper.updateInfo(member) == 1) {
-			mapper.insertHist(member);
+			mapper.insertHist(mapper.read(member.getEmail()));
 			return true;
 		}
 		return false;
@@ -70,15 +71,30 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean checkEmail(String email) {
+	public int checkEmail(String email) {
 		
-		return mapper.getEmail(email) ==1;
-	}
-	//다울추가
-	@Override
-	public Long getMemberId(String email) {
-		
-		return mapper.getMemberId(email);
+		return mapper.getEmail(email);
 	}
 
+	@Override
+	public String getPwd(String email) {
+		
+		return mapper.getPwd(email);
+	}
+
+	@Override
+	public boolean modifyPwd(String email, String pwd) {
+		
+		if(mapper.updatePwd(email, pwd) ==1) {
+			mapper.insertHist(mapper.read(email));
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public Long getMemberId(String email) {
+		return mapper.getMemberId(email);
+	}
 }

@@ -123,47 +123,45 @@ if (email != null) {
             <a href='/mypage/like'>마이페이지 ㅣ</a>
             <a href='#'>고객센터</a>
         </div>
-
     </div>
 
     <div class="mainMenu">
         <!-- 다울추가 -->
         <div id="dropdown1" class="dropdown">
-        <button id="dropbtn1" class="dropbtn">전통주</button>
-        <div id="dropdown-content1" class="dropdown-content">
-            <a href="/all-liq">전체</a>
-            <a href="/takju">탁주</a>
-            <a href="/yakju-cheongju">약주/청주</a>
-            <a href="/fruit-wine">과실주</a>
-            <a href="/distilled-spirits">증류주</a>
-            <a href="/others">기타류</a>
-         
-        </div>
-    </div>
+	        <button id="dropbtn1" class="dropbtn">전통주</button>
+	        <div id="dropdown-content1" class="dropdown-content">
+	            <a href="/all-liq">전체</a>
+	            <a href="/takju">탁주</a>
+	            <a href="/yakju-cheongju">약주/청주</a>
+	            <a href="/fruit-wine">과실주</a>
+	            <a href="/distilled-spirits">증류주</a>
+	            <a href="/others">기타류</a>
+	        </div>
+	    </div>
         <div id="dropdown2" class="dropdown">
-        <button id="dropbtn2" class="dropbtn">술BTI</button>
-        <div id="dropdown-content2" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </div>
+	        <button id="dropbtn2" class="dropbtn">술BTI</button>
+	        <div id="dropdown-content2" class="dropdown-content">
+	            <a href="#">Link 1</a>
+	            <a href="#">Link 2</a>
+	            <a href="#">Link 3</a>
+	        </div>
+	    </div>
         <div id="dropdown3" class="dropdown">
-        <button id="dropbtn3" class="dropbtn">건배의 광장</button>
-        <div id="dropdown-content3" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </div>
+	        <button id="dropbtn3" class="dropbtn">건배의 광장</button>
+	        <div id="dropdown-content3" class="dropdown-content">
+	            <a href="#">Link 1</a>
+	            <a href="#">Link 2</a>
+	            <a href="#">Link 3</a>
+	        </div>
+    	</div>
         <div id="dropdown4" class="dropdown">
-        <button id="dropbtn4" class="dropbtn">About</button>
-        <div id="dropdown-content4" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </div>
+	        <button id="dropbtn4" class="dropbtn">About</button>
+	        <div id="dropdown-content4" class="dropdown-content">
+	            <a href="#">Link 1</a>
+	            <a href="#">Link 2</a>
+	            <a href="#">Link 3</a>
+	        </div>
+    	</div>
     </div>
 </body>
 </html>
