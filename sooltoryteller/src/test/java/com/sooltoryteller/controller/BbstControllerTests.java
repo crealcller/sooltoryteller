@@ -35,7 +35,9 @@ public class BbstControllerTests {
 	@Test
 	public void testGetBbstList() throws Exception {
 		log.info(
-			mockMvc.perform(MockMvcRequestBuilders.get("/cheers/list"))
+			mockMvc.perform(MockMvcRequestBuilders.get("/cheers/list")
+			.param("pageNum", "1")
+			.param("amount", "9"))
 			.andReturn()
 			.getModelAndView()
 			.getModelMap());

@@ -22,7 +22,7 @@ public class BbstReplyVO {
 	private String memberId;
 
 	// 댓글 내용 
-	private String cn;
+	private String replyCn;
 
 	// 등록일시 
 	private Date regdate;

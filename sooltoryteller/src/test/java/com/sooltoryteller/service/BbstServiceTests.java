@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sooltoryteller.domain.BbstVO;
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.BbstMemberJoinVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -29,10 +30,10 @@ public class BbstServiceTests {
 	
 	@Test
 	public void testRegister() {
-		BbstVO bbst = new BbstVO();
-		bbst.setMemberId("20L");
+		BbstMemberJoinVO bbst = new BbstMemberJoinVO();
+		bbst.setMemberId(20L);
 		bbst.setTitle("서비스테스트");
-		bbst.setImg("서비스테스트.jpg");
+		bbst.setCnImg("서비스테스트.jpg");
 		bbst.setCn("서비스테스트");
 		bbst.setInqrNum(0);
 		bbst.setLikesNum(0);
@@ -44,8 +45,9 @@ public class BbstServiceTests {
 	
 	@Test
 	public void testGetBbstList() {
-		assertNotNull(service.getBbstList());
-		service.getBbstList().forEach(bbstList -> log.info(bbstList));
+		BbstCriteria cri = new BbstCriteria();
+		assertNotNull(service.getBbstList(cri));
+		service.getBbstList(cri).forEach(bbstList -> log.info(bbstList));
 	}
 	
 	@Test
@@ -65,7 +67,7 @@ public class BbstServiceTests {
 	@Test
 	public void testUpdateBbst() {
 		Long bbstId = 11L;
-		BbstVO bbst = service.getBbst(bbstId);
+		BbstMemberJoinVO bbst = service.getBbst(bbstId);
 		
 		if(bbst == null) {
 			return;

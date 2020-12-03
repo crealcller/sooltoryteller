@@ -2,23 +2,24 @@ package com.sooltoryteller.mapper;
 
 import java.util.List;
 
-import com.sooltoryteller.domain.BbstVO;
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.BbstMemberJoinVO;
 
 public interface BbstMapper {
 
-	// 모든 게시글 조회 (무한스크롤) 
-	public List<BbstVO> getBbstList();
+	// 모든 게시글 조회
+	public List<BbstMemberJoinVO> getBbstList(BbstCriteria cri);
 	
 	// 게시글 등록
-	public void insertBbstWithKey(BbstVO bbst);
+	public void insertBbstWithKey(BbstMemberJoinVO bbst);
 	
 	// 게시글 조회
-	public BbstVO readBbst(Long bbstId);
+	public BbstMemberJoinVO getBbst(Long bbstId);
 	
 	// 게시글 삭제
 	public int deleteBbst(Long bbstId);
 	
 	// 게시글 수정
-	public int updateBbst(BbstVO bbst);
+	public int updateBbst(BbstMemberJoinVO bbst);
 	
 }

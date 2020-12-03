@@ -1,13 +1,12 @@
 package com.sooltoryteller.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sooltoryteller.domain.BbstVO;
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.BbstMemberJoinVO;
 import com.sooltoryteller.mapper.BbstMapper;
 
 import lombok.AllArgsConstructor;
@@ -24,16 +23,16 @@ public class BbstServiceImpl implements BbstService {
 
 	// 게시글 등록
 	@Override
-	public void registerBbst(BbstVO bbst) {
+	public void registerBbst(BbstMemberJoinVO bbst) {
 		log.info("========== REGISTER " + bbst + "==========");
 		mapper.insertBbstWithKey(bbst);
 	}
 
 	// 게시글 조회
 	@Override
-	public BbstVO getBbst(Long bbstId) {
+	public BbstMemberJoinVO getBbst(Long bbstId) {
 		log.info("========== GET BBSTID " + bbstId + " ==========");
-		return mapper.readBbst(bbstId);
+		return mapper.getBbst(bbstId);
 	}
 
 	// 게시글 삭제
@@ -45,16 +44,16 @@ public class BbstServiceImpl implements BbstService {
 
 	// 게시글 수정
 	@Override
-	public boolean modifyBbst(BbstVO bbst) {
+	public boolean modifyBbst(BbstMemberJoinVO bbst) {
 		log.info("========== MODIFY " + bbst + " ===========");
 		return mapper.updateBbst(bbst) == 1;
 	}
 
-	// 모든 게시글 조회 (무한스크롤)
+	// 모든 게시글 조회
 	@Override
-	public List<BbstVO> getBbstList() {
+	public List<BbstMemberJoinVO> getBbstList(BbstCriteria cri) {
 		log.info("========== GET BBST LIST ==========");
-		return mapper.getBbstList();
+		return mapper.getBbstList(cri);
 	}
 
 

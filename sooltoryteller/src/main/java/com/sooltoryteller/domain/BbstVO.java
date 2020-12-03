@@ -22,7 +22,7 @@ public class BbstVO {
 
 	// 회원ID
 	@NotBlank
-	private String memberId;
+	private Long memberId;
 
 	// 게시글 제목
 	@NotBlank(message = "제목을 입력해주세요.")
@@ -31,7 +31,11 @@ public class BbstVO {
 
 	// 게시글 사진
 	@NotBlank
-	private String img;
+	private String cnImg;
+	
+	// 게시글 썸네일사진
+	@NotBlank
+	private String cnThumbimg;
 
 	// 게시글 내용
 	@NotBlank(message = "내용을 입력해주세요.")

@@ -37,50 +37,50 @@ if (email != null) {
             color: black;
         }
 
-        #company-name{
+        #h-company-name{
             font-family: '전소민체';
             font-size: 40px;
             font-weight: bold;
         }
         
-        .logobar{
+        .h-logobar{
             width: 100%;
             height: 60px;
             border-bottom: 1px solid;
         }
-        img{
+        .h-logo-img{
             height: 50px;
             width: 40px;
         }
-        .logo{
+        .h-logo{
             width: 55%;
             text-align: right;
             display: inline-block;
         }
-        .usermenu{
+        .h-usermenu{
             width: 45%;
             font-size: 13px;
             text-align: right;
             padding-right:10px;
             display: inline-block;
         }
-        .mainMenu{
+        .h-mainMenu{
             display: block;
         }
 
-        .dropbtn {
+        .h-dropbtn {
              background-color: white;
              color: black;
              font-size: 20px;
              padding: 10px;
              border: none;
         }
-        .dropdown{
+        .h-dropdown{
             display: inline-block;
             margin-left: 15%;
         }
 
-        .dropdown-content {
+        .h-dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
@@ -88,33 +88,33 @@ if (email != null) {
             z-index: 1;
         }
 
-        .dropdown-content a{
+        .h-dropdown-content a{
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
 
-#dropdown-content1 a:hover {background-color: #f2eff9;}
-#dropdown-content2 a:hover {background-color: #f2eff9;}
-#dropdown-content3 a:hover {background-color: #f2eff9;}
-#dropdown-content4 a:hover {background-color: #f2eff9;}
+#h-dropdown-content1 a:hover {background-color: #f2eff9;}
+#h-dropdown-content2 a:hover {background-color: #f2eff9;}
+#h-dropdown-content3 a:hover {background-color: #f2eff9;}
+#h-dropdown-content4 a:hover {background-color: #f2eff9;}
 
-#dropdown1:hover #dropdown-content1 {border-top: 3px solid purple; display: block;}
-#dropdown2:hover #dropdown-content2 {border-top: 3px solid purple; display: block;}
-#dropdown3:hover #dropdown-content3 {border-top: 3px solid purple; display: block;}
-#dropdown4:hover #dropdown-content4 {border-top: 3px solid purple; display: block;}
+#h-dropdown1:hover #h-dropdown-content1 {border-top: 3px solid purple; display: block;}
+#h-dropdown2:hover #h-dropdown-content2 {border-top: 3px solid purple; display: block;}
+#h-dropdown3:hover #h-dropdown-content3 {border-top: 3px solid purple; display: block;}
+#h-dropdown4:hover #h-dropdown-content4 {border-top: 3px solid purple; display: block;}
 
 
 
     </style>
 </head>
 <body>
-    <div class="logobar">
-        <div class="logo">
-        <img src='/resources/img/logo.png'>
-        <a href="/" id="company-name">술토리텔러</a>
-        </div><div class='usermenu'>
+    <div class="h-logobar">
+        <div class="h-logo">
+        <img class="h-logo-img" src='/resources/img/logo.png'>
+        <a href="/" id="h-company-name">술토리텔러</a>
+        </div><div class='h-usermenu'>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
@@ -124,35 +124,30 @@ if (email != null) {
 
     </div>
 
-    <div class="mainMenu">
+    <div class="h-mainMenu">
         
-        <div id="dropdown1" class="dropdown">
-        <button id="dropbtn1" class="dropbtn">전통주</button>
-        <div id="dropdown-content1" class="dropdown-content">
+        <div id="h-dropdown1" class="h-dropdown">
+        <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
+        <div id="h-dropdown-content1" class="h-dropdown-content">
             <a href="#">Link 1</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
         </div>
     </div>
-        <div id="dropdown2" class="dropdown">
-        <button id="dropbtn2" class="dropbtn">술BTI</button>
-        <div id="dropdown-content2" class="dropdown-content">
+        <div id="h-dropdown2" class="h-dropdown">
+        <button id="h-dropbtn2" class="h-dropbtn">술BTI</button>
+        <div id="h-dropdown-content2" class="h-dropdown-content">
             <a href="#">Link 1</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
         </div>
     </div>
-        <div id="dropdown3" class="dropdown">
-        <button id="dropbtn3" class="dropbtn">건배의 광장</button>
-        <div id="dropdown-content3" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
+        <div id="h-dropdown3" class="h-dropdown">
+        <button id="h-dropbtn3" class="h-dropbtn"><a href="/cheers/list">건배의 광장</a></button>
     </div>
-        <div id="dropdown4" class="dropdown">
-        <button id="dropbtn4" class="dropbtn">About</button>
-        <div id="dropdown-content4" class="dropdown-content">
+        <div id="h-dropdown4" class="h-dropdown">
+        <button id="h-dropbtn4" class="h-dropbtn">About</button>
+        <div id="h-dropdown-content4" class="h-dropdown-content">
             <a href="#">Link 1</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>

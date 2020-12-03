@@ -1,8 +1,8 @@
 package com.sooltoryteller.mapper;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sooltoryteller.domain.BbstVO;
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.BbstMemberJoinVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -24,17 +25,28 @@ public class BbstMapperTests {
 	private BbstMapper mapper;
 	
 	@Test
-	public void getBbstList() {
-		mapper.getBbstList().forEach(bbstList -> log.info(bbstList));
+	public void testGetBbstList() {
+		BbstCriteria cri = new BbstCriteria();
+		mapper.getBbstList(cri).forEach(bbstList -> log.info(bbstList));
+	}
+	
+	@Test
+	public void testPaging() {
+		BbstCriteria cri = new BbstCriteria();
+		cri.setPageNum(2);
+		cri.setAmount(9);
+		
+		List<BbstMemberJoinVO> list = mapper.getBbstList(cri);
+		list.forEach(bbstList -> log.info(bbstList.getBbstId()));
 	}
 	
 	@Test
 	public void testInsertBbstWithKey() {
 		
-		BbstVO bbst = new BbstVO();
-		bbst.setMemberId("20L");
+		BbstMemberJoinVO bbst = new BbstMemberJoinVO();
+		bbst.setMemberId(20L);
 		bbst.setTitle("매퍼제목테스트");
-		bbst.setImg("매퍼이미지테스트.jpg");
+		bbst.setCnImg("매퍼이미지테스트.jpg");
 		bbst.setCn("매퍼내용테스트");
 		bbst.setInqrNum(0);
 		bbst.setLikesNum(0);
@@ -46,9 +58,9 @@ public class BbstMapperTests {
 	}
 	
 	@Test
-	public void testReadBbst() {
+	public void testGetBbst() {
 		
-		BbstVO bbst = mapper.readBbst(10L);
+		BbstMemberJoinVO bbst = mapper.getBbst(13L);
 		log.info("========== READ: " + bbst + " ==========");
 		assertNotNull(bbst);
 	}
@@ -62,10 +74,10 @@ public class BbstMapperTests {
 	@Test
 	public void testUpdateBbst() {
 		
-		BbstVO bbst = new BbstVO();
+		BbstMemberJoinVO bbst = new BbstMemberJoinVO();
 		bbst.setBbstId(12L);
 		bbst.setTitle("매퍼테스트업뎃업뎃");
-		bbst.setImg("매퍼테스트업뎃.jpg");
+		bbst.setCnImg("매퍼테스트업뎃.jpg");
 		bbst.setCn("매퍼테스트업뎃업뎃");
 		
 		int count = mapper.updateBbst(bbst);
