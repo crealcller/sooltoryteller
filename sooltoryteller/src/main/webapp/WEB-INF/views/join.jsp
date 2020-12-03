@@ -35,8 +35,16 @@ if(msg != ""){
     
     <div class="h-fav-drink">
       <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
-    <p class='h-join-p'><input type="checkbox" class="h-drink">소주<input type="checkbox" class="h-drink">맥주<input type="checkbox" class="h-drink">막걸리<input type="checkbox" class="h-drink">칵테일 </p>
-    <p class='h-join-p'><input type="checkbox" class="h-drink">보드카<input type="checkbox" class="h-drink">양주<input type="checkbox" class="h-drink">와인<input type="checkbox" class="h-drink">기타 </p>
+    <p class='h-join-p'><input type="checkbox" class="h-drink" name='drink' value='1'>소주
+  							    <input type="checkbox" class="h-drink" name='drink' value='2'>맥주
+    						    <input type="checkbox" class="h-drink" name='drink' value='3'>막걸리
+    							<input type="checkbox" class="h-drink" name='drink' value='4'>칵테일 </p>
+    
+    <p class='h-join-p'><input type="checkbox" class="h-drink" name="drink" value='5'>보드카
+   							    <input type="checkbox" class="h-drink" name='drink' value='6'>양주
+    							<input type="checkbox" class="h-drink" name='drink' value='7'>와인
+    							<input type="checkbox" class="h-drink" name='drink' value='8'>기타 </p>
+    							
     <p class='h-join-p' style="text-align: center; margin:0;"><button style="margin: 0" type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
     <button type="button" class="join-btn" >취소</button></p>
     </div>
