@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+//회원 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sooltoryteller.mapper.BbstMapper">
+
+<!-- 모든 게시글 조회 -->
+<select id="getBbstList" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
+	<![CDATA[
+	select * from (
+		select 
+        rownum rn, b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
+		from bbst b, member m
+		where b.member_id = m.member_id
+		and b.bbst_id > 0
+        and rownum <= #{pageNum} * #{amount}
+        order by b.bbst_id desc
+	) where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
+
+<!-- 게시글 등록 -->
+<insert id="insertBbstWithKey">
+	<selectKey keyProperty="bbstId" order="BEFORE" resultType="Long">
+		select bbst_seq.nextval from dual
+	</selectKey>
+	
+	insert into bbst (bbst_id, member_id, title, cn_img, cn_thumbimg, cn, regdate, updatedate, inqr_num, likes_num, reply_num)
+	values (#{bbstId}, #{memberId}, #{title}, #{cnImg}, #{cnThumbimg}, #{cn}, sysdate, sysdate, #{inqrNum}, #{likesNum}, #{replyNum})
+</insert>
+
+<!-- 게시글 조회 -->
+<select id="getBbst" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
+	select b.bbst_id, b.title, m.img, m.name, b.regdate, b.updatedate, b.inqr_num, b.likes_num, b.reply_num, b.cn_img, b.cn
+	from bbst b, member m
+	where b.member_id = m.member_id
+	and b.bbst_id = #{bbstId}
+</select>
+
+<!-- 게시글 삭제 -->
+<delete id="deleteBbst" parameterType="Long">
+	delete from bbst
+	where bbst_id = #{bbstId}
+</delete>
+
+<!-- 게시글 수정 -->
+<update id="updateBbst">
+	update bbst
+	set	title = #{title},
+	cn_img = #{cnImg},
+	cn_thumbimg = #{cnThumbimg},
+	cn = #{cn},
+	updatedate = sysdate
+	where bbst_id = #{bbstId}
+</update>
+
+</mapper>
