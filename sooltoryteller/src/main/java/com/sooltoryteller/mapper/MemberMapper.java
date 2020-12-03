@@ -31,6 +31,9 @@ public interface MemberMapper {
 	
 	//회원탈퇴
 	public int updateRegstus(String email);
+	//다울추가
+	//이메일로 회원아이디 가져오기
+	public Long getMemberId(String email);
 	
 		
 }

@@ -23,7 +23,7 @@ public class LIqServiceTests {
 	
 	@Test
 	public void testGetAll() {
-		List<LiqVO> allLiq = service.getAll();
+		List<LiqVO> allLiq = service.getLiqList();
 		allLiq.forEach(liq->log.info(liq));
 	}
 	

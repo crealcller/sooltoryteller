@@ -119,20 +119,25 @@ if (email != null) {
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
-            <a href='#'>마이페이지 ㅣ</a>
+           	<!-- 다울 추가 임시로 like 페이지로 연결 -->
+            <a href='/mypage/like'>마이페이지 ㅣ</a>
             <a href='#'>고객센터</a>
         </div>
 
     </div>
 
     <div class="mainMenu">
-        
+        <!-- 다울추가 -->
         <div id="dropdown1" class="dropdown">
         <button id="dropbtn1" class="dropbtn">전통주</button>
         <div id="dropdown-content1" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/all-liq">전체</a>
+            <a href="/takju">탁주</a>
+            <a href="/yakju-cheongju">약주/청주</a>
+            <a href="/fruit-wine">과실주</a>
+            <a href="/distilled-spirits">증류주</a>
+            <a href="/others">기타류</a>
+         
         </div>
     </div>
         <div id="dropdown2" class="dropdown">

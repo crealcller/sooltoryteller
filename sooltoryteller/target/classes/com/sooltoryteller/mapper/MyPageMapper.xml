@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sooltoryteller.mapper.MyPageMapper">
+	
+	<select id="getRevwList" resultType="com.sooltoryteller.domain.MyRevwVO">
+	select /*+index_desc(r liq_revw_pk)*/ 
+	l.liq_id, l.nm, l.cate,l.img,
+	r.revw_id,r.cn,r.rate,r.regdate ,
+	m.member_id,m.name,m.img profile
+	from liq l, liq_revw r, member m
+	where l.liq_id = r.liq_id
+	and r.member_id = #{memberId}
+	and r.member_id = m.member_id
+	</select>
+	
+	<select id="getLikeList" resultType="com.sooltoryteller.domain.MyLikeVO">
+	select /*+index_desc(k liq_like_pk)*/ 
+	l.liq_id, l.nm,l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
+	k.liq_like_id,
+	m.member_id,m.name,m.img profile
+	from liq l,liq_like k, member m
+	where l.liq_id = k.liq_id
+	and k.member_id=#{memberId}
+	and k.member_id = m.member_id
+	</select>
+</mapper>

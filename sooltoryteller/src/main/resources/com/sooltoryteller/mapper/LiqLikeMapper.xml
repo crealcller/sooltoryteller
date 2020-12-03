@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.LiqLikeMapper">
+
+<select id="getCount" resultType="Integer">
+select count(*)
+from liq_like
+where member_id =#{memberId}
+and liq_id=#{liqId}
+</select>
+
+<insert id="insert">
+insert into liq_like(liq_like_id,member_id,liq_id,regdate)
+values(liq_like_seq.nextval,#{memberId},#{liqId},sysdate)
+</insert>
+
+<delete id="delete">
+delete from liq_like
+where member_id =#{memberId}
+and liq_id=#{liqId}
+</delete>
+
+</mapper>

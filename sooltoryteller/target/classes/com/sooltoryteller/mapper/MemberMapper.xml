@@ -60,4 +60,11 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	updatedate = sysdate
 	where email = #{email}
 </update>
+<!-- 다울추가 -->
+<select id="getMemberId" resultType="Long">
+select member_id
+from member
+where email =#{email}
+
+</select>
 </mapper>

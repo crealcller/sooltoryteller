@@ -22,17 +22,28 @@ public class LiqMapperTests {
 	private LiqMapper mapper;
 	
 	@Test
-	public void testGetOthers(){
-		List<LiqVO> liqList = mapper.getAllByKind("탁주");
+	public void testGetAllByKindCount() {
+		int listCnt = mapper.getCountLiqListByKind("탁주");
+		log.info(listCnt);
+	}
+	
+	public void testGetAllCount() {
+		int allCnt = mapper.getCountLiqList();
+		log.info(allCnt);
+	}
+	
+	public void testGetAllByKind(){
+		List<LiqVO> liqList = mapper.getLiqListByKind("탁주");
 		liqList.forEach(liq->log.info(liq));
 	}
 	
 	
 	
 	public void testGetAll() {
-		List<LiqVO> liqList = mapper.getAll();
+		List<LiqVO> liqList = mapper.getLiqList();
 		liqList.forEach(liq->log.info(liq));
 	}
+	
 	
 	public void testGetLiq() {
 		LiqVO liq = mapper.get(1L);

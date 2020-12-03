@@ -8,8 +8,8 @@ public interface LiqService {
 	
 		public LiqVO get(Long liqSeq);
 		
-		public List<LiqVO> getAll();
+		public List<LiqVO> getLiqList();
 		
-		public List<LiqVO> getAllByKind(String kind);
-
+		public List<LiqVO> getLiqListByKind(String kind);
+		
 }

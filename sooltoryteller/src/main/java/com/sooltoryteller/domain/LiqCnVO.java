@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LiqCnVO {
 	// 전통주 일련번호 
-    private Long liqSeq;
+    private Long liqId;
 
     // 소개 
-    private String liqIntro;
+    private String intro;
 
     // 페어링 
-    private String liqPair;
+    private String pair;
 
     // 등록일시 
     private Date regdate;

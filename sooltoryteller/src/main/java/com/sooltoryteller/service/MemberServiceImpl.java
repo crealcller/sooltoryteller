@@ -74,5 +74,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.getEmail(email) ==1;
 	}
+	//다울추가
+	@Override
+	public Long getMemberId(String email) {
+		
+		return mapper.getMemberId(email);
+	}
 
 }
