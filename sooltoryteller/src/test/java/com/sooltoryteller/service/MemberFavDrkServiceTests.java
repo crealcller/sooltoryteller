@@ -24,8 +24,14 @@ public class MemberFavDrkServiceTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testgetFavDrk() {
-		
+		log.info(service.getFavDrk(26L));
+	}
+	
+	@Test
+	public void testModifyFavDrk() {
+		int[] drink = {2,6};
+		service.modifyFavDrk(26L, drink);
 	}
 }

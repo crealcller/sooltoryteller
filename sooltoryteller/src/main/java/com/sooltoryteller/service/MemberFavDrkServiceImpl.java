@@ -48,9 +48,8 @@ public class MemberFavDrkServiceImpl implements MemberFavDrkService{
 				memberFavDrk.setFavDrkId(result.get(i));
 				memberFavDrk.setDrkCdId(drink[i]);
 				mapper.updateFavDrk(memberFavDrk);
-				
-				return true;
 			}//for end
+			return true;
 		}//if end
 		return false;
 	}
