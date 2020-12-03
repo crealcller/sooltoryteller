@@ -68,7 +68,6 @@
 	<![CDATA[
 	select count(liq_id) from liq_revw 
 	where liq_id = #{liqId}
-	
 	]]>
 	</select>
 </mapper>

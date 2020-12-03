@@ -26,13 +26,13 @@ public class LiqServiceImpl implements LiqService{
 	}
 
 	@Override
-	public List<LiqVO> getAll() {
+	public List<LiqVO> getLiqList() {
 		log.info("getAll....");
-		return mapper.getAll();
+		return mapper.getLiqList();
 	}
 
 	@Override
-	public List<LiqVO> getAllByKind(String kind) {
-		return mapper.getAllByKind(kind);
+	public List<LiqVO> getLiqListByKind(String kind) {
+		return mapper.getLiqListByKind(kind);
 	}
 }

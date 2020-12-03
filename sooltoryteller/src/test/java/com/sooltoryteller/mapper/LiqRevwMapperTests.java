@@ -22,7 +22,7 @@ public class LiqRevwMapperTests {
 	@Setter(onMethod_ =@Autowired )
 	private LiqRevwMapper mapper;
 	
-	
+	@Test
 	public void testGetListWithPaging() {
 		Criteria cri = new Criteria(2,5);
 		List<LiqRevwVO> revws = mapper.getListWithPaging(1L, cri);
@@ -43,7 +43,7 @@ public class LiqRevwMapperTests {
 		log.info(result);
 	}
 	
-	@Test
+	
 	public void testRead() {
 		LiqRevwVO vo = mapper.read(1L);
 		log.info(vo);

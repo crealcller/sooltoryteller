@@ -26,5 +26,7 @@ public interface MemberService {
 	
 	//모든회원 리스트 가져오기
 	public List<MemberVO> getList();
-	
+	//다울추가
+	//이메일로 회원아이디 가져오기
+	public Long getMemberId(String email);
 }

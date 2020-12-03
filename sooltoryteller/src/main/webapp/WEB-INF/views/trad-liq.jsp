@@ -2,35 +2,41 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="include/topmenu.jsp" %>
+<%@include file="/WEB-INF/views/include/topmenu.jsp"  %>
 <!DOCTYPE html>
 <html>
 <head>
  <style>
-        
+        .d-con{
+         width:100%;
+        }
          /* 구메정보부분 배경 */
         .d-trad-liq-info{
             width:100%;
-            background-color: rgb(230, 222, 236);
+            height:400px;
+            background-color: rgb(245, 245, 245);
         }
         /* 구메정보부분 */
         .d-trad-liq-info-con{
-        	width:50%;
+        	width:800px;
         	margin:auto;
         }
         /* 구매정보부분 - 사진 */
         .d-trad-liq-img-con{
-        	padding-top:50px;
         	width:200px;
-        	height:400px;
+        	height:300px;
         	display:inline-block;
+        	float:left;
+        	margin:50px;
         
         }
         /* 구매정보부분 - 글 */
         .d-trad-liq-text-con{
-        	padding:30px;
+        	padding:50px;
+        	width:500px;
         	height:100%;
         	display:inline-block;
+        	float:left;
         }
        	/* 전통주상세 컨테이너 */
         .d-trad-liq-con{
@@ -42,32 +48,36 @@
         }
         /* 전통주상세 */
         .d-trad-liq-column{
-          
             width:100%;
           	border-bottom-style: solid;
-			border-bottom-color: rgba(138, 134, 134, 0.199);
+			border-bottom-color: rgb(181, 135, 189);
             background-color: white;
             padding:50px;
         }
-       
+       	.d-revw-wrapper{
+       		width : 100%;
+       		min-width : 1000px;
+       		overflow: auto;
+       	}
          /* 리뷰 부분 con*/
         .d-revws-con{
-        	width : 65%;
+        	width : 600px;
+        	float:left;
         	display:inline-block;
-        	border-style : solid;
-        	border-color: rgba(138, 134, 134, 0.199);
+        	
         }
         /* 리뷰  리스트*/
         .d-revws{
             list-style:none;
-            width : 100%;
+            width : 600px;
         }
         /* 리뷰 */
         .d-revw-con{
+        	box-shadow: 3px 3px 3px 3px  rgba(196, 150, 204, 0.151);
         	border-style : solid;
-        	border-color: rgba(138, 134, 134, 0.199);
+        	border-color: rgb(245, 245, 245);
         	padding : 20px;
-        	margin : 10px; 
+        	margin : 40px; 
         }
         
         .d-revw-footer {
@@ -81,27 +91,26 @@
 			margin : 10px; 
 		}
 		.d-new-revw-con{
-			width:30%;
+			float:left;
+			width:230px;
 			display:inline-block;
 			border-style : solid;
-        	border-color: rgba(138, 134, 134, 0.199);
+        	border-color: rgb(245, 245, 245);
+        	margin : 40px;
+        	height: 300px;
 		}
 		
-		.d-new-revw-sticky {
-			position: -webkit-sticky;
-			position: sticky;
-			display:inline-block;
-			width: 20%;
-			padding: 10px;
-			border-style : solid;
-        	border-color: rgba(138, 134, 134, 0.199);
-        	top: 0;
+		.d-revw-profile{
+			width: 50px;
+            height: 50px;
+            border-radius: 50%;
 		}
     </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="d-con">
 	<div class="d-trad-liq-info">
 	
 		<div class="d-trad-liq-info-con">
@@ -161,17 +170,21 @@
 		</div>
 		</c:if>
 		<div class="d-trad-liq-column">
-			<div class="d-revws-con">
+		<div class="d-revw-wrapper">
 			<h1>REVIEWS</h1><br>
+			<div class="d-revws-con">
 				<ul class="d-revws">
 				</ul>
 				<div class="d-revw-footer">
 				</div>
 			</div>
-				<div class="d-new-revw-sticky">
+			<div class="d-new-revw-con">
+				<div class="d-revw-count"></div>
 				<h1>리뷰 작성 하기</h1>
+				<button>리뷰</button>
 				
-				</div>
+			</div>	
+		</div>
 		</div>
 		<div class="d-trad-liq-column">
 			
@@ -195,7 +208,7 @@
 			</div>
 		</div>
 	</div>
-
+</div>
 <!-- 리뷰 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>
@@ -207,8 +220,8 @@ $(document).ready(function(){
 	var pageNum = 1;
 	var revwPageFooter =$(".d-revw-footer");
 	showList(1);
-	
 	function showRevwPage(revwCnt){
+	$('.d-revw-count').html("<p>"+revwCnt+"개의 리뷰</p>");
 		var endNum = Math.ceil(pageNum/5.0)*5;
 		var startNum = endNum -4;
 		
@@ -256,15 +269,16 @@ $(document).ready(function(){
 			}
 			var str="";
 			if(list == null || list.length==0){
-				revwUL.html("아직 등록된 리뷰가 없습니다.");
+				$('.d-revw-count').html("<p>0개의 리뷰</p>");
+				revwUL.html("<li class='d-revw-con'>아직 등록된 리뷰가 없습니다.</li>");
 				return;
 			}
 			for(var i=0,len = list.length || 0; i<len; i++){
 				str += "<li class='d-revw-con' data-revwId = '"+list[i].revwId+"'>";
-				str += "<div><div class='header'><img src='/resources/img/"+list[i].member.img+"'>";
+				str += "<div><div class='header'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
 				str += "<strong>"+list[i].member.name+"</strong>";
-				str += "<small>"+list[i].rate+"</small>"
-				str += "<small>"+revwService.displayTime(list[i].regdate)+"</small></div>";
+				str += "<small>"+list[i].rate+"</small>점"
+				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
 				
 				str += "<p>"+list[i].cn+"</p></div></li>"
 			}
@@ -278,7 +292,7 @@ $(document).ready(function(){
 
 <!-- 좋아요 버튼 회원에 따라 페이지로 들어왔을 때 상태 보여줌 --> 
 <script>
-	var memberIdValue = '${member.memberId}' ==''? -1:'${member.memberId}';
+	var memberIdValue = '${memberId}' ==''? -1:'${memberId}';
 	var liqIdValue = ${liq.liqId};
 $(document).ready(function(){
 	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
@@ -317,8 +331,7 @@ $('#like').on({'click': function() {
 		}
 	});
 	}else{
-		alert("로그인");
-		return;
+		window.location.href ='/login';
 	}
 }	
 });

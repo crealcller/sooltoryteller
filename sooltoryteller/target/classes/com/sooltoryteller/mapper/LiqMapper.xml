@@ -43,9 +43,9 @@ select
  and l.liq_id =#{liqId}
 </select>
 
-<select id="getAll" resultMap="LiqVO">
+<select id="getLiqList" resultMap="LiqVO">
 <![CDATA[
-select 
+select/*+index_desc(l liq_pk) index_desc(c liq_co_pk)*/
 l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
 c.nm co_name
 from liq l,liq_co c
@@ -53,11 +53,29 @@ where l.liq_co_id=c.liq_co_id
 and l.liq_id>0
 ]]>
 </select>
-<select id="getAllByKind" resultMap="LiqVO">
+
+<select id="getCountLiqList" resultType="Integer">
 <![CDATA[
-select 
+select count(*)
+from liq l,liq_co c
+where l.liq_co_id=c.liq_co_id
+and l.liq_id>0
+]]>
+</select>
+<select id="getLiqListByKind" resultMap="LiqVO">
+<![CDATA[
+select/*+index_desc(l liq_pk) index_desc(c liq_co_pk)*/
 l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
 c.nm co_name
+from liq l,liq_co c
+where l.liq_co_id=c.liq_co_id
+and l.cate = #{kind}
+and l.liq_id>0
+]]>
+</select>
+<select id="getCountLiqListByKind" resultType="Integer">
+<![CDATA[
+select count(*)
 from liq l,liq_co c
 where l.liq_co_id=c.liq_co_id
 and l.cate = #{kind}

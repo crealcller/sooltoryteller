@@ -17,7 +17,7 @@ public class LiqLikeVO {
     private String memberId;
 
     // 좋아요 
-    private int liqId;
+    private Long liqId;
 
     // 등록일시 
     private Date regdate;

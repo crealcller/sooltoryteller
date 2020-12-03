@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqRevwVO;
+import com.sooltoryteller.domain.MyRevwVO;
 
 public interface LiqRevwMapper {
 

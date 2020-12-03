@@ -12,4 +12,7 @@ public interface LiqLikeMapper {
 	
 	//좋아요 삭제
 	public int delete(@Param("memberId")Long memberId, @Param("liqId") Long liqId);
+	
+	//해당해원의 좋아요 
+	
 }

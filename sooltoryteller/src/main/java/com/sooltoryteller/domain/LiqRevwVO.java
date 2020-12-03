@@ -33,4 +33,5 @@ public class LiqRevwVO {
     private Date updatedate;
     
     private MemberVO member;
+    
 }
