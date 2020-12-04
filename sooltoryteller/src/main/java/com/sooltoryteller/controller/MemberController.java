@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.MemberVO;
+import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -34,6 +35,8 @@ import lombok.extern.log4j.Log4j;
 public class MemberController {
 
 	private MemberService service;
+	private MemberFavDrkService favDrkService;
+	
 	//로그인 view
 	@GetMapping("/login")
 	public void login() {
@@ -83,14 +86,24 @@ public class MemberController {
 	@GetMapping("/join")
 	public void join() {	}
 
-	// 회원가입 아이디 중복체크(보류)
-		@RequestMapping(value = "/overlapCheck", method = RequestMethod.POST)
+	// 회원가입 아이디 중복체크
+		@RequestMapping(value = "/idOverlapCheck", method = RequestMethod.POST)
 		@ResponseBody
-		public  int overlapCheck(String email ) {
+		public  int idOverlapCheck(String email ) {
 			int cnt = service.checkEmail(email);
 			return cnt;
 			
 		}
+		
+	//회원가입 닉네임 중복체크
+		@RequestMapping(value = "/nOverlapCheck", method = RequestMethod.POST)
+		@ResponseBody
+		public  int nOverlapCheck(String name) {
+			int cnt = service.checkName(name);
+			return cnt;
+			
+		}
+		
 		
 	//회원가입
 	@PostMapping("/join")
@@ -103,14 +116,23 @@ public class MemberController {
 			model.addAttribute("msg", "회원가입 실패");
 			return "/join";
 		}
+		//선호하는 술 체크 배열로 받아오기
+		String[] arr = request.getParameterValues("drink");
+		
+			//회원가입이 성공했다면
+		if(service.join(member)) {
+			//회원아이디를 가져와서 선호하는 술 등록
+			Long memberId = service.getMemberId(member.getEmail());
+			favDrkService.registerFavDrk(memberId, arr);
 			
-		service.join(member);
+			//세션에 회원 닉네임, 이메일 저장 ->로그인상태로
+			HttpSession session = request.getSession();
+			session.setAttribute("name", member.getName());
+			session.setAttribute("email", member.getEmail());
+			return "redirect:/userInfo";
+		}
 		
-		HttpSession session = request.getSession();
-		session.setAttribute("name", member.getName());
-		session.setAttribute("email", member.getEmail());
-		
-		return "redirect:/userInfo";
+		return "/join";
 		
 	}
 	

@@ -6,7 +6,7 @@ import com.sooltoryteller.domain.MemberFavDrkVO;
 
 public interface MemberFavDrkService {
 	//선호하는 술 등록
-	public void registerFavDrk(Long memberId, int[] drink);
+	public void registerFavDrk(Long memberId, String[] arr);
 
 	//선호하는 술 가져오기(회원정보수정)
 	public List<Integer> getFavDrk(Long memberId);

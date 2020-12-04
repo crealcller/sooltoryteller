@@ -23,22 +23,5 @@
 	
 	<context:component-scan base-package="com.sooltoryteller.controller" />
 	
-	<!-- 스프링책에서 가져온 첨부파일 부분 -->
-	<!-- <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean> -->
-	
-	<!-- 업로드 패스 설정 --> 
-	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="D:\sw\sts\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\sooltoryteller\resources" />
-	</beans:bean>
-	
-	<!-- 일반 파일 업로드 경로 -->
-	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
-	
-	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-		<beans:property name="maxUploadSize" value="10485760"/>
-	</beans:bean>
-	
-	<!-- 대체 이미지 경로 -->
-	<resources mapping="/images/**" location="/resources/img/" />
 	
 </beans:beans>

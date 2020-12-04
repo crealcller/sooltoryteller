@@ -19,8 +19,8 @@ public class MemberFavDrkServiceTests {
 	
 //	@Test
 	public void testRegisterFavDrk() {
-		int[] drink = {1,3};
-		service.registerFavDrk(26L, drink);
+		String[] arr = {"1", "3"};
+		service.registerFavDrk(26L, arr);
 		
 	}
 	
@@ -29,7 +29,7 @@ public class MemberFavDrkServiceTests {
 		log.info(service.getFavDrk(26L));
 	}
 	
-	@Test
+//	@Test
 	public void testModifyFavDrk() {
 		int[] drink = {2,6};
 		service.modifyFavDrk(26L, drink);
