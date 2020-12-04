@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqRevwVO;
+import com.sooltoryteller.domain.MyRevwVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -23,6 +24,12 @@ public class LiqRevwMapperTests {
 	private LiqRevwMapper mapper;
 	
 	@Test
+	public void testGetMyListWithPaging() {
+		Criteria cri = new Criteria(2,5);
+		List<MyRevwVO> revws = mapper.getMyListWithPaging(4L, cri);
+		revws.forEach(revw -> log.info(revw));
+	}
+	
 	public void testGetListWithPaging() {
 		Criteria cri = new Criteria(2,5);
 		List<LiqRevwVO> revws = mapper.getListWithPaging(1L, cri);

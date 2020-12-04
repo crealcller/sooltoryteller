@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sooltoryteller.domain.LiqRevwVO;
+import com.sooltoryteller.domain.Criteria;
+import com.sooltoryteller.domain.MyLikePageDTO;
 import com.sooltoryteller.service.LiqLikeService;
 
 import lombok.AllArgsConstructor;
@@ -64,6 +63,22 @@ public class LiqLikeController {
 				new ResponseEntity<>("success",HttpStatus.OK)
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
+	}
+	//페이지와 함께 해당회원이  좋아요한 리스트 가져오기
+	@GetMapping(value="/my/pages/{memberId}/{page}",
+			produces= {
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE
+			})
+	public ResponseEntity<MyLikePageDTO> getMyList(
+			@PathVariable("page") int page,
+			@PathVariable("memberId") Long memberId){
+		
+		Criteria cri = new Criteria(page,3);
+		log.info("get my like list memberId:" +memberId);
+		log.info("cri: "+cri);
+		
+		return new ResponseEntity<>(service.getMyListWithPaging(memberId, cri), HttpStatus.OK);
 	}
 	
 	

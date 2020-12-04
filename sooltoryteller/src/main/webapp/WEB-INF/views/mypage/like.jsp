@@ -9,10 +9,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/mypage.css">
+<style>
+.d-my-revw-footer{
+	width:500px;
+	height:100px;
+	border-style:solid;
+	}
+</style>
 </head>
 <body>
-
-    <div class="d-mypage-wrapper">
+<div class="d-mypage-wrapper">
         <div class="d-mypage-left">
              <div class="d-mypage-profile-con">
                 <img class="d-mypage-profile" src='/resources/img/<c:out value="${member.img}" />'>
@@ -22,29 +28,87 @@
             </div>
         </div>
         <div class="d-mypage-right">
-        
-        <!-- 현수 추가 -->
-        <button type = "button" onclick="location.href='/mypage/changeuserinfo'">회원정보수정</button>
-		<button type = "button" onclick="location.href='/mypage/changepwd'">비밀번호 변경</button>
-		
         <p><a href="/mypage/like">like</a></p><p><a href="/mypage/revw">revw</a></p>
         <div class="d-con">
-		<c:forEach items="${myLikeList}" var="myLikeList">
-		<div class="d-liq-con" OnClick="location.href ='/trad-liq?liqId=<c:out value="${myLikeList.liqId}" />'" style="cursor:pointer;">
-		<img class="d-img-con" src='/resources/img/<c:out value="${myLikeList.img}" />'>
-		<div class="d-text-con">
-		<h3><c:out value="${myLikeList.nm}"/></h3>
-		가격 : \<fmt:formatNumber type="number" maxFractionDigits="3" value="${myLikeList.prc}" /><br>
-		도수 : <c:out value="${myLikeList.lv}"/>%<br>
-		원재료 : <c:out value="${myLikeList.capct}"/>ml<br>
 		</div>
-		</div>
-		</c:forEach>
+		<div class="d-my-revw-footer">
 		</div>
 		</div>
     </div>
     <div class="d-mypage-footer">
         <h1>footer</h1>
     </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/like.js"></script>
+<script>
+$(document).ready(function(){
+	var memberIdValue = '<c:out value="${member.memberId}"/>'
+	var dCon = $(".d-con");
+	var pageNum = 1;
+	var myRevwFooter = $(".d-my-revw-footer");
+	showMyList(1);
+	function showMyLikePage(myLikeCnt){
+		console.log(myLikeCnt);
+		var endNum = Math.ceil(pageNum/3.0)*3;
+		var startNum = endNum -2;
+		
+		var prev = startNum != 1;
+		var next = false;
+		
+		if(endNum*3>=myLikeCnt){
+			endNum = Math.ceil(myLikeCnt/3.0);
+		}
+		if(endNum*3<myLikeCnt){
+			next =true;
+		}
+		var str = "<ul>";
+		
+		if(prev){
+			str += "<li><a href='" + (startNum - 1)+ "'>Previous</a></li>";
+		}
+		for(var i=startNum; i <=endNum; i++){
+			var active = pageNum == i? "active":"";
+			str+="<li><a href="+i+">"+i+"</a></li>";
+		}
+		if(next){
+			str+="<li><a href='"+ (endNum + 1)+"'>Next</a></li>";
+		}
+		
+		str += "</ul>";
+		myRevwFooter.html(str);
+		
+			
+	}
+	myRevwFooter.on("click","li a",function(e){
+		e.preventDefault();
+		var targetPageNum =$(this).attr("href");
+		pageNum = targetPageNum;
+		showMyList(pageNum);
+	
+	});
+	
+	function showMyList(page){
+		likeService.getMyList({memberId:memberIdValue,page: page||1},function(myLikeCnt,myList){
+			if(page == -1){
+				pageNum = Math.ceil(myLikeCnt/3.0);
+				showMyList(pageNum);
+				return;
+			}
+			var str="";
+			if(myList == null || myList.length==0){
+				return;
+			}
+			for(var i=0,len = myList.length || 0; i<len; i++){
+				str += "<li class='d-revw-con' data-liqId = '"+myList[i].liqId+"'>";
+				str += "<p>"+myList[i].nm+"</p>"
+				str += "<p>"+myList[i].lv+"%</p></li>"
+				
+			}
+			dCon.html(str);
+			showMyLikePage(myLikeCnt);
+		})
+	}
+});
+</script>
 </body>
 </html>

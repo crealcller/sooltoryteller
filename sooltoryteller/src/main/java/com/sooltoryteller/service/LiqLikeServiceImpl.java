@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sooltoryteller.domain.Criteria;
+import com.sooltoryteller.domain.MyLikePageDTO;
 import com.sooltoryteller.mapper.LiqLikeMapper;
 
 import lombok.AllArgsConstructor;
@@ -34,6 +36,12 @@ public class LiqLikeServiceImpl implements LiqLikeService{
 	public boolean cancelLike(Long memberId, Long liqId) {
 		log.info("cancel like");
 		return mapper.delete(memberId, liqId) == 1;
+	}
+
+	@Override
+	public MyLikePageDTO getMyListWithPaging(Long memberId, Criteria cri) {
+		log.info("get my list with paging");
+		return new MyLikePageDTO(mapper.getCountMemberId(memberId),mapper.getMyListWithPaging(memberId, cri));
 	}
 
 

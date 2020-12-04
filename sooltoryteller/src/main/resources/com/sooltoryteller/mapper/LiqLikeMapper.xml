@@ -20,4 +20,25 @@ where member_id =#{memberId}
 and liq_id=#{liqId}
 </delete>
 
+<select id="getMyListWithPaging" resultType="com.sooltoryteller.domain.MyLikeVO">
+	<![CDATA[
+	select lk.liq_id, lk.nm,lk.prc,lk.cate,lk.capct,lk.lv, lk.irdnt,lk.img,
+	lk.liq_like_id    
+ 	from(select /*+index_desc(k liq_like_pk)*/ 
+	rownum rn,l.liq_id, l.nm,l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
+	k.liq_like_id
+	from liq l,liq_like k
+	where l.liq_id = k.liq_id
+	and k.member_id=#{memberId}
+    and rownum <=#{cri.pageNum}*#{cri.amount}
+    )lk where rn > (#{cri.pageNum} -1)*#{cri.amount}
+    ]]>
+	</select>
+	
+	<select id="getCountMemberId" resultType="int">
+		<![CDATA[
+		select count(liq_like_id) from liq_like 
+		where member_id = #{memberId}
+		]]>
+	</select>
 </mapper>

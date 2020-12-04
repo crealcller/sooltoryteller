@@ -110,13 +110,30 @@ var revwService=(function(){
 		}
 	}
 	
+	function getMyList(param, callback, error){
+		var memberId = param.memberId;
+		var page = param.page || 1;
+		$.getJSON("/revws/my/pages/"+memberId+"/"+page+".json",
+				function(data){
+					if(callback){
+						callback(data.myRevwCnt,data.myList);
+					}
+		}).fail(function(xhr,status,er){
+			if(error){
+				error();
+			}
+		});
+	}
+	
+	
 	return {
 		add:add,
 		getList : getList,
 		remove : remove,
 		update : update,
 		get : get,
-		displayTime:displayTime
+		displayTime:displayTime,
+		getMyList:getMyList
 	};
 })();
 
