@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqRevwPageDTO;
 import com.sooltoryteller.domain.LiqRevwVO;
+import com.sooltoryteller.domain.MyRevwPageDTO;
 import com.sooltoryteller.mapper.LiqRevwMapper;
 
 import lombok.AllArgsConstructor;
@@ -53,8 +54,15 @@ public class LiqRevwServiceImpl implements LiqRevwService {
 	}
 
 	@Override
-	public LiqRevwPageDTO getListPage(Long liqId, Criteria cri) {
+	public LiqRevwPageDTO getListWtihPaging(Long liqId, Criteria cri) {
+		log.info("get list with paging");
 		return new LiqRevwPageDTO(mapper.getCountByLiqId(liqId),mapper.getListWithPaging(liqId, cri));
+	}
+
+	@Override
+	public MyRevwPageDTO getMyListWithPaging(Long memberId, Criteria cri) {
+		log.info("get my list with paging");
+		return new MyRevwPageDTO(mapper.getCountByMemberId(memberId),mapper.getMyListWithPaging(memberId, cri));
 	}
 
 }

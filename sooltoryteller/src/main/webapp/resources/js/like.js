@@ -54,10 +54,26 @@ var likeService=(function(){
 			}
 		});
 	}
+	
+	function getMyList(param, callback, error){
+		var memberId = param.memberId;
+		var page = param.page || 1;
+		$.getJSON("/like/my/pages/"+memberId+"/"+page+".json",
+				function(data){
+					if(callback){
+						callback(data.myLikeCnt,data.myList);
+					}
+		}).fail(function(xhr,status,er){
+			if(error){
+				error();
+			}
+		});
+	}
 	return {
 		checkLike:checkLike,
 		like:like,
-		cancelLike:cancelLike
+		cancelLike:cancelLike,
+		getMyList:getMyList
 		
 	};
 })();

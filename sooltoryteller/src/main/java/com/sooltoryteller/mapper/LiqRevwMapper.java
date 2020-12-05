@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqRevwVO;
+import com.sooltoryteller.domain.MyLikeVO;
 import com.sooltoryteller.domain.MyRevwVO;
 
 public interface LiqRevwMapper {
@@ -29,4 +30,14 @@ public interface LiqRevwMapper {
 	
 	//리뷰 총 개수
 	public int getCountByLiqId(Long liqId);
+	
+	//해당회원이 작성한리뷰
+	public List<MyRevwVO> getMyListWithPaging(
+						@Param("memberId") Long memberId,
+						@Param("cri") Criteria cri);
+	
+	//해당회원이 작성한 리뷰 총 개수
+	public int getCountByMemberId(Long memberId);
+	
+	
 }

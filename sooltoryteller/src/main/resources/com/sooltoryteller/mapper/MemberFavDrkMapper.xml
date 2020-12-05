@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values (fav_drk_id.nextval, #{memberId}, #{drkCdId})
 </insert>
 
-<!-- 회원의 선호하는 술 목록 가져오기 -->
+<!-- 회원의 선호하는 술 목록(id) 가져오기 -->
 <select id ="get" resultType="Integer">
 	select drk_cd_id
 	from member_fav_drk

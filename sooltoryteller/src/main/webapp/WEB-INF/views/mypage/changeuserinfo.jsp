@@ -33,16 +33,16 @@
         <form action ="/mypage/changeuserinfo" method="post" onsubmit="return validate()">
         <div class="h-photo"><img src=${member.img }></div>
         <p><input type="file" class="h-addfile"></p>
-	    <p>이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
-	    <p>닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/> "></p>
-	    <p>핸드폰번호 : <input type = "text" name="telno" id="telno" value="<c:out value='${member.telno }'/>"></p>
+	    <p style='margin:10px;'>이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
+	    <p style='margin:10px;'>닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/> "></p>
+	    <p style='margin:10px;'>핸드폰번호 : <input type = "text" name="telno" id="telno" value="<c:out value='${member.telno }'/>"></p>
 	    
-	    <div class="h-fav-drink">
+	 <!--    <div class="h-fav-drink">
       <h5 style="margin:5px; text-align: left;">선호하는 주종(2가지 선택)</h5>
   	   <p><input type="checkbox" class="h-drink">소주<input type="checkbox" class="h-drink">맥주<input type="checkbox" class="h-drink">막걸리<input type="checkbox" class="h-drink">칵테일 </p>
-   	   <p><input type="checkbox" class="h-drink">보드카<input type="checkbox" class="h-drink">양주<input type="checkbox" class="h-drink">와인<input type="checkbox" class="h-drink">기타 </p>
+   	   <p><input type="checkbox" class="h-drink">보드카<input type="checkbox" class="h-drink">양주<input type="checkbox" class="h-drink">와인<input type="checkbox" class="h-drink">기타 </p> -->
 	   <p><button type="submit" class="h-modibtn">회원수정</button>	<button type="button" id="withdrawal" class="h-modibtn">회원탈퇴</button></p>
-    </div>
+    <!-- </div> -->
 	</form> 
     </div>
     </div>

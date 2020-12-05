@@ -19,10 +19,18 @@ public class MemberFavDrkServiceImpl implements MemberFavDrkService{
 	
 	
 	@Override
-	public void registerFavDrk(Long memberId, int[] drink) {
+	public void registerFavDrk(Long memberId, String[] arr) {
 		
 		MemberFavDrkVO memberFavDrk = new MemberFavDrkVO();
 		memberFavDrk.setMemberId(memberId);
+		
+		
+		int[] drink = new int[arr.length];
+		
+		for(int i=0;i<arr.length; i++){ 
+			drink[i] = Integer.parseInt(arr[i]);
+			
+			}
 		
 		if(drink != null) {
 			for(int i=0; i<drink.length; i++) {
@@ -48,9 +56,8 @@ public class MemberFavDrkServiceImpl implements MemberFavDrkService{
 				memberFavDrk.setFavDrkId(result.get(i));
 				memberFavDrk.setDrkCdId(drink[i]);
 				mapper.updateFavDrk(memberFavDrk);
-				
-				return true;
 			}//for end
+			return true;
 		}//if end
 		return false;
 	}

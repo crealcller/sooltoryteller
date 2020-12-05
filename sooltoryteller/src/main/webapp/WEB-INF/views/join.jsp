@@ -26,8 +26,9 @@ if(msg != ""){
     
     <form action="/join" method="POST" onsubmit="return validate()">
     <p class='h-join-p' style="margin-left:50px;">이메일 &nbsp<input type="email" id="email" name="email" value="<c:out value='${member.email }'/>">
-    <button type="button" id="checkId" class="overlapCheck">중복확인</button></p>
-    <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" value="<c:out value='${member.name }'/>"></p>
+    <button type="button" id="h-checkId" class="id-overlapCheck">중복확인</button></p>
+    <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" value="<c:out value='${member.name }'/>">
+    <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p></p>
     <p class='h-join-p' style="margin-left:35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd" value="<c:out value='${member.pwd }'/>"></p>
     <p class='h-join-p'>비밀번호 확인 &nbsp<input type="password" id="rePwd" onblur="checkPwd()"></p>
      <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="repwdMsg">비밀번호를 한 번 더 입력해주세요</p>
@@ -35,15 +36,15 @@ if(msg != ""){
     
     <div class="h-fav-drink">
       <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
-    <p class='h-join-p'><input type="checkbox" class="h-drink" name='drink' value='1'>소주
-  							    <input type="checkbox" class="h-drink" name='drink' value='2'>맥주
-    						    <input type="checkbox" class="h-drink" name='drink' value='3'>막걸리
-    							<input type="checkbox" class="h-drink" name='drink' value='4'>칵테일 </p>
+    <p class='h-join-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='1'>소주
+  							    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='2'>맥주
+    						    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='3'>막걸리
+    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='4'>칵테일 </p>
     
-    <p class='h-join-p'><input type="checkbox" class="h-drink" name="drink" value='5'>보드카
-   							    <input type="checkbox" class="h-drink" name='drink' value='6'>양주
-    							<input type="checkbox" class="h-drink" name='drink' value='7'>와인
-    							<input type="checkbox" class="h-drink" name='drink' value='8'>기타 </p>
+    <p class='h-join-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name="drink" value='5'>보드카
+   							    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='6'>양주
+    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='7'>와인
+    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8'>기타 </p>
     							
     <p class='h-join-p' style="text-align: center; margin:0;"><button style="margin: 0" type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
     <button type="button" class="join-btn" >취소</button></p>
@@ -66,7 +67,7 @@ if(msg != ""){
 	//아이디 중복체크 확인
     $(function(){
 		
-		$(".overlapCheck").click(function(){
+		$(".id-overlapCheck").click(function(){
 			
 			let btn = document.getElementById("reg");
 			let email = $("#email").val();
@@ -86,7 +87,7 @@ if(msg != ""){
 			 $.ajax({
 				type : 'post',
 				data : {'email' : email},
-				url : "/overlapCheck",
+				url : "/idOverlapCheck",
 				dataType: "json",
 				success : function(data){
 					if(email != ""){
@@ -105,6 +106,38 @@ if(msg != ""){
 	}) 
 	})
     }) //아이디중복체크 end
+    
+  //닉네임 중복체크
+  $(function(){
+		$(".n-overlapCheck").click(function(){
+			
+			let btn = document.getElementById("reg");
+			let name = $("#name").val();
+			
+			$.ajax({
+				type : 'post',
+				data : {'name' : name},
+				url : "/nOverlapCheck",
+				dataType: "json",
+				success : function(data){
+					if(name != ""){
+							if(data>0){
+								alert("중복된 닉네임이 존재합니다.");
+					    	   	btn.disabled = "disabled";
+						
+							}else{
+								if(jName.test(name)){
+									alert("사용 가능한 닉네임입니다.");
+								    btn.disabled = false;
+									}
+						    }
+					  } 
+				}	
+	}) 
+	})
+    }) //닉네임 중복체크 end
+  
+    
     
   //비밀번호와 비밀번호 확인이 일치하는지 확인
     function checkPwd(){
@@ -202,6 +235,27 @@ if(msg != ""){
     		return false;
     	} 
     }
+    } //validate end
+    
+    
+    //선호하는 술 종류 2가지만 선택
+	const maxCount = 2;
+    let count = 0;
+    
+    function checkedCnt(drink){
+    	if(drink.checked){
+    		++count;
+    	}else{
+    		--count;
+    	}
+    	
+    	if(count > maxCount){
+    		alert("선호하는 주종은 2가지만 가능합니다.");
+    		drink.checked = false;
+    		--count;
+    	}
+    }
+    
   </script>
   
 </body>

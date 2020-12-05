@@ -16,7 +16,12 @@
                 }
             }
             %>
-
+<script>
+let emailMsg ='${emailMsg}';
+if(emailMsg != ""){
+	alert(emailMsg);
+}
+</script>
 <body>
 
  <div class="h-body">
@@ -31,7 +36,7 @@
     <p class="h-login-p" style="margin-left: 35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd"></p>
     <p  class="h-login-p"style="color:red">${msg }</p>
     <p style="text-align: center;"><input type="checkbox" name = "save"<%=cookieVal!=""?"checked" : ""%>>이메일 저장 ㅣ
-    <a href="#">비밀번호 찾기</a></p>
+    <a id="h-findPwd-btn">비밀번호 찾기</a></p>
     <p class="h-login-p" style="text-align: center;"><input type="submit" class="login-btn" value="로그인">
     <input type="button" class="login-btn" id="regbtn" value="회원가입"></p>
     <p class="h-login-p" style="text-align: center;"><a href="#" ><img src="/resources/img/kakao_login.png" class="snslogin"></a></p>
@@ -43,5 +48,50 @@
 
 </div>
   </div>
+  
+    <!-- The Modal -->
+<div id="h-myModal" class="h-modal">
+
+  <form action="/findPwd" method="POST">
+  <!-- Modal content -->
+  <div class="h-modal-content">
+    <div class="h-modal-top">
+      <div class="h-modal-topleft">비밀번호 찾기
+
+      </div><div class="h-modal-topright"><a class="h-close">&times;</a></div>
+
+    </div> <!-- modal top -->
+    <div class="h-modal-bottom">
+      <p style="margin-bottom: 20px;">이메일 &nbsp<input type ='email' name='email'></p>
+      <p><button type="submit" class="h-btn" id="h-sendbtn">이메일 전송</button> </p>
+      
+    </div>
+  
+  </div>
+  </form>
+</div>
+
+<script>
+ 
+  let modal = document.getElementById("h-myModal");
+  let findPwdBtn = document.getElementById("h-findPwd-btn");
+  let close = document.getElementsByClassName("h-close")[0];
+
+  //비밀번호 찾기 버튼 클릭시 모달창 뜸
+  findPwdBtn.onclick = function() {
+    modal.style.display = "block";
+  }
+  
+  //닫기 버튼
+    close.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>
 </body>
 </html>

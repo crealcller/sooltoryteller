@@ -80,15 +80,15 @@
         	margin : 40px; 
         }
         
-        .d-revw-footer {
+        .d-paging {
          	float : right;
         }
-        .d-revw-footer ul{
+        .d-paging ul{
          	list-style:none;
         }
-		.d-revw-footer li{
+		.d-paging li{
 			float : left;
-			margin : 10px; 
+			margin : 0; 
 		}
 		.d-new-revw-con{
 			float:left;
@@ -105,6 +105,26 @@
             height: 50px;
             border-radius: 50%;
 		}
+		.d-paging-btn-active{
+			text-align: center;
+			width:25px;	
+			height:25px;
+			background-color:rgb(181, 135, 189);
+			border-radius: 50%;
+			margin:10px;
+			
+		}
+		.d-paging-btn-active a{
+			color:white;
+		}
+		.d-paging-btn-none{
+			text-align: center;
+			width:25px;	
+			height:25px;
+			border-radius: 50%;
+			margin:10px;	
+		}
+	
     </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -175,7 +195,7 @@
 			<div class="d-revws-con">
 				<ul class="d-revws">
 				</ul>
-				<div class="d-revw-footer">
+				<div class="d-paging">
 				</div>
 			</div>
 			<div class="d-new-revw-con">
@@ -218,7 +238,7 @@ $(document).ready(function(){
 	var liqIdValue = '<c:out value="${liq.liqId}"/>'
 	var revwUL = $(".d-revws");
 	var pageNum = 1;
-	var revwPageFooter =$(".d-revw-footer");
+	var revwPageFooter =$(".d-paging");
 	showList(1);
 	function showRevwPage(revwCnt){
 	$('.d-revw-count').html("<p>"+revwCnt+"개의 리뷰</p>");
@@ -237,14 +257,14 @@ $(document).ready(function(){
 		var str = "<ul>";
 		
 		if(prev){
-			str += "<li><a href='" + (startNum - 1)+ "'>Previous</a></li>";
+			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'><</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
-			var active = pageNum == i? "active":"";
-			str+="<li><a href="+i+">"+i+"</a></li>";
+			var active = pageNum == i? "active":"none";
+			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
-			str+="<li><a href='"+ (endNum + 1)+"'>Next</a></li>";
+			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>></a></li>";
 		}
 		
 		str += "</ul>";
@@ -279,7 +299,6 @@ $(document).ready(function(){
 				str += "<strong>"+list[i].member.name+"</strong>";
 				str += "<small>"+list[i].rate+"</small>점"
 				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
-				
 				str += "<p>"+list[i].cn+"</p></div></li>"
 			}
 			revwUL.html(str);
