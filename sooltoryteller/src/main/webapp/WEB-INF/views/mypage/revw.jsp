@@ -97,14 +97,14 @@ $(document).ready(function(){
 		var str = "<ul>";
 		
 		if(prev){
-			str += "<li><a href='" + (startNum - 1)+ "'>Previous</a></li>";
+			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'><</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
 			var active = pageNum == i? "active":"";
-			str+="<li><a href="+i+">"+i+"</a></li>";
+			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
-			str+="<li><a href='"+ (endNum + 1)+"'>Next</a></li>";
+			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>></a></li>";
 		}
 		
 		str += "</ul>";

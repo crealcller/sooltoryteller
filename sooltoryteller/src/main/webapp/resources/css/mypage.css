@@ -81,8 +81,6 @@
 }  
 
 .d-paging {
-	width:200px;
-	height:50px;
 	float: right;
 	
 }
@@ -93,6 +91,27 @@
 
 .d-paging li {
 	float: left;
+	margin: 0;
+}
+
+.d-paging-btn-active {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	background-color: rgb(181, 135, 189);
+	border-radius: 50%;
+	margin: 10px;
+}
+
+.d-paging-btn-active a {
+	color: white;
+}
+
+.d-paging-btn-none {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
 	margin: 10px;
 }
 
