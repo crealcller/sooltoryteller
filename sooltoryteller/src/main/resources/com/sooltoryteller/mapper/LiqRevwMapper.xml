@@ -57,8 +57,8 @@
 		rownum rn, r.liq_id,r.revw_id, r.cn, r.rate, r.regdate, m.img member_img, m.name member_name
 		from liq_revw r, member m
         where liq_id = #{liqId}
-		and revw_id>0
 		and r.member_id=m.member_id
+		and revw_id>0
 		and rownum <=#{cri.pageNum}*#{cri.amount}
 		)rv where rn > (#{cri.pageNum} -1)*#{cri.amount}
 		]]>

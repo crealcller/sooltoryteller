@@ -80,13 +80,13 @@
         	margin : 40px; 
         }
         
-        .d-revw-footer {
+        .d-paging {
          	float : right;
         }
-        .d-revw-footer ul{
+        .d-paging ul{
          	list-style:none;
         }
-		.d-revw-footer li{
+		.d-paging li{
 			float : left;
 			margin : 10px; 
 		}
@@ -175,7 +175,7 @@
 			<div class="d-revws-con">
 				<ul class="d-revws">
 				</ul>
-				<div class="d-revw-footer">
+				<div class="d-paging">
 				</div>
 			</div>
 			<div class="d-new-revw-con">
@@ -218,7 +218,7 @@ $(document).ready(function(){
 	var liqIdValue = '<c:out value="${liq.liqId}"/>'
 	var revwUL = $(".d-revws");
 	var pageNum = 1;
-	var revwPageFooter =$(".d-revw-footer");
+	var revwPageFooter =$(".d-paging");
 	showList(1);
 	function showRevwPage(revwCnt){
 	$('.d-revw-count').html("<p>"+revwCnt+"개의 리뷰</p>");

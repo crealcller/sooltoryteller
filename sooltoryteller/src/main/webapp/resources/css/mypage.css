@@ -1,29 +1,26 @@
 @charset "UTF-8";
 
-
 .d-mypage-wrapper {
-	width: 1200px;
-	height: 700px;
+	width: 1210px;
+	height: 900px;
 	margin: auto;
 	margin-top: 100px;
 	margin-bottom: 100px;
-	border:0;
 }
 
 .d-mypage-left {
-	float:left;
-	width: 330px;
-	height: 700px;
+    float: left;
+	width: 350px;
+	height: 900px;
 	border-style: solid;
-	border-color:rgb(151, 151, 151);
 	display:inline-block;
 }
 .d-mypage-right {
-	float:left;
-	width: 870px;
-	height: 700px;
+    float: left;
+	width: 850px;
+	height: 900px;
 	border-style: solid;
-	border-color:rgb(151, 151, 151);
+    border-left-style:none ;
 	display:inline-block;
 }
 
@@ -31,46 +28,75 @@
 	height: 200px;
 	background-color: rgba(196, 150, 204, 0.562);
 }
-
+.d-left-con{
+    width: 350px;
+	height:850px;
+    margin:auto;
+}
 .d-mypage-profile-con {
 	text-align: center;
-	margin-top: 100px;
+	margin:auto;
+    margin-top: 50px;
+    width: 300px;
+	height: 300px;
+    border-style: solid;
 }
-
 .d-mypage-profile {
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
-	margin: 0;
+	margin-top:20px;
 }
 
 .d-mypage-info {
-	width: 220px;
+	width: 270px;
 	height: 150px;
-	border-style: solid;
-	border-color:rgb(151, 151, 151);
-	margin: 0 auto;
+	margin: auto;
+    font-size: 20px;
 }
-.d-con{
-	margin:auto;
-	width:500px;
+
+.d-mypage-menu-con{
+    width: 200px;
+    border-bottom-style: solid;
+    border-bottom-color:rgb(170, 168, 168) ;
+    margin: auto;
+    padding: 20px;
+    list-style: none;
+   
 }
-.d-liq-con{
-	width : 500px;
-	height:150px;
-	box-shadow: 5px 5px 5px 5px rgba(196, 150, 204, 0.562);
-	margin-top : 50px;
+.d-mypage-menu{
+    width: 200px;
+    margin:auto;
+    padding: 0;
+    list-style: none;
 }
-.d-img-con{
-	float:left;
-	width : 100px;
-	height : 150px;
-	display :inline-block;
-	margin:0;
+
+.d-mypage-ref{
+   font-size: 20px;
+   font-weight: 700;
+   padding-bottom: 20px;
+}    
+.d-mypage-li{
+    padding-bottom: 10px;
+}  
+
+.d-paging {
+	width:200px;
+	height:50px;
+	float: right;
+	
 }
-.d-text-con{
-	float:left;
-	display :inline-block;
-	width:400px;
-	padding:20px;
+
+.d-paging ul {
+	list-style: none;
+}
+
+.d-paging li {
+	float: left;
+	margin: 10px;
+}
+
+.d-my-revw-img{
+	width:60px;
+	height:100px;
 }
