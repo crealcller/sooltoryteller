@@ -55,6 +55,14 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	and regstus = 'JN'
 </select>
 
+<!-- 닉네임 중복확인 탈퇴회원은 제외-->
+<select id="getName" resultType="int">
+	select count(*)
+	from member
+	where name = #{name}
+	and regstus = 'JN'
+</select>
+
 <!-- 회원정보 수정(닉네임, 전화번호, 프로필사진) 0-->
 <update id="updateInfo">
 	update member

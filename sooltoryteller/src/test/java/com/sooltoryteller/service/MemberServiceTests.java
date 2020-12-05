@@ -28,16 +28,16 @@ public class MemberServiceTests {
 		assertNotNull(service);
 	}
 	
-//	@Test
+	@Test
 	public void testJoin() {
 		
 		MemberVO member = new MemberVO();
-		member.setEmail("gustn@gustn.com");
-		member.setName("gustn");
+		member.setEmail("tititi@tititi.com");
+		member.setName("샤샤샤");
 		member.setPwd("0720");
 		member.setTelno("01063517402");
 		
-		service.join(member);
+		System.out.println("회원가입!! : "+service.join(member));
 	}
 	
 //	@Test
@@ -89,7 +89,7 @@ public class MemberServiceTests {
 		log.info(service.modifyPwd("gustn@gustn.com", "7777"));
 	}
 	
-	@Test
+//	@Test
 	public void testGetMemberId() {
 		log.info(service.getMemberId("aaa@aaa.com"));
 		

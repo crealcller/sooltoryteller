@@ -1,6 +1,7 @@
 package com.sooltoryteller.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,20 @@ public class MemberServiceImpl implements MemberService{
 	private MemberMapper mapper;
 	
 	@Override
-	public void join(MemberVO member) {
+	public boolean join(MemberVO member) {
+		int result = 0;
 		
-		if(member != null)
-		log.info("register...");
-		mapper.insert(member);
+		if(member != null) {
+			//중복된 이메일이 있다면
+			if(checkEmail(member.getEmail()) >=1) {
+				return false;
+			}
+			
+		result = mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));
+		
+	}
+		return result == 1;
 	}
 
 	@Override
@@ -79,7 +88,20 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String getPwd(String email) {
 		
-		return mapper.getPwd(email);
+		String pwd = "";
+		String tmpPwd = "";
+
+		if(email != null) {
+			pwd = mapper.getPwd(email);
+		}
+		//현재비밀번호를 꺼내왔다면 임시비밀번호를 발급
+		if(pwd != null) {
+			tmpPwd = UUID.randomUUID().toString().replace("-", "");
+			tmpPwd = tmpPwd.substring(0,12);
+			System.out.println(tmpPwd);
+		}
+		
+		return tmpPwd;
 	}
 
 	@Override
@@ -96,5 +118,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Long getMemberId(String email) {
 		return mapper.getMemberId(email);
+	}
+
+	@Override
+	public int checkName(String name) {
+		
+		return mapper.getName(name);
 	}
 }
