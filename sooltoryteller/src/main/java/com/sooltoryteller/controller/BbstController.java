@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,35 +39,40 @@ public class BbstController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
+	// 전체 게시글 조회
 	@GetMapping("/list")
 	public void getBbstList(HttpSession session, BbstCriteria cri, Model model) {
-		String email = (String)session.getAttribute("email");
 
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
-		
-		log.info("bbstList: " + cri);
+
+		log.info("BBSTLIST: " + cri);
 		model.addAttribute("bbstList", service.getBbstList(cri));
-		model.addAttribute("pageMaker", new BbstPageDTO(cri, 123));
-		
+
+		int total = service.getBbstTotal(cri);
+		log.info("TOTAL: " + total);
+		model.addAttribute("pageMaker", new BbstPageDTO(cri, total));
 	}
 
+	// 게시글 등록
 	@GetMapping("/register")
 	public void register(HttpSession session, BbstVO bbst, Model model) {
-		String email = (String)session.getAttribute("email");
 
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
 	}
 
 	@PostMapping("/register")
-	/* @RequestMapping(value="/register", method=RequestMethod.POST) */
-	public String register(HttpSession session, BbstMemberJoinVO bbst, MultipartFile file, RedirectAttributes rttr)
-		throws Exception {
+	public String register(HttpSession session, BbstMemberJoinVO bbst,
+	MultipartFile file, RedirectAttributes rttr) throws Exception {
+
 		// 회원ID 가져오기
-		String email = (String)session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		MemberVO member = mservice.get(email);
 		bbst.setMemberId(member.getMemberId());
 		bbst.setName(member.getName());
@@ -76,33 +82,17 @@ public class BbstController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
-		if(file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		if (file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		} else {
 			fileName = bbst.getCnImg();
 			bbst.setCnImg(fileName);
 		}
 
-		bbst.setCnThumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		System.out.println(bbst);
-		
-		/*
-		 * // if(file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-		 * if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-		 * fileName = UploadFileUtils.fileUpload(imgUploadPath,
-		 * file.getOriginalFilename(), file.getBytes(), ymdPath);
-		 * 
-		 * bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator +
-		 * fileName); // cnImg에 원본 파일 경로 + 파일명 저장 bbst.setCnThumbimg(File.separator +
-		 * "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" +
-		 * fileName); // cnThumbImg에 썸네일 파일 경로 + 썸네일 파일명 저장 }
-		 * 
-		 * else { // 첨부된 파일이 없다면 // 미리 준비된 none.png 파일을 대신 출력함 fileName = uploadPath +
-		 * File.separator + "images" + File.separator + "none.png";
-		 * 
-		 * bbst.setCnImg(fileName); bbst.setCnThumbimg(fileName); }
-		 * 
-		 */
+		bbst.setCnThumbimg(
+			File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+
 		log.info("========== REGISTER: " + bbst + " ==========");
 		service.registerBbst(bbst);
 
@@ -110,23 +100,28 @@ public class BbstController {
 		return "redirect:/cheers/list";
 	}
 
-	@GetMapping({"/get", "/modify"})
-	public void get(HttpSession session, @RequestParam("bbstId") Long bbstId, Model model) {
-		String email = (String)session.getAttribute("email");
+	// 게시글 조회 및 수정
+	@GetMapping({ "/get", "/modify" })
+	public void get(HttpSession session, @RequestParam("bbstId") Long bbstId,
+	@ModelAttribute("cri") BbstCriteria cri, Model model) {
 
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
-		
+
 		log.info("/get or modify");
 		model.addAttribute("bbst", service.getBbst(bbstId));
 	}
 
+	// 게시글 수정
 	@PostMapping("/modify")
-	public String modify(HttpSession session, BbstMemberJoinVO bbst, MultipartFile file, RedirectAttributes rttr)
-		throws Exception {
+	public String modify(HttpSession session, BbstMemberJoinVO bbst, MultipartFile file,
+	@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
+
 		// 회원ID 가져오기
-		String email = (String)session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		MemberVO member = mservice.get(email);
 		bbst.setMemberId(member.getMemberId());
 		bbst.setName(member.getName());
@@ -136,39 +131,44 @@ public class BbstController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
-		if(file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		if (file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		} else {
 			fileName = bbst.getCnImg();
 			bbst.setCnImg(fileName);
 		}
 
-		bbst.setCnThumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		bbst.setCnThumbimg(
+				File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		log.info(bbst.getCnImg() + bbst.getCnThumbimg());
-		
+
 		log.info("========== MODIFY: " + bbst + " ==========");
-		
-		if(service.modifyBbst(bbst)) {
+
+		if (service.modifyBbst(bbst)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 
-		return "redirect:/cheers/list";
+		return "redirect:/cheers/list" + cri.getBbstListLink();
 	}
 
-	@GetMapping("/remove")
-	public String remove(HttpSession session, BbstMemberJoinVO bbst, @RequestParam("bbstId") Long bbstId, Model model) {
-		String email = (String)session.getAttribute("email");
+	// 게시글 삭제
+	@PostMapping("/remove")
+	public String remove(HttpSession session, BbstMemberJoinVO bbst, @RequestParam("bbstId") Long bbstId,
+	@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
+
+		// 회원ID 가져오기
+		String email = (String) session.getAttribute("email");
 		MemberVO member = mservice.get(email);
 		bbst.setMemberId(member.getMemberId());
 		bbst.setName(member.getName());
 
-		if(email == null) {
-			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		}
-		
-		service.removeBbst(bbstId);
 		log.info("========== REMOVE BBSTID " + bbstId + " ==========");
-		return "redirect:/cheers/list";
+
+		if (service.removeBbst(bbstId)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+
+		return "redirect:/cheers/list" + cri.getBbstListLink();
 	}
 }

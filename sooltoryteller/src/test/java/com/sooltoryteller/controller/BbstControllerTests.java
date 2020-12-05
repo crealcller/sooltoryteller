@@ -37,7 +37,9 @@ public class BbstControllerTests {
 		log.info(
 			mockMvc.perform(MockMvcRequestBuilders.get("/cheers/list")
 			.param("pageNum", "1")
-			.param("amount", "9"))
+			.param("amount", "9")
+			.param("type", "T")
+			.param("keyword", "1"))
 			.andReturn()
 			.getModelAndView()
 			.getModelMap());

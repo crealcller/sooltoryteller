@@ -234,6 +234,7 @@ if(msg != ""){
     		$("#email").focus();
     		return false;
     	} 
+    }
     } //validate end
     
     

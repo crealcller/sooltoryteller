@@ -6,7 +6,11 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
+<!-- fontawesome -->
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <style>
 
 .s-bbst-main-img-container {
@@ -25,9 +29,8 @@
 	border: 1px solid black;
 	margin: 0 auto;
 	height: 50px;
-	width: 800px;
+	width: 900px;
 	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 .s-bbst-register-btn {
@@ -61,25 +64,23 @@
 }
 
 .s-bbst-container {
-	border: 1px solid black;
-	margin: 0 auto;
-	height: 900px;
-	width: 800px;
-}
+	width: 900px;
+	margin: 35px auto 25px auto;
+	height: auto;
+	}
 
 .s-bbst-item-container {
-	height: 250px;
-	width: 200px;
-	margin-top: 35px;
-	margin-left: 50px;
+	height: 320px;
+	width: 250px;
+	margin: 20px 25px 20px 25px;
 	display: inline-block;
 	position: relative;
 	float: left;
 }
 
 .s-bbst-img {
-	height: 200px;
-	width: 200px;
+	height: 250px;
+	width: 250px;
 	display: block;
 }
 
@@ -89,8 +90,8 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 200px;
-	width: 200px;
+	height: 250px;
+	width: 250px;
 	opacity: 0;
 	transition: .3s ease;
 	background-color: rgb(181, 135, 189);
@@ -101,7 +102,7 @@
 }
 
 .s-bbst-item-overlay-info {
-	font-size: 10px;
+	font-size: 12px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -112,33 +113,25 @@
 
 .s-bbst-info-div {
 	height: 50px;
-	width: 200px;
+	width: 250px;
 	margin-top: 3px;
-	font-size: 10px;
-}
-
-.s-pagination-container {
-	border: 1px solid black;
-	height: 30px;
-	width: 330px;
-	margin: 0 auto;
-	margin-bottom: 20px;
+	font-size: 11px;
 }
 
 .s-pagination {
+	width: 800px;
+	bottom: 0;
+	display: block;
+	overflow: hidden;
 	list-style: none;
-	margin: auto;
+	margin: 25px auto 10px auto;
 	text-align: center;
 }
 
 .s-pagination li {
 	width: 20px;
 	display: inline-block;
-}
-
-.s-pagination li a:hover {
-	color: rgb(181, 135, 189);
-	font-weight: bold;
+	cursor: pointer;
 }
 
 </style>
@@ -158,35 +151,40 @@
 	
 	<!-- 검색창 -->
 	<div class="s-bbst-search-container">
-		<form>
-			<input type="text" list="dateRange" placeholder="전체 기간">
-			<datalist id="dateRange">
-				<option value="전체 기간"></option>
-				<option value="한달 전"></option>
-				<option value="일주일 전"></option>
-			</datalist>
-			<input type="text" list="contentRange" placeholder="제목  + 내용">
-			<datalist id="contentRange">
-				<option value="제목 + 내용"></option>
-				<option value="제목"></option>
-				<option value="내용"></option>
-				<option value="작성자"></option>
-			</datalist>
-			<input type="text" placeholder="검색어를 입력해주세요.">
+		<form id="s-searchForm" action="/cheers/list" method="get">
+			<select name="type">
+				<option value=""
+					<c:out value="${pageMaker.cri.type == null ? 'selected' : '' }" />>선택</option>
+				<option value="T"
+					<c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }" />>제목</option>
+				<option value="C"
+					<c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : '' }" />>내용</option>
+				<option value="W"
+					<c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : '' }" />>작성자</option>
+				<option value="TC"
+					<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : '' }" />>제목 or 내용</option>
+				<option value="TW"
+					<c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }" />>제목 or 작성자</option>
+				<option value="TWC"
+					<c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }" />>제목 or 내용 or 작성자</option>
+			</select>
+			<input type="text" name="keyword" value="<c:out value='${pageMaker.cri.keyword }' />" placeholder="검색어를 입력해주세요." />
+			<input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum }' />" />
+			<input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount }' />" />
 			<button class="s-bbst-search-btn">검색</button>
 		</form>
 	</div>
 </div>
 
 <!-- 모든 게시글 조회 -->
-
 <div class="s-bbst-container">
 	<c:if test="${empty bbstList }">
 		<p>작성된 게시글이 없습니다.</p>
 	</c:if>
 	<c:if test="${not empty bbstList }">
 		<c:forEach items="${bbstList }" var="bbst" varStatus="status" begin="0" end="8">
-			<div class="s-bbst-item-container"><a href="/cheers/get?bbstId=<c:out value='${bbst.bbstId }' />">
+			<div class="s-bbst-item-container">
+				<a class="move" href="<c:out value='${bbst.bbstId }' />">
 				<div class="s-bbst-img-div">            
 					<img class="s-bbst-img" src="<c:out value='${bbst.cnImg }' />" />
 				</div>
@@ -208,39 +206,80 @@
 </div>
 
 <!-- 페이징 처리 -->
-<div class="s-pagination-container">
-	<ul class="s-pagination">
-		<c:if test="${pageMaker.prev }">
-			<li class="s-paginate_button previous" style="width: 50px;">
-				<a href="${pageMaker.startPage -1 }">이전</a>
-			</li>
-		</c:if>
+<ul class="s-pagination">
+	<c:if test="${pageMaker.prev }">
+		<li class="s-paginate_button previous" style="width: 50px;">
+			<a href="${pageMaker.startPage -1 }"><i class="fas fa-arrow-circle-left"></i></a>
+		</li>
+	</c:if>
+	
+	<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+		<li class="s-paginate_button ${pageMaker.cri.pageNum == num ? "active":"" } ">
+			<a href="${num }">${num }</a>
+		</li>
+	</c:forEach>
+	
+	<c:if test="${pageMaker.next }">
+		<li class="s-paginate_button next" style="width: 50px;">
+			<a href="${pageMaker.endPage + 1 }"><i class="fas fa-arrow-circle-right"></i></a>
+		</li>
+	</c:if>
+</ul>
 		
-		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-			<li class="s-paginate_button ${pageMaker.cri.pageNum == num ? "active":"" } ">
-				<a href="${num }">${num }</a>
-			</li>
-		</c:forEach>
-		
-		<c:if test="${pageMaker.next }">
-			<li class="s-paginate_button next" style="width: 50px;">
-				<a href="${pageMaker.endPage + 1 }">다음</a>
-			</li>
-		</c:if>
-		
-		<form id="activeForm" action="/cheers/list" method="get">
-			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
-			<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
-		</form>
-	</ul>
-</div>
-
+<form id="s-actionForm" action="/cheers/list" method="get">
+	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
+	<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
+	<input type="hidden" name="type" value="${pageMaker.cri.type }" />
+	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }" />
+</form>
 
 <!-- Top으로 이동하는 버튼 만들기 (w3schools) -->
 <!-- <button onclick="topFunction()" id="topBtn">Top</button> -->
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+	var actionForm = $("#s-actionForm");
 	
+	$(".s-paginate_button a").on("click", function(e) {
+		e.preventDefault();
+		console.log("click");
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+	
+	/* 게시물 클릭 시 이동하는 이벤트 처리 */
+	$(".move").on("click", function(e) {
+		e.preventDefault();
+		actionForm.append("<input type='hidden' name='bbstId' value='"+$(this).attr("href") + "'>");
+		actionForm.attr("action", "/cheers/get");
+		actionForm.submit();
+	});
+
+	/* 검색 버튼 이벤트 처리 : 1페이지 보이기 + 검색 조건 및 키보드 보이기*/
+	var searchForm = $("#s-searchForm");
+	
+	$("#s-searchForm button").on("click", function(e) {
+		
+		if(!searchForm.find("option:selected").val()) {
+			alert("검색 종류를 선택하세요.");
+			return false;
+		}
+		
+		if(!searchForm.find("input[name='keyword']").val()) {
+			alert("키워드를 입력하세요.");
+			return false;
+		}
+		
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+		
+		searchForm.submit();
+	});
+});
+
 </script>
+
 </body>
 </html>
