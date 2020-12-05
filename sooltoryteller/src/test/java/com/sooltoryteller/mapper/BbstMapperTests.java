@@ -41,6 +41,18 @@ public class BbstMapperTests {
 	}
 	
 	@Test
+	public void testBbstSearch() {
+		BbstCriteria cri = new BbstCriteria();
+		cri.setKeyword("1");
+		cri.setType("TC");
+		
+		List<BbstMemberJoinVO> list = mapper.getBbstList(cri);
+		list.forEach(bbstList -> log.info(bbstList));
+		log.info("TYPE: " +  cri.getType());
+		log.info("KEYWORD: " + cri.getKeyword());
+	}
+	
+	@Test
 	public void testInsertBbstWithKey() {
 		
 		BbstMemberJoinVO bbst = new BbstMemberJoinVO();

@@ -6,8 +6,6 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <!-- jquery script src -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -34,7 +32,7 @@
 }
 .s-topbar-btn-div {
 	height: 100%;
-	width: 200px;
+	width: 210px;
 	float: right;
 }
 
@@ -108,10 +106,12 @@ enctype="multipart/form-data">
 				<p>건배의 광장 게시글 수정</p>
 			</div>
 			<div class="s-topbar-btn-div">
-				<input type="button" class="s-topbar-btn" style="background-color: rgb(181, 135, 189);"
-				onclick="location.href='/cheers/list'" value="취소" />
-				<input type="submit" class="s-topbar-btn" id="s-modifyBtn"
-				style="background-color: #6b5b95;" value="수정" />
+				<button type="submit" data-oper="cancel" class="s-topbar-btn"
+				style="background-color: rgb(181, 135, 189);">취소</button>
+				<button type="submit" data-oper="modify" class="s-topbar-btn" id="s-modifyBtn"
+				style="background-color: #6b5b95;">수정</button>
+				<button type="submit" data-oper="remove" class="s-topbar-btn"
+				style="background-color: #990000ff;">삭제</button>
 			</div>
 		</div>
 		
@@ -156,33 +156,69 @@ enctype="multipart/form-data">
 	
 	<!-- hidden으로 보낼 데이터 -->
 	<input type="hidden" name="bbstId" value="<c:out value='${bbst.bbstId}' />" />
+	<input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}' />" />
+	<input type="hidden" name="amount" value="<c:out value='${cri.amount}' />" />
+	<input type="hidden" name="type" value="<c:out value='${cri.type}' />" />
+	<input type="hidden" name="keyword" value="<c:out value='${cri.keyword}' />" />
 </form>
+
+<input type="hidden" name="regdate" value="<fmt:formatDate pattern='yyyy/MM/dd' value='${bbst.regdate }' />" readonly="readonly" />
+<input type="hidden" name="updatedate" value="<fmt:formatDate pattern='yyyy/MM/dd' value='${bbst.updatedate }' />" readonly="readonly" />
 
 <script type="text/javascript">
 
-// 폼 가져오기
-
 $(document).ready(function() {
+	
+// 폼 가져오기
 var formObj = $("#modifyform");
 	
 	// 게시글 입력항목 유효성 검사
 	// 게시글 제목
 
-	// 수정 버튼 클릭 시
-	$("#s-modifyBtn").on("click", function(e) {
+	$("button").on("click", function(e) {
 		e.preventDefault();
 		
-		// 게시글 사진을 수정하지 않을 경우
-		var file = $('#s-form-cnImg').val();
-		if(file == "") {
-			$('#s-form-cnImg').prop('type', 'text');
-			var prevFile = $('#s-form-cnImg').val();
-			alert(prevFile);
-		}
+		var operation = $(this).data("oper");
+		console.log(operation);
 		
-		/* formObj.attr("action", "/cheers/modify"); */
+		// 취소 버튼 클릭 시
+		if(operation === "cancel") {
+			// list로 이동
+			formObj.attr("action", "/cheers/list").attr("method", "get");
+			
+			var pageNumTag = $("input[name='pageNum']").clone();
+			var amountTag = $("input[name='amount']").clone();
+			var typeTag = $("input[name='type']").clone();
+			var keywordTag = $("input[name='keyword']").clone();
+			
+			// form의 다른 내용들 삭제 및 pageNum, amount만 추가 
+			formObj.empty();
+			
+			formObj.append(pageNumTag);
+			formObj.append(amountTag);
+			formObj.append(typeTag);
+			formObj.append(keywordTag);
+
+		// 수정 버튼 클릭 시
+		} else if(operation === "modify") {
+			
+			// 게시글 사진을 수정하지 않을 경우
+			var file = $('#s-form-cnImg').val();
+			if(file == "") {
+				$('#s-form-cnImg').prop('type', 'text');
+				var prevFile = $('#s-form-cnImg').val();
+			}
+			formObj.attr("action", "/cheers/modify");
+			
+		} else if(operation === "remove") {
+			// 게시글 삭제 전 확인
+			var chk = confirm("해당 게시글을 삭제하시겠습니까?");
+			if(chk) {
+				formObj.attr("action", "/cheers/remove");
+			}
+		}
 		formObj.submit();
-	});
+	});	
 });
 
 	

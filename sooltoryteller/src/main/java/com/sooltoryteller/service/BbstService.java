@@ -22,4 +22,7 @@ public interface BbstService {
 	// 모든 게시글 조회
 	public List<BbstMemberJoinVO> getBbstList(BbstCriteria cri);
 	
+	// 전체 데이터 개수 처리
+	public int getBbstTotal(BbstCriteria cri);
+	
 }
