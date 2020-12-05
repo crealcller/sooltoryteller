@@ -10,6 +10,9 @@ public interface BbstMapper {
 	// 모든 게시글 조회
 	public List<BbstMemberJoinVO> getBbstList(BbstCriteria cri);
 	
+	// 전체 데이터 개수 처리
+	public int getBbstTotalCount(BbstCriteria cri);
+	
 	// 게시글 등록
 	public void insertBbstWithKey(BbstMemberJoinVO bbst);
 	

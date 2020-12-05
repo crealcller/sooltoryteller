@@ -55,6 +55,11 @@ public class BbstServiceImpl implements BbstService {
 		log.info("========== GET BBST LIST ==========");
 		return mapper.getBbstList(cri);
 	}
-
-
+	
+	// 전체 데이터 개수 처리
+	@Override
+	public int getBbstTotal(BbstCriteria cri) {
+		log.info("========== GET TOTAL COUNT ==========");
+		return mapper.getBbstTotalCount(cri);
+	}
 }

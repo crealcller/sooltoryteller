@@ -106,7 +106,6 @@ if(msg != ""){
 	})
     }) //아이디중복체크 end
     
-  /*  
   //비밀번호와 비밀번호 확인이 일치하는지 확인
     function checkPwd(){
     	if($("#rePwd").val() == ""){
@@ -202,11 +201,7 @@ if(msg != ""){
     		$("#email").focus();
     		return false;
     	} 
-
-    	
-    	
     }
- */
   </script>
   
 </body>
