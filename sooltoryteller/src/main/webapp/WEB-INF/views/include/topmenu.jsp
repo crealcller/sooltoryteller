@@ -41,6 +41,10 @@ a {
 	color: black;
 }
 
+button {
+	cursor: pointer;
+}
+
 #h-company-name {
 	font-family: '전소민체';
 	font-size: 40px;

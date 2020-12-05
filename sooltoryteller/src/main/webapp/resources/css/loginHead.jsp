@@ -122,7 +122,6 @@ overflow: hidden;
 	.h-close:focus {
 	  color: purple;
 	  text-decoration: none;
-	  cursor: pointer;
 	}
 
 	.h-btn{
@@ -131,12 +130,8 @@ overflow: hidden;
 	  border: none;
 	  color: white;
 	  margin: 10px;
-    cursor: pointer;
 	  background-color: rgb(181, 135, 189);
 	}
 	
-  #h-findPwd-btn{
-    cursor: pointer;
-  }
   </style>
 </head>

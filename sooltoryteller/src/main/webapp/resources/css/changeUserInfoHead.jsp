@@ -84,7 +84,6 @@
 	.h-close:focus {
 	  color: purple;
 	  text-decoration: none;
-	  cursor: pointer;
 	}
 
 	.h-btn{
