@@ -11,8 +11,11 @@ public interface MemberService {
 	//회원가입 이메일 중복체크
 	public int checkEmail(String email);
 	
+	//회원가입 닉네임 중복체크
+	public int checkName(String name);
+	
 	//회원가입
-	public void join(MemberVO member);
+	public boolean join(MemberVO member);
 	
 	//로그인
 	public boolean loginCheck(String email, String pwd);

@@ -27,12 +27,12 @@ public class MemberMapperTests {
 //	@Test
 	public void testInsert() {
 		MemberVO member = new MemberVO();
-		member.setEmail("iiii@iiii.com");
-		member.setName("iiii");
-		member.setPwd("4444");
+		member.setEmail("try@try.com");
+		member.setName("try");
+		member.setPwd("7356");
 		member.setTelno("01099999999");
 		
-		mapper.insert(member);
+		System.out.println("insert:"+mapper.insert(member));
 		
 		mapper.insertHist(mapper.read(member.getEmail()));
 		log.info(member);

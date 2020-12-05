@@ -59,7 +59,7 @@ overflow: hidden;
 .h-drink{
     margin-left: 35px;
 }
-#checkId{
+#h-checkId, #h-checkName{
   height: 25px;
   width: 60px;
   font-size: 5px;
@@ -70,5 +70,6 @@ overflow: hidden;
   color: white;
   background-color: rgb(181, 135, 189);
 }
+
   </style>
 </head>
