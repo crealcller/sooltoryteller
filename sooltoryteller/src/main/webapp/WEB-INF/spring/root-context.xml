@@ -7,29 +7,57 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName"
-			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" />
-		<property name="username" value="test" />
-		<property name="password" value="1234" />
+	<!-- emil 관련 -->
+	<bean id="javaMailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="sooltoryteller@gmail.com" />
+		<property name="password" value="oudbhyuedsrzzewp" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean class="com.sooltoryteller.domain.EmailVO" id="email">
+	</bean>
+	<bean class="com.sooltoryteller.service.MailServiceImpl"
+		id="mailService">
 	</bean>
 
-	<!-- HikariCP configuration -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-		destroy-method="close">
-		<constructor-arg ref="hikariConfig" />
-	</bean>
+<!-- Root Context: defines shared resources visible to all other web components -->
+<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<property name="driverClassName"
+		value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+	<property name="jdbcUrl"
+		value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" />
+	<property name="username" value="test" />
+	<property name="password" value="1234" />
+</bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-	</bean>
+<!-- HikariCP configuration -->
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+	destroy-method="close">
+	<constructor-arg ref="hikariConfig" />
+</bean>
 
-	<mybatis-spring:scan base-package="com.sooltoryteller.mapper" />		
-	<context:component-scan base-package="com.sooltoryteller.service" />
-	<context:component-scan base-package="com.sooltoryteller.mapper" />
-	<context:component-scan base-package="com.sooltoryteller.utils" />
+<bean id="sqlSessionFactory"
+	class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="configLocation"
+		value="classpath:mybatis-config.xml"></property>
+</bean>
+
+<mybatis-spring:scan
+	base-package="com.sooltoryteller.mapper" />
+<context:component-scan
+	base-package="com.sooltoryteller.service" />
+<context:component-scan
+	base-package="com.sooltoryteller.mapper" />
+<context:component-scan
+	base-package="com.sooltoryteller.utils" />
 </beans>

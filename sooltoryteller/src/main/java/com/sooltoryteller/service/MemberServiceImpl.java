@@ -1,6 +1,7 @@
 package com.sooltoryteller.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -87,7 +88,20 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String getPwd(String email) {
 		
-		return mapper.getPwd(email);
+		String pwd = "";
+		String tmpPwd = "";
+
+		if(email != null) {
+			pwd = mapper.getPwd(email);
+		}
+		//현재비밀번호를 꺼내왔다면 임시비밀번호를 발급
+		if(pwd != null) {
+			tmpPwd = UUID.randomUUID().toString().replace("-", "");
+			tmpPwd = tmpPwd.substring(0,12);
+			System.out.println(tmpPwd);
+		}
+		
+		return tmpPwd;
 	}
 
 	@Override

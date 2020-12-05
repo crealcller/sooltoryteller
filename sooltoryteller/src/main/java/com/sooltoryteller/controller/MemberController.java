@@ -1,6 +1,7 @@
 package com.sooltoryteller.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.MemberVO;
+import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
 
@@ -34,6 +37,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class MemberController {
 
+	private MailService mailService;
+	private EmailVO e_mail;
 	private MemberService service;
 	private MemberFavDrkService favDrkService;
 	
@@ -219,4 +224,36 @@ public class MemberController {
 		}
 	}
 
+	//비밀번호 찾기 ->임시비밀번호 생성
+	@PostMapping("/findPwd")
+	public String sendpwd(String email,   RedirectAttributes rttr) throws Exception {
+		
+		//임시비밀번호 발급
+		String tmpPwd = service.getPwd(email);
+		
+        if(!tmpPwd.equals("")) {
+        	
+        	service.modifyPwd(email, tmpPwd);
+        	
+        	e_mail.setTitle("sooltoryteller 비밀번호 찾기 메일입니다.");
+            e_mail.setContent(
+            		//줄바꿈
+            		System.getProperty("line.separator") +
+            		"안녕하세요 sooltoryteller 입니다." +
+            		System.getProperty("line.separator")+
+            		"고객님의 임시 비밀번호는 "+ tmpPwd+"입니다."+
+            		System.getProperty("line.separator")+
+            		"발급 받은 임시비밀번호로 로그인이 가능합니다."
+            		);
+        	
+            e_mail.setTo(email);
+            mailService.send(e_mail);
+            rttr.addFlashAttribute("emailMsg", "이메일이 전송되었습니다.");
+        }else {
+        	
+        	rttr.addFlashAttribute("emailMsg", "등록된 회원이 아닙니다. 이메일을 다시 입력하여 주세요");
+        }
+        return "redirect:/login";
+    }
+	
 }

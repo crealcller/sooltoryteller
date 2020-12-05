@@ -58,5 +58,85 @@ overflow: hidden;
   height: 40px;
   width: 350px;
 }
+
+
+.h-modal {
+	  display: none;
+	  position: fixed; 
+	  z-index: 1;
+	  padding-top: 100px; 
+	  left: 0;
+	  top: 0;
+	  width: 100%; 
+	  height: 100%; 
+	  overflow: auto; 
+	  background-color: rgb(0,0,0); 
+	  background-color: rgba(0,0,0,0.4);
+	}
+	
+
+	.h-modal-content {
+    width: 400px;
+    height: 200px;
+	  background-color: #f2eff9;
+	  margin: auto;
+	  padding: 20px;
+    text-align: center;
+	  border: 3px solid rgb(181, 135, 189);
+    border-radius: 3%;
+	  
+	}
+
+  .h-modal-top{
+    height: 30px;
+    width: 350px;
+  }
+  .h-modal-topleft{
+    height: 30px;
+    width: 170px;
+    text-align: left;
+    font-weight: bold;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .h-modal-topright{
+    height: 30px;
+    width: 170px;
+    text-align: right;
+    display: inline-block;
+    overflow: hidden;
+  }
+	.h-modal-bottom{
+    width: 320px;
+    height: 80px;
+    padding: 15px;
+
+  }
+	.h-close {
+	  color: #aaaaaa;
+	  font-size: 20px;
+	  font-weight: bold;
+	}
+	
+	.h-close:hover,
+	.h-close:focus {
+	  color: purple;
+	  text-decoration: none;
+	  cursor: pointer;
+	}
+
+	.h-btn{
+	  height: 30px;
+	  width: 300px;
+	  border: none;
+	  color: white;
+	  margin: 10px;
+    cursor: pointer;
+	  background-color: rgb(181, 135, 189);
+	}
+	
+  #h-findPwd-btn{
+    cursor: pointer;
+  }
   </style>
 </head>
