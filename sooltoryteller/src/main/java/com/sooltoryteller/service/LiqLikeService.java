@@ -1,12 +1,15 @@
 package com.sooltoryteller.service;
 
-import org.apache.ibatis.annotations.Param;
+import com.sooltoryteller.domain.Criteria;
+import com.sooltoryteller.domain.MyLikePageDTO;
 
 public interface LiqLikeService {
 
-	public boolean checkLike(@Param("memberId")Long memberId, @Param("liqId") Long liqId);
+	public boolean checkLike(Long memberId, Long liqId);
 	
-	public boolean like(@Param("memberId")Long memberId, @Param("liqId") Long liqId);
+	public boolean like(Long memberId, Long liqId);
 	
-	public boolean cancelLike(@Param("memberId")Long memberId, @Param("liqId") Long liqId);
+	public boolean cancelLike(Long memberId, Long liqId);
+	
+	public MyLikePageDTO getMyListWithPaging(Long memberId, Criteria cri);
 }

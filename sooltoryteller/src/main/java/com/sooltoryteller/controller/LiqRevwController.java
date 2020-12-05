@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqRevwPageDTO;
 import com.sooltoryteller.domain.LiqRevwVO;
+import com.sooltoryteller.domain.MyRevwPageDTO;
 import com.sooltoryteller.service.LiqRevwService;
 
 import lombok.AllArgsConstructor;
@@ -55,7 +56,7 @@ public class LiqRevwController {
 		log.info("get revw list liqId:" +liqId);
 		log.info("cri: "+cri);
 		
-		return new ResponseEntity<>(service.getListPage(liqId, cri), HttpStatus.OK);
+		return new ResponseEntity<>(service.getListWtihPaging(liqId, cri), HttpStatus.OK);
 	}
 	
 	//리뷰만 가져오기(한개)
@@ -92,6 +93,23 @@ public class LiqRevwController {
 		return service.modify(vo) ==1?
 				new ResponseEntity<>("success",HttpStatus.OK)
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	
+		//페이지와 함께 해당회원이 작성한리뷰리스트 가져오기
+		@GetMapping(value="/my/pages/{memberId}/{page}",
+				produces= {
+						MediaType.APPLICATION_XML_VALUE,
+						MediaType.APPLICATION_JSON_UTF8_VALUE
+				})
+		public ResponseEntity<MyRevwPageDTO> getMyList(
+				@PathVariable("page") int page,
+				@PathVariable("memberId") Long memberId){
+			
+			Criteria cri = new Criteria(page,3);
+			log.info("get my revw list memberId:" +memberId);
+			log.info("cri: "+cri);
+			
+			return new ResponseEntity<>(service.getMyListWithPaging(memberId, cri), HttpStatus.OK);
 		}
 	
 }

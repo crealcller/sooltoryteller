@@ -11,15 +11,6 @@ public class MyLikeVO {
 	// 일련번호 
     private int liqLikeId;
     
-    //회원아이디
-  	private Long memberId;
-
-  	// 닉네임 
-  	private String name;
-  	
-  	// 프로필 사진 
-  	private String profile;
-
     // 전통주 일련번호 
     private Long liqId;
     
