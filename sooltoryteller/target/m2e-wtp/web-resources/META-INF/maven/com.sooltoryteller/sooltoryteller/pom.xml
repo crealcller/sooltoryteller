@@ -15,6 +15,17 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+	<!-- 카카오톡 로그인에 필요함 현수추가-->
+<dependency>
+<groupId>org.apache.httpcomponents</groupId>
+<artifactId>httpcore</artifactId>
+<version>4.4.6</version>
+</dependency>
+<dependency>
+<groupId>org.apache.httpcomponents</groupId>
+<artifactId>httpclient</artifactId>
+<version>4.5.2</version>
+</dependency>
 		<!-- 메일 전송 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>

@@ -28,7 +28,7 @@ if(msg != ""){
     <p class='h-join-p' style="margin-left:50px;">이메일 &nbsp<input type="email" id="email" name="email" value="<c:out value='${member.email }'/>">
     <button type="button" id="h-checkId" class="id-overlapCheck">중복확인</button></p>
     <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" value="<c:out value='${member.name }'/>">
-    <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p></p>
+    <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p>
     <p class='h-join-p' style="margin-left:35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd" value="<c:out value='${member.pwd }'/>"></p>
     <p class='h-join-p'>비밀번호 확인 &nbsp<input type="password" id="rePwd" onblur="checkPwd()"></p>
      <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="repwdMsg">비밀번호를 한 번 더 입력해주세요</p>
@@ -58,11 +58,12 @@ if(msg != ""){
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
   
-	const jEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일
-	const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]).{5,16}$/; // 대문자,소문자,특수문자 1개씩은 포함해서 5자리~16자리
+	const jEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // 이메일
+	const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]){5,16}$/; // 대문자,소문자,특수문자 1개씩은 포함해서 5자리~16자리
 	const jName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리
-	const jTelno = /^\d{3}\d{3,4}\d{4}$/; //전화번호 정규식 '-'빼고 숫자만
-	const blank = /\s/g;
+	const jTelno = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
+	const blank = /(\s*)/g; //모든공백제거(앞뒤중간)
+	
 
 	//아이디 중복체크 확인
     $(function(){
@@ -96,7 +97,7 @@ if(msg != ""){
 					    	   	btn.disabled = "disabled";
 						
 							}else{
-								if(jEmail.test(email)){
+								if(jEmail.test(email) && !blank.test(email)){
 									alert("사용 가능한 아이디입니다.");
 								    btn.disabled = false;
 									}
@@ -114,6 +115,18 @@ if(msg != ""){
 			let btn = document.getElementById("reg");
 			let name = $("#name").val();
 			
+			//입력했는지 검사
+			if(name == ""){
+				alert("닉네임을 입력하여 주세요");
+	    		btn.disabled = "disabled";
+			}
+			
+			//정규식으로 형식검사 +공백체크
+			if(!jName.test(name) || blank.test(name)){
+				alert("닉네임 형식에 맞지 않습니다.");
+				btn.disabled = "disabled";
+			}
+			
 			$.ajax({
 				type : 'post',
 				data : {'name' : name},
@@ -126,7 +139,7 @@ if(msg != ""){
 					    	   	btn.disabled = "disabled";
 						
 							}else{
-								if(jName.test(name)){
+								if(jName.test(name) && !blank.test(name)){
 									alert("사용 가능한 닉네임입니다.");
 								    btn.disabled = false;
 									}
@@ -155,6 +168,11 @@ if(msg != ""){
     			document.getElementById("repwdMsg").innerHTML = "비밀번호가 일치하지 않습니다 다시 입력해주세요";
         		document.getElementById("repwdMsg").style.color = 'red'; 
     		}
+    		
+    		if(!jPwd.test($("#pwd").val()) || blank.test($("#pwd").val())){
+    			document.getElementById("repwdMsg").innerHTML = "비밀번호는 대문자 또는 소문자 및 특수문자 1개 이상 포함해서 5자리~16자리로 입력하여주세요";
+        		document.getElementById("repwdMsg").style.color = 'red'; 
+    		}
     	}//else end
     }//fun end
     
@@ -172,6 +190,7 @@ if(msg != ""){
     	
     	if(!jPwd.test($("#pwd").val()) || blank.test($("#pwd").val())){
     		alert('비밀번호는 대문자 또는 소문자 및 특수문자 1개 이상 포함해서 5자리~16자리로 입력하여주세요');
+    		$("#pwd").val("");
     		$("#pwd").focus();
     		return false;
     	}
@@ -186,6 +205,7 @@ if(msg != ""){
     		if($("#pwd").val() != $("#rePwd").val()){
     			alert('비밀번호가 일치하지 않습니다 다시 입력해주세요');
     			$("#rePwd").val("");
+    			$("#rePwd").focus();
     			return false;
     		}
     	}
@@ -234,9 +254,8 @@ if(msg != ""){
     		$("#email").focus();
     		return false;
     	} 
-    }
-    } //validate end
-    
+    	
+    }    
     
     //선호하는 술 종류 2가지만 선택
 	const maxCount = 2;

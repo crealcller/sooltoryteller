@@ -37,7 +37,7 @@ public class MemberVO {
 
 	// 전화번호 
 	@NotEmpty
-	@Pattern(regexp = "\\d{3}\\d{3,4}\\d{4}")
+	@Pattern(regexp = "/^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/")
 	private String telno;
 
 	// 프로필 사진 

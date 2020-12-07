@@ -102,5 +102,16 @@
 	.h-drink{
     margin-left: 15px;
 }
-	
+
+#h-checkName{
+  height: 25px;
+  width: 60px;
+  font-size: 5px;
+  border: none;
+  border-radius: 5%;
+  font-weight: bold;
+  margin-left: 5px;
+  color: white;
+  background-color: rgb(181, 135, 189);
+}
 	</style>
