@@ -20,8 +20,14 @@
 	width: 850px;
 	height: 900px;
 	border-style: solid;
-    border-left-style:none ;
+    border-left-style:none;
 	display:inline-block;
+}
+.d-mypage-right h2{
+	padding : 20px; 
+	border-bottom-style: solid;
+    border-bottom-color:rgb(170, 168, 168);
+    margin:20px;
 }
 
 .d-mypage-footer {
@@ -119,3 +125,67 @@
 	width:60px;
 	height:100px;
 }
+.d-con {
+	width:700px;
+	height:800px;
+	margin:auto;
+}
+.d-con ul {
+	list-style: none;
+    margin-top:50px;
+}
+.d-con li {
+	border-bottom-style: solid;
+    border-bottom-color:rgb(170, 168, 168);
+	padding:20px;
+}
+.d-con button {
+	float:right;
+	background-color:rgb(181, 135, 189);
+	border-style:none;
+	border-radius: 5px 5px 5px 5px;
+	padding:10px;
+	color:white;
+}
+/* The Modal (background) */
+.d-revw-modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.d-revw-modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	height:300px;
+}
+
+/* The Close Button */
+.d-revw-modal-close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.d-revw-modal-close:hover, .d-revw-modal-close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+.d-like-cancel-btn{
+	float:right;
+	font-size:30px;
+}	

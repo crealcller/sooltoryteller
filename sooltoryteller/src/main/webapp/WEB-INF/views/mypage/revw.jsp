@@ -61,8 +61,10 @@
             </div>
         </div>
         <div class="d-mypage-right">
-		<h1>리뷰</h1>
+		<h2>내가 작성한 전통주 리뷰</h2>
 		<div class="d-con">
+		<ul class="d-revw">
+		</ul>
 		</div>
 		<div class="d-paging">
 		</div>
@@ -71,12 +73,23 @@
     <div class="d-mypage-footer">
         <h1>footer</h1>
     </div>
+    <div id="getRevw" class="d-revw-modal">
+
+  <!-- Modal content -->
+  <div class="d-revw-modal-content">
+    <span class="d-revw-modal-close">&times;</span>
+    <p>별점<input type='text' name='revwRate'></p>
+    <p> 내용<input type='text' name='revwCn'></p>
+    <button id='revwUpdateBtn' type='submit'>수정하기</button>
+  </div>
+
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>
 <script>
 $(document).ready(function(){
 	var memberIdValue = '<c:out value="${member.memberId}"/>'
-	var dCon = $(".d-con");
+	var dRevw = $(".d-revw");
 	var pageNum = 1;
 	var paging = $(".d-paging");
 	showMyList(1);
@@ -97,14 +110,14 @@ $(document).ready(function(){
 		var str = "<ul>";
 		
 		if(prev){
-			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'><</a></li>";
+			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'>&#60;</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
 			var active = pageNum == i? "active":"";
 			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
-			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>></a></li>";
+			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>&#62;</a></li>";
 		}
 		
 		str += "</ul>";
@@ -132,19 +145,61 @@ $(document).ready(function(){
 				return;
 			}
 			for(var i=0,len = myList.length || 0; i<len; i++){
-				str += "<li class='d-revw-con' data-revwId = '"+myList[i].revwId+"'>";
-				//전통주 이미지 
+				str += "<li id='move' style='cursor:pointer;' class='d-revw-con' data-liqid = '"+myList[i].liqId+"'>";
 				str += "<img class='d-my-revw-img' src='/resources/img/"+myList[i].img+"'/>"
-				str += "<p>"+myList[i].nm+"</p>"
-				str += "<p>"+myList[i].rate+"점</p>"
-				str += "<small style='float:right;'>"+revwService.displayTime(myList[i].regdate)+"</small>";
+				str += "<span>"+myList[i].nm+"</span></li>"
+				str += "<li><p>"+myList[i].rate+"점</p>"
+				str += "<button style='cursor:pointer;'  data-liqid = '"+myList[i].liqId+"' data-revwid = '"+myList[i].revwId+"' id='cancelLikeBtn'>수정하기</button>";
 				str += "<p>"+myList[i].cn+"</p></li>"
 				
 			}
-			dCon.html(str);
+			dRevw.html(str);
 			showMyRevwPage(myRevwCnt);
-		})
+		});
 	}
+	//항목 선택시 상세페이지로 이동
+	dRevw.on("click","#move",function(e){
+		let targetLiqId = $(this).data('liqid');
+		location.href=location.href ="/trad-liq?liqId="+targetLiqId;
+	});
+	// 버튼 생성해서 수정하기
+	let revwModal = $('#getRevw');
+	let revwUpdateBtn = $('#revwUpdateBtn');
+	let closeBtn = $('.d-revw-modal-close');
+	let rate = revwModal.find("input[name='revwRate']");
+	let cn = revwModal.find("input[name='revwCn']");
+	dRevw.on("click","button",function(e){
+		let targetRevwId = $(this).data('revwid');
+		let targetLiqId = $(this).data('liqid');
+		console.log(targetRevwId);
+		revwService.get(targetRevwId,function(revw){
+			cn.val(revw.cn);
+			rate.val(revw.rate);
+			$('#getRevw').fadeIn(100);
+		});
+		//X 클릭시 모달 끄기
+		closeBtn.on("click",function(e){
+			revwModal.fadeOut(300);
+		});
+		
+		revwUpdateBtn.on("click",function(e){
+			let revw={
+					revwId : targetRevwId,
+					liqId : targetLiqId,					
+					cn:cn.val(),
+					rate:rate.val(),
+					memberId:memberIdValue
+			};
+			revwService.update(revw,function(result){
+				if(result === "success"){
+					revwModal.fadeOut(100);
+					showMyList(1);
+					alert("수정완료");
+				}
+			});
+			
+		});
+	});
 });
 </script>
     

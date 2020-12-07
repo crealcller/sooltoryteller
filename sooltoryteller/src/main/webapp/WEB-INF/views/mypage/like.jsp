@@ -62,8 +62,10 @@
             </div>
         </div>
         <div class="d-mypage-right">
-		<h1>좋아요</h1>
+		<h2>내가 좋아요한 전통주</h2>
 		<div class="d-con">
+		<ul class="d-like">
+		</ul>
 		</div>
 		<div class="d-paging">
 		</div>
@@ -77,7 +79,7 @@
 <script>
 $(document).ready(function(){
 	var memberIdValue = '<c:out value="${member.memberId}"/>'
-	var dCon = $(".d-con");
+	var dLike = $(".d-like");
 	var pageNum = 1;
 	var paging = $(".d-paging");
 	showMyList(1);
@@ -98,14 +100,14 @@ $(document).ready(function(){
 		var str = "<ul>";
 		
 		if(prev){
-			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'><</a></li>";
+			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'>&#60;</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
 			var active = pageNum == i? "active":"";
 			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
-			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>></a></li>";
+			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>&#62;</a></li>";
 		}
 		
 		str += "</ul>";
@@ -133,18 +135,39 @@ $(document).ready(function(){
 				return;
 			}
 			for(var i=0,len = myList.length || 0; i<len; i++){
-				str += "<div id='d-div-href' style='cursor:pointer;'>"
-				str += "<li class='d-revw-con' data-liqId = '"+myList[i].liqId+"'>";
+				str += "<li id='move' style='cursor:pointer;' class='d-revw-con' data-liqid='"+myList[i].liqId+"'>";
 				str += "<img class='d-my-revw-img' src='/resources/img/"+myList[i].img+"'/>";
-				str += "<p>"+myList[i].nm+"</p>";
-				str += "<p>도수 :"+myList[i].lv+" %</p>";
-				str += "<p>원재료  : "+myList[i].irdnt+"</p></li></div>";
+				str += "<span class='d-like-cancel-btn' style='cursor:pointer;' data-liqid='"+myList[i].liqId+"' id='cancelLikeBtn'>&times;</span>";
+				str += "<span>"+myList[i].nm+"</span><br>";
+				str += "<span>도수 : "+myList[i].lv+" %</span><br>";
+				str += "<span>원재료  : "+myList[i].irdnt+"</span></li>";
 				
 			}
-			dCon.html(str);
+			dLike.html(str);
 			showMyLikePage(myLikeCnt);
-		})
+		});
 	}
+			//항목 선택시 상세페이지로 이동
+			dLike.on("click","#move",function(e){
+				let targetLiqId = $(this).data('liqid');
+				location.href=location.href ="/trad-liq?liqId="+targetLiqId;
+			});
+			//X버튼 클릭시 좋아요 취소
+			dLike.on("click","span",function(e){
+				let targetLiqId = $(this).data('liqid');
+				console.log(targetLiqId);
+				likeService.cancelLike({memberId:memberIdValue,liqId:targetLiqId}, function(count){
+					console.log("cancel");
+						if(count === "success"){
+							alert("좋아요 취소");
+							//showMyList(1) 목록이 하나 있을때 적용이 안됨
+							location.reload();
+						}
+				});
+			});
+			
+	//X버튼을 누르면 해당 좋아요가 취소된다 
+	//targetLiqId 와 memberId 필요
 });
 </script>
 </body>

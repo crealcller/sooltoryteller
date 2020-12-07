@@ -6,126 +6,167 @@
 <!DOCTYPE html>
 <html>
 <head>
- <style>
-        .d-con{
-         width:100%;
-        }
-         /* 구메정보부분 배경 */
-        .d-trad-liq-info{
-            width:100%;
-            height:400px;
-            background-color: rgb(245, 245, 245);
-        }
-        /* 구메정보부분 */
-        .d-trad-liq-info-con{
-        	width:800px;
-        	margin:auto;
-        }
-        /* 구매정보부분 - 사진 */
-        .d-trad-liq-img-con{
-        	width:200px;
-        	height:300px;
-        	display:inline-block;
-        	float:left;
-        	margin:50px;
-        
-        }
-        /* 구매정보부분 - 글 */
-        .d-trad-liq-text-con{
-        	padding:50px;
-        	width:500px;
-        	height:100%;
-        	display:inline-block;
-        	float:left;
-        }
-       	/* 전통주상세 컨테이너 */
-        .d-trad-liq-con{
-            margin:0 auto;
-            padding:0;
-            width:70%;
-            height: 500px;
-            
-        }
-        /* 전통주상세 */
-        .d-trad-liq-column{
-            width:100%;
-          	border-bottom-style: solid;
-			border-bottom-color: rgb(181, 135, 189);
-            background-color: white;
-            padding:50px;
-        }
-       	.d-revw-wrapper{
-       		width : 100%;
-       		min-width : 1000px;
-       		overflow: auto;
-       	}
-         /* 리뷰 부분 con*/
-        .d-revws-con{
-        	width : 600px;
-        	float:left;
-        	display:inline-block;
-        	
-        }
-        /* 리뷰  리스트*/
-        .d-revws{
-            list-style:none;
-            width : 600px;
-        }
-        /* 리뷰 */
-        .d-revw-con{
-        	box-shadow: 3px 3px 3px 3px  rgba(196, 150, 204, 0.151);
-        	border-style : solid;
-        	border-color: rgb(245, 245, 245);
-        	padding : 20px;
-        	margin : 40px; 
-        }
-        
-        .d-paging {
-         	float : right;
-        }
-        .d-paging ul{
-         	list-style:none;
-        }
-		.d-paging li{
-			float : left;
-			margin : 0; 
-		}
-		.d-new-revw-con{
-			float:left;
-			width:230px;
-			display:inline-block;
-			border-style : solid;
-        	border-color: rgb(245, 245, 245);
-        	margin : 40px;
-        	height: 300px;
-		}
-		
-		.d-revw-profile{
-			width: 50px;
-            height: 50px;
-            border-radius: 50%;
-		}
-		.d-paging-btn-active{
-			text-align: center;
-			width:25px;	
-			height:25px;
-			background-color:rgb(181, 135, 189);
-			border-radius: 50%;
-			margin:10px;
-			
-		}
-		.d-paging-btn-active a{
-			color:white;
-		}
-		.d-paging-btn-none{
-			text-align: center;
-			width:25px;	
-			height:25px;
-			border-radius: 50%;
-			margin:10px;	
-		}
-	
-    </style>
+<style>
+.d-con {
+	width: 100%;
+}
+/* 구메정보부분 배경 */
+.d-trad-liq-info {
+	width: 100%;
+	height: 400px;
+	background-color: rgb(245, 245, 245);
+}
+/* 구메정보부분 */
+.d-trad-liq-info-con {
+	width: 800px;
+	margin: auto;
+}
+/* 구매정보부분 - 사진 */
+.d-trad-liq-img-con {
+	width: 200px;
+	height: 300px;
+	display: inline-block;
+	float: left;
+	margin: 50px;
+}
+/* 구매정보부분 - 글 */
+.d-trad-liq-text-con {
+	padding: 50px;
+	width: 500px;
+	height: 100%;
+	display: inline-block;
+	float: left;
+}
+/* 전통주상세 컨테이너 */
+.d-trad-liq-con {
+	margin: 0 auto;
+	padding: 0;
+	width: 70%;
+	height: 500px;
+}
+/* 전통주상세 */
+.d-trad-liq-column {
+	width: 100%;
+	border-bottom-style: solid;
+	border-bottom-color: rgb(181, 135, 189);
+	background-color: white;
+	padding: 50px;
+}
+
+.d-revw-wrapper {
+	width: 100%;
+	min-width: 1000px;
+	overflow: auto;
+}
+/* 리뷰 부분 con*/
+.d-revws-con {
+	width: 600px;
+	float: left;
+	display: inline-block;
+}
+/* 리뷰  리스트*/
+.d-revws {
+	list-style: none;
+	width: 600px;
+}
+/* 리뷰 */
+.d-revw-con {
+	box-shadow: 3px 3px 3px 3px rgba(196, 150, 204, 0.151);
+	border-style: solid;
+	border-color: rgb(245, 245, 245);
+	padding: 20px;
+	margin: 40px;
+}
+
+.d-paging {
+	float: right;
+}
+
+.d-paging ul {
+	list-style: none;
+}
+
+.d-paging li {
+	float: left;
+	margin: 0;
+}
+
+.d-new-revw-con {
+	float: left;
+	width: 230px;
+	display: inline-block;
+	border-style: solid;
+	border-color: rgb(245, 245, 245);
+	margin: 40px;
+	height: 300px;
+}
+
+.d-revw-profile {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.d-paging-btn-active {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	background-color: rgb(181, 135, 189);
+	border-radius: 50%;
+	margin: 10px;
+}
+
+.d-paging-btn-active a {
+	color: white;
+}
+
+.d-paging-btn-none {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	margin: 10px;
+}
+
+/* The Modal (background) */
+.d-revw-modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.d-revw-modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	height:300px;
+}
+
+/* The Close Button */
+.d-revw-modal-close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.d-revw-modal-close:hover, .d-revw-modal-close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -201,7 +242,7 @@
 			<div class="d-new-revw-con">
 				<div class="d-revw-count"></div>
 				<h1>리뷰 작성 하기</h1>
-				<button>리뷰</button>
+				<button id='addRevwBtn'>작성하기</button>
 				
 			</div>	
 		</div>
@@ -229,6 +270,19 @@
 		</div>
 	</div>
 </div>
+<div id="addRevw" class="d-revw-modal">
+
+  <!-- Modal content -->
+  <div class="d-revw-modal-content">
+    <span class="d-revw-modal-close">&times;</span>
+	<div><img style='width:100px;height:150px;' src='/resources/img/<c:out value="${liq.img}" />'><c:out value="${liq.nm}" /></div>
+    
+    <p>별점<input type='text' name='revwRate'></p>
+    <p> 내용<input type='text' name='revwCn'></p>
+    <button id='revwRegBtn' type='submit'>작성하기</button>
+  </div>
+
+</div>
 <!-- 리뷰 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>
@@ -240,6 +294,7 @@ $(document).ready(function(){
 	var pageNum = 1;
 	var revwPageFooter =$(".d-paging");
 	showList(1);
+	
 	function showRevwPage(revwCnt){
 	$('.d-revw-count').html("<p>"+revwCnt+"개의 리뷰</p>");
 		var endNum = Math.ceil(pageNum/5.0)*5;
@@ -257,14 +312,14 @@ $(document).ready(function(){
 		var str = "<ul>";
 		
 		if(prev){
-			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'><</a></li>";
+			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'>&#60;</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
 			var active = pageNum == i? "active":"none";
 			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
-			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>></a></li>";
+			str+="<li class='d-paging-btn-none'><a href='"+ (endNum + 1)+"'>&#62;</a></li>";
 		}
 		
 		str += "</ul>";
@@ -305,6 +360,43 @@ $(document).ready(function(){
 			showRevwPage(revwCnt);
 		})
 	}
+	//모달
+	let revwModal = $('#addRevw');
+	let addRevwBtn = $('#addRevwBtn');
+	let closeBtn = $('.d-revw-modal-close');
+	let newRevwRate = revwModal.find("input[name='revwRate']");
+	let newRevwCn = revwModal.find("input[name='revwCn']");
+	
+	let revwRegBtn =$('#revwRegBtn');
+	
+	addRevwBtn.on("click",function(e){
+		if(memberIdValue!=-1){
+			$('#addRevw').fadeIn(300);
+			
+		}else{
+			alert("로그인이 필요합니다");
+		}
+	});
+	closeBtn.on("click",function(e){
+	revwModal.fadeOut(300);
+	});
+	revwRegBtn.on("click",function(e){
+		let revw={
+				liqId:liqIdValue,
+				memberId:memberIdValue,
+				cn:newRevwCn.val(),
+				rate:newRevwRate.val()
+		};
+		revwService.add(revw,function(result){
+			alert("리뷰가 등록 되었습니다");
+			
+			newRevwRate.val("");
+			newRevwCn.val("");
+			revwModal.fadeOut(100);
+			showList(1);
+		});
+	});
+	
 });
 </script>
 
