@@ -1,6 +1,7 @@
 package com.sooltoryteller.controller;
 import java.util.UUID;
 
+import javax.crypto.Mac;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,6 +88,12 @@ public class MemberController {
 	// 회원가입 view
 	@GetMapping("/join")
 	public void join() {	}
+	
+	//sns회원가입 view
+	@GetMapping("/snsJoin")
+	public void snsJoin() {}
+	
+	
 	// 회원가입 아이디 중복체크
 		@RequestMapping(value = "/idOverlapCheck", method = RequestMethod.POST)
 		@ResponseBody
@@ -136,6 +143,39 @@ public class MemberController {
 		return "/join";
 		
 	}
+	
+	//sns회원가입
+	@PostMapping("/snsJoin")
+	public String snsJoin(MemberVO member, HttpServletRequest request,
+	HttpServletResponse response, Model model, RedirectAttributes rttr) {
+		
+		
+				//선호하는 술 체크 배열로 받아오기
+				String[] arr = request.getParameterValues("drink");
+				
+				//비밀번호가 없으므로 임시비밀번호 생성후 넣어줌
+				String tmpPwd = UUID.randomUUID().toString().replace("-", "");
+				tmpPwd = tmpPwd.substring(0,9);
+				
+				member.setPwd(tmpPwd);
+				
+				//회원가입이 성공했다면
+				if(service.join(member)) {
+					//회원아이디를 가져와서 선호하는 술 등록
+					Long memberId = service.getMemberId(member.getEmail());
+					favDrkService.registerFavDrk(memberId, arr);
+					
+					//세션에 회원 닉네임, 이메일 저장 ->로그인상태로
+					HttpSession session = request.getSession();
+					session.setAttribute("name", member.getName());
+					session.setAttribute("email", member.getEmail());
+					return "redirect:/userInfo";
+				}
+				
+				return "/snsJoin";
+				
+			}
+		
 	
 	//회원가입 후 회원정보 view
 	@GetMapping("/userInfo")
@@ -246,8 +286,8 @@ public class MemberController {
 	
 	//kakaoLogin code받기
 	@RequestMapping(value = "/Koauth", produces = "application/json", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView kakaologin(@RequestParam("code")String code, HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
+	public String kakaologin(@RequestParam("code")String code, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session, Model model) {
 		
 		System.out.println("kakaologin code:"+code);
 		
@@ -258,38 +298,31 @@ public class MemberController {
 		JsonNode userInfo = KakaoLoginController.getKakaoUserInfo(accessToken);
 		
 		String kemail = null;
-		String kname = null;
 		String kimg = null;
 		
-		JsonNode properties = userInfo.path("propertis");
+		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 		
 		kemail = kakao_account.path("email").asText();
-		kname = properties.path("nickname").asText();
 		kimg = properties.path("profile_image").asText();
 		
 		System.out.println("userInfo:"+userInfo);
+		System.out.println("kimg .... : "+kimg);
 		
-		session.setAttribute("email", kemail);
-		session.setAttribute("name", kname);
-		session.setAttribute("img", kimg);
 		
-		mav.setViewName("home");
+//		mav.addObject("email", kemail);
+//		mav.addObject("img", kimg);
+//		mav.setViewName("snsJoin");
+		if(service.checkEmail(kemail) == 1) {
+			session.setAttribute("email", kemail);
+			return "home";
+		}else {
 		
-		return mav;
-		
+			model.addAttribute("email", kemail);
+			model.addAttribute("img", kimg);
+			return "snsJoin";
+		}
 	}
 	
-/*	@RequestMapping(value = "/Koauth", method = RequestMethod.GET)
-	public ModelAndView memberLoginForm(HttpSession session, String code) {
-		System.out.println("session..."+session);
-		ModelAndView mav = new ModelAndView(); 
-		String kakaoUrl = KaKaoLoginController.getAuthorizationUrl(session);
-		mav.setViewName("/login");
-		mav.addObject("kakao_url", kakaoUrl); 
-		mav.addObject("code", code);
-		System.out.println(mav);
-		return mav;
-		}// end memberLoginForm()  */
 	}
 

@@ -44,9 +44,14 @@
 }
 .h-photo{
     height: 120px;
-    width: 100px;
+    width: 120px;
     border: 1px solid;
     display: inline-block;
+}
+
+.h-profile-photo{
+	height: 120px;
+    width: 120px;
 }
 	
 	.h-modal {

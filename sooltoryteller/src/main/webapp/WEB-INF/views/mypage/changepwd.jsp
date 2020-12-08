@@ -45,7 +45,7 @@ let success = '${success}';
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
-		const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]){5,16}$/; // 대문자 OR 소문자,특수문자 1개씩은 포함해서 5자리~16자리
+		const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]).{5,16}$/; // 대문자 OR 소문자,특수문자 1개씩은 포함해서 5자리~16자리
 		const blank = /\s/g;
     
 		//1. 비밀번호와 비밀번호 확인이 일치하는지 확인

@@ -31,7 +31,7 @@
         </div><div class="h-modify-content">
         <h3 style="margin-bottom: 15px;">회원정보 수정/ 회원탈퇴</h3>
         <form action ="/mypage/changeuserinfo" method="post" onsubmit="return validate()">
-        <div class="h-photo"><img src=${member.img }></div>
+        <div class="h-photo"><img src=${member.img } class="h-profile-photo"></div>
         <p><input type="file" class="h-addfile"></p>
 	    <p style='margin:10px;'>이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
 	    <p style='margin:10px;'>닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>" readonly="readonly">
