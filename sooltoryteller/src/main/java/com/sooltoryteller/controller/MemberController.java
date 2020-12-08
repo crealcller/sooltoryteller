@@ -1,4 +1,6 @@
 package com.sooltoryteller.controller;
+import java.util.UUID;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +34,21 @@ public class MemberController {
 	private EmailVO e_mail;
 	private MemberService service;
 	private MemberFavDrkService favDrkService;
+	private KakaoLoginController kakaoController;
 	
 	//로그인 view
 	@GetMapping("/login")
-	public void login() {
+	public ModelAndView login(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		String kakaoUrl = kakaoController.getAuthorizationUrl(session);
+		
+		mav.setViewName("login");
+		mav.addObject("kakaoUrl", kakaoUrl);
+		
+		return mav;
 	}
-	// 로그인action 로그인이 메인페이지의 모달창으로 있으므로 메인페이지와 매핑해줌
+	
 	@PostMapping("/login")
 	public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes rttr) {
@@ -63,13 +74,16 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
+	
 	// 로그아웃
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, RedirectAttributes rttr) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr ) {
+		
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "redirect:/";
 	}
+	
 	// 회원가입 view
 	@GetMapping("/join")
 	public void join() {	}
@@ -127,15 +141,6 @@ public class MemberController {
 	@GetMapping("/userInfo")
 	public void userInfo() {}
 	
-	/*
-	 * // 마이페이지 view
-	 *
-	 * @GetMapping("/mypage") public void mypage(HttpSession session, Model model) {
-	 * String email = (String) session.getAttribute("email");
-	 *
-	 * if (email == null) { model.addAttribute("msg", "로그인이 필요한 페이지 입니다."); } }
-	 */
-	
 	// 회원정보 수정 view
 	@GetMapping("/mypage/changeuserinfo")
 	public void changeuserinfo(HttpSession session, Model model) {
@@ -189,20 +194,30 @@ public class MemberController {
 		
 		//회원의 현재 비밀번호 불러오기
 		String tmp = service.getPwd(email);
+		System.out.println("현재비밀번호 : "+tmp);
 		
-		if(tmp.equals(pwd)) {
+		if(!tmp.equals("") && tmp.equals(pwd)) {
 			service.modifyPwd(email, newpwd);
 			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
 		}else {
 			model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
 		}
 	}
+	
+	
 	//비밀번호 찾기 ->임시비밀번호 생성
 	@PostMapping("/findPwd")
 	public String sendpwd(String email,   RedirectAttributes rttr) throws Exception {
 		
-		//임시비밀번호 발급
-		String tmpPwd = service.getPwd(email);
+		String pwd = service.getPwd(email);
+		String tmpPwd = "";
+		
+		//현재비밀번호를 꺼내왔다면 임시비밀번호를 발급
+				if(pwd != null) {
+					tmpPwd = UUID.randomUUID().toString().replace("-", "");
+					tmpPwd = tmpPwd.substring(0,9);
+					System.out.println(tmpPwd);
+				}
 		
         if(!tmpPwd.equals("")) {
         	
@@ -233,24 +248,34 @@ public class MemberController {
 	@RequestMapping(value = "/Koauth", produces = "application/json", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView kakaologin(@RequestParam("code")String code, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
+		
 		System.out.println("kakaologin code:"+code);
+		
 		ModelAndView mav = new ModelAndView();
+		
 		JsonNode node = KakaoLoginController.getKakaoAccessToken(code);
 		JsonNode accessToken = node.get("access_token");
 		JsonNode userInfo = KakaoLoginController.getKakaoUserInfo(accessToken);
+		
 		String kemail = null;
 		String kname = null;
 		String kimg = null;
+		
 		JsonNode properties = userInfo.path("propertis");
 		JsonNode kakao_account = userInfo.path("kakao_account");
+		
 		kemail = kakao_account.path("email").asText();
 		kname = properties.path("nickname").asText();
 		kimg = properties.path("profile_image").asText();
+		
 		System.out.println("userInfo:"+userInfo);
+		
 		session.setAttribute("email", kemail);
 		session.setAttribute("name", kname);
 		session.setAttribute("img", kimg);
+		
 		mav.setViewName("home");
+		
 		return mav;
 		
 	}

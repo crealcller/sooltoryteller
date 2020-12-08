@@ -11,6 +11,14 @@ if (email != null) {
 } else {
 	logoutDisplay =  "none";
 }
+
+
+//로그아웃시 캐시삭제
+response.setHeader("Cache-Control", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setHeader("Pragma", "no-cache");
+
 %>
     
 <!DOCTYPE html>
@@ -152,7 +160,7 @@ button {
         <a href="/" id="h-company-name">술토리텔러</a>
         </div><div class='h-usermenu'>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
-            <a href='/logout' style="display:<%=logoutDisplay%>">로그아웃 ㅣ</a>
+            <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
            	<!-- 다울 추가 임시로 like 페이지로 연결 -->
             <a href='/mypage/like'>마이페이지 ㅣ</a>
@@ -191,5 +199,17 @@ button {
         </div>
     </div>
 </div>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
+/* function kakaoLogout(){
+Kakao.Auth.logout(function(){
+	setTimeout(function(){
+		Kakao.init();
+		location.href='/logout'
+	}, 1000);
+	});
+} */
+
+</script>
 </body>
 </html>

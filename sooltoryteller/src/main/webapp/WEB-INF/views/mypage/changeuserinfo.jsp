@@ -34,8 +34,7 @@
         <div class="h-photo"><img src=${member.img }></div>
         <p><input type="file" class="h-addfile"></p>
 	    <p style='margin:10px;'>이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
-	    <p style='margin:10px;'>닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>">
-	    <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p>
+	    <p style='margin:10px;'>닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>" readonly="readonly">
 	    <p style='margin:10px;'>핸드폰번호 : <input type = "text" name="telno" id="telno" value="<c:out value='${member.telno }'/>"></p>
 	    
 	   <p><button type="submit" class="h-modibtn" >회원수정</button>	<button type="button" id="withdrawal" class="h-modibtn">회원탈퇴</button></p>
@@ -54,11 +53,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 //정규식
-	const jName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리
+	const jName = /^[가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리
 	const jTelno = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/; //전화번호 정규식 '-'빼고 숫자만
-	const blank = /(\s*)/g; //모든공백제거(앞뒤중간)
+	const blank = /\s/g;  //모든공백제거(앞뒤중간) ->/(\s*)/g;
 
-	
+/*	
 	//닉네임 중복체크
 	  $(function(){
 			$(".n-overlapCheck").click(function(){
@@ -68,11 +67,12 @@
 				//입력했는지 검사
 				if(name == ""){
 					alert("닉네임을 입력하여 주세요");
-				}
-				
-				//정규식으로 형식검사 +공백체크
-				if(!jName.test(name) || blank.test(name)){
-					alert("닉네임 형식에 맞지 않습니다.");
+					
+				}else{
+					//정규식으로 형식검사 +공백체크
+					if(!jName.test(name) || blank.test(name)){
+						alert("닉네임은 한글로 2~8자리를 입력해주세요");
+					}
 				}
 				
 				$.ajax({
@@ -82,20 +82,22 @@
 					dataType: "json",
 					success : function(data){
 						if(name != ""){
-								if(data>0){
-									alert("중복된 닉네임이 존재합니다.");
-							
-								}else{
-									if(jName.test(name) && !blank.test(name)){
-										alert("사용 가능한 닉네임입니다.");
-										}
-							    }
-						  } 
-					}	
+							if(data == 0){
+								if(jName.test(name) && !blank.test(name)){
+									alert("사용 가능한 닉네임입니다.");
+									}
+						
+							}else{
+								alert("중복된 닉네임이 존재합니다.");
+						    }
+				     	}	
+			      }
 		}) 
 		})
 	    }) //닉네임 중복체크 end	
-	
+*/
+
+
 	  //회원수정 버튼 클릭시 유효성 검사 한 번 더!!
 	    function validate() {   	   
 		//1. 닉네임 유효성 검사
@@ -105,7 +107,7 @@
 	    		return false;
 	    	}
 	    	
-	    	if(!jName.test($("#name").val()) || blank.test($("#name").val())){
+	    	if(!jName.test($("#name").val()) && blank.test($("#name").val())){
 	    		alert('닉네임은 문자 제한없이 2~8자리를 입력해주세요');
 	    		$("#name").val("");
 	    		$("#name").focus();

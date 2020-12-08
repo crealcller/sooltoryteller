@@ -58,11 +58,11 @@ if(msg != ""){
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
   
-	const jEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // 이메일
-	const jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]){5,16}$/; // 대문자,소문자,특수문자 1개씩은 포함해서 5자리~16자리
-	const jName = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리
-	const jTelno = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
-	const blank = /(\s*)/g; //모든공백제거(앞뒤중간)
+  let jEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // 이메일
+  let jPwd = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]){5,16}$/; // 대문자,소문자,특수문자 1개씩은 포함해서 5자리~16자리
+  let jName = /^[가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리  /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/;  
+  let jTelno = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
+  let blank = /\s/g;  //공백 정규식 미완
 	
 
 	//아이디 중복체크 확인
@@ -77,12 +77,14 @@ if(msg != ""){
 			if(email == ""){
 				alert("이메일을 입력하여 주세요");
 	    		btn.disabled = "disabled";
-			}
+			}else{
 			
-			//정규식으로 형식검사 +공백체크
-			if(!jEmail.test(email) || blank.test(email)){
-				alert("이메일 형식에 맞지 않습니다.");
-				btn.disabled = "disabled";
+				//정규식으로 형식검사 +공백체크
+				if(!jEmail.test(email) || blank.test(email)){
+					alert("이메일 형식에 맞지 않습니다.");
+					btn.disabled = "disabled";
+				}
+			
 			}
 			
 			 $.ajax({
@@ -93,12 +95,12 @@ if(msg != ""){
 				success : function(data){
 					if(email != ""){
 							if(data>0){
-								alert("중복된 아이디가 존재합니다.");
+								alert("중복된 이메일이 존재합니다.");
 					    	   	btn.disabled = "disabled";
 						
 							}else{
 								if(jEmail.test(email) && !blank.test(email)){
-									alert("사용 가능한 아이디입니다.");
+									alert("사용 가능한 이메일입니다.");
 								    btn.disabled = false;
 									}
 						    }
@@ -119,12 +121,13 @@ if(msg != ""){
 			if(name == ""){
 				alert("닉네임을 입력하여 주세요");
 	    		btn.disabled = "disabled";
-			}
+			}else{
+				//정규식으로 형식검사 +공백체크
+				 if(!jName.test(name) || blank.test(name)){
+					alert("닉네임은 한글로 2~8자리를 입력해주세요");
+					btn.disabled = "disabled";
+				}
 			
-			//정규식으로 형식검사 +공백체크
-			if(!jName.test(name) || blank.test(name)){
-				alert("닉네임 형식에 맞지 않습니다.");
-				btn.disabled = "disabled";
 			}
 			
 			$.ajax({
@@ -219,7 +222,7 @@ if(msg != ""){
     	}
     	
     	if(!jName.test($("#name").val()) || blank.test($("#name").val())){
-    		alert('닉네임은 문자 제한없이 2~8자리를 입력해주세요');
+    		alert('닉네임은 한글로 2~8자리를 입력해주세요');
     		$("#name").val("");
     		$("#name").focus();
     		return false;
