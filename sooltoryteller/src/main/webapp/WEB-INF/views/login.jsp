@@ -21,6 +21,7 @@ let emailMsg ='${emailMsg}';
 if(emailMsg != ""){
 	alert(emailMsg);
 }
+
 </script>
 <body>
 

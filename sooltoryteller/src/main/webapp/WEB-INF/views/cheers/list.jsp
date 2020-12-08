@@ -6,6 +6,15 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
+<script>
+// 로그인이 안된 상태면 로그인페이지로 넘어가게
+let msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+		location.href = "/login";
+}
+</script>
+
 <!-- fontawesome -->
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <!-- jquery script src -->
@@ -27,10 +36,9 @@
 
 .s-bbst-main-tool {
 	border: 1px solid black;
-	margin: 0 auto;
+	margin: 10px auto 10px auto;
 	height: 50px;
 	width: 900px;
-	margin-top: 10px;
 }
 
 .s-bbst-register-btn {
@@ -63,11 +71,19 @@
 	color: white;
 }
 
+.s-bbst-search-cancel {
+	width: 60px;
+	border: none;
+	cursor: pointer;
+	transition: 0.3s;
+	background-color: #990000ff;
+	color: white;
+}
+
 .s-bbst-container {
 	width: 900px;
-	margin: 35px auto 25px auto;
-	height: auto;
-	}
+	margin: 0 auto;
+}
 
 .s-bbst-item-container {
 	height: 320px;
@@ -153,8 +169,6 @@
 	<div class="s-bbst-search-container">
 		<form id="s-searchForm" action="/cheers/list" method="get">
 			<select name="type">
-				<option value=""
-					<c:out value="${pageMaker.cri.type == null ? 'selected' : '' }" />>선택</option>
 				<option value="T"
 					<c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }" />>제목</option>
 				<option value="C"
@@ -171,7 +185,10 @@
 			<input type="text" name="keyword" value="<c:out value='${pageMaker.cri.keyword }' />" placeholder="검색어를 입력해주세요." />
 			<input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum }' />" />
 			<input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount }' />" />
-			<button class="s-bbst-search-btn">검색</button>
+			<button class="s-bbst-search-btn" style="background-color: rgb(181, 135, 189);">검색</button>
+			<c:if test='${pageMaker.cri.keyword != null }'>
+				<button class="s-bbst-search-cancel">취소</button>
+			</c:if>
 		</form>
 	</div>
 </div>
@@ -257,25 +274,42 @@ $(document).ready(function() {
 		actionForm.submit();
 	});
 
-	/* 검색 버튼 이벤트 처리 : 1페이지 보이기 + 검색 조건 및 키보드 보이기*/
+	/* 검색 버튼 이벤트 처리 : 1페이지 보이기 + 검색 조건 및 검색어 보이기*/
 	var searchForm = $("#s-searchForm");
 	
 	$("#s-searchForm button").on("click", function(e) {
 		
-		if(!searchForm.find("option:selected").val()) {
-			alert("검색 종류를 선택하세요.");
+		var keyword = searchForm.find("input[name='keyword']").val();
+		var blank_pattern = /^\s+|\s+$/g;
+		
+		// 검색어 입력 안 한 경우
+		if(!keyword) {
+			alert("검색어를 입력해주세요.");
 			return false;
 		}
 		
-		if(!searchForm.find("input[name='keyword']").val()) {
-			alert("키워드를 입력하세요.");
-			return false;
+		// 검색어에 공백만 입력한 경우
+		if(keyword.replace(blank_pattern, '') == "") {
+		    alert("검색어 : 공백만 입력되었습니다.");
+		    return false;
 		}
 		
 		searchForm.find("input[name='pageNum']").val("1");
 		e.preventDefault();
 		
 		searchForm.submit();
+	});
+	
+	// 검색 취소 버튼 누를 경우
+	$(".s-bbst-search-cancel").on("click", function() {
+		// list로 되돌아가기
+		location.href = "/cheers/list?"
+			+ "pageNum=1"
+			+ "&amount=9"
+			+ "&type="
+			+ "&keyword=";
+		// 검색 취소 버튼 숨기기
+		$(".s-bbst-search-cancel").hide();
 	});
 });
 

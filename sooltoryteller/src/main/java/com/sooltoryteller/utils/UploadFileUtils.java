@@ -1,19 +1,23 @@
 package com.sooltoryteller.utils;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
-import org.springframework.util.FileCopyUtils;
-import org.springframework.util.StringUtils;
+import javax.imageio.ImageIO;
 
+import org.springframework.util.FileCopyUtils;
+
+import lombok.Builder;
 import net.coobird.thumbnailator.Thumbnails;
 
 public class UploadFileUtils {
 
-	static final int THUMB_WIDTH = 300;
-	static final int THUMB_HEIGHT = 300;
+	static final int THUMB_WIDTH = 280;
+	static final int THUMB_HEIGHT = 280;
 
 	public static String fileUpload(String uploadPath, String fileName, byte[] fileData, String ymdPath) throws Exception {
 
@@ -32,7 +36,10 @@ public class UploadFileUtils {
 
 		if (image.exists()) {
 			thumbnail.getParentFile().mkdirs();
-			Thumbnails.of(image).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail);
+			BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(fileData));
+			Thumbnails.of(originalImage).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail); 
+			// jpeg 파일에서 cookies error 나는 듯하여 코드 변경함
+			// Thumbnails.of(image).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail);
 		}
 		return newFileName;
 	}

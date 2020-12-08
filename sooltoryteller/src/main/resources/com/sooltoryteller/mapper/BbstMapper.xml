@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="getBbstList" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
 	<![CDATA[
 	select * from (
-		select /*+ordered bbst_id */
+		select /*+ index_desc (b bbst_pk) */
         rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
 		from bbst b, member m
 		where
@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 게시글 조회 -->
 <select id="getBbst" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
-	select b.bbst_id, b.title, m.img, m.name, b.regdate, b.updatedate, b.inqr_num, b.likes_num, b.reply_num, b.cn_img, b.cn
+	select b.bbst_id, b.title, m.img, m.member_id, m.name, b.regdate, b.updatedate, b.inqr_num, b.likes_num, b.reply_num, b.cn_img, b.cn
 	from bbst b, member m
 	where b.member_id = m.member_id
 	and b.bbst_id = #{bbstId}

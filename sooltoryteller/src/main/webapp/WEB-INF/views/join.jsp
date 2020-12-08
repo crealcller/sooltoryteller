@@ -235,7 +235,6 @@ if(msg != ""){
     		return false;
     	} 
     }
-    } //validate end
     
     
     //선호하는 술 종류 2가지만 선택

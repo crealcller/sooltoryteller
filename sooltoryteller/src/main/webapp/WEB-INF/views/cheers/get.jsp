@@ -6,6 +6,15 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
+<script>
+// 로그인이 안된 상태면 로그인페이지로 넘어가게
+let msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+		location.href = "/login";
+}
+</script>
+
 <!-- fontawesome -->
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <!-- jquery script src -->
@@ -113,8 +122,10 @@
 	<div class="s-writer-info-container">
 		<div class="s-writer-info-btn-div">
 			<button data-oper="list" class="s-listBtn" style="background-color: rgb(181, 135, 189);">목록</button>
-			<button data-oper="modify" class="s-listBtn" style="background-color: #6b5b95;">수정</button>
-			
+			<!-- 본인이 쓴 게시물만 수정 가능 -->
+			<c:if test="${memberId == bbst.memberId }">
+				<button data-oper="modify" class="s-listBtn" style="background-color: #6b5b95;">수정</button>
+			</c:if>
 			<!-- 데이터 이동시키기 -->
 			<form id="operForm" action="/cheers/modify" method="get">
 				<input type="hidden" id="bbstId" name="bbstId" value="<c:out value='${bbst.bbstId }' />" />

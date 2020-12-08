@@ -7,16 +7,6 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName"
-			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" />
-		<property name="username" value="sool" />
-		<property name="password" value="1234" />
-  </bean>
-
   <!-- emil 관련 -->
 	<bean id="javaMailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -66,8 +56,6 @@
 	base-package="com.sooltoryteller.mapper" />
 <context:component-scan
 	base-package="com.sooltoryteller.service" />
-<context:component-scan
-	base-package="com.sooltoryteller.mapper" />
 <context:component-scan
 	base-package="com.sooltoryteller.utils" />
 </beans>

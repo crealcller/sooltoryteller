@@ -33,8 +33,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class BbstController {
 
-	private MemberService mservice;
 	private BbstService service;
+	private MemberService mservice;
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
@@ -43,8 +43,8 @@ public class BbstController {
 	@GetMapping("/list")
 	public void getBbstList(HttpSession session, BbstCriteria cri, Model model) {
 
-		String email = (String) session.getAttribute("email");
-		if (email == null) {
+		String email = (String)session.getAttribute("email");
+		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
 
@@ -59,10 +59,9 @@ public class BbstController {
 	// 게시글 등록
 	@GetMapping("/register")
 	public void register(HttpSession session, BbstVO bbst, Model model) {
-
-		String email = (String) session.getAttribute("email");
-
-		if (email == null) {
+		
+		String email = (String)session.getAttribute("email");
+		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
 	}
@@ -71,29 +70,27 @@ public class BbstController {
 	public String register(HttpSession session, BbstMemberJoinVO bbst,
 	MultipartFile file, RedirectAttributes rttr) throws Exception {
 
-		// 회원ID 가져오기
-		String email = (String) session.getAttribute("email");
-		MemberVO member = mservice.get(email);
-		bbst.setMemberId(member.getMemberId());
-		bbst.setName(member.getName());
-
+		String email = (String)session.getAttribute("email");
+		Long memberId = mservice.getMemberId(email);
+		
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
-		if (file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+		if(file != null) { 
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-		} else {
+		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
 			fileName = bbst.getCnImg();
 			bbst.setCnImg(fileName);
 		}
 
 		bbst.setCnThumbimg(
-			File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 
 		log.info("========== REGISTER: " + bbst + " ==========");
+		bbst.setMemberId(memberId);
 		service.registerBbst(bbst);
 
 		rttr.addFlashAttribute("result", bbst.getBbstId());
@@ -105,12 +102,14 @@ public class BbstController {
 	public void get(HttpSession session, @RequestParam("bbstId") Long bbstId,
 	@ModelAttribute("cri") BbstCriteria cri, Model model) {
 
-		String email = (String) session.getAttribute("email");
-
-		if (email == null) {
+		String email = (String)session.getAttribute("email");
+		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			Long memberId = mservice.getMemberId(email);
+			model.addAttribute("memberId", memberId);
 		}
-
+		
 		log.info("/get or modify");
 		model.addAttribute("bbst", service.getBbst(bbstId));
 	}
@@ -120,12 +119,9 @@ public class BbstController {
 	public String modify(HttpSession session, BbstMemberJoinVO bbst, MultipartFile file,
 	@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
 
-		// 회원ID 가져오기
-		String email = (String) session.getAttribute("email");
-		MemberVO member = mservice.get(email);
-		bbst.setMemberId(member.getMemberId());
-		bbst.setName(member.getName());
-
+		String email = (String)session.getAttribute("email");
+		Long memberId = mservice.getMemberId(email);
+		
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
@@ -144,7 +140,8 @@ public class BbstController {
 		log.info(bbst.getCnImg() + bbst.getCnThumbimg());
 
 		log.info("========== MODIFY: " + bbst + " ==========");
-
+		
+		bbst.setMemberId(memberId);
 		if (service.modifyBbst(bbst)) {
 			rttr.addFlashAttribute("result", "success");
 		}
@@ -157,18 +154,16 @@ public class BbstController {
 	public String remove(HttpSession session, BbstMemberJoinVO bbst, @RequestParam("bbstId") Long bbstId,
 	@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
 
-		// 회원ID 가져오기
-		String email = (String) session.getAttribute("email");
-		MemberVO member = mservice.get(email);
-		bbst.setMemberId(member.getMemberId());
-		bbst.setName(member.getName());
-
+		String email = (String)session.getAttribute("email");
+		Long memberId = mservice.getMemberId(email);
+		
 		log.info("========== REMOVE BBSTID " + bbstId + " ==========");
 
+		bbst.setMemberId(memberId);
 		if (service.removeBbst(bbstId)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-
+		
 		return "redirect:/cheers/list" + cri.getBbstListLink();
 	}
 }
