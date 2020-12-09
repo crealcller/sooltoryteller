@@ -121,7 +121,7 @@ public class MemberController {
 		//에러발생시
 		if( result.hasErrors()) {
 			model.addAttribute("member", member);
-			model.addAttribute("msg", "회원가입 실패");
+			model.addAttribute("msg", "입력 형식에 맞지 않습니다.");
 			return "/join";
 		}
 		//선호하는 술 체크 배열로 받아오기
@@ -171,6 +171,8 @@ public class MemberController {
 					session.setAttribute("email", member.getEmail());
 					return "redirect:/userInfo";
 				}
+				model.addAttribute("name", member.getName());
+				model.addAttribute("email", member.getEmail());
 				
 				return "/snsJoin";
 				

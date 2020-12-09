@@ -21,21 +21,21 @@ public class MemberServiceTests {
 	@Setter(onMethod_ = {@Autowired})
 	private MemberService service;
 	
-	@Test
-	public void testExist() {
-		
-		log.info(service);
-		assertNotNull(service);
-	}
+//	@Test
+//	public void testExist() {
+//		
+//		log.info(service);
+//		assertNotNull(service);
+//	}
 	
 	@Test
 	public void testJoin() {
 		
 		MemberVO member = new MemberVO();
-		member.setEmail("tititi@tititi.com");
-		member.setName("샤샤샤");
-		member.setPwd("0720");
-		member.setTelno("01063517402");
+		member.setEmail("yuhuhu@yuhuhu.com");
+		member.setName("유후후");
+		member.setPwd("lkjh12##");
+		member.setTelno("01098736482");
 		
 		System.out.println("회원가입!! : "+service.join(member));
 	}

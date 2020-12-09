@@ -3,6 +3,10 @@ package com.sooltoryteller.service;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sooltoryteller.domain.MemberVO;
@@ -19,6 +23,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	private MemberMapper mapper;
 	
+	//@Inject
+	//PasswordEncoder PasswordEncoder;  //BCryptPasswordEncoder
+	
 	@Override
 	public boolean join(MemberVO member) {
 		int result = 0;
@@ -28,7 +35,10 @@ public class MemberServiceImpl implements MemberService{
 			if(checkEmail(member.getEmail()) >=1 || checkName(member.getName())>=1) {
 				return false;
 			}
-			
+		//String encPwd = PasswordEncoder.encode(member.getPwd());
+		//member.setPwd(encPwd);
+		//System.out.println("암호화된 비번 : " + encPwd);
+		
 		result = mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));
 		

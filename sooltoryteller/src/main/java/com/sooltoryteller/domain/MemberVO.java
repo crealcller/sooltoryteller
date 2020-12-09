@@ -47,7 +47,7 @@ public class MemberVO {
 	private Date regdate;
 	
 	// 변경일시
-	private Date udpatedate;
+	private Date updatedate;
 	
 	// 가입상태
 	private String regstus;
