@@ -62,7 +62,7 @@ public class LiqLikeController {
 		return service.cancelLike(memberId, liqId)?
 				new ResponseEntity<>("success",HttpStatus.OK)
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 	}
 	//페이지와 함께 해당회원이  좋아요한 리스트 가져오기
 	@GetMapping(value="/my/pages/{memberId}/{page}",

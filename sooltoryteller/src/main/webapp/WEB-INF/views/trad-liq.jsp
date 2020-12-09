@@ -150,7 +150,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 500px;
-	height:300px;
+	height: 600px;
 }
 
 /* The Close Button */
@@ -165,6 +165,32 @@
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.star_grade span {
+	text-decoration: none;
+	font-size: 30px;
+	color: gray;
+}
+
+.star_grade span.on {
+	color: orange;
+}
+
+.star_grade :hover {
+	cursor: pointer;
+}
+.d-revw-star {
+	font-size:20px;
+	color: orange;
+}
+.d-star-box{
+ 	display:inline-block;
+ 	padding:5px 10px 5px 10px;
+ 	background-color: rgb(252, 248, 35);
+ 	border-style:none;
+	border-radius: 5px 5px 5px 5px;
+	margin:10px;
 }
 </style>
 <meta charset="UTF-8">
@@ -277,8 +303,14 @@
     <span class="d-revw-modal-close">&times;</span>
 	<div><img style='width:100px;height:150px;' src='/resources/img/<c:out value="${liq.img}" />'><c:out value="${liq.nm}" /></div>
     
-    <p>별점<input type='text' name='revwRate'></p>
-    <p> 내용<input type='text' name='revwCn'></p>
+     <p class="star_grade">
+        <span value=1>★</span>
+        <span value=2>★</span>
+        <span value=3>★</span>
+        <span value=4>★</span>
+        <span value=5>★</span>
+    </p>
+    <p><textarea maxlength="500" style='width:450px;' rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
     <button id='revwRegBtn' type='submit'>작성하기</button>
   </div>
 
@@ -350,54 +382,84 @@ $(document).ready(function(){
 			}
 			for(var i=0,len = list.length || 0; i<len; i++){
 				str += "<li class='d-revw-con' data-revwId = '"+list[i].revwId+"'>";
-				str += "<div><div class='header'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
-				str += "<strong>"+list[i].member.name+"</strong>";
-				str += "<small>"+list[i].rate+"</small>점"
+				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+list[i].rate+"</div>"
+				str += "<span>"+list[i].cn+"</span>"
 				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
-				str += "<p>"+list[i].cn+"</p></div></li>"
+				str += "<div><div class='header'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
+				str += "<strong>"+list[i].member.name+"</strong></li>";
 			}
 			revwUL.html(str);
 			showRevwPage(revwCnt);
-		})
+		});
+		//동적으로 생성된 node에 접근해야함 
+		//load/ready 될떄 별점이 보여야함
+		
 	}
 	//모달
 	let revwModal = $('#addRevw');
 	let addRevwBtn = $('#addRevwBtn');
 	let closeBtn = $('.d-revw-modal-close');
-	let newRevwRate = revwModal.find("input[name='revwRate']");
-	let newRevwCn = revwModal.find("input[name='revwCn']");
-	
+	let newRevwRate = 0;
+	let newRevwCn = revwModal.find("textarea[name='revwCn']");
+	let star = $('.star_grade span');
 	let revwRegBtn =$('#revwRegBtn');
+	star.click(function(){
+        $(this).parent().children("span").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+        $(this).addClass("on").prevAll("span").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+        newRevwRate = $(this).attr('value');
+        console.log(newRevwRate);
+    });
 	
+	//리뷰작성하기 버튼
 	addRevwBtn.on("click",function(e){
 		if(memberIdValue!=-1){
+			resetRevw();
 			$('#addRevw').fadeIn(300);
-			
 		}else{
 			alert("로그인이 필요합니다");
 		}
 	});
+	
+	//모달 끄기 버튼
 	closeBtn.on("click",function(e){
 	revwModal.fadeOut(300);
 	});
+	
+	//리뷰 작성후 제출 버튼
 	revwRegBtn.on("click",function(e){
+		if(newRevwCn.val().trim().length==0){
+			alert("내용을 입력해주세요 ");
+			return;
+		}
+		if(newRevwCn.val().trim().length<10){
+			alert("리뷰내용은 최소 10자이상 입력해주세요");
+			return;
+		}
+		if(newRevwRate == 0){
+			alert("별점을 선택해주세요");
+			return;
+		}
 		let revw={
 				liqId:liqIdValue,
 				memberId:memberIdValue,
 				cn:newRevwCn.val(),
-				rate:newRevwRate.val()
+				rate:newRevwRate
 		};
 		revwService.add(revw,function(result){
 			alert("리뷰가 등록 되었습니다");
-			
-			newRevwRate.val("");
-			newRevwCn.val("");
 			revwModal.fadeOut(100);
+			newRevwRate = 0;
 			showList(1);
 		});
 	});
+	   
+function resetRevw(){
+	$('.star_grade span').parent().children("span").removeClass("on");
+	newRevwCn.val("");
+}
 	
 });
+
 </script>
 
 

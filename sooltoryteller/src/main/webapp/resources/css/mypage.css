@@ -135,8 +135,6 @@
     margin-top:50px;
 }
 .d-con li {
-	border-bottom-style: solid;
-    border-bottom-color:rgb(170, 168, 168);
 	padding:20px;
 }
 .d-con button {
@@ -147,6 +145,11 @@
 	padding:10px;
 	color:white;
 }
+.d-revw-con{
+	border-bottom-style: solid;
+    border-bottom-color: rgb(245, 245, 245);
+}
+
 /* The Modal (background) */
 .d-revw-modal {
 	display: none; /* Hidden by default */
@@ -169,7 +172,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 500px;
-	height:300px;
+	height: 600px;
 }
 
 /* The Close Button */
@@ -188,4 +191,32 @@
 .d-like-cancel-btn{
 	float:right;
 	font-size:30px;
+	color:rgb(181, 135, 189);
 }	
+
+.star_grade span {
+	text-decoration: none;
+	font-size: 30px;
+	color: gray;
+}
+
+.star_grade span.on {
+	color: orange;
+}
+
+.star_grade :hover {
+	cursor: pointer;
+}
+
+.d-revw-star {
+	font-size:20px;
+	color: orange;
+}
+.d-star-box{
+ 	display:inline-block;
+ 	padding:5px 10px 5px 10px;
+ 	background-color: rgb(252, 248, 35);
+ 	border-style:none;
+	border-radius: 10px 10px 10px 10px;
+	margin:10px;
+}
