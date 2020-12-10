@@ -105,7 +105,7 @@ public class LiqRevwController {
 				@PathVariable("page") int page,
 				@PathVariable("memberId") Long memberId){
 			
-			Criteria cri = new Criteria(page,3);
+			Criteria cri = new Criteria(page,4);
 			log.info("get my revw list memberId:" +memberId);
 			log.info("cri: "+cri);
 			

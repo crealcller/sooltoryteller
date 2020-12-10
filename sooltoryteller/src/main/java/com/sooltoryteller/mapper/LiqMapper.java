@@ -39,4 +39,8 @@ public interface LiqMapper {
 	
 	public int insertLiqCoVO(LiqCoVO vo);
 	
+	public void updateRevwCnt(@Param("liqId") Long liqId,@Param("amount") int amount);
+	
+	public int updateRevwRate(Long liqId);
+	
 }

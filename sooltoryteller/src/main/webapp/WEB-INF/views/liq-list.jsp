@@ -13,20 +13,20 @@
 <body>
 
 <div class="d-con">
-<h1>기타류</h1>
+<h1><c:out value="${kind}"/></h1>
 <c:forEach items="${allLiq}" var="allLiq">
-
 <div class="d-liq-con" OnClick="location.href ='/trad-liq?liqId=<c:out value="${allLiq.liqId}" />'" style="cursor:pointer;">
 <img class="d-img-con" src='/resources/img/<c:out value="${allLiq.img}" />'>
 <div class="d-text-con">
 <h3><c:out value="${allLiq.nm}"/></h3>
-가격 : \<fmt:formatNumber type="number" maxFractionDigits="3" value="${allLiq.prc}" /><br>
-도수 : <c:out value="${allLiq.lv}"/>%<br>
-원재료 : <c:out value="${allLiq.capct}"/>ml<br>
-양조장 : <c:out value="${allLiq.liqCo.nm}"/><br>
+<span><c:out value="${allLiq.liqNums.avgRate}"/>/<c:out value="${allLiq.liqNums.revwNum}"/>개</span>
+<span>조회수: <c:out value="${allLiq.liqNums.inqrNum}"/></span>
+<p>가격 : \<fmt:formatNumber type="number" maxFractionDigits="3" value="${allLiq.prc}" /></p>
+<p>도수 : <c:out value="${allLiq.lv}"/>%</p>
+<p>원재료 : <c:out value="${allLiq.capct}"/>ml</p>
+<p>양조장 : <c:out value="${allLiq.liqCo.nm}"/></p>
 </div>
 </div>
-
 </c:forEach>
 </div>
 </body>

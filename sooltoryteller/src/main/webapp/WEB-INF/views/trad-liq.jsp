@@ -199,46 +199,50 @@
 <body>
 <div class="d-con">
 	<div class="d-trad-liq-info">
-	
 		<div class="d-trad-liq-info-con">
-				<img class="d-trad-liq-img-con" src='/resources/img/<c:out value="${liq.img}" />'>
-		<div class="d-trad-liq-text-con">
-		<img id='like' src='/resources/img/heart1.png' style="float:right;width:30px;height:30px;"><br>
-		<h1>
-			<c:out value="${liq.nm}" />
-		</h1><br>
-		<p>
-		주종 : <c:out value="${liq.cate}" />
-		</p>
-		<p>
-		용량 : <c:out value="${liq.capct}" />ml
-		</p>
-		<p>
-		도수 : <c:out value="${liq.lv}" />%
-		</p>
-		<p>
-		주재료 : <c:out value="${liq.irdnt}" />
-		</p>
-		<c:if test="${liq.ards ne null}">
-		<p>
-		수상내역 : <c:out value="${liq.ards}" />
-		</p>
-		</c:if>
-		<p>
-		가격 : 
-			\
-			<fmt:formatNumber type="number" maxFractionDigits="3"
-				value="${liq.prc}" />
-		</p><br>
-		<button type="button" style="padding:0px 10px 0px 10px;">-</button>
-		<input  type="text" style="width: 30px;" value="1">
-		<button type="button" style="padding:0px 10px 0px 10px;">+</button>
-		<br>
-		<button type="submit">술바구니</button>
-		<button type="submit">구매하기</button>
-	</div>
-	</div>
-	
+			<img class="d-trad-liq-img-con" src='/resources/img/<c:out value="${liq.img}" />'>
+			<div class="d-trad-liq-text-con">
+				<img id='like' src='/resources/img/heart1.png' style="float:right;width:30px;height:30px;"><br>
+				<h1>
+					<c:out value="${liq.nm}" />
+				</h1><br>
+				<p>
+				주종 : <c:out value="${liq.cate}" />
+				</p>
+				<p>
+				용량 : <c:out value="${liq.capct}" />ml
+				</p>
+				<p>
+				도수 : <c:out value="${liq.lv}" />%
+				</p>
+				<p>
+				주재료 : <c:out value="${liq.irdnt}" />
+				</p>
+				<c:if test="${liq.ards ne null}">
+				<p>
+				수상내역 : <c:out value="${liq.ards}" />
+				</p>
+				</c:if>
+				<p>
+				가격 : 
+					\
+					<fmt:formatNumber type="number" maxFractionDigits="3"
+						value="${liq.prc}" />
+				</p>
+				<div id="liqNums">
+				<p>좋아요수<c:out value="${liq.liqNums.likesNum}" /></p>
+				<p>리뷰수<c:out value="${liq.liqNums.revwNum}" /></p>
+				<p>평균평점<c:out value="${liq.liqNums.avgRate}" /></p>
+				<p>조회수<c:out value="${liq.liqNums.inqrNum}" /></p>
+				</div>
+				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
+				<input  type="text" style="width: 30px;" value="1">
+				<button type="button" style="padding:0px 10px 0px 10px;">+</button>
+				<br>
+				<button type="submit">술바구니</button>
+				<button type="submit">구매하기</button> -->
+			</div>
+		</div>
 	</div>
 	<div class="d-trad-liq-con">
 		<div class="d-trad-liq-column">
@@ -266,7 +270,6 @@
 				</div>
 			</div>
 			<div class="d-new-revw-con">
-				<div class="d-revw-count"></div>
 				<h1>리뷰 작성 하기</h1>
 				<button id='addRevwBtn'>작성하기</button>
 				
@@ -328,7 +331,6 @@ $(document).ready(function(){
 	showList(1);
 	
 	function showRevwPage(revwCnt){
-	$('.d-revw-count').html("<p>"+revwCnt+"개의 리뷰</p>");
 		var endNum = Math.ceil(pageNum/5.0)*5;
 		var startNum = endNum -4;
 		
@@ -376,7 +378,6 @@ $(document).ready(function(){
 			}
 			var str="";
 			if(list == null || list.length==0){
-				$('.d-revw-count').html("<p>0개의 리뷰</p>");
 				revwUL.html("<li class='d-revw-con'>아직 등록된 리뷰가 없습니다.</li>");
 				return;
 			}
@@ -393,7 +394,6 @@ $(document).ready(function(){
 		});
 		//동적으로 생성된 node에 접근해야함 
 		//load/ready 될떄 별점이 보여야함
-		
 	}
 	//모달
 	let revwModal = $('#addRevw');

@@ -74,7 +74,7 @@ public class LiqLikeController {
 			@PathVariable("page") int page,
 			@PathVariable("memberId") Long memberId){
 		
-		Criteria cri = new Criteria(page,3);
+		Criteria cri = new Criteria(page,4);
 		log.info("get my like list memberId:" +memberId);
 		log.info("cri: "+cri);
 		

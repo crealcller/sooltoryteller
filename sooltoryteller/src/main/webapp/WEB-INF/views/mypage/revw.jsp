@@ -100,16 +100,16 @@ $(document).ready(function(){
 	showMyList(1);
 	function showMyRevwPage(myRevwCnt){
 		console.log(myRevwCnt);
-		let endNum = Math.ceil(pageNum/3.0)*3;
-		let startNum = endNum -2;
+		let endNum = Math.ceil(pageNum/5.0)*5;
+		let startNum = endNum -4;
 		
 		let prev = startNum != 1;
 		let next = false;
 		
-		if(endNum*3>=myRevwCnt){
-			endNum = Math.ceil(myRevwCnt/3.0);
+		if(endNum*5>=myRevwCnt){
+			endNum = Math.ceil(myRevwCnt/5.0);
 		}
-		if(endNum*3<myRevwCnt){
+		if(endNum*5<myRevwCnt){
 			next =true;
 		}
 		let str = "<ul>";
@@ -141,7 +141,7 @@ $(document).ready(function(){
 	function showMyList(page){
 		revwService.getMyList({memberId:memberIdValue,page: page||1},function(myRevwCnt,myList){
 			if(page == -1){
-				pageNum = Math.ceil(myRevwCnt/3.0);
+				pageNum = Math.ceil(myRevwCnt/5.0);
 				showMyList(pageNum);
 				return;
 			}

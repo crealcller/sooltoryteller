@@ -44,7 +44,6 @@ public class LiqMapperTests {
 		liqList.forEach(liq->log.info(liq));
 	}
 	
-	
 	public void testGetLiq() {
 		LiqVO liq = mapper.get(1L);
 		log.info(liq);

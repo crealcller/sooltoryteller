@@ -42,35 +42,14 @@ public class LiqController {
 		log.info("get allLiq......");
 		model.addAttribute("allLiq", service.getLiqList());
 	}
-	//탁주 리스트
-	@GetMapping("/takju")
-	public void allTakju(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("탁주"));
-	}
-	
-	//약주/청주 리스트
-	@GetMapping("/yakju-cheongju")
-	public void allYakjuCheongju(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("약주 청주"));
-	}
-	
-	//과실주 리스트
-	@GetMapping("/fruit-wine")
-	public void allFruitWine(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("과실주"));
-	}
-	
 	//증류주 리스트
-	@GetMapping("/distilled-spirits")
-	public void allDistilledSpirits(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("증류주"));
+	@GetMapping("/liq-list")
+	public void allDistilledSpirits(Model model, String kind) {
+		model.addAttribute("kind", kind);
+		model.addAttribute("allLiq", service.getLiqListByKind(kind));
 	}
 	
-	//기타류 리스트
-	@GetMapping("/others")
-	public void allOthers(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("기타류"));
-	}
+	
 	
 	
 }
