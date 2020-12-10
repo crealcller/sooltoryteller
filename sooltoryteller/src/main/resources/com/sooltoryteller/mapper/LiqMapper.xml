@@ -111,4 +111,16 @@ set avg_rate =(select trunc(avg(rate),4) from liq_revw
 where liq_id =#{liqId})
 where liq_id=#{liqId}
 </update>
+
+<update id="updateLikeCnt">
+update liq_nums 
+set likes_num = likes_num + #{amount} 
+where liq_id = #{liqId}
+</update>
+
+<update id="updateViewCnt">
+update liq_nums 
+set inqr_num = inqr_num + #{amount} 
+where liq_id = #{liqId}
+</update>
 </mapper>

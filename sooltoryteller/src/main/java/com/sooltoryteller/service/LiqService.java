@@ -6,7 +6,7 @@ import com.sooltoryteller.domain.LiqVO;
 
 public interface LiqService {
 	
-		public LiqVO get(Long liqSeq);
+		public LiqVO get(Long liqId);
 		
 		public List<LiqVO> getLiqList();
 		

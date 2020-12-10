@@ -2,14 +2,13 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sooltoryteller.domain.LiqVO;
 import com.sooltoryteller.mapper.LiqMapper;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Service
@@ -19,10 +18,12 @@ public class LiqServiceImpl implements LiqService{
 
 	private LiqMapper mapper;
 	
+	@Transactional
 	@Override
-	public LiqVO get(Long liqSeq) {
-		log.info("get..."+liqSeq);
-		return mapper.get(liqSeq);
+	public LiqVO get(Long liqId) {
+		log.info("get..."+liqId);
+		mapper.updateViewCnt(liqId, 1);
+		return mapper.get(liqId);
 	}
 
 	@Override

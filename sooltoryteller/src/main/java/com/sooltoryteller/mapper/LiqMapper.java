@@ -43,4 +43,7 @@ public interface LiqMapper {
 	
 	public int updateRevwRate(Long liqId);
 	
+	public void updateViewCnt(@Param("liqId") Long liqId,@Param("amount") int amount);
+	
+	public void updateLikeCnt(@Param("liqId") Long liqId,@Param("amount") int amount);
 }
