@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//게시판 
+// 게시판 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -61,7 +61,4 @@ public class BbstVO {
 	// 댓글수 
 	@NotBlank
 	private int replyNum = 0;
-	
-	// MemberVO
-	private MemberVO member;
 }

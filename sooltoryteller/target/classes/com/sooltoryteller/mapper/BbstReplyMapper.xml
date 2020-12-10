@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sooltoryteller.mapper.BbstReplyMapper">
+
+<!-- 댓글 등록 -->
+<insert id="insertBbstReply">
+	insert into bbst_reply (bbst_reply_id, bbst_id, member_id, reply_cn, regdate, updatedate)
+	values (bbst_reply_SEQ.nextval, #{bbstId}, #{memberId}, #{replyCn}, sysdate, sysdate)
+</insert>
+
+<!-- 댓글 조회 -->
+<select id="readBbstReply" resultType="com.sooltoryteller.domain.BbstReplyMemberJoinVO">
+	select r.*, m.name, m.img
+	from bbst b, bbst_reply r, member m
+	where b.bbst_id = r.bbst_id
+	and r.member_id = m.member_id
+	and r.bbst_reply_id = #{bbstReplyId}
+</select>
+
+<!-- 댓글 수정 -->
+<update id="updateBbstReply">
+	update bbst_reply
+	set reply_cn = #{replyCn},
+	updatedate = sysdate
+	where bbst_reply_id = #{bbstReplyId}
+</update>
+
+<!-- 댓글 삭제 -->
+<delete id="deleteBbstReply">
+	delete from bbst_reply
+	where bbst_reply_id = #{bbstReplyId}
+</delete>
+
+<!-- 게시글의 모든 댓글 조회 -->
+<select id="getBbstReplyList" resultType="com.sooltoryteller.domain.BbstReplyMemberJoinVO">
+	<![CDATA[
+	select * from (
+		select /*+ index(r idx_bbst_reply) */
+		rownum rn, r.*, m.name, m.img
+		from bbst b, bbst_reply r, member m
+		where r.bbst_id = b.bbst_id
+		and r.member_id = m.member_id
+		and r.bbst_id = #{bbstId}
+		and r.bbst_reply_id > 0
+		and rownum <= #{cri.pageNum} * #{cri.amount})
+	where rn > (#{cri.pageNum} -1) * #{cri.amount}
+	]]>
+</select>
+
+<!-- 게시글의 모든 댓글 개수 파악 -->
+<select id="getReplyCountByBbstId" resultType="int">
+	<![CDATA[
+	select count(bbst_reply_id) from bbst_reply
+	where bbst_id = #{bbstId}
+	]]>
+</select>
+
+</mapper>

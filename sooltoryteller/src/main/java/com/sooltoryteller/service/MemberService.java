@@ -37,4 +37,8 @@ public interface MemberService {
 	
 	//모든회원 리스트 가져오기
 	public List<MemberVO> getList();
+	
+	// 수빈
+	// 회원 아이디 & 닉네임 불러오기
+	public MemberVO getMemberIdName(String email);
 }

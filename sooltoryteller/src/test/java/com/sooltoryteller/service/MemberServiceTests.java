@@ -94,4 +94,12 @@ public class MemberServiceTests {
 		log.info(service.getMemberId("aaa@aaa.com"));
 		
 	}
+	
+	// 수빈
+	// 회원 아이디 & 닉네임 불러오기
+//	@Test
+	public void testGetMemberIdName() {
+		String email = "1@1";
+		log.info(service.getMemberIdName(email));
+	}
 }

@@ -1,12 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
-<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-
-<script>
+<script type="text/javascript">
 // 로그인이 안된 상태면 로그인페이지로 넘어가게
 let msg = "${msg}";
 	if(msg != ""){
@@ -15,102 +12,15 @@ let msg = "${msg}";
 }
 </script>
 
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<style>
+<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
+<%@ include file="/resources/css/cheers/get.jsp" %>
 
-.s-bbst-container {
-	border: 1px solid black;
-	height: 900px;
-	width: 800px;
-	margin: 0 auto;
-	margin-top: 50px;
-}
-
-.s-title-container {
-	border: 1px solid black;
-	height: 30px;
-	width: 100%;
-	margin: 5px 0;
-}
-
-.s-writer-info-container {
-	border: 1px solid black;
-	height: 50px;
-	width: 100%;
-}
-
-.s-writer-info-div {
-	border: 1px solid black;
-	height: 100%;
-	width: 500px;
-	display: inline-block;
-	font-size: 10px;
-}
-
-.s-writer-img-div {
-	border: 1px solid black;
-	height: 100%;
-	width: 50px;
-	display: inline-block;
-	float: left;
-}
-
-.s-writer-img {
-	margin-left: 6px;
-}
-
-.s-listBtn {
-	width: 60px;
-	border: none;
-	margin-top: 15px;
-	margin-right: 10px;
-	cursor: pointer;
-	float: right;
-	color: white;
-}
-
-.s-listBtn a {
-	color: white;
-}
-
-.s-cn-container {
-	border: 1px solid #f2eff9;
-	height: 760px;
-	width: 95%;
-	margin: 25px auto;
-}
-
-.s-bbst-cnImg-div {
-	background-color: rgb(245, 245, 245);
-}
-
-.s-bbst-cnImg {
-	height: 350px;
-	width: 350px;
-	margin: 0 auto;
-}
-
-.s-bbst-cnImg-src {
-	height: 350px;
-	width: 350px;
-}
-
-.s-bbst-cn-div {
-	border: 1px solid black;
-	height: 380px;
-	width: 100%;
-	margin-top: 30px;
-	padding: 20px;
-	background-color: rgb(245, 245, 245);
-}
-
-</style>
-
-</head>
 <body>
 <div class="s-bbst-container">
 	<!-- 게시글 제목 -->
@@ -170,9 +80,280 @@ let msg = "${msg}";
 	</div>
 </div>
 
-<!-- 좋아요 & 댓글 -->
+<!-- 댓글 -->
+<div class="s-bbstReplyList-container">
+	<div class="s-bbstReplyList-top">
+		<p>댓글</p>
+		<!-- 댓글 등록 버튼 -->
+		<button class="s-bbstReply-openModalBtn" id="s-bbstReply-openModalBtn">댓글쓰기</button>
+	</div>
+	
+	<ul class="s-bbstReplyList-body"></ul>
+</div>
 
-<script>
+<div class="s-bbstReplyList-footer">
+
+</div>
+
+<!-- 댓글 등록 모달 -->
+<div class="s-bbstReply-modal-container" id="s-bbstReply-modal-container">
+	<div class="s-bbstReply-modal-content">
+		<div class="s-bbstReply-modal-top">
+			<h4>댓글</h4>
+		</div>
+		
+		<div class="s-bbstReply-modal-body">
+			<label id="s-bbstReply-name">작성자 </label><br />
+			<input type="text" class="s-modal-name" name="s-modal-name" readonly="readonly" /><br />
+			
+			<label>댓글 내용</label><br />
+			<input class="s-modal-replyCn" id="s-modal-replyCn" name="s-modal-replyCn" value="내용을 입력해주세요." /><br />
+			
+			<br /><label class="s-modal-regdate-title">댓글 등록 일자</label><br />
+			<input class="s-modal-regdate" id="s-modal-regdate" name="s-modal-regdate" />
+		</div>
+		
+		<div class="s-bbstReply-modal-footer">
+			<button id="s-modal-registerBtn" type="button">등록</button>
+			<button id="s-modal-cancelBtn" type="button">취소</button>
+			<%-- <c:if test="${memberId == bbst.memberId }"> --%>
+				<button id="s-modal-modifyBtn" type="button">수정</button>
+				<button id="s-modal-removeBtn" type="button">삭제</button>
+			<%-- </c:if> --%>	
+		</div>
+	</div>
+</div>
+
+
+<!-- 좋아요 -->
+
+
+<!-- 댓글 -->
+<script type="text/javascript" src="/resources/js/bbstReply.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	var bbstIdValue = "<c:out value='${bbst.bbstId}' />";
+	var replyUL = $(".s-bbstReplyList-body");
+	var loginMemberId = "<c:out value='${memberId}' />";
+	var loginName = "<c:out value='${name}' />";
+	
+	// 모달 열기 버튼
+	var openModalBtn = $("#s-bbstReply-openModalBtn");
+	// 모달
+	var replyModal = $("#s-bbstReply-modal-container");
+	// 댓글 닉네임
+	var replyName = replyModal.find("input[name='s-modal-name']");
+	// 댓글 내용
+	var replyCn = replyModal.find("input[name='s-modal-replyCn']");
+	// 댓글 등록 일시
+	var replyRegdateTitle = $(".s-modal-regdate-title");
+	var replyRegdate = replyModal.find("input[name='s-modal-regdate']");
+	// 모달 버튼
+	var registerReplyBtn = $("#s-modal-registerBtn");
+	var cancelReplyBtn = $("#s-modal-cancelBtn");
+	var modifyReplyBtn = $("#s-modal-modifyBtn");
+	var removeReplyBtn = $("#s-modal-removeBtn");
+	
+	var pageNum = 1;
+	var replyPageFooter = $(".s-bbstReplyList-footer");
+	
+	showList(1);
+	
+	function showList(page) {
+		console.log("SHOW BBST REPLY LIST PAGE: " + page);
+		
+		bbstReplyService.getList({bbstId : bbstIdValue, page : page|| 1 }, function(replyCnt, list) {
+				console.log("replyCnt: " + replyCnt);
+				console.log("list: " + list);
+				console.log(list);
+			
+				if(page == -1) {
+					pageNum = Math.ceil(replyCnt / 10.0);
+					showList(pageNum);
+					return;
+				}
+				
+				var str = "";
+				
+				if(list == null || list.length == 0) {
+					replyUL.html("<p>등록된 댓글이 없습니다.</p><br />");
+					return;
+				}
+				
+				// 각 댓글에 보일 데이터
+				for(var i = 0, len = list.length || 0; i < len; i++) {
+					str += "<li class='s-bbstReply-item' data-bbstreplyid='" + list[i].bbstReplyId + "'>";
+					str += "<div><div class='s-bbstReply-img-div'><span class='s-bbstReply-img'>" + list[i].img + "</span></div>";
+					str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
+					str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";
+					str += "<small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(list[i].regdate) + "</small></div></div></li><br /><hr /><br />"; 
+				}
+				replyUL.html(str);
+				
+				showReplyPage(replyCnt);
+			});
+	} // end showList
+	
+	// 댓글 등록 모달
+	// 댓글쓰기 버튼 누르면 모달 열림
+	openModalBtn.on("click", function() {
+		// 보일 항목
+		registerReplyBtn.show();
+		// 숨길 항목
+		replyRegdateTitle.hide();
+		replyRegdate.hide();
+		modifyReplyBtn.hide();
+		removeReplyBtn.hide();
+		
+		// input 데이터 비우기
+		replyModal.find("input").val("");
+		// 로그인한 사용자 닉네임 가져오기
+		replyName.val(loginName);
+		
+		// 모달 열기 실행
+		replyModal.fadeIn(200);
+	});
+	
+	// 등록 버튼 누르면
+	registerReplyBtn.on("click", function(e) {
+		if(confirm("댓글을 등록하시겠습니까?")) {
+			var reply = {
+				memberId : loginMemberId,
+				replyCn : replyCn.val(),
+				bbstId : bbstIdValue
+			};
+			
+			bbstReplyService.add(reply, function(result) {
+				alert("댓글이 성공적으로 등록되었습니다.");
+				replyModal.val("");
+				replyModal.fadeOut(200);
+				showList(-1);
+			});
+		} else {
+			replyModal.hide();
+		}
+		
+	});
+	
+	// 취소 버튼 누르면 모달 닫힘
+	cancelReplyBtn.on("click", function(e) {
+		replyModal.fadeOut(100);
+	});
+	
+	// 댓글 클릭 이벤트 처리
+	replyUL.on("click", "li", function(e) {
+		var bbstReplyId = $(this).data("bbstreplyid");
+
+		bbstReplyService.get(bbstReplyId, function(reply) {
+			replyName.val(reply.name);
+			replyCn.val(reply.replyCn); // readonly 이상하게 작동하네...
+			replyRegdate.val(bbstReplyService.displayTime(reply.regdate)).attr("readonly", "readonly");
+			replyModal.data("bbstreplyid", reply.bbstReplyId);
+			
+			registerReplyBtn.hide();
+			replyRegdateTitle.show();
+			replyRegdate.show();
+			modifyReplyBtn.show();
+			removeReplyBtn.show();
+			
+			replyModal.fadeIn(100);
+			
+			// 모달 바깥부분 클릭하면
+			$(document).on("click", function(e) {
+				// 모달 닫기
+				if(replyModal.is(e.target)) {
+					replyModal.css({visibility : "hidden", opacity : 0});
+				} else {
+					replyModal.css({visibility : "visible", opacity : 1});
+				}
+			});
+		});
+	});
+	
+	// 수정 버튼 누르면
+	modifyReplyBtn.on("click", function(e) {
+		if(confirm("해당 댓글을 수정하시겠습니까?")) {
+			var reply = {bbstReplyId : replyModal.data("bbstreplyid"), replyCn : replyCn.val()};
+			
+			bbstReplyService.update(reply, function(result) {
+				alert("댓글이 성공적으로 수정되었습니다.");
+				replyModal.fadeOut(200);
+				showList(pageNum);
+			});
+		} else {
+			replyModal.hide();
+		}
+	});
+	
+	// 삭제 버튼 누르면
+	removeReplyBtn.on("click", function(e) {
+		if(confirm("해당 댓글을 삭제하시겠습니까?")) {
+			var bbstReplyId = replyModal.data("bbstreplyid");
+			
+			bbstReplyService.remove(bbstReplyId, function(result) {
+				alert("댓글이 성공적으로 삭제되었습니다.");
+				replyModal.fadeOut(200);
+				showList(pageNum);
+			});
+		} else {
+			replyModal.hide();
+		}
+	});
+	
+	// 댓글 페이지 번호 출력
+	function showReplyPage(replyCnt) {
+		
+		var endNum = Math.ceil(pageNum / 10.0) * 10;
+		var startNum = endNum - 9;
+		
+		var prev = startNum != 1;
+		var next = false;
+		
+		if(endNum * 10 >= replyCnt) {
+			endNum = Math.ceil(replyCnt / 10.0);
+		}
+		
+		var str = "<ul class='s-bbstReplyList-pageContainer'>";
+		
+		if(prev) {
+			str += "<li class='s-bbstReplyList-pageItem'><a class='s-bbstReplyList-pageLink' href='" + (startNumm -1) + "'>이전</a></li>";
+		}
+		
+		for(var i = startNum; i <= endNum; i++) {
+			var active = pageNum == i ? "active" : "";
+			
+			str += "<li class='s-bbstReplyList-pageItem " + active + " '><a class='s-bbstReplyList-pageLink' href='" + i + "'>" + i + "</a></li>";
+		}
+		
+		if(next) {
+			str += "<li class='s-bbstReplyList-pageItem'><a class='s-bbstReplyList-pageLink' href='" + (endNum + 1) + "'>다음</a></li>";
+		}
+		
+		str += "</ul></div>";
+		
+		console.log(str);
+		replyPageFooter.html(str);
+	}
+	
+	// 댓글 페이지 번호 클릭 시 새로운 댓글 가져오기
+	replyPageFooter.on("click", "li a", function(e) {
+		e.preventDefault();
+		console.log("BBST REPLY PAGE CLICK");
+		
+		var targetPageNum = $(this).attr("href");
+		console.log("targetPageNum: " + targetPageNum);
+		pageNum = targetPageNum;
+		
+		showList(pageNum);
+	});
+});
+
+</script>
+	
+<script type="text/javascript">
 
 $(document).ready(function() {
 	

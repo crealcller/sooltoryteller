@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//게시글 댓글
+// 게시글 댓글
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class BbstReplyVO {
 	private Long bbstId;
 
 	// 회원ID 
-	private String memberId;
+	private Long memberId;
 
 	// 댓글 내용 
 	private String replyCn;
@@ -27,5 +27,6 @@ public class BbstReplyVO {
 	// 등록일시 
 	private Date regdate;
 
-	// 수정일시 
-	private Date updatedate;}
+	// 변경일시 
+	private Date updatedate;
+}

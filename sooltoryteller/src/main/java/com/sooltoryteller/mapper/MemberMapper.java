@@ -43,4 +43,8 @@ public interface MemberMapper {
 	
 	//회원탈퇴
 	public int updateRegstus(String email);
+	
+	// 수빈
+	// 회원 아이디 & 닉네임 불러오기
+	public MemberVO getMemberIdName(String email);
 }

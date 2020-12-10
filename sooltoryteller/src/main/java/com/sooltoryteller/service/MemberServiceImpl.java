@@ -125,4 +125,12 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.getName(name);
 	}
+	
+	// 수빈
+	// 회원 아이디 & 닉네임 불러오기
+	@Override
+	public MemberVO getMemberIdName(String email) {
+		log.info("========== GET MEMBER ID & NAME : " + mapper.getMemberIdName(email) + " ==========");
+		return mapper.getMemberIdName(email);
+	}
 }

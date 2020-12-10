@@ -95,4 +95,12 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	updatedate = sysdate
 	where email = #{email}
 </update>
+
+<!-- 수빈 -->
+<!-- 회원 아이디 & 닉네임 불러오기 -->
+<select id="getMemberIdName" resultType="com.sooltoryteller.domain.MemberVO">
+	select member_id, name
+	from member
+	where email = #{email}
+</select>
 </mapper>

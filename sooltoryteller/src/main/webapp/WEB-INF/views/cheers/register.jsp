@@ -1,12 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
-<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-
-<script>
+<script type="text/javascript">
 // 로그인이 안된 상태면 로그인페이지로 넘어가게
 let msg = "${msg}";
 	if(msg != ""){
@@ -15,10 +12,14 @@ let msg = "${msg}";
 }
 </script>
 
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
+<%@ include file="/resources/css/cheers/register.jsp" %>
 
 <style>
 

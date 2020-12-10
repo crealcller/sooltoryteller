@@ -68,7 +68,7 @@ public class BbstController {
 
 	@PostMapping("/register")
 	public String register(HttpSession session, BbstMemberJoinVO bbst,
-	MultipartFile file, RedirectAttributes rttr) throws Exception {
+		MultipartFile file, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
 		Long memberId = mservice.getMemberId(email);
@@ -100,14 +100,17 @@ public class BbstController {
 	// 게시글 조회 및 수정
 	@GetMapping({ "/get", "/modify" })
 	public void get(HttpSession session, @RequestParam("bbstId") Long bbstId,
-	@ModelAttribute("cri") BbstCriteria cri, Model model) {
+		@ModelAttribute("cri") BbstCriteria cri, Model model) {
 
 		String email = (String)session.getAttribute("email");
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
-			Long memberId = mservice.getMemberId(email);
+			Long memberId = mservice.getMemberIdName(email).getMemberId();
+			String name = mservice.getMemberIdName(email).getName();
+			
 			model.addAttribute("memberId", memberId);
+			model.addAttribute("name", name);
 		}
 		
 		log.info("/get or modify");
@@ -117,7 +120,7 @@ public class BbstController {
 	// 게시글 수정
 	@PostMapping("/modify")
 	public String modify(HttpSession session, BbstMemberJoinVO bbst, MultipartFile file,
-	@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
+		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
 		Long memberId = mservice.getMemberId(email);
@@ -152,7 +155,7 @@ public class BbstController {
 	// 게시글 삭제
 	@PostMapping("/remove")
 	public String remove(HttpSession session, BbstMemberJoinVO bbst, @RequestParam("bbstId") Long bbstId,
-	@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
+		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
 
 		String email = (String)session.getAttribute("email");
 		Long memberId = mservice.getMemberId(email);
