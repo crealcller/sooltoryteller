@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,17 +23,20 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @AllArgsConstructor
+@RequestMapping("/admin/*")
 public class AdminController {
 
 	private AdminService adService;
 	private FaqService faqService;
 	
 	//관리자 메인 페이지
-	@GetMapping("/admin")
-	public void admin() {}
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String admin() {
+		return "admin";
+	}
 	
 	//관리자-회원리스트페이지
-	@GetMapping("/admin/memberlist")
+	@GetMapping("/memberlist")
 	public void memberlist(AdminCriteria adCri, Model model) {
 		
 		log.info("memberList : "+adCri);
@@ -46,7 +51,7 @@ public class AdminController {
 	}
 	
 	//FAQ리스트 불러오기
-	@GetMapping("/admin/faqlist")
+	@GetMapping("/faqlist")
 	public void faqlist(AdminCriteria adCri, Model model) {
 		log.info("faqlist:"+adCri);
 		
@@ -61,10 +66,10 @@ public class AdminController {
 	
 	
 	//FAQ 등록하기
-	@GetMapping("/admin/faqregister")
+	@GetMapping("/faqregister")
 	public void faqregister() {}
 	
-	@PostMapping("/admin/faqregister")
+	@PostMapping("/faqregister")
 	public String faqregister(FaqVO faq, RedirectAttributes rttr) {
 		
 		log.info("register: "+faq);
@@ -77,15 +82,15 @@ public class AdminController {
 	}
 	
 	//FAQ 불러오기
-	@GetMapping({"/admin/faqget", "/admin/faqmodify"})
+	@GetMapping({"/faqget", "/faqmodify"})
 	public void faqget(@RequestParam("faqId") Long faqId, @ModelAttribute("adCri")
 	AdminCriteria adCri, Model model) {
-		log.info("/admin/faqget or /admin/faqmodify");
+		log.info("/faqget or /faqmodify");
 		model.addAttribute("faq", faqService.get(faqId));
 	}
 	
 	//FAQ 수정하기
-	@PostMapping("/admin/faqmodify")
+	@PostMapping("/faqmodify")
 	public String faqmodify(FaqVO faq, @ModelAttribute("adCri") AdminCriteria adCri, RedirectAttributes rttr) {
 		log.info("modify :"+faq);
 		
@@ -99,7 +104,7 @@ public class AdminController {
 	}
 	
 	//FAQ 삭제하기
-	@PostMapping("/admin/faqremove")
+	@PostMapping("/faqremove")
 	public String faqremove(@RequestParam("faqId") Long faqId, @ModelAttribute("adCri") AdminCriteria adCri, RedirectAttributes rttr) {
 		log.info("remove...."+faqId);
 		if(faqService.remove(faqId)) {
