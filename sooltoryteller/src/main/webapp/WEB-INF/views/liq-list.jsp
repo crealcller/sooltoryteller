@@ -20,7 +20,7 @@
 <div class="d-text-con">
 <h3><c:out value="${allLiq.nm}"/></h3>
 <span><c:out value="${allLiq.liqNums.avgRate}"/>/<c:out value="${allLiq.liqNums.revwNum}"/>개</span>
-<span>조회수: <c:out value="${allLiq.liqNums.inqrNum}"/></span>
+<img class="d-liq-num-img" src='/resources/img/eye.png'><c:out value="${allLiq.liqNums.inqrNum}"/>
 <p>가격 : \<fmt:formatNumber type="number" maxFractionDigits="3" value="${allLiq.prc}" /></p>
 <p>도수 : <c:out value="${allLiq.lv}"/>%</p>
 <p>원재료 : <c:out value="${allLiq.capct}"/>ml</p>

@@ -33,17 +33,21 @@ public interface LiqMapper {
 	public int getCountLiqListByKind(String kind);
 		
 	//미구현
-	public int insertLiq(LiqVO vo);
+	//public int insertLiq(LiqVO vo);
 	
-	public int insertLiqCn(LiqCnVO vo);
+	//public int insertLiqCn(LiqCnVO vo);
 	
-	public int insertLiqCoVO(LiqCoVO vo);
+	//public int insertLiqCoVO(LiqCoVO vo);
 	
+	//리뷰수 업데이트		
 	public void updateRevwCnt(@Param("liqId") Long liqId,@Param("amount") int amount);
 	
+	//평균평점 업데이트
 	public int updateRevwRate(Long liqId);
 	
+	//조회수 업데이트
 	public void updateViewCnt(@Param("liqId") Long liqId,@Param("amount") int amount);
 	
+	//좋아요수 업데이트
 	public void updateLikeCnt(@Param("liqId") Long liqId,@Param("amount") int amount);
 }

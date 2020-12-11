@@ -192,6 +192,10 @@
 	border-radius: 5px 5px 5px 5px;
 	margin:10px;
 }
+.d-liq-num-img{
+	width: 20px;
+	height: 20px;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -230,10 +234,9 @@
 						value="${liq.prc}" />
 				</p>
 				<div id="liqNums">
-				<p>좋아요수<c:out value="${liq.liqNums.likesNum}" /></p>
-				<p>리뷰수<c:out value="${liq.liqNums.revwNum}" /></p>
-				<p>평균평점<c:out value="${liq.liqNums.avgRate}" /></p>
-				<p>조회수<c:out value="${liq.liqNums.inqrNum}" /></p>
+				<img class="d-liq-num-img" src='/resources/img/heart2.png'><c:out value="${liq.liqNums.likesNum}" />
+				<img class="d-liq-num-img" src='/resources/img/pen.png'><c:out value="${liq.liqNums.revwNum}" /><
+				<img class="d-liq-num-img" src='/resources/img/eye.png'><c:out value="${liq.liqNums.inqrNum}" />
 				</div>
 				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
 				<input  type="text" style="width: 30px;" value="1">
