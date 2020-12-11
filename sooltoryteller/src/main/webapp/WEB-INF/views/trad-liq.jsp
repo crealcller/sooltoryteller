@@ -235,7 +235,7 @@
 				</p>
 				<div id="liqNums">
 				<img class="d-liq-num-img" src='/resources/img/heart2.png'><c:out value="${liq.liqNums.likesNum}" />
-				<img class="d-liq-num-img" src='/resources/img/pen.png'><c:out value="${liq.liqNums.revwNum}" /><
+				<img class="d-liq-num-img" src='/resources/img/pen.png'><c:out value="${liq.liqNums.revwNum}" />
 				<img class="d-liq-num-img" src='/resources/img/eye.png'><c:out value="${liq.liqNums.inqrNum}" />
 				</div>
 				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>

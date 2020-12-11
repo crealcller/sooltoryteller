@@ -124,14 +124,14 @@
 		where liq_id = #{liqId}
 	</update>
 	
+	<select id="getLiqCoCnt" resultType="int">
+	select count(*)
+	from liq_co
+	where nm = #{liqCoNm}
+	</select>
+	
 	<insert id="insertLiqCo">
 	insert into liq_co(liq_co_id,nm,addr,hmpg,telno)
 	values(LIQ_CO_SEQ.nextval,#{nm},#{addr},#{hmpg},#{telno})
-	</insert>
-	
-	<insert id="insertLiq">
-	</insert>
-	
-	<insert id="insertLiqCn">
 	</insert>
 </mapper>
