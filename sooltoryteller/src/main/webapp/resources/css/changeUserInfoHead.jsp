@@ -44,9 +44,14 @@
 }
 .h-photo{
     height: 120px;
-    width: 100px;
+    width: 120px;
     border: 1px solid;
     display: inline-block;
+}
+
+.h-profile-photo{
+	height: 120px;
+    width: 120px;
 }
 	
 	.h-modal {
@@ -102,5 +107,16 @@
 	.h-drink{
     margin-left: 15px;
 }
-	
+
+#h-checkName{
+  height: 25px;
+  width: 60px;
+  font-size: 5px;
+  border: none;
+  border-radius: 5%;
+  font-weight: bold;
+  margin-left: 5px;
+  color: white;
+  background-color: rgb(181, 135, 189);
+}
 	</style>

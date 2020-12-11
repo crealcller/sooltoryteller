@@ -62,6 +62,7 @@ let success = '${success}';
 				} 
 			
 				if($("#newpwd").val() != $("#repwd").val()){
+					$("#repwd").val("");
 					document.getElementById("repwdmsg").innerHTML = "비밀번호가 일치하지 않습니다 다시 입력해주세요";
 		    		document.getElementById("repwdmsg").style.color = 'red'; 
 				}
@@ -77,7 +78,7 @@ let success = '${success}';
 				return false;
 			}
 			
-			 if(!jPwd.test($("#newpwd").val()) || blank.test($("#newpwd").val())){
+			 if(!jPwd.test($("#newpwd").val()) && blank.test($("#newpwd").val())){
 				alert('비밀번호 형식에 맞지 않습니다');
 				$("#newpwd").val("");
 				$("#newpwd").focus();

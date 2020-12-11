@@ -11,8 +11,8 @@ String name = (String)session.getAttribute("name");
 <title>Insert title here</title>
 </head>
 <body>
-<h3>환영합니다.</h3>
-<p><%= name %>님</p>
+<h1>환영합니다.</h1>
+<h2><%= name %>님</h2>
 
 </body>
 </html>

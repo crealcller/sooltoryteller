@@ -3,6 +3,10 @@ package com.sooltoryteller.service;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sooltoryteller.domain.MemberVO;
@@ -19,16 +23,22 @@ public class MemberServiceImpl implements MemberService{
 	
 	private MemberMapper mapper;
 	
+	//@Inject
+	//PasswordEncoder PasswordEncoder;  //BCryptPasswordEncoder
+	
 	@Override
 	public boolean join(MemberVO member) {
 		int result = 0;
 		
 		if(member != null) {
-			//중복된 이메일이 있다면
-			if(checkEmail(member.getEmail()) >=1) {
+			//중복된 이메일, 중복된 닉네임이 있다면
+			if(checkEmail(member.getEmail()) >=1 || checkName(member.getName())>=1) {
 				return false;
 			}
-			
+		//String encPwd = PasswordEncoder.encode(member.getPwd());
+		//member.setPwd(encPwd);
+		//System.out.println("암호화된 비번 : " + encPwd);
+		
 		result = mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));
 		
@@ -89,19 +99,12 @@ public class MemberServiceImpl implements MemberService{
 	public String getPwd(String email) {
 		
 		String pwd = "";
-		String tmpPwd = "";
 
 		if(email != null) {
 			pwd = mapper.getPwd(email);
 		}
-		//현재비밀번호를 꺼내왔다면 임시비밀번호를 발급
-		if(pwd != null) {
-			tmpPwd = UUID.randomUUID().toString().replace("-", "");
-			tmpPwd = tmpPwd.substring(0,12);
-			System.out.println(tmpPwd);
-		}
 		
-		return tmpPwd;
+		return pwd;
 	}
 
 	@Override

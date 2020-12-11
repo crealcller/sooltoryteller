@@ -27,7 +27,7 @@ public class MemberVO {
 
 	// 닉네임 
 	@NotEmpty
-	@Pattern(regexp = "[\\w\\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}")
+	@Pattern(regexp = "[가-힣]{2,8}")
 	private String name;
 
 	// 비밀번호 
@@ -37,7 +37,7 @@ public class MemberVO {
 
 	// 전화번호 
 	@NotEmpty
-	@Pattern(regexp = "\\d{3}\\d{3,4}\\d{4}")
+	@Pattern(regexp = "/^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/")
 	private String telno;
 
 	// 프로필 사진 
@@ -47,7 +47,7 @@ public class MemberVO {
 	private Date regdate;
 	
 	// 변경일시
-	private Date udpatedate;
+	private Date updatedate;
 	
 	// 가입상태
 	private String regstus;

@@ -6,9 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 모든 회원 정보 불러오기 -->
 <select id="getList" resultType="com.sooltoryteller.domain.MemberVO">
-<![CDATA[
 select * from member
-]]>
 </select>
 
 <!-- 회원 아이디만 불러오기 -->
