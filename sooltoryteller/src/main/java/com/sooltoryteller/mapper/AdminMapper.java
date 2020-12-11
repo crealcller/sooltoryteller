@@ -13,4 +13,5 @@ public interface AdminMapper {
 	
 	//모든회원의 수
 	public int getTotalCount(AdminCriteria adCri);
+	
 }

@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<link rel="shortcut icon" href="#">
 
 	<style>
         body {
           margin: 0;
           padding: 0;
+        }
+        
+        button{
+        cursor: pointer;
         }
 
         @font-face {
@@ -98,6 +102,6 @@
               <a href="/admin" id='h-admin-home'>Home</a>
               <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
               <a href="#">1:1문의</a>
-              <a href="#">F&Q등록</a>
+              <a href="/admin/faqlist" id='h-admin-faq'>FAQ</a>
             </div><div class="h-content">
  

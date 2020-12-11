@@ -74,10 +74,9 @@
          
          <c:forEach items="${memberlist }" var="member">
          <tr>
-         <td><a class='h-move' href="<c:out value='${member.memberId }'/>">
+         <td><c:out value='${member.memberId }'/></td>
          <!-- 251p get 만들어야함 -->
-         <c:out value='${member.memberId }'/></a></td>
-         <td><c:out value="${member.email }"/></td>
+         <td><a class='h-move' href="<c:out value='${member.memberId }'/>"><c:out value="${member.email }"/></a></td>
          <td><c:out value="${member.name }"/></td>
          <td><c:out value="${member.telno }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.regdate }"/></td>
@@ -135,7 +134,7 @@
       $(".h-move").on("click", function(e){
     	e.preventDefault();
     	actionForm.append("<input type='hidden' name='memberId' value='"+$(this).attr("href")+"'>");
-    	actionForm.attr("action", "/admin/getMember");
+    	actionForm.attr("action", "/admin/faqget");
     	actionForm.submit();
     }); 
     });	

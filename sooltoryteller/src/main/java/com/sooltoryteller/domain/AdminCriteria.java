@@ -11,6 +11,7 @@ public class AdminCriteria {
 
 	private int pageNum;
 	private int amount;
+	private String keyword;
 	
 	public AdminCriteria() {
 		this(1,10);

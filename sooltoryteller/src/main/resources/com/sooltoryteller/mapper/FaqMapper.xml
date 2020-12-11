@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.FaqMapper">
+<!-- FAQ 리스트 페이징 처리 -->
+<select id="getListWithPaging" resultType="com.sooltoryteller.domain.FaqVO">
+	<![CDATA[
+	select faq_id, title, cn, regdate, updatedate
+	from( select /*+INDEX_DESC(FAQ FAQ_pk) */
+		rownum rn, faq_id, title, cn, regdate, updatedate
+		from FAQ
+		where 
+		]]>
+		<trim prefix="(" suffix=") AND " >
+	 <if test="keyword != null">
+	    title like '%' || #{keyword} || '%'
+     </if>
+	</trim>	
+	<![CDATA[
+		rownum <= #{pageNum} * #{amount}
+		)
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
+
+<!-- 모든 FAQ 수 -->
+<select id="getTotalCount" resultType="int">
+	select count(*) from FAQ
+</select>
+
+<!-- 모든 FAQ 불러오기 -->
+<select id="getList" resultType="com.sooltoryteller.domain.FaqVO">
+	select * from FAQ order by faq_id desc
+</select>
+
+<insert id="insert">
+	insert into FAQ (faq_id, title, cn)
+	values (#{faqId}, #{title}, #{cn})
+</insert>
+
+<select id="read" resultType="com.sooltoryteller.domain.FaqVO">
+	select * from FAQ where faq_id = #{faqId}
+</select>
+
+<delete id="delete">
+	delete from FAQ where faq_id = #{faqId}
+</delete>
+
+<update id="update">
+	update FAQ
+	set title = #{title},
+	cn = #{cn},
+	updatedate = sysdate
+	where faq_id = #{faqId}
+</update>
+</mapper>
+

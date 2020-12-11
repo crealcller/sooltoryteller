@@ -40,4 +40,13 @@ public class AdminControllerTests {
 				.param("amount",  "10"))
 				.andReturn().getModelAndView().getModelMap());
 	}
+	
+	@Test
+	public void testFaqList()throws Exception{
+		
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/faqlist"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 }
