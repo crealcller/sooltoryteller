@@ -23,5 +23,5 @@ public class LiqCnVO {
     private Date regdate;
 
     // 수정일시 
-    private Date updatedate=null;
+    private Date updatedate;
 }

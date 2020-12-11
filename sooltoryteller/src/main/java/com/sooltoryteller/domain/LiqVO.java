@@ -3,12 +3,14 @@ package com.sooltoryteller.domain;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class LiqVO {
 
     // 전통주 일련번호 
@@ -49,6 +51,10 @@ public class LiqVO {
     
     //전통주 내용
     private LiqCnVO liqCn;
+    
     //양조장
     private LiqCoVO liqCo;
+    
+    //전통주 카운트
+    private LiqNumsVO liqNums;
 }

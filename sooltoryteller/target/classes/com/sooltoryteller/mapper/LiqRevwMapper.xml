@@ -25,8 +25,8 @@
 </resultMap>
 	
 	<insert id="insert">
-		insert into liq_revw (revw_id,liq_id,member_id,cn,rate,regdate)
-		values(LIQ_REVW_SEQ.nextval,#{liqId},#{memberId},#{cn},#{rate},sysdate)
+		insert into liq_revw (revw_id,liq_id,member_id,cn,rate,regdate,updatedate)
+		values(LIQ_REVW_SEQ.nextval,#{liqId},#{memberId},#{cn},#{rate},sysdate,sysdate)
 	</insert>
 	
 	<select id="read" resultType="com.sooltoryteller.domain.LiqRevwVO">

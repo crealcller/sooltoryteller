@@ -25,52 +25,35 @@ public class LiqController {
 	@GetMapping("/trad-liq")
 	public void liq(Long liqId, Model model, HttpServletRequest request) {
 		log.info("get liq........."+liqId);
+		
 		//세션에서 회원 email 가져옴
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
-		//로그인 상태일때만
+		
 		if(email != null) {
-		//가져온 이메일로 회원아이디 찾아서 모델에 담아줌
+		
+		//로그인 상태라면 가져온 이메일로 회원아이디 찾아서 모델에 담아줌
 		model.addAttribute("memberId", memberService.getMemberId(email));
 		}
 			
-			model.addAttribute("liq", service.get(liqId));
+		model.addAttribute("liq", service.get(liqId));
 	}
+	
 	//전체 리스트
 	@GetMapping("/all-liq")
 	public void allLiq(Model model) {
 		log.info("get allLiq......");
 		model.addAttribute("allLiq", service.getLiqList());
 	}
-	//탁주 리스트
-	@GetMapping("/takju")
-	public void allTakju(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("탁주"));
+	
+	//주종별 리스트
+	@GetMapping("/liq-list")
+	public void allDistilledSpirits(Model model, String kind) {
+		model.addAttribute("kind", kind);
+		model.addAttribute("allLiq", service.getLiqListByKind(kind));
 	}
 	
-	//약주/청주 리스트
-	@GetMapping("/yakju-cheongju")
-	public void allYakjuCheongju(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("약주 청주"));
-	}
 	
-	//과실주 리스트
-	@GetMapping("/fruit-wine")
-	public void allFruitWine(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("과실주"));
-	}
-	
-	//증류주 리스트
-	@GetMapping("/distilled-spirits")
-	public void allDistilledSpirits(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("증류주"));
-	}
-	
-	//기타류 리스트
-	@GetMapping("/others")
-	public void allOthers(Model model) {
-		model.addAttribute("allLiq", service.getLiqListByKind("기타류"));
-	}
 	
 	
 }

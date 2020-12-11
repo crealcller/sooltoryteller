@@ -1,42 +1,32 @@
 package com.sooltoryteller.controller;
-
-import java.util.List;
-import java.util.UUID;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.Joinable;
 import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.fasterxml.jackson.databind.JsonNode;
 import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.MemberVO;
 import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-
 @Controller
 @Log4j
 @AllArgsConstructor
 public class MemberController {
-
 	private MailService mailService;
 	private EmailVO e_mail;
 	private MemberService service;
@@ -46,23 +36,17 @@ public class MemberController {
 	@GetMapping("/login")
 	public void login() {
 	}
-
 	// 로그인action 로그인이 메인페이지의 모달창으로 있으므로 메인페이지와 매핑해줌
 	@PostMapping("/login")
 	public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes rttr) {
-
 		// id저장 체크박스
 		String save = request.getParameter("save");
-
 		HttpSession session = request.getSession();
-
 		Cookie cookie = new Cookie("email", email);
-
 		// 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
 		if (service.loginCheck(email, pwd)) {
 			session.setAttribute("email", email);
-
 			// id저장 체크박스가 체크되어 있다면 쿠키 저장
 			if (save != null) {
 				response.addCookie(cookie);
@@ -78,7 +62,6 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, RedirectAttributes rttr) {
@@ -86,11 +69,9 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
-
 	// 회원가입 view
 	@GetMapping("/join")
 	public void join() {	}
-
 	// 회원가입 아이디 중복체크
 		@RequestMapping(value = "/idOverlapCheck", method = RequestMethod.POST)
 		@ResponseBody
@@ -112,7 +93,7 @@ public class MemberController {
 		
 	//회원가입
 	@PostMapping("/join")
-	public String join(@Valid MemberVO member, BindingResult result, HttpServletRequest request, 
+	public String join(@Valid MemberVO member, BindingResult result, HttpServletRequest request,
 			HttpServletResponse response, Model model, RedirectAttributes rttr) {
 		
 		//에러발생시
@@ -147,10 +128,10 @@ public class MemberController {
 	
 	/*
 	 * // 마이페이지 view
-	 * 
+	 *
 	 * @GetMapping("/mypage") public void mypage(HttpSession session, Model model) {
 	 * String email = (String) session.getAttribute("email");
-	 * 
+	 *
 	 * if (email == null) { model.addAttribute("msg", "로그인이 필요한 페이지 입니다."); } }
 	 */
 	
@@ -159,16 +140,12 @@ public class MemberController {
 	public void changeuserinfo(HttpSession session, Model model) {
 		// 로그인 성공 후 세션에 저장된 email 정보를 꺼내와서 member 정보를 불러옴
 		String email = (String) session.getAttribute("email");
-
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-
 		} else {
 			model.addAttribute("member", service.get(email));
-
 		}
 	}
-
 	// 회원정보수정
 	@PostMapping("/mypage/changeuserinfo")
 	public void changeuserinfo(MemberVO member, Model model) {
@@ -177,11 +154,10 @@ public class MemberController {
 		if(service.modify(member)) {
 			model.addAttribute("success", "회원 정보가 수정되었습니다.");
 		}
-
 		model.addAttribute("member", service.get(member.getEmail()));
 	}
 	
-	//회원탈퇴 
+	//회원탈퇴
 	@GetMapping("/withdrawal")
 	public String withdrawal(HttpSession session, RedirectAttributes rttr) {
 		
@@ -192,7 +168,6 @@ public class MemberController {
 			session.invalidate();
 			return "redirect:/";
 		}
-
 		return "redirect:/mypage/changeuserinfo";
 		
 	}
@@ -201,7 +176,6 @@ public class MemberController {
 	@GetMapping("/mypage/changepwd")
 	public void changepwd(HttpSession session, Model model) {
 		String email = (String) session.getAttribute("email");
-
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
@@ -210,7 +184,6 @@ public class MemberController {
 	//비밀번호 변경
 	@PostMapping("/mypage/changepwd")
 	public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
-
 		String email = (String) session.getAttribute("email");
 		
 		//회원의 현재 비밀번호 불러오기
@@ -223,7 +196,6 @@ public class MemberController {
 			model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
 		}
 	}
-
 	//비밀번호 찾기 ->임시비밀번호 생성
 	@PostMapping("/findPwd")
 	public String sendpwd(String email,   RedirectAttributes rttr) throws Exception {
@@ -255,5 +227,4 @@ public class MemberController {
         }
         return "redirect:/login";
     }
-	
 }
