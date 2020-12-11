@@ -33,11 +33,11 @@ public interface LiqMapper {
 	public int getCountLiqListByKind(String kind);
 		
 	//미구현
-	//public int insertLiq(LiqVO vo);
+	public int insertLiq(LiqVO vo);
 	
-	//public int insertLiqCn(LiqCnVO vo);
+	public int insertLiqCn(LiqCnVO vo);
 	
-	//public int insertLiqCoVO(LiqCoVO vo);
+	public int insertLiqCo(LiqCoVO vo);
 	
 	//리뷰수 업데이트		
 	public void updateRevwCnt(@Param("liqId") Long liqId,@Param("amount") int amount);

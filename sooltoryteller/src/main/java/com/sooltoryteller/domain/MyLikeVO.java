@@ -3,11 +3,13 @@ package com.sooltoryteller.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+//조인VO
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyLikeVO {
+	
 	// 일련번호 
     private int liqLikeId;
     

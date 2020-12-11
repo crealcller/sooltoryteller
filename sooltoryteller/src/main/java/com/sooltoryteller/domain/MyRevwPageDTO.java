@@ -11,6 +11,9 @@ import lombok.Getter;
 @Getter
 public class MyRevwPageDTO {
 
+	//내가 작성한 리뷰수
 	private int myRevwCnt;
+	
+	//내가 작성한 리뷰 목록
 	private List<MyRevwVO> myList;
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LiqLikeVO {
+	
 	// 일련번호 
     private int liqLikeId;
 

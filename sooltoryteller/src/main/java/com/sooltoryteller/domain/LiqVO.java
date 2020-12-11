@@ -49,8 +49,10 @@ public class LiqVO {
     
     //전통주 내용
     private LiqCnVO liqCn;
+    
     //양조장
     private LiqCoVO liqCo;
+    
     //전통주 카운트
     private LiqNumsVO liqNums;
 }
