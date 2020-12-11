@@ -27,7 +27,7 @@ public class MemberVO {
 
 	// 닉네임 
 	@NotEmpty
-	@Pattern(regexp = "[\\w\\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}")
+	@Pattern(regexp = "[가-힣]{2,8}")
 	private String name;
 
 	// 비밀번호 

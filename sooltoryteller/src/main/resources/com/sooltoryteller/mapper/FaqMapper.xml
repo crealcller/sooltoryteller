@@ -3,6 +3,11 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooltoryteller.mapper.FaqMapper">
+
+
+
+
+
 <!-- FAQ 리스트 페이징 처리 -->
 <select id="getListWithPaging" resultType="com.sooltoryteller.domain.FaqVO">
 	<![CDATA[
@@ -12,11 +17,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from FAQ
 		where 
 		]]>
-		<trim prefix="(" suffix=") AND " >
-	 <if test="keyword != null">
+		
+	<trim prefix="(" suffix=") AND " >
+	<!-- 키워드 값이 없거나 공백이 들어오면 전체리스트 출력 -->
+	 <if test='keyword != null and keyword !=""'>
 	    title like '%' || #{keyword} || '%'
      </if>
 	</trim>	
+		
 	<![CDATA[
 		rownum <= #{pageNum} * #{amount}
 		)
@@ -26,7 +34,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 모든 FAQ 수 -->
 <select id="getTotalCount" resultType="int">
-	select count(*) from FAQ
+	select count(*)
+	from FAQ
+	where
+
+	<trim prefix="(" suffix=") AND " >
+	<if test='keyword != null and keyword !=""'>
+	   title like '%' || #{keyword} || '%'
+     </if>
+     </trim>	
+     
+	 faq_id > 0
 </select>
 
 <!-- 모든 FAQ 불러오기 -->

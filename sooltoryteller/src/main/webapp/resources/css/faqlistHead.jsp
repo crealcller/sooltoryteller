@@ -19,6 +19,7 @@
     
     ul{
       list-style:none;
+      margin: 0;
     }   
     
     a{
@@ -61,6 +62,18 @@
        border: none;
        background-color: navy;
        color: white;
+     }
+     
+     .h-faq-searchbtn{
+	   width: 60px;
+       height: 25px;
+       border: none;
+       background-color: navy;
+       color: white;
+     }
+     #h-searchForm{
+       margin: 10px 0 0 22px;
+     
      }
 
 	.h-modal {

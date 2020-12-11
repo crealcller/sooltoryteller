@@ -36,12 +36,13 @@
          </c:forEach>
         </table>
         
-        <div>
-           <form id='searchForm' action="/admin/faqlist" method='get'>
-             <input type='text' name='keyword'>
+        <!-- 검색   -->
+        <div class='h-search-content'>
+           <form id='h-searchForm' action="/admin/faqlist" method='get'>
+             <input type='text' id ='h-keyword' name='keyword'>
              <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'>
           	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'>
-          	 <button type='submit' class="h-faq-regbtn">검색</button>
+          	 <button type='submit' class="h-faq-searchbtn">검색</button>
            </form>
         
         
@@ -123,7 +124,8 @@
 		});
 		
 		var actionForm = $("#h-actionForm");
-    	
+		
+    	//페이지 버튼
     	$(".h-paginate_button a").on("click", function(e){
     		
     		e.preventDefault();
@@ -134,12 +136,32 @@
     		actionForm.submit();
     	});
     	
+    	//게시글 조회
     	$(".h-move").on("click", function(e){
         	e.preventDefault();
         	actionForm.append("<input type='hidden' name='faqId' value='"+$(this).attr("href")+"'>");
         	actionForm.attr("action", "/admin/faqget");
         	actionForm.submit();
         }); 
+    	
+    	//검색 유효성 검사
+    	let searchForm = $("#h-searchForm");
+    	
+    	$("#h-searchForm button").on("click", function(e){
+    	let keyword = $("#h-keyword").val();
+    		
+    		if(!searchForm.find("input[name='keyword']").val()){
+    			alert("키워드를 입력하세요");
+    			return false;
+    		}
+    		
+    	searchForm.find("input[name='pageNum']").val("1");
+    	$('#h-keyword').val(keyword.trim());
+    	e.preventDefault();
+    	
+    	searchForm.submit();
+    		
+    	});
 			
  });
      </script>
