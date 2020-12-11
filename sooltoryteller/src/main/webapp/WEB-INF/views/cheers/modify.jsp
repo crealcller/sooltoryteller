@@ -17,7 +17,8 @@ let msg = "${msg}";
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-<%@ include file="/resources/css/cheers/modify.jsp" %>
+
+<link rel="stylesheet" href="/resources/css/cheers/modify.css">
 
 <body>
 

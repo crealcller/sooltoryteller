@@ -27,11 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </sql>
 
 <!-- 모든 게시글 조회 -->
-<select id="getBbstList" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
+<select id="getBbstList" resultType="com.sooltoryteller.domain.BbstJoinVO">
 	<![CDATA[
 	select * from (
 		select /*+ index_desc (b bbst_pk) */
-        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
+        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate
 		from bbst b, member m
 		where
 	]]>
@@ -67,15 +67,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select bbst_seq.nextval from dual
 	</selectKey>
 	
-	insert into bbst (bbst_id, member_id, title, cn_img, cn_thumbimg, cn, regdate, updatedate, inqr_num, likes_num, reply_num)
-	values (#{bbstId}, #{memberId}, #{title}, #{cnImg}, #{cnThumbimg}, #{cn}, sysdate, sysdate, #{inqrNum}, #{likesNum}, #{replyNum})
+	insert into bbst(bbst_id, member_id, title, cn_img, cn_thumbimg, cn, regdate, updatedate)
+	values(#{bbstId}, #{memberId}, #{title}, #{cnImg}, #{cnThumbimg}, #{cn}, sysdate, sysdate)
 </insert>
 
 <!-- 게시글 조회 -->
-<select id="getBbst" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
-	select b.bbst_id, b.title, m.img, m.member_id, m.name, b.regdate, b.updatedate, b.inqr_num, b.likes_num, b.reply_num, b.cn_img, b.cn
-	from bbst b, member m
+<select id="getBbst" resultType="com.sooltoryteller.domain.BbstJoinVO">
+select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.regdate, c.inqr_cnt, c.reply_cnt, c.likes_cnt
+	from bbst b, bbst_cnt c, member m
 	where b.member_id = m.member_id
+	and b.bbst_id = c.bbst_id(+)
 	and b.bbst_id = #{bbstId}
 </select>
 

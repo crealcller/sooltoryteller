@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sooltoryteller.domain.BbstCriteria;
-import com.sooltoryteller.domain.BbstMemberJoinVO;
+import com.sooltoryteller.domain.BbstJoinVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -30,14 +30,11 @@ public class BbstServiceTests {
 	
 	@Test
 	public void testRegister() {
-		BbstMemberJoinVO bbst = new BbstMemberJoinVO();
+		BbstJoinVO bbst = new BbstJoinVO();
 		bbst.setMemberId(20L);
 		bbst.setTitle("서비스테스트");
 		bbst.setCnImg("서비스테스트.jpg");
 		bbst.setCn("서비스테스트");
-		bbst.setInqrNum(0);
-		bbst.setLikesNum(0);
-		bbst.setReplyNum(0);
 		
 		service.registerBbst(bbst);
 		log.info("========== 생성된 게시글의 번호: " + bbst.getBbstId() + " ==========");
@@ -52,8 +49,7 @@ public class BbstServiceTests {
 	
 	@Test
 	public void testGetBbst() {
-		Long bbstId = 11L;
-		assertNotNull(service.getBbst(bbstId));
+		Long bbstId = 168L;
 		log.info(service.getBbst(bbstId));
 	}
 	
@@ -67,7 +63,7 @@ public class BbstServiceTests {
 	@Test
 	public void testUpdateBbst() {
 		Long bbstId = 11L;
-		BbstMemberJoinVO bbst = service.getBbst(bbstId);
+		BbstJoinVO bbst = service.getBbst(bbstId);
 		
 		if(bbst == null) {
 			return;

@@ -19,7 +19,8 @@ let msg = "${msg}";
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-<%@ include file="/resources/css/cheers/get.jsp" %>
+
+<link rel="stylesheet" href="/resources/css/cheers/get.css">
 
 <body>
 <div class="s-bbst-container">
@@ -50,7 +51,7 @@ let msg = "${msg}";
 		<div class="s-writer-info-div">
 			<p style="font-weight: bold">작성자: <c:out value='${bbst.name }' /></p>
 			<p>작성일시: <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /></p>
-			<p>조회수: <c:out value='${bbst.inqrNum }' /></p>
+			<p>조회수: <c:out value='${bbst.inqrCnt }' /></p>
 		</div>
 		
 		<!-- 회원 프로필 사진 -->
@@ -80,6 +81,12 @@ let msg = "${msg}";
 	</div>
 </div>
 
+<!-- 좋아요수, 댓글수 -->
+<div class="s-bbst-cnt-container">
+	<p><i class="far fa-heart"> 좋아요 <c:out value='${bbst.likesCnt }' /></i></p>
+	<p><i class="far fa-comment-dots"> 댓글 <c:out value='${bbst.replyCnt }' /></i></p> 
+</div>
+
 <!-- 댓글 -->
 <div class="s-bbstReplyList-container">
 	<div class="s-bbstReplyList-top">
@@ -91,9 +98,7 @@ let msg = "${msg}";
 	<ul class="s-bbstReplyList-body"></ul>
 </div>
 
-<div class="s-bbstReplyList-footer">
-
-</div>
+<div class="s-bbstReplyList-footer"></div>
 
 <!-- 댓글 등록 모달 -->
 <div class="s-bbstReply-modal-container" id="s-bbstReply-modal-container">

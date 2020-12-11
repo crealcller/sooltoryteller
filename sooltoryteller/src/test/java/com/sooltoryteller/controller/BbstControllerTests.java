@@ -61,7 +61,7 @@ public class BbstControllerTests {
 	public void testGetBbst() throws Exception {
 		log.info(mockMvc.perform(MockMvcRequestBuilders
 			.get("/cheers/get")
-			.param("bbstId", "11"))
+			.param("bbstId", "168"))
 			.andReturn()
 			.getModelAndView().getModelMap());
 	}

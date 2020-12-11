@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 댓글 등록 -->
 <insert id="insertBbstReply">
-	insert into bbst_reply (bbst_reply_id, bbst_id, member_id, reply_cn, regdate, updatedate)
+	insert into bbst_reply(bbst_reply_id, bbst_id, member_id, reply_cn, regdate, updatedate)
 	values (bbst_reply_SEQ.nextval, #{bbstId}, #{memberId}, #{replyCn}, sysdate, sysdate)
 </insert>
 
@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시글의 모든 댓글 개수 파악 -->
 <select id="getReplyCountByBbstId" resultType="int">
 	<![CDATA[
-	select count(bbst_reply_id) from bbst_reply
+	select count(*) from bbst_reply
 	where bbst_id = #{bbstId}
 	]]>
 </select>

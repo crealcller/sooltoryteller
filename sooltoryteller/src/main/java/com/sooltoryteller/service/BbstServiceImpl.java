@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sooltoryteller.domain.BbstCriteria;
-import com.sooltoryteller.domain.BbstMemberJoinVO;
+import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.mapper.BbstMapper;
 
 import lombok.AllArgsConstructor;
@@ -23,14 +23,14 @@ public class BbstServiceImpl implements BbstService {
 
 	// 게시글 등록
 	@Override
-	public void registerBbst(BbstMemberJoinVO bbst) {
+	public void registerBbst(BbstJoinVO bbst) {
 		log.info("========== REGISTER " + bbst + "==========");
 		mapper.insertBbstWithKey(bbst);
 	}
 
 	// 게시글 조회
 	@Override
-	public BbstMemberJoinVO getBbst(Long bbstId) {
+	public BbstJoinVO getBbst(Long bbstId) {
 		log.info("========== GET BBSTID " + bbstId + " ==========");
 		return mapper.getBbst(bbstId);
 	}
@@ -44,14 +44,14 @@ public class BbstServiceImpl implements BbstService {
 
 	// 게시글 수정
 	@Override
-	public boolean modifyBbst(BbstMemberJoinVO bbst) {
+	public boolean modifyBbst(BbstJoinVO bbst) {
 		log.info("========== MODIFY " + bbst + " ===========");
 		return mapper.updateBbst(bbst) == 1;
 	}
 
 	// 모든 게시글 조회
 	@Override
-	public List<BbstMemberJoinVO> getBbstList(BbstCriteria cri) {
+	public List<BbstJoinVO> getBbstList(BbstCriteria cri) {
 		log.info("========== GET BBST LIST ==========");
 		return mapper.getBbstList(cri);
 	}

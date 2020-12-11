@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.BbstCriteria;
-import com.sooltoryteller.domain.BbstMemberJoinVO;
+import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.BbstPageDTO;
 import com.sooltoryteller.domain.BbstVO;
 import com.sooltoryteller.domain.MemberVO;
@@ -67,7 +67,7 @@ public class BbstController {
 	}
 
 	@PostMapping("/register")
-	public String register(HttpSession session, BbstMemberJoinVO bbst,
+	public String register(HttpSession session, BbstJoinVO bbst,
 		MultipartFile file, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
@@ -119,7 +119,7 @@ public class BbstController {
 
 	// 게시글 수정
 	@PostMapping("/modify")
-	public String modify(HttpSession session, BbstMemberJoinVO bbst, MultipartFile file,
+	public String modify(HttpSession session, BbstJoinVO bbst, MultipartFile file,
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
@@ -154,7 +154,7 @@ public class BbstController {
 
 	// 게시글 삭제
 	@PostMapping("/remove")
-	public String remove(HttpSession session, BbstMemberJoinVO bbst, @RequestParam("bbstId") Long bbstId,
+	public String remove(HttpSession session, BbstJoinVO bbst, @RequestParam("bbstId") Long bbstId,
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
 
 		String email = (String)session.getAttribute("email");

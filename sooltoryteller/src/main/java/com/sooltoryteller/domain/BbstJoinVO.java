@@ -10,11 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// 게시판 
+//게시판
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BbstVO {
+public class BbstJoinVO {
 
 	// 게시글 일련번호
 	@NotBlank
@@ -24,6 +24,13 @@ public class BbstVO {
 	@NotBlank
 	private Long memberId;
 
+	// 회원닉네임
+	@NotBlank
+	private String name; 
+	
+	// 회원 프로필사진
+	private String img;
+	
 	// 게시글 제목
 	@NotBlank(message = "제목을 입력해주세요.")
 	@Size(min = 3, max = 30, message = "최소 3자에서 최대 30자의 제목을 입력해주세요.") // 한글 기준인지 테스트해봐야 함
@@ -49,4 +56,16 @@ public class BbstVO {
 	// 변경일시
 	@NotBlank
 	private Date updatedate;
+	
+	// 조회수
+	@NotBlank
+	private int inqrCnt = 0;
+	
+	// 댓글수
+	@NotBlank
+	private int replyCnt = 0;
+	
+	// 좋아요수
+	@NotBlank
+	private int likesCnt = 0;
 }

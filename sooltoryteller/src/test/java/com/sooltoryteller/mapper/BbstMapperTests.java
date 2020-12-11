@@ -1,7 +1,5 @@
 package com.sooltoryteller.mapper;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -11,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sooltoryteller.domain.BbstCriteria;
-import com.sooltoryteller.domain.BbstMemberJoinVO;
+import com.sooltoryteller.domain.BbstJoinVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -36,7 +34,7 @@ public class BbstMapperTests {
 		cri.setPageNum(2);
 		cri.setAmount(9);
 		
-		List<BbstMemberJoinVO> list = mapper.getBbstList(cri);
+		List<BbstJoinVO> list = mapper.getBbstList(cri);
 		list.forEach(bbstList -> log.info(bbstList.getBbstId()));
 	}
 	
@@ -46,7 +44,7 @@ public class BbstMapperTests {
 		cri.setKeyword("1");
 		cri.setType("TC");
 		
-		List<BbstMemberJoinVO> list = mapper.getBbstList(cri);
+		List<BbstJoinVO> list = mapper.getBbstList(cri);
 		list.forEach(bbstList -> log.info(bbstList));
 		log.info("TYPE: " +  cri.getType());
 		log.info("KEYWORD: " + cri.getKeyword());
@@ -55,14 +53,11 @@ public class BbstMapperTests {
 	@Test
 	public void testInsertBbstWithKey() {
 		
-		BbstMemberJoinVO bbst = new BbstMemberJoinVO();
+		BbstJoinVO bbst = new BbstJoinVO();
 		bbst.setMemberId(20L);
 		bbst.setTitle("매퍼제목테스트");
 		bbst.setCnImg("매퍼이미지테스트.jpg");
 		bbst.setCn("매퍼내용테스트");
-		bbst.setInqrNum(0);
-		bbst.setLikesNum(0);
-		bbst.setReplyNum(0);
 		
 		mapper.insertBbstWithKey(bbst);
 		
@@ -71,10 +66,8 @@ public class BbstMapperTests {
 	
 	@Test
 	public void testGetBbst() {
-		
-		BbstMemberJoinVO bbst = mapper.getBbst(13L);
+		BbstJoinVO bbst = mapper.getBbst(168L);
 		log.info("========== READ: " + bbst + " ==========");
-		assertNotNull(bbst);
 	}
 	
 	@Test
@@ -86,7 +79,7 @@ public class BbstMapperTests {
 	@Test
 	public void testUpdateBbst() {
 		
-		BbstMemberJoinVO bbst = new BbstMemberJoinVO();
+		BbstJoinVO bbst = new BbstJoinVO();
 		bbst.setBbstId(12L);
 		bbst.setTitle("매퍼테스트업뎃업뎃");
 		bbst.setCnImg("매퍼테스트업뎃.jpg");

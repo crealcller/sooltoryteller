@@ -19,7 +19,8 @@ let msg = "${msg}";
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-<%@ include file="/resources/css/cheers/list.jsp" %>
+
+<link rel="stylesheet" href="/resources/css/cheers/list.css">
 
 </head>
 
@@ -79,12 +80,12 @@ let msg = "${msg}";
 					<p style="font-weight: bold">제목: <c:out value="${bbst.title }" /></p>
 					<p>작성자: <c:out value="${bbst.name }" /></p>
 					<p>작성일시: <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /> </p>
-					<p>조회수: <c:out value="${bbst.inqrNum }" /></p>
+					<p>조회수: <c:out value="${bbst.inqrCnt }" /></p>
 				</div>
 				<div class="s-bbst-item-overlay">
 					<div class="s-bbst-item-overlay-info">
-						<p><i class="fas fa-heart" style="color: white;"></i> <c:out value="${bbst.likesNum }" /></p>
-						<p><i class="fas fa-comment-dots" style="color: white;"></i> <c:out value="${bbst.replyNum }" /></p>
+						<p><i class="fas fa-heart" style="color: white;"></i> <c:out value="${bbst.likesCnt }" /></p>
+						<p><i class="fas fa-comment-dots" style="color: white;"></i> <c:out value="${bbst.replyCnt }" /></p>
 					</div>
 				</div>
 			</a></div>
@@ -165,8 +166,11 @@ $(document).ready(function() {
 		}
 		
 		searchForm.find("input[name='pageNum']").val("1");
-		e.preventDefault();
 		
+		// 검색어에 trim() 적용
+		searchForm.find("input[name='keyword']").val(keyword.trim());
+		
+		e.preventDefault();
 		searchForm.submit();
 	});
 	
