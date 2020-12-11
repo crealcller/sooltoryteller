@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sooltoryteller.domain.LiqCnVO;
+import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqVO;
 
 import lombok.Setter;

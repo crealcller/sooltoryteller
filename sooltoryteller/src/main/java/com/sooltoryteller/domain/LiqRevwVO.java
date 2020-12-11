@@ -32,6 +32,7 @@ public class LiqRevwVO {
     // 수정일시 
     private Date updatedate;
     
+    
     private MemberVO member;
     
 }

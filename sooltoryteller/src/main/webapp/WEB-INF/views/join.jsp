@@ -236,7 +236,6 @@ if(msg != ""){
     	} 
     }
     
-    
     //선호하는 술 종류 2가지만 선택
 	const maxCount = 2;
     let count = 0;

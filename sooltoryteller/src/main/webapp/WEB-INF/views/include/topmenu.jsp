@@ -163,12 +163,13 @@ button {
         <div id="h-dropdown1" class="h-dropdown">
         <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
         <div id="h-dropdown-content1" class="h-dropdown-content">
+            <!-- 다울변경 -->
             <a href="/all-liq">전체</a>
-            <a href="/takju">탁주</a>
-            <a href="/yakju-cheongju">약주/청주</a>
-            <a href="/fruit-wine">과실주</a>
-            <a href="/distilled-spirits">증류주</a>
-            <a href="/others">기타류</a>
+            <a href="/liq-list?kind=탁주">탁주</a>
+            <a href="/liq-list?kind=약주 청주">약주/청주</a>
+            <a href="/liq-list?kind=과실주">과실주</a>
+            <a href="/liq-list?kind=증류주">증류주</a>
+            <a href="/liq-list?kind=기타류">기타류</a>
         </div>
     </div>
         <div id="h-dropdown2" class="h-dropdown">

@@ -62,8 +62,9 @@ public class LiqLikeController {
 		return service.cancelLike(memberId, liqId)?
 				new ResponseEntity<>("success",HttpStatus.OK)
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 	}
+	
 	//페이지와 함께 해당회원이  좋아요한 리스트 가져오기
 	@GetMapping(value="/my/pages/{memberId}/{page}",
 			produces= {
@@ -74,7 +75,7 @@ public class LiqLikeController {
 			@PathVariable("page") int page,
 			@PathVariable("memberId") Long memberId){
 		
-		Criteria cri = new Criteria(page,3);
+		Criteria cri = new Criteria(page,4);
 		log.info("get my like list memberId:" +memberId);
 		log.info("cri: "+cri);
 		

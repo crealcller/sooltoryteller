@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sooltoryteller.domain.LiqCnVO;
+import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqVO;
 
 import lombok.Setter;
@@ -22,6 +24,11 @@ public class LiqMapperTests {
 	private LiqMapper mapper;
 	
 	@Test
+	public void testLiqCoCnt() {
+		boolean result =mapper.getLiqCoCnt("명세주가")==1;
+		log.info("result : "+ result);
+	}
+	
 	public void testGetAllByKindCount() {
 		int listCnt = mapper.getCountLiqListByKind("탁주");
 		log.info(listCnt);
@@ -37,13 +44,10 @@ public class LiqMapperTests {
 		liqList.forEach(liq->log.info(liq));
 	}
 	
-	
-	
 	public void testGetAll() {
 		List<LiqVO> liqList = mapper.getLiqList();
 		liqList.forEach(liq->log.info(liq));
 	}
-	
 	
 	public void testGetLiq() {
 		LiqVO liq = mapper.get(1L);
