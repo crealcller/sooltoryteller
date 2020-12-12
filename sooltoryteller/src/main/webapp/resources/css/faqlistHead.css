@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
+@charset "UTF-8";
 
 	table {
       border-collapse: collapse;
@@ -44,7 +43,7 @@
   	
   	.h-pagination li.active{
   	  background-color: navy;
-  	  border-radius: 50%;
+  	 
   	}
   	
 	.h-pagination li.active >a {
@@ -52,7 +51,7 @@
   	  color: white;
 	}
 
-	.h-pagination li:hover:not(.active) {background-color: #ddd; border-radius: 50%;}
+	.h-pagination li:hover:not(.active) {background-color: #ddd;}
 
 
 	.h-faq-regbtn{
@@ -121,4 +120,3 @@
 	  margin: 10px;
 	  background-color: navy;
 	}
-</style>

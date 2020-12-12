@@ -3,8 +3,10 @@ package com.sooltoryteller.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.AdminPageDTO;
@@ -33,5 +35,13 @@ public class HelpController {
 		log.info("total: "+total);
 		
 		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+	}
+	
+	//자주묻는 질문 조회
+	@GetMapping("/faqget")
+	public void faqget(@RequestParam("faqId") Long faqId, @ModelAttribute("adCri")
+	AdminCriteria adCri, Model model) {
+		log.info("/faqget");
+		model.addAttribute("faq", faqService.get(faqId));
 	}
 }

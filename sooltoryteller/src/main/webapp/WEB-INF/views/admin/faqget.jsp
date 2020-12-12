@@ -2,13 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
-<%@include file="/resources/css/faqregisterHead.jsp" %>
+<%@include file="/resources/css/faqregisterHead.css" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>FAQ조회</title>
-
+<!-- 관리자 페이지   -->
 
 
 </head>

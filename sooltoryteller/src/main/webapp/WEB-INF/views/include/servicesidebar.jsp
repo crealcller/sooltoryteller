@@ -54,12 +54,12 @@
 </style>
 <body>
 	<div class="h-imgarea">
-    <img src='img/service.jpg' class="h-centerImg">
+    <img src='/resources/img/service.jpg' class="h-centerImg">
 	</div>
 
 	<div class="h-body">
     <div class="h-sidebar">
-      <a href="#">자주묻는질문</a>
+      <a href="/help/faq" id="h-help-faq">자주묻는질문</a>
       <a href="#">1:1문의</a>
     </div><div class="h-content">
 

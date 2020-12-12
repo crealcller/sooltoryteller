@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
-<%@include file="/resources/css/faqlistHead.jsp" %>
+<%@include file="/resources/css/faqlistHead.css" %>
 
 <!DOCTYPE html>
 <html>
@@ -44,8 +44,6 @@
           	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'>
           	 <button type='submit' class="h-faq-searchbtn">검색</button>
            </form>
-        
-        
         </div>
         
         
