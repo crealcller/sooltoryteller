@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/views/include/topmenu.jsp" %>
 <%@include file="/WEB-INF/views/include/servicesidebar.jsp" %>
-<%@include file="/resources/css/helpfaqHead.css" %>
 
 
 
@@ -12,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>고객센터</title>
+<link rel="stylesheet" href="/resources/css/helpfaqHead.css">
 </head>
 <body>
 <h3 style="margin: 0 0 10px 20px;">자주묻는 질문</h3>

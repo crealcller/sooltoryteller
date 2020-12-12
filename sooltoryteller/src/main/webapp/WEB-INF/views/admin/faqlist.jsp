@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
-<%@include file="/resources/css/faqlistHead.css" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="shortcut icon" href="#">
+<link rel="stylesheet" href="/resources/css/faqlistHead.css">
 <meta charset="UTF-8">
 <title>FAQ</title>
 </head>
