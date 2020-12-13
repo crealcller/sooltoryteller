@@ -39,7 +39,7 @@
         <!-- 검색   -->
         <div class='h-search-content'>
            <form id='h-searchForm' action="/admin/faqlist" method='get'>
-             <input type='text' id ='h-keyword' name='keyword'>
+             <input type='text' id ='h-keyword' name='keyword' maxlength="30">
              <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'>
           	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'>
           	 <button type='submit' class="h-faq-searchbtn">검색</button>
@@ -159,6 +159,14 @@
     	
     	searchForm.submit();
     		
+    	});
+    	
+    	$("#h-keyword").keyup(function(){
+    		
+    	 	if($(this).val().lenght > $(this).attr('maxlength')){
+     			$(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+     		}
+     
     	});
 			
  });

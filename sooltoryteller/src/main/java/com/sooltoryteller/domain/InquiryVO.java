@@ -4,16 +4,18 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+@Data
 public class InquiryVO {
 
 	
 	// 문의일련번호 
 	@NotEmpty
-    private int inquiryId;
+    private Long inquiryId;
 
     // 회원 
 	@NotEmpty
-    private int memberId;
+    private Long memberId;
 
     // 문의 제목
 	@NotEmpty
@@ -24,7 +26,6 @@ public class InquiryVO {
     private String cn;
 
     // 문의 상태
-	@NotEmpty
     private String inqstus;
 
     // 작성일시 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.InquiryMapper">
+
+<!-- 모든 1:1문의 리스트 불러오기 -->
+<select id='getList' resultType='com.sooltoryteller.domain.InquiryVO'>
+select * from inquiry order by inquiry_id desc
+</select>
+
+<!-- 문의 등록 -->
+<insert id="insert">
+	insert into Inquiry(inquiry_id, member_id,title,cn)
+	values (#{inquiryId}, #{memberId}, #{title}, #{cn})
+</insert>
+
+<!-- 문의글 조회 -->
+<select id="read" resultType="com.sooltoryteller.domain.InquiryVO">
+	select * from inquiry where inquiry_id = #{inquiryId}
+</select>
+
+<!-- 관리자가 문의 조회, 답변전송 시  상태변경 -->
+<update id="update">
+	update inquiry
+	set inqstus = #{inqstus}
+	where inquiry_id = #{inquiryId}
+
+</update>
+
+<select id="readStus" resultType="String">
+	select inqstus
+	from inquiry
+	where inquiry_id = #{inquiryId}
+
+</select>
+</mapper>
