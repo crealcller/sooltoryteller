@@ -41,4 +41,7 @@ public interface MemberService {
 	// 수빈
 	// 회원 아이디 & 닉네임 불러오기
 	public MemberVO getMemberIdName(String email);
+	
+	//회원 이메일 불러오기
+	public String getEmail(Long memberId);
 }

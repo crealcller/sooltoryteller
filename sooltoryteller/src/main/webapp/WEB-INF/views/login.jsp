@@ -41,10 +41,9 @@ if(emailMsg != ""){
     <a style = "cursor: pointer;" id="h-findPwd-btn">비밀번호 찾기</a></p>
     <p class="h-login-p" style="text-align: center;"><button type="submit" class="login-btn">로그인</button>
     <button type="button" class="login-btn" id="regbtn" onclick="location.href='/join'">회원가입</button></p>
-    <!-- <p class="h-login-p" style="text-align: center;"><a href="https://kauth.kakao.com/oauth/authorize?client_id=c2b9a30db887beef318f21b381c92c26&redirect_uri=http://localhost:8181/Koauth&response_type=code"> -->
     <p class="h-login-p" style="text-align: center;"><a href="${kakaoUrl}">
     <img src="/resources/img/kakao_login.png" class="snslogin"></a></p>
-    <p class="h-login-p" style="text-align: center;"><a href="#" ><img src="/resources/img/naver_login.PNG" class="snslogin"></a></p>
+    <p class="h-login-p" style="text-align: center;"><a href="#" onclick="alert('준비중입니다...')"><img src="/resources/img/naver_login.PNG" class="snslogin"></a></p>
     </form>
     
     </div>

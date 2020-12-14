@@ -30,7 +30,7 @@ public class InquiryAnswerMapperTests {
 	@Test
 	public void testInsert() {
 		//문의 조회->상태변경:답변대기(AW)
-		inqAnMapper.insert(2L,2L);
+		inqAnMapper.insert(2L);
 		//문의 테이블의 상태변경 : 문의진행(IP)
 		inqMapper.update(2L, "IP");
 	}

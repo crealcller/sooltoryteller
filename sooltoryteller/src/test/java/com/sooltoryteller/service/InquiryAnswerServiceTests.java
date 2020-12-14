@@ -33,7 +33,7 @@ public class InquiryAnswerServiceTests {
 	
 	@Test
 	public void testChecking() {
-		inqAnService.checking(3L, 3L, "IP");
+		inqAnService.checking(3L, "IP");
 	}
 	
 	@Test

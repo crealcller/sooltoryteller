@@ -2,6 +2,7 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 
+import com.sooltoryteller.domain.InquiryAdminVO;
 import com.sooltoryteller.domain.InquiryVO;
 
 public interface InquiryService {
@@ -16,8 +17,11 @@ public interface InquiryService {
 	public boolean stateChange(Long inquiryId, String inqstus);
 	
 	//문의 리스트 조회
-	public List<InquiryVO> getList();
+	public List<InquiryAdminVO> getList();
 	
 	//문의상태 불러오기
 	public String getStus(Long inquiryId);
+	
+	//회원 아이디 가져오기
+	public Long getMemberId(Long inquiryId);
 }

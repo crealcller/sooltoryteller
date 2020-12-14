@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.service.LiqService;
+import com.sooltoryteller.service.MailService;
+import com.sooltoryteller.service.MemberService;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +18,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.AdminPageDTO;
+import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.FaqVO;
+import com.sooltoryteller.domain.InquiryAnswerVO;
+import com.sooltoryteller.domain.InquiryVO;
 import com.sooltoryteller.service.AdminService;
 import com.sooltoryteller.service.FaqService;
+import com.sooltoryteller.service.InquiryAnswerService;
+import com.sooltoryteller.service.InquiryService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,6 +39,11 @@ public class AdminController {
 	private AdminService adService;
 	private FaqService faqService;
 	private LiqService liqService;
+	private InquiryAnswerService inqAnService;
+	private InquiryService inqService;
+	private MemberService memberService;
+	private MailService mailService;
+	private EmailVO e_mail;
 
 	@GetMapping("/liq-register")
 	public void liq() {
@@ -132,5 +145,73 @@ public class AdminController {
 		rttr.addAttribute("amount", adCri.getAmount());
 
 		return "redirect:/admin/faqlist";
+	}
+	
+	//1:1문의 리스트
+	@GetMapping("/inquirylist")
+	public void inquirylist(Model model) {
+	
+		log.info("list");
+		model.addAttribute("inquirylist", inqService.getList());
+		System.out.println(model);
+	}
+	
+	//1:1문의 조회
+	@GetMapping("/getinquiry")
+	public void getinquiry(@RequestParam("inquiryId")Long inquiryId, Model model) {
+		
+		log.info("/getinquiry" + inquiryId);
+		model.addAttribute("inq", inqService.get(inquiryId));
+		log.info("inq : "+model);
+	}
+	
+	
+	//문의 답변
+	@GetMapping("/answer")
+	public void answer(@RequestParam("inquiryId")Long inquiryId, Model model) {
+		log.info("문의글 번호: "+inquiryId);
+		
+		model.addAttribute("inquiryId", inquiryId);
+	}
+	
+	//답변 등록 및 이메일전송
+	@PostMapping("/answer")
+	public String answer(InquiryAnswerVO inqAn, RedirectAttributes rttr) {
+		
+		log.info("answer register...."+inqAn);
+		
+		//답변등록이 되었다면 이메일전송
+		if(inqAnService.register(inqAn, "IC")) {
+			
+			Long memberId = inqService.getMemberId(inqAn.getInquiryId());
+			String email = memberService.getEmail(memberId);
+			
+			System.out.println("memberId : "+memberId +", memberEmail : "+email);
+			
+			e_mail.setTitle("sooltoryteller 1:1 문의에 대한 답변드립니다.");
+            e_mail.setContent(
+            		//줄바꿈
+            		System.getProperty("line.separator") +
+            		"안녕하세요 sooltoryteller 입니다." +
+            		System.getProperty("line.separator")+
+            		"고객님의 주신 문의에 대하여 답변 보내드립니다."+
+            		System.getProperty("line.separator")+
+            		inqAn.getCn()
+            		);
+        	
+            e_mail.setTo(email);
+            mailService.send(e_mail);
+			rttr.addFlashAttribute("result", true);
+		}
+		rttr.addFlashAttribute("result", false);
+		return "redirect:/admin/inquirylist";
+	}
+	
+	//답변조회
+	@GetMapping("/getanswer")
+	public void getanswer(@RequestParam("inquiryId")Long inquiryId, Model model) {
+		log.info("문의글 번호: "+inquiryId);
+		
+		model.addAttribute("answer", inqAnService.get(inquiryId));
 	}
 }

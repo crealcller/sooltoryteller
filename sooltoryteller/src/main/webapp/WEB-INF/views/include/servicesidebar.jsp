@@ -60,7 +60,7 @@
 	<div class="h-body">
     <div class="h-sidebar">
       <a href="/help/faq" id="h-help-faq">자주묻는질문</a>
-      <a href="#">1:1문의</a>
+      <a href="/help/inquiryregister" id="h-help-inquiry">1:1문의</a>
     </div><div class="h-content">
 
 </body>

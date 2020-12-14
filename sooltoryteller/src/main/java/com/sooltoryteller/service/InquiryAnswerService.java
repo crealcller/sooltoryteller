@@ -5,7 +5,7 @@ import com.sooltoryteller.domain.InquiryAnswerVO;
 public interface InquiryAnswerService {
 
 	//문의글 조회
-	public void checking(Long answerId, Long inquiryId, String inqstus);
+	public void checking(Long inquiryId, String inqstus);
 	
 	//답변조회
 	public InquiryAnswerVO get(Long inquiryId);

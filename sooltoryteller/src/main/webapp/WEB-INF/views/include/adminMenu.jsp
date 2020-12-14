@@ -101,7 +101,7 @@
             <div class="h-sidebar">
               <a href="/admin" id='h-admin-home'>Home</a>
               <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
-              <a href="#">1:1문의</a>
+              <a href="/admin/inquirylist" id='h-admin-inqlist'>1:1문의</a>
               <a href="/admin/faqlist" id='h-admin-faq'>FAQ</a>
             </div><div class="h-content">
  

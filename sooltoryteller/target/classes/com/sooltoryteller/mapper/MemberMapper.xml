@@ -46,7 +46,7 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 </select>
 
 <!-- 이메일 중복확인 탈퇴회원은 제외-->
-<select id="getEmail" resultType="int">
+<select id="checkEmail" resultType="int">
 	select count(*)
 	from member
 	where email = #{email}
@@ -54,7 +54,7 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 </select>
 
 <!-- 닉네임 중복확인 탈퇴회원은 제외-->
-<select id="getName" resultType="int">
+<select id="checkName" resultType="int">
 	select count(*)
 	from member
 	where name = #{name}
@@ -100,5 +100,11 @@ values (hist_id.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno}, #{img
 	select member_id, name
 	from member
 	where email = #{email}
+</select>
+
+<select id='getEmail' resultType="String">
+	select email
+	from member
+	where member_id = #{memberId}
 </select>
 </mapper>

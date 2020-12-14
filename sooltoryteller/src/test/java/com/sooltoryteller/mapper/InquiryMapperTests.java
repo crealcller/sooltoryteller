@@ -29,7 +29,7 @@ public class InquiryMapperTests {
 	public void testInsert() {
 		InquiryVO inq = new InquiryVO();
 		inq.setInquiryId(4L);
-		inq.setMemberId(68L);
+		inq.setName("임현수");
 		inq.setTitle("인서트테스트1!!");
 		inq.setCn("인서트 테스트임당");
 		

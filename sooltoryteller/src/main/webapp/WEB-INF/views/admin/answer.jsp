@@ -6,23 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ등록</title>
+<title>1:1문의 답변</title>
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
 
 
 
 </head>
 <body>
-	<h3 style="margin-left: 50px;">[FAQ 등록하기]</h3>
+	<h3 style="margin-left: 50px;">[1:1문의 답변보내기]</h3>
     <div class="h-faq-body">
-        <form action="/admin/faqregister" id='h-faqRagForm' method="POST" onsubmit="return blankcheck()">
+        <form action="/admin/answer" id='h-answerForm' method="POST" onsubmit="return blankcheck()">
         <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
-            <p style="margin: 0;"><input class="h-faq-title" name="faqId"></p>
-        </div>
-        <div>
-            <p style="text-align: left; margin: 0;">제목</p>
-            <p style="margin: 0;"><input class="h-faq-title" id="title" name="title" maxlength="30"></p>
+       		<p style="text-align: left; margin: 0;">번호</p>
+            <p style="margin: 0;"><input class="h-faq-title" name="inquiryId" value='<c:out value="${inquiryId }"/>' readonly="readonly"></p>
         </div>
         <div>
             <p style="text-align: left; margin: 0;">내용</p>
@@ -30,7 +26,7 @@
         </div>
         <div style="margin-top:20px;">
             <button type="submit" class="h-faq-btn">등록</button>
-            <button type="button" class="h-faq-btn" onclick="location.href='/admin/faqlist'">목록</button>
+            <button type="button" class="h-faq-btn" onclick="location.href='/admin/inquirylist'">목록</button>
         </div>
         </form>
 
@@ -38,23 +34,15 @@
 
 </div><!--인크루드 하는 페이지에 넣기-->
 </div><!--인크루드 하는 페이지에 넣기-->
+   
 
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-admin-faq").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-inqlist").style="background-color: navy;color: white;";
 
-	//제목 글자수 30자가 넘으면 경고창	
-	$("#title").keyup(function(){
-		
-	 	if($(this).val().lenght > $(this).attr('maxlength')){
- 			alert("제목은 30자 이내로 입력하여 주시기 바랍니다.");
- 			$(this).val($(this).val().substr(0, $(this).attr('maxlength')));
- 		}
- 
-	});
-	
+	//내용최대글자수 넘으면 더이상 쓰지 못 하게 막음	
 	$("#cn").keyup(function(){
 		
 	 	if($(this).val().lenght > $(this).attr('maxlength')){
@@ -63,25 +51,12 @@
  		}
  
 	});
-	//제목 공백제거
-	let faqRagForm = $("#h-faqRagForm");
 	
-	$("#h-faqRagForm button").on("click", function(e){
-		let title = $("#title").val();
-		$('#title').val(title.trim());
-		e.preventDefault();
-		
-		faqRagForm.submit();
-	 });
+	
  });
  
  //아무내용도 입력하지 않고 등록버튼을 누른경우
 	function blankcheck(){
-		
-		if($("#title").val() == ""){
-			alert("제목을 입력해 주시기 바랍니다.");
-			return false;
-		}
 		
 		if($("#cn").val() == ""){
 			alert("내용을 입력해 주시기 바랍니다.");

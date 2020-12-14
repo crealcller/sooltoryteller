@@ -8,7 +8,7 @@ public interface InquiryAnswerMapper {
 
 		
 		//문의 조회하는 순간 답변테이블에 등록(상태:답변대기중) *시퀀스로 변경시 파라미터 지우기
-		public void insert(@Param("answerId")Long answerId, @Param("inquiryId")Long inquiryId);
+		public void insert(Long inquiryId);
 		
 		//답변 조회
 		public InquiryAnswerVO read(Long inquiryId);

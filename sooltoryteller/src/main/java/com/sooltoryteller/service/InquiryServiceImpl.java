@@ -3,8 +3,11 @@ package com.sooltoryteller.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.sooltoryteller.domain.InquiryAdminVO;
 import com.sooltoryteller.domain.InquiryVO;
+import com.sooltoryteller.mapper.InquiryAnswerMapper;
 import com.sooltoryteller.mapper.InquiryMapper;
 
 import lombok.AllArgsConstructor;
@@ -15,23 +18,37 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class InquiryServiceImpl implements InquiryService{
 
-	private InquiryMapper mapper;
+	private InquiryMapper inqMapper;
+	private InquiryAnswerMapper inqAnMapper;
 	
 	//문의 등록
 	@Override
 	public void register(InquiryVO inq) {
 		log.info("Inquiry Register...."+inq);
 		
-		mapper.insert(inq);
+		inqMapper.insert(inq);
 		
 	}
 
 	//문의 조회
+	@Transactional
 	@Override
 	public InquiryVO get(Long inquiryId) {
 		log.info("Inquiry get...."+inquiryId);
-
-		return mapper.read(inquiryId);
+		
+		InquiryVO inq = inqMapper.read(inquiryId);
+		
+		log.info("inq : "+inq);
+		//조회에 성공하면 문의 상태 변경
+		
+		log.info(inq.getInqstus());
+		if(inq != null && inq.getInqstus().equals("IR")) {
+			inqMapper.update(inquiryId, "IP");
+			inqAnMapper.insert(inquiryId);
+			
+		}
+		
+		return inq;
 	}
 
 	//문의 상태변경
@@ -39,22 +56,29 @@ public class InquiryServiceImpl implements InquiryService{
 	public boolean stateChange(Long inquiryId, String inqstus) {
 		log.info("Inquiry stateChange..."+ inquiryId+inqstus);
 		
-		return mapper.update(inquiryId, inqstus)==1;
+		return inqMapper.update(inquiryId, inqstus)==1;
 	}
 	
 	//문의 리스트 조회
 	@Override
-	public List<InquiryVO> getList() {
+	public List<InquiryAdminVO> getList() {
 		log.info("Inquiry getList.....");
 		
-		return mapper.getList();
+		return inqMapper.getList();
 	}
 
 	//문의 상태 불러오기
 	@Override
 	public String getStus(Long inquiryId) {
 		
-		return mapper.readStus(inquiryId);
+		return inqMapper.readStus(inquiryId);
 	}
+
+	//회원아이디가져오기
+	@Override
+	public Long getMemberId(Long inquiryId) {
+		return inqMapper.getMemberId(inquiryId);
+	}
+
 
 }

@@ -1,7 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
-<style>
+@charset "UTF-8";
 
 		.h-inq-body{
             width: 900px;
@@ -26,9 +23,9 @@
         }
 
 		.h-modal {
-	         display: none;
-	         position: fixed; 
-	         z-index: 1;
+	       display: none;
+	       position: fixed; 
+	       z-index: 1;
            padding-top: 100px; 
            left: 0;
            top: 0;
@@ -41,11 +38,12 @@
 	
 
         .h-modal-content {
-          background-color: #d8e1f1;
+          background-color: #f2eff9;
           margin: auto;
           padding: 20px;
           border: 1px solid #888;
-          width: 30%;
+          width: 400px;
+          height: 130px;
         }
         
         /* The Close Button */
@@ -54,6 +52,7 @@
           float: right;
           font-size: 28px;
           font-weight: bold;
+          cursor: pointer;
         }
 	
         .h-close:hover,
@@ -67,7 +66,6 @@
           width: 50px;
           border: none;
           color: white;
-          margin: 10px;
+          margin: 20px;
           background-color: rgb(181, 135, 189);
         }
-</style>

@@ -33,7 +33,7 @@ public class InquiryServiceTests {
 		InquiryVO inq = new InquiryVO();
 		
 		inq.setInquiryId(5L);
-		inq.setMemberId(6L);
+		inq.setName("이면슈");
 		inq.setTitle("서비스테스트");
 		inq.setCn("서비스테스트~~");
 		

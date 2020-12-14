@@ -4,8 +4,12 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class InquiryVO {
 
 	
@@ -14,8 +18,9 @@ public class InquiryVO {
     private Long inquiryId;
 
     // 회원 
-	@NotEmpty
-    private Long memberId;
+    private String name;
+	
+	private String memberId;
 
     // 문의 제목
 	@NotEmpty

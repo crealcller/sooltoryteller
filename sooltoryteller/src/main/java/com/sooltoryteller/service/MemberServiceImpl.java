@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int checkEmail(String email) {
 		
-		return mapper.getEmail(email);
+		return mapper.checkEmail(email);
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int checkName(String name) {
 		
-		return mapper.getName(name);
+		return mapper.checkName(name);
 	}
 	
 	// 수빈
@@ -136,4 +136,11 @@ public class MemberServiceImpl implements MemberService{
 		log.info("========== GET MEMBER ID & NAME : " + mapper.getMemberIdName(email) + " ==========");
 		return mapper.getMemberIdName(email);
 	}
+
+	@Override
+	public String getEmail(Long memberId) {
+		
+		return mapper.getEmail(memberId);
+	}
+
 }

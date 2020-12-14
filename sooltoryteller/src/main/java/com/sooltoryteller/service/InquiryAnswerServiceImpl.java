@@ -23,10 +23,10 @@ public class InquiryAnswerServiceImpl implements InquiryAnswerService{
 	//문의글 조회
 	@Transactional
 	@Override
-	public void checking(Long answerId, Long inquiryId, String inqstus) {
+	public void checking(Long inquiryId, String inqstus) {
 		log.info("Inquiry checking...."+inquiryId);
 
-		inqAnMapper.insert(answerId, inquiryId);
+		inqAnMapper.insert(inquiryId);
 		inqMapper.update(inquiryId, inqstus);
 		
 	}
@@ -40,6 +40,7 @@ public class InquiryAnswerServiceImpl implements InquiryAnswerService{
 	}
 
 	//답변등록
+	@Transactional
 	@Override
 	public boolean register(InquiryAnswerVO inqAn, String inqstus) {
 		log.info("Answer register...."+inqAn);
