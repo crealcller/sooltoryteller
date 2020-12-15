@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sooltoryteller.mapper.BbstLikeMapper">
+
+<!-- 좋아요 -->
+<insert id="likeBbst">
+	insert into bbst_like(bbst_like_id, bbst_id, member_id, regdate)
+	values(bbst_like_SEQ.nextval, #{bbstId}, #{memberId}, sysdate)
+</insert>
+
+<!-- 좋아요 취소 -->
+<delete id="cancelLikeBbst">
+	delete from bbst_like
+	where bbst_id = #{bbstId}
+	and member_id = #{memberId}
+</delete>
+
+<!-- 좋아요 상태 -->
+<select id="bbstLikeStus" resultType="int">
+	select count(*) from bbst_like
+	where bbst_id = #{bbstId}
+	and member_id = #{memberId}
+</select>
+
+<!-- 좋아요수 +1 / -1 업데이트 -->
+<update id="updateBbstLikeCnt">
+	update bbst_cnt
+	set like_cnt = like_cnt + #{cnt}
+	where bbst_id = #{bbstId}
+</update>
+
+<!-- 게시글 좋아요수 -->
+<select id="bbstLikeCnt" resultType="int">
+	select count(*) from bbst_like
+	where bbst_id = #{bbstId}
+</select>
+
+<!-- 마이페이지 -->
+<!-- 내가 좋아요 누른 게시글 리스트 -->
+<select id="getMyBbstLike" resultType="com.sooltoryteller.domain.BbstLikeJoinVO">
+	select /*+ index_desc (l bbst_like_pk) */
+	rownum rn, b.cn_img, l.*, c.*
+	from bbst b, bbst_like l, bbst_cnt c
+	where b.bbst_id = l.bbst_id(+)
+	and l.bbst_id = c.bbst_id
+	and l.member_id = #{memberId}
+</select>
+
+<!-- 내가 좋아요 누른 게시글 리스트 - 전체 데이터 개수 처리 -->
+<select id="getMyBbstLikeTotalCount" resultType="int">
+	select count(*) from bbst_like
+	where member_id = #{memberId}
+</select>
+</mapper>

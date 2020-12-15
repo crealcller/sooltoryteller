@@ -70,7 +70,7 @@ let msg = "${msg}";
 		<p>작성된 게시글이 없습니다.</p>
 	</c:if>
 	<c:if test="${not empty bbstList }">
-		<c:forEach items="${bbstList }" var="bbst" varStatus="status" begin="0" end="8">
+		<c:forEach items="${bbstList }" var="bbst">
 			<div class="s-bbst-item-container">
 				<a class="move" href="<c:out value='${bbst.bbstId }' />">
 				<div class="s-bbst-img-div">            
@@ -84,7 +84,7 @@ let msg = "${msg}";
 				</div>
 				<div class="s-bbst-item-overlay">
 					<div class="s-bbst-item-overlay-info">
-						<p><i class="fas fa-heart" style="color: white;"></i> <c:out value="${bbst.likesCnt }" /></p>
+						<p><i class="fas fa-heart" style="color: white;"></i> <c:out value="${bbst.likeCnt }" /></p>
 						<p><i class="fas fa-comment-dots" style="color: white;"></i> <c:out value="${bbst.replyCnt }" /></p>
 					</div>
 				</div>
@@ -120,9 +120,6 @@ let msg = "${msg}";
 	<input type="hidden" name="type" value="${pageMaker.cri.type }" />
 	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }" />
 </form>
-
-<!-- Top으로 이동하는 버튼 만들기 (w3schools) -->
-<!-- <button onclick="topFunction()" id="topBtn">Top</button> -->
 
 <script type="text/javascript">
 

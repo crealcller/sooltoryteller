@@ -37,10 +37,13 @@
                     <li class="d-mypage-ref"><a href='#'>게시글 </a></li>
                     <ul class="d-mypage-menu">
                         <li class="d-mypage-li">
-                            <a href='#'>좋아요한 게시글</a>
-                        </li> 
+                            <a href='/mypage/mypost'>내가 작성한 게시글</a>
+                        </li>
                         <li class="d-mypage-li">
-                            <a href='#'>내가 작성한 게시글 </a> 
+                            <a href='/mypage/mycomment'>내가 작성한 댓글</a>
+                        </li>  
+                        <li class="d-mypage-li">
+                            <a href='/mypage/mylikedpost'>좋아요한 게시글</a> 
                         </li>     
                     </ul> 
                     </ul>

@@ -6,98 +6,107 @@
 	margin: auto;
 	margin-top: 100px;
 	margin-bottom: 100px;
+	border-style: solid;
+	border-color: #e1e1e1;
+	box-shadow: 5px 5px 5px 5px #e1e1e1;
 }
 
 .d-mypage-left {
-    float: left;
+	float: left;
 	width: 350px;
 	height: 900px;
-	border-style: solid;
-	display:inline-block;
+	border-style: none;
+	display: inline-block;
 }
+
 .d-mypage-right {
-    float: left;
+	float: left;
 	width: 850px;
 	height: 900px;
-	border-style: solid;
-    border-left-style:none;
-	display:inline-block;
+	border-style: none;
+	border-left-style: none;
+	display: inline-block;
 }
-.d-mypage-right h2{
-	padding : 20px; 
+
+.d-mypage-right h2 {
+	padding: 20px;
 	border-bottom-style: solid;
-    border-bottom-color:rgb(170, 168, 168);
-    margin:20px;
+	border-bottom-color: rgb(170, 168, 168);
+	margin: 20px;
 }
 
 .d-mypage-footer {
 	height: 200px;
 	background-color: rgba(196, 150, 204, 0.562);
 }
-.d-left-con{
-    width: 350px;
-	height:850px;
-    margin:auto;
+
+.d-left-con {
+	width: 350px;
+	height: 850px;
+	margin: auto;
 }
+
 .d-mypage-profile-con {
 	text-align: center;
-	margin:auto;
-    margin-top: 50px;
-    width: 300px;
+	margin: auto;
+	margin-top: 50px;
+	width: 300px;
 	height: 300px;
-    border-style: solid;
+	border-style: solid;
+	border-color: #e1e1e1;
 }
+
 .d-mypage-profile {
-	width: 100px;
-	height: 100px;
+	width: 130px;
+	height: 130px;
 	border-radius: 50%;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 .d-mypage-info {
 	width: 270px;
 	height: 150px;
 	margin: auto;
-    font-size: 20px;
+	font-size: 20px;
 }
 
-.d-mypage-menu-con{
-    width: 200px;
-    border-bottom-style: solid;
-    border-bottom-color:rgb(170, 168, 168) ;
-    margin: auto;
-    padding: 20px;
-    list-style: none;
-   
-}
-.d-mypage-menu{
-    width: 200px;
-    margin:auto;
-    padding: 0;
-    list-style: none;
+.d-mypage-menu-con {
+	width: 200px;
+	border-bottom-style: solid;
+	border-bottom-color: rgb(170, 168, 168);
+	margin: auto;
+	padding: 20px;
+	list-style: none;
 }
 
-.d-mypage-ref{
-   font-size: 20px;
-   font-weight: 700;
-   padding-bottom: 20px;
-}    
-.d-mypage-li{
-    padding-bottom: 10px;
-}  
+.d-mypage-menu {
+	width: 200px;
+	margin: auto;
+	padding: 0;
+	list-style: none;
+}
+
+.d-mypage-ref {
+	font-size: 20px;
+	font-weight: 700;
+	padding-bottom: 20px;
+}
+
+.d-mypage-li {
+	padding-bottom: 10px;
+}
 
 .d-paging {
 	float: right;
-	
 }
 
 .d-paging ul {
 	list-style: none;
+	margin: 10px;
 }
 
 .d-paging li {
 	float: left;
-	margin: 0;
 }
 
 .d-paging-btn-active {
@@ -106,7 +115,6 @@
 	height: 25px;
 	background-color: rgb(181, 135, 189);
 	border-radius: 50%;
-	margin: 10px;
 }
 
 .d-paging-btn-active a {
@@ -118,36 +126,48 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	margin: 10px;
 }
 
-.d-my-revw-img{
-	width:40px;
-	height:60px;
+.d-my-revw-img {
+	width: 40px;
+	height: 60px;
 }
+
 .d-con {
-	width:700px;
-	height:800px;
-	margin:auto;
+	width: 700px;
+	height: 800px;
+	margin: auto;
 }
-.d-con ul {
+
+.d-like {
 	list-style: none;
-    margin-top:50px;
+	margin-top: 50px;
 }
-.d-con li {
-	padding:20px;
+
+.d-like li {
+	padding: 20px;
 }
+
+.d-revw {
+	list-style: none;
+	margin-top: 50px;
+}
+
+.d-revw li {
+	padding: 20px;
+}
+
 .d-con button {
-	float:right;
-	background-color:rgb(181, 135, 189);
-	border-style:none;
-	border-radius: 5px 5px 5px 5px;
-	padding:10px;
-	color:white;
+	float: right;
+	border-style: none;
+	background-color: white;
+	padding: 10px;
+	color: rgb(181, 135, 189);
 }
-.d-revw-con{
+
+.d-revw-con {
 	border-bottom-style: solid;
-    border-bottom-color: rgb(245, 245, 245);
+	border-bottom-color: rgb(245, 245, 245);
 }
 
 /* The Modal (background) */
@@ -188,11 +208,12 @@
 	text-decoration: none;
 	cursor: pointer;
 }
-.d-like-cancel-btn{
-	float:right;
-	font-size:30px;
-	color:rgb(181, 135, 189);
-}	
+
+.d-like-cancel-btn {
+	float: right;
+	font-size: 30px;
+	color: rgb(181, 135, 189);
+}
 
 .star_grade span {
 	text-decoration: none;
@@ -209,14 +230,15 @@
 }
 
 .d-revw-star {
-	font-size:20px;
+	font-size: 20px;
 	color: orange;
 }
-.d-star-box{
- 	display:inline-block;
- 	padding:5px 10px 5px 10px;
- 	background-color: rgb(252, 248, 35);
- 	border-style:none;
+
+.d-star-box {
+	display: inline-block;
+	padding: 5px 10px 5px 10px;
+	background-color: rgb(252, 248, 35);
+	border-style: none;
 	border-radius: 10px 10px 10px 10px;
-	margin:10px;
+	margin: 10px;
 }

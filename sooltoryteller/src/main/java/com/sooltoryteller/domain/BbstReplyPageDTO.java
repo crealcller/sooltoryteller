@@ -11,6 +11,9 @@ import lombok.Getter;
 @Getter
 public class BbstReplyPageDTO {
 
+	// 게새글 당 작성된 댓글수
 	private int replyCnt;
-	private List<BbstReplyMemberJoinVO> list;
+	
+	// 게시글 당 작성된 댓글 리스트
+	private List<BbstReplyJoinVO> list;
 }

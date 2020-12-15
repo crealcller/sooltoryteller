@@ -31,8 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	select * from (
 		select /*+ index_desc (b bbst_pk) */
-        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate
-		from bbst b, member m
+        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, c.inqr_cnt, c.reply_cnt, c.like_cnt
+		from bbst b, member m, bbst_cnt c
 		where
 	]]>
 	
@@ -40,6 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<![CDATA[
 		b.member_id = m.member_id
+		and b.bbst_id = c.bbst_id
 		and b.bbst_id > 0
 		and rownum <= #{pageNum} * #{amount})
 	where rn > (#{pageNum} -1) * #{amount}
@@ -71,9 +72,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values(#{bbstId}, #{memberId}, #{title}, #{cnImg}, #{cnThumbimg}, #{cn}, sysdate, sysdate)
 </insert>
 
+<!-- 게시글 집계 등록 -->
+<insert id="insertBbstCnt">
+	<selectKey keyProperty="bbstId" order="BEFORE" resultType="Long">
+		select bbst_seq.currval from dual
+	</selectKey>
+	
+	insert into bbst_cnt(bbst_id)
+	values(#{bbstId})
+</insert>
+
 <!-- 게시글 조회 -->
 <select id="getBbst" resultType="com.sooltoryteller.domain.BbstJoinVO">
-select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.regdate, c.inqr_cnt, c.reply_cnt, c.likes_cnt
+	select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.regdate, c.inqr_cnt, c.reply_cnt, c.like_cnt
 	from bbst b, bbst_cnt c, member m
 	where b.member_id = m.member_id
 	and b.bbst_id = c.bbst_id(+)
@@ -97,4 +108,30 @@ select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, 
 	where bbst_id = #{bbstId}
 </update>
 
+<!-- 마이페이지 -->
+<!-- 내가 쓴 게시물 리스트 -->
+<select id="getMyBbstList" resultType="com.sooltoryteller.domain.BbstJoinVO">
+	<![CDATA[
+	select * from (
+		select /*+ index_desc (b bbst_pk) */
+        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, c.inqr_cnt, c.reply_cnt, c.like_cnt
+		from bbst b, member m, bbst_cnt c
+		where b.member_id = #{memberId}
+        and b.member_id = m.member_id
+		and b.bbst_id = c.bbst_id(+)
+		and b.bbst_id > 0
+		and rownum <= #{cri.pageNum} * #{cri.amount})
+	where rn > (#{cri.pageNum} -1) * #{cri.amount}
+	]]>
+</select>
+
+<!-- 내가 쓴 게시물 리스트 - 전체 데이터 개수 처리 -->
+<select id="getMyBbstListTotalCount" resultType="int">
+	select count(*) from bbst
+	where member_id = #{memberId}
+	<!-- select count(*) from bbst b, member m, bbst_cnt c
+	where b.member_id = #{memberId}
+    and b.member_id = m.member_id
+	and b.bbst_id = c.bbst_id(+) -->
+</select>
 </mapper>

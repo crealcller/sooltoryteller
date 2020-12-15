@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 
@@ -34,9 +35,11 @@ public class BbstServiceTests {
 		bbst.setMemberId(20L);
 		bbst.setTitle("서비스테스트");
 		bbst.setCnImg("서비스테스트.jpg");
+		bbst.setCnThumbimg("test.jpg");
 		bbst.setCn("서비스테스트");
 		
-		service.registerBbst(bbst);
+		BbstCntVO cnt = new BbstCntVO();
+		service.registerBbst(bbst, cnt);
 		log.info("========== 생성된 게시글의 번호: " + bbst.getBbstId() + " ==========");
 	}
 	
@@ -73,4 +76,10 @@ public class BbstServiceTests {
 		log.info("========== MODIFY RESULT: " + service.modifyBbst(bbst) + " ==========");
 	}
 	
+	@Test
+	public void testGetMyBbstList() {
+		Long memberId = 3L;
+		BbstCriteria cri = new BbstCriteria();
+		service.getMyBbstList(cri, memberId);
+	}
 }

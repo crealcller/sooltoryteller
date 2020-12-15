@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BbstCountsVO {
+public class BbstCntVO {
 
 	// 게시글 일련번호 
-	private int bbstId;
+	private Long bbstId;
 
 	// 조회수 
 	private int inqrCnt = 0;
@@ -22,7 +22,7 @@ public class BbstCountsVO {
 	private int replyCnt = 0;
 
 	// 좋아요수 
-	private int likesCnt = 0;
+	private int likeCnt = 0;
 
 	// 등록일시 
 	private Date regdate;

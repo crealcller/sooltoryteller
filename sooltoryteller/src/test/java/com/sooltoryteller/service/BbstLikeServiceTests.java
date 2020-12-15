@@ -12,10 +12,10 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class BbstLikesServiceTests {
+public class BbstLikeServiceTests {
 
 	@Setter(onMethod_ = {@Autowired})
-	private BbstLikesService service;
+	private BbstLikeService service;
 
 	// 좋아요
 	@Test

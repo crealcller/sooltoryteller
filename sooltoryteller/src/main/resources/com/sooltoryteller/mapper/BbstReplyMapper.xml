@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <!-- 댓글 조회 -->
-<select id="readBbstReply" resultType="com.sooltoryteller.domain.BbstReplyMemberJoinVO">
+<select id="readBbstReply" resultType="com.sooltoryteller.domain.BbstReplyJoinVO">
 	select r.*, m.name, m.img
 	from bbst b, bbst_reply r, member m
 	where b.bbst_id = r.bbst_id
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 
 <!-- 게시글의 모든 댓글 조회 -->
-<select id="getBbstReplyList" resultType="com.sooltoryteller.domain.BbstReplyMemberJoinVO">
+<select id="getBbstReplyList" resultType="com.sooltoryteller.domain.BbstReplyJoinVO">
 	<![CDATA[
 	select * from (
 		select /*+ index(r idx_bbst_reply) */
@@ -52,10 +52,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 게시글의 모든 댓글 개수 파악 -->
 <select id="getReplyCountByBbstId" resultType="int">
-	<![CDATA[
 	select count(*) from bbst_reply
 	where bbst_id = #{bbstId}
+</select>
+
+<!-- 마이페이지 -->
+<!-- 내가 쓴 댓글 리스트 -->
+<select id="getMyBbstReply" resultType="com.sooltoryteller.domain.BbstReplyJoinVO">
+	<![CDATA[
+	select /*+ index_desc (r bbst_reply_pk) */
+	rownum rn, b.cn_img, r.*, m.name
+	from bbst b, bbst_reply r, member m
+	where b.bbst_id = r.bbst_id(+)
+    and r.member_id = m.member_id(+)
+	and r.member_id = #{memberId}
+	and r.bbst_reply_id > 0
 	]]>
+</select>
+
+<!-- 내가 쓴 댓글 리스트 - 전체 데이터 개수 처리 -->
+<select id="getMyBbstReplyTotalCount" resultType="int">
+	select count(*) from bbst_reply
+	where member_id = #{memberId}
 </select>
 
 </mapper>

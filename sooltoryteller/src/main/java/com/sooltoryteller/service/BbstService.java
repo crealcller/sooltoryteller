@@ -2,13 +2,17 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
+import com.sooltoryteller.domain.MyBbstPageDTO;
 
 public interface BbstService {
 
 	// 게시글 등록
-	public void registerBbst(BbstJoinVO bbst);
+	public void registerBbst(BbstJoinVO bbst, BbstCntVO cnt);
 	
 	// 게시글 조회
 	public BbstJoinVO getBbst(Long bbstId);
@@ -25,4 +29,9 @@ public interface BbstService {
 	// 전체 데이터 개수 처리
 	public int getBbstTotal(BbstCriteria cri);
 	
+	// 마이페이지
+	// 내가 쓴 게시글 리스트
+	public MyBbstPageDTO getMyBbstList(
+		@Param("cri") BbstCriteria cri,
+		@Param("memberId") Long memberId);
 }

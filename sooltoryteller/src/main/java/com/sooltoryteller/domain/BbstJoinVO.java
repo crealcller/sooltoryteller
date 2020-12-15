@@ -57,15 +57,12 @@ public class BbstJoinVO {
 	@NotBlank
 	private Date updatedate;
 	
-	// 조회수
-	@NotBlank
+	// 조회수 
 	private int inqrCnt = 0;
-	
-	// 댓글수
-	@NotBlank
+
+	// 댓글수 
 	private int replyCnt = 0;
-	
-	// 좋아요수
-	@NotBlank
-	private int likesCnt = 0;
+
+	// 좋아요수 
+	private int likeCnt = 0;
 }

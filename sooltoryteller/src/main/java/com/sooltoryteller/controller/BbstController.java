@@ -5,21 +5,27 @@ import java.io.File;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.BbstPageDTO;
 import com.sooltoryteller.domain.BbstVO;
-import com.sooltoryteller.domain.MemberVO;
+import com.sooltoryteller.domain.MyBbstPageDTO;
 import com.sooltoryteller.service.BbstService;
 import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
@@ -34,7 +40,7 @@ import lombok.extern.log4j.Log4j;
 public class BbstController {
 
 	private BbstService service;
-	private MemberService mservice;
+	private MemberService memberService;
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
@@ -46,14 +52,14 @@ public class BbstController {
 		String email = (String)session.getAttribute("email");
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			log.info("BBSTLIST: " + cri);
+			model.addAttribute("bbstList", service.getBbstList(cri));
+			
+			int total = service.getBbstTotal(cri);
+			log.info("TOTAL: " + total);
+			model.addAttribute("pageMaker", new BbstPageDTO(cri, total));
 		}
-
-		log.info("BBSTLIST: " + cri);
-		model.addAttribute("bbstList", service.getBbstList(cri));
-
-		int total = service.getBbstTotal(cri);
-		log.info("TOTAL: " + total);
-		model.addAttribute("pageMaker", new BbstPageDTO(cri, total));
 	}
 
 	// 게시글 등록
@@ -67,11 +73,11 @@ public class BbstController {
 	}
 
 	@PostMapping("/register")
-	public String register(HttpSession session, BbstJoinVO bbst,
+	public String register(HttpSession session, BbstJoinVO bbst, BbstCntVO cnt,
 		MultipartFile file, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
-		Long memberId = mservice.getMemberId(email);
+		Long memberId = memberService.getMemberId(email);
 		
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
@@ -91,7 +97,7 @@ public class BbstController {
 
 		log.info("========== REGISTER: " + bbst + " ==========");
 		bbst.setMemberId(memberId);
-		service.registerBbst(bbst);
+		service.registerBbst(bbst, cnt);
 
 		rttr.addFlashAttribute("result", bbst.getBbstId());
 		return "redirect:/cheers/list";
@@ -106,8 +112,8 @@ public class BbstController {
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
-			Long memberId = mservice.getMemberIdName(email).getMemberId();
-			String name = mservice.getMemberIdName(email).getName();
+			Long memberId = memberService.getMemberIdName(email).getMemberId();
+			String name = memberService.getMemberIdName(email).getName();
 			
 			model.addAttribute("memberId", memberId);
 			model.addAttribute("name", name);
@@ -123,7 +129,7 @@ public class BbstController {
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
-		Long memberId = mservice.getMemberId(email);
+		Long memberId = memberService.getMemberId(email);
 		
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
@@ -158,7 +164,7 @@ public class BbstController {
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
 
 		String email = (String)session.getAttribute("email");
-		Long memberId = mservice.getMemberId(email);
+		Long memberId = memberService.getMemberId(email);
 		
 		log.info("========== REMOVE BBSTID " + bbstId + " ==========");
 

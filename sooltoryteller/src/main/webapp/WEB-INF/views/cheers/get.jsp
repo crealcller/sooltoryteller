@@ -83,7 +83,7 @@ let msg = "${msg}";
 
 <!-- 좋아요수, 댓글수 -->
 <div class="s-bbst-cnt-container">
-	<p><i class="far fa-heart"> 좋아요 <c:out value='${bbst.likesCnt }' /></i></p>
+	<p><i class="far fa-heart" id="s-bbst-like"> 좋아요 <c:out value='${bbst.likeCnt }' /></i></p>
 	<p><i class="far fa-comment-dots"> 댓글 <c:out value='${bbst.replyCnt }' /></i></p> 
 </div>
 
@@ -130,12 +130,8 @@ let msg = "${msg}";
 </div>
 
 
-<!-- 좋아요 -->
-
-
 <!-- 댓글 -->
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
-
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -170,36 +166,35 @@ $(document).ready(function() {
 	function showList(page) {
 		console.log("SHOW BBST REPLY LIST PAGE: " + page);
 		
-		bbstReplyService.getList({bbstId : bbstIdValue, page : page|| 1 }, function(replyCnt, list) {
-				console.log("replyCnt: " + replyCnt);
-				console.log("list: " + list);
-				console.log(list);
+		bbstReplyService.getList({bbstId : bbstIdValue, page : page || 1 }, function(replyCnt, list) {
+			console.log("replyCnt: " + replyCnt);
+			console.log("list: " + list);
+			console.log(list);
+		
+			if(page == -1) {
+				pageNum = Math.ceil(replyCnt / 10.0);
+				showList(pageNum);
+				return;
+			}
 			
-				if(page == -1) {
-					pageNum = Math.ceil(replyCnt / 10.0);
-					showList(pageNum);
-					return;
-				}
-				
-				var str = "";
-				
-				if(list == null || list.length == 0) {
-					replyUL.html("<p>등록된 댓글이 없습니다.</p><br />");
-					return;
-				}
-				
-				// 각 댓글에 보일 데이터
-				for(var i = 0, len = list.length || 0; i < len; i++) {
-					str += "<li class='s-bbstReply-item' data-bbstreplyid='" + list[i].bbstReplyId + "'>";
-					str += "<div><div class='s-bbstReply-img-div'><span class='s-bbstReply-img'>" + list[i].img + "</span></div>";
-					str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
-					str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";
-					str += "<small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(list[i].regdate) + "</small></div></div></li><br /><hr /><br />"; 
-				}
-				replyUL.html(str);
-				
-				showReplyPage(replyCnt);
-			});
+			var str = "";
+			
+			if(list == null || list.length == 0) {
+				replyUL.html("<p>등록된 댓글이 없습니다.</p><br />");
+				return;
+			}
+			
+			// 각 댓글에 보일 데이터
+			for(var i = 0, len = list.length || 0; i < len; i++) {
+				str += "<li class='s-bbstReply-item' data-bbstreplyid='" + list[i].bbstReplyId + "'>";
+				str += "<div><div class='s-bbstReply-img-div'><img class='s-bbstReply-img' src='" + list[i].img + "' /></div>";
+				str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
+				str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";
+				str += "<small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(list[i].regdate) + "</small></div></div></li><br /><hr /><br />"; 
+			}
+			replyUL.html(str);
+			showReplyPage(replyCnt);
+		});
 	} // end showList
 	
 	// 댓글 등록 모달
@@ -321,6 +316,10 @@ $(document).ready(function() {
 			endNum = Math.ceil(replyCnt / 10.0);
 		}
 		
+		if(endNum * 10 < replyCnt){
+			next = true;
+		}
+		
 		var str = "<ul class='s-bbstReplyList-pageContainer'>";
 		
 		if(prev) {
@@ -355,9 +354,56 @@ $(document).ready(function() {
 		showList(pageNum);
 	});
 });
+</script>
+
+<!-- 좋아요 -->
+<script type="text/javascript" src="/resources/js/bbstLike.js"></script>
+<script type="text/javascript">
+
+var memberIdValue = "${memberId}" == "" ? -1 : "${memberId}";
+var bbstIdValue = ${bbst.bbstId};
+
+$(document).ready(function() {
+	// 좋아요 상태
+	bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
+		if(data) {
+			$("#s-bbst-like").attr("class", "fas fa-heart");
+		} else {
+			$("#s-bbst-like").attr("class", "far fa-heart");
+		}
+	});
+});
+
+// 좋아요 or 좋아요 취소
+$("#s-bbst-like").on({"click" : function() {
+	if(memberIdValue != -1) {
+		bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
+			if(data) {
+				bbstLikeService.cancelLikeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
+					console.log("CANCEL LIKE BBST");
+					if(count === "success") {
+						$("#s-bbst-like").attr("class", "far fa-heart");
+					}
+				});
+				return;
+			} else {
+				bbstLikeService.likeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
+					console.log("LIKE BBST");
+					if(count === "success") {
+						$("#s-bbst-like").attr("class", "fas fa-heart");
+						(bbstLikeCntValue + 1).text(data.count);
+					}
+				});
+			}
+		});
+	} else {
+		window.location.href = "/login";
+	}
+}});
+
 
 </script>
-	
+
 <script type="text/javascript">
 
 $(document).ready(function() {

@@ -3,17 +3,16 @@ package com.sooltoryteller.domain;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 
-//게시글 좋아요
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BbstLikesVO {
+public class BbstLikeJoinVO {
 
 	// 좋아요 일련번호 
-	private Long bbstLikesId;
+	private Long bbstlikeId;
 
 	// 게시글 번호 
 	private Long bbstId;
@@ -23,4 +22,16 @@ public class BbstLikesVO {
 
 	// 등록일시 
 	private Date regdate;
+	
+	// 게시글 사진
+	private String cnImg;
+	
+	// 조회수 
+	private int inqrCnt;
+
+	// 댓글수 
+	private int replyCnt;
+
+	// 좋아요수 
+	private int likeCnt;
 }
