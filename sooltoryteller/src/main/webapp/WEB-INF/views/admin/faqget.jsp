@@ -39,6 +39,7 @@
           	<input type="hidden" id="faqId" name="faqId" value='<c:out value="${faq.faqId }"/>'>
           	<input type="hidden" name='pageNum' value='<c:out value="${adCri.pageNum}"/>'>
           	<input type="hidden" name='amount' value='<c:out value="${adCri.amount}"/>'>
+          	<input type="hidden" name='keyword' value='<c:out value="${adCri.keyword}"/>'>
           </form>
         
         </div>

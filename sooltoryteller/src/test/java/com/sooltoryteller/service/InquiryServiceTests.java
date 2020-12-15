@@ -44,7 +44,7 @@ public class InquiryServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.getList().forEach(inq -> log.info(inq));
+		service.getList(null).forEach(inq -> log.info(inq));
 	}
 	
 	@Test

@@ -31,6 +31,15 @@
         </div>
         <div style="margin-top:20px;">
             <button type="button" class="h-faq-btn" style="background-color:rgb(181, 135, 189);" data-oper="list" onclick="location.href='/help/faq'">목록</button>
+		  
+		  <form id="operForm" action="/help/faq" method="get">
+          	<input type="hidden" id="faqId" name="faqId" value='<c:out value="${faq.faqId }"/>'>
+          	<input type="hidden" name='pageNum' value='<c:out value="${adCri.pageNum}"/>'>
+          	<input type="hidden" name='amount' value='<c:out value="${adCri.amount}"/>'>
+          	<input type="hidden" name='keyword' value='<c:out value="${adCri.keyword}"/>'>
+          </form>
+
+
         </div>
 
     </div>
@@ -44,6 +53,7 @@
  $(document).ready(function(){
 	document.getElementById("h-help-faq").style="background-color: rgb(181, 135, 189); color: white;";
 	
+	var operForm = $("#operForm");
 	
 	$("button[data-oper='list']").on("click", function(e){
 		operForm.find('#faqId').remove();

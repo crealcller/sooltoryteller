@@ -39,9 +39,14 @@
             <button type="button" class="h-inq-btn" data-oper="answer"
             onclick="location.href='/admin/answer?inquiryId=<c:out value="${inq.inquiryId}"/>'">답변</button>
             <button type="button" class="h-inq-btn" data-oper="list" onclick="location.href='/admin/inquirylist'">목록</button>
-        
-        </div>
 
+         <form id="operForm" action="/admin/answer" method="get">
+          	<input type="hidden" id="inquiryId" name="inquiryId" value='<c:out value="${inq.inquiryId}"/>'>
+          	<input type="hidden" name='pageNum' value='<c:out value="${adCri.pageNum}"/>'>
+          	<input type="hidden" name='amount' value='<c:out value="${adCri.amount}"/>'>
+          </form>
+
+        </div>
     </div>
 
 </div><!--인크루드 하는 페이지에 넣기-->

@@ -4,12 +4,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.InquiryAdminVO;
 import com.sooltoryteller.domain.InquiryVO;
 
 public interface InquiryMapper {
 	//모든 문의 리스트
-	public List<InquiryAdminVO> getList();
+	//public List<InquiryAdminVO> getList();
+	
+	public List<InquiryAdminVO> getListWithPaging(AdminCriteria adCri);
+	
+	public int getTotalCount(AdminCriteria adCri);
 	
 	//문의 등록
 	public void insert(InquiryVO inq);

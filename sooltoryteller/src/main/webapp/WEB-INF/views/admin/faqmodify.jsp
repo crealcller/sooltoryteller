@@ -8,9 +8,12 @@
 <meta charset="UTF-8">
 <title>FAQ조회</title>
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
-
-
-
+<script>
+let errorMsg = '<c:out value="${errorMsg}"/>';
+if(errorMsg != ""){
+	alert(errorMsg);
+}
+</script>
 </head>
 <body>
 	<h3 style="margin-left: 50px;">[FAQ 수정하기]</h3>
@@ -18,6 +21,7 @@
        <form action="/admin/faqmodify" method="post">
         <input type="hidden" name="pageNum" value='<c:out value="${adCri.pageNum }"/>'>
         <input type="hidden" name="amount" value='<c:out value="${adCri.amount }"/>'>
+        <input type="hidden" name="keyword" value='<c:out value="${adCri.keyword }"/>'>
         <div>
        		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
             <p style="margin: 0;"><input class="h-faq-title" name="faqId" 
@@ -74,10 +78,12 @@
 			formObj.attr("action", "/admin/faqlist").attr("method", "get");
 			var pageNumTag = $("input[name='pageNum']").clone();
 			var amountTag = $("input[name='amount']").clone();
+			var keywordTag = $("input[name='keyword']").clone();
 			
 			formObj.empty();
 			formObj.append(pageNumTag);
 			formObj.append(amountTag);
+			formObj.append(keywordTag);
 		}
 		formObj.submit();
 		

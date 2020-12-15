@@ -21,7 +21,7 @@ public class InquiryMapperTests {
 	
 	@Test
 	public void testGetList() {
-		mapper.getList().forEach(inq -> log.info(inq));
+		//mapper.getList().forEach(inq -> log.info(inq));
 		
 	}
 	

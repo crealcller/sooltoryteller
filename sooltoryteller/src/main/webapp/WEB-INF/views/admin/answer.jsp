@@ -9,7 +9,12 @@
 <title>1:1문의 답변</title>
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
 
-
+<script>
+let errorMsg = '<c:out value="${errorMsg}"/>';
+if(errorMsg != ""){
+	alert(errorMsg);
+}
+</script>
 
 </head>
 <body>

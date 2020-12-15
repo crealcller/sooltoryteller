@@ -4,18 +4,87 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooltoryteller.mapper.InquiryMapper">
+<!-- 모든 1:1문의 리스트 페이징처리 -->
+<sql id="adminCriteria">
+	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+   		  <foreach item='type' collection="typeArr">
+   		  	<trim prefix="OR">
+   		  		<choose>
+   		  			<when test="type == 'T'.toString()">
+   		  				b.title like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'N'.toString()">
+   		  				b.name like '%' || #{keyword} || '%'
+   		  			</when>
+   		  		</choose>
+   		  	</trim>
+   		  </foreach>
+   		</trim>
+</sql>
 
-<!-- 모든 1:1문의 리스트 불러오기 
-<select id='getList' resultType='com.sooltoryteller.domain.InquiryVO'>
-	select i.inquiry_id, m.name, i.title, i.cn, i.inqstus, i.regdate
-	from inquiry i, member m
-	where i.member_id = m.member_id
-	order by inquiry_id desc
+
+<select id="getListWithPaging" resultType="com.sooltoryteller.domain.InquiryAdminVO">
+	<![CDATA[
+	select 
+    a.inquiry_id, a.name, a.title, a.cn, a.inqRegdate, a.anRegdate, a.anstus
+	from( select /*+INDEX_DESC(inquiry inquiry_pk) */
+		rownum rn, b.inquiry_id, b.name, b.title, b.cn, b.inqRegdate, b.anRegdate, b.anstus
+		from 
+            (select 
+            i.inquiry_id, m.name, i.title, i.cn, i.regdate inqRegdate, a.regdate anRegdate, a.anstus
+            from inquiry i, member m, inquiry_answer a
+            where i.inquiry_id = a.inquiry_id(+)
+            and i.member_id = m.member_id
+            order by i.inquiry_id desc
+            )b
+     	where
+   	]]>
+   	
+   		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+   		  <foreach item='type' collection="typeArr">
+   		  	<trim prefix="OR">
+   		  		<choose>
+   		  			<when test="type == 'T'.toString()">
+   		  				b.title like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'N'.toString()">
+   		  				b.name like '%' || #{keyword} || '%'
+   		  			</when>
+   		  		</choose>
+   		  	</trim>
+   		  </foreach>
+   		</trim>
+   		
+   	<![CDATA[	
+   		 rownum <= #{pageNum} * #{amount}
+		)a
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
 </select>
 
--->
+<!-- 모든 문의 수 -->
+<select id="getTotalCount" resultType="int">
+	select count(*) from inquiry i, member m
+  	where i.member_id = m.member_id
+   	and
+	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+   		  <foreach item='type' collection="typeArr">
+   		  	<trim prefix="OR">
+   		  		<choose>
+   		  			<when test="type == 'T'.toString()">
+   		  				i.title like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'N'.toString()">
+   		  				m.name like '%' || #{keyword} || '%'
+   		  			</when>
+   		  		</choose>
+   		  	</trim>
+   		  </foreach>
+   		</trim>
+	inquiry_id > 0
+</select>
 
-<!-- 모든 1:1문의 리스트 불러오기(관리자) -->
+<!-- 모든 1:1문의 리스트 불러오기(관리자) 
 <select id='getList' resultType='com.sooltoryteller.domain.InquiryAdminVO'>
 	select  i.inquiry_id, m.name, i.title, i.cn, i.regdate inqRegdate, a.regdate anRegdate, a.anstus
 	from inquiry i, member m, inquiry_answer a
@@ -23,6 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     and i.inquiry_id = a.inquiry_id(+)
 	order by inquiry_id desc
 </select>
+-->
 
 <!-- 문의 등록 -->
 <insert id="insert">

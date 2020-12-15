@@ -33,6 +33,7 @@
     
 	.h-pagination {
   	  display: inline-block;
+  	  margin-top:10px;
 	}
 	
 	.h-pagination li {

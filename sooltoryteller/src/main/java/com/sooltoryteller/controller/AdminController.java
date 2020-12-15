@@ -1,5 +1,7 @@
 package com.sooltoryteller.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberService;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,13 +62,15 @@ public class AdminController {
 		log.info("result : "+liqService.registerLiqCo(vo));
 		return "redirect:/admin/complete";
 	}
-
-	//관리자 메인 페이지
+	
+/*
+	//관리자 메인 페이지[보류]
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String admin() {
 		return "admin";
 	}
-
+*/
+	
 	//관리자-회원리스트페이지
 	@GetMapping("/memberlist")
 	public void memberlist(AdminCriteria adCri, Model model) {
@@ -101,10 +106,16 @@ public class AdminController {
 	public void faqregister() {}
 
 	@PostMapping("/faqregister")
-	public String faqregister(FaqVO faq, RedirectAttributes rttr) {
+	public String faqregister(@Valid FaqVO faq, BindingResult result, Model model, RedirectAttributes rttr) {
 
 		log.info("register: "+faq);
 
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			return "/admin/faqregister";
+		}
+		
 		faqService.register(faq);
 
 		rttr.addFlashAttribute("result",  faq.getFaqId());
@@ -122,43 +133,61 @@ public class AdminController {
 
 	//FAQ 수정하기
 	@PostMapping("/faqmodify")
-	public String faqmodify(FaqVO faq, @ModelAttribute("adCri") AdminCriteria adCri, RedirectAttributes rttr) {
+	public String faqmodify(@Valid FaqVO faq, BindingResult result, @ModelAttribute("adCri") AdminCriteria adCri,
+			Model model, RedirectAttributes rttr) {
 		log.info("modify :"+faq);
 
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			return "/admin/faqmodify";
+		}
+		
+		
 		if(faqService.modify(faq)) {
 			rttr.addFlashAttribute("result",  "success");
 		}
 
 		rttr.addAttribute("pageNum", adCri.getPageNum());
 		rttr.addAttribute("amount", adCri.getAmount());
+		rttr.addAttribute("keyword", adCri.getKeyword());
+		
 		return "redirect:/admin/faqlist";
 	}
 
 	//FAQ 삭제하기
 	@PostMapping("/faqremove")
-	public String faqremove(@RequestParam("faqId") Long faqId, @ModelAttribute("adCri") AdminCriteria adCri, RedirectAttributes rttr) {
+	public String faqremove(@RequestParam("faqId") Long faqId, AdminCriteria adCri, RedirectAttributes rttr) {
 		log.info("remove...."+faqId);
 		if(faqService.remove(faqId)) {
 			rttr.addFlashAttribute("result",  "success");
 		}
 		rttr.addAttribute("pageNum", adCri.getPageNum());
 		rttr.addAttribute("amount", adCri.getAmount());
+		rttr.addAttribute("keyword", adCri.getKeyword());
 
 		return "redirect:/admin/faqlist";
 	}
 	
 	//1:1문의 리스트
 	@GetMapping("/inquirylist")
-	public void inquirylist(Model model) {
+	public void inquirylist(AdminCriteria adCri, Model model) {
 	
-		log.info("list");
-		model.addAttribute("inquirylist", inqService.getList());
+		log.info("list" + adCri);
+		model.addAttribute("inquirylist", inqService.getList(adCri));
+		
+		int total = inqService.getTotal(adCri);
+		
+		log.info("total : "+total);
+		
+		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
 		System.out.println(model);
 	}
 	
 	//1:1문의 조회
 	@GetMapping("/getinquiry")
-	public void getinquiry(@RequestParam("inquiryId")Long inquiryId, Model model) {
+	public void getinquiry(@RequestParam("inquiryId")Long inquiryId, 
+			@ModelAttribute("adCri")AdminCriteria adCri, Model model) {
 		
 		log.info("/getinquiry" + inquiryId);
 		model.addAttribute("inq", inqService.get(inquiryId));
@@ -176,9 +205,17 @@ public class AdminController {
 	
 	//답변 등록 및 이메일전송
 	@PostMapping("/answer")
-	public String answer(InquiryAnswerVO inqAn, RedirectAttributes rttr) {
+	public String answer(@Valid InquiryAnswerVO inqAn, BindingResult result,
+			@ModelAttribute("adCri") AdminCriteria adCri, Model model, RedirectAttributes rttr) {
 		
 		log.info("answer register...."+inqAn);
+		
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			return "/admin/answer";
+		}
+		
 		
 		//답변등록이 되었다면 이메일전송
 		if(inqAnService.register(inqAn, "IC")) {
@@ -203,6 +240,8 @@ public class AdminController {
             mailService.send(e_mail);
 			rttr.addFlashAttribute("result", true);
 		}
+		rttr.addAttribute("pageNum",  adCri.getPageNum());
+		rttr.addAttribute("amount",  adCri.getAmount());
 		rttr.addFlashAttribute("result", false);
 		return "redirect:/admin/inquirylist";
 	}

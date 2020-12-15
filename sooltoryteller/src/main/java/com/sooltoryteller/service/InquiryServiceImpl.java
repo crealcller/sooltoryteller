@@ -2,9 +2,11 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.InquiryAdminVO;
 import com.sooltoryteller.domain.InquiryVO;
 import com.sooltoryteller.mapper.InquiryAnswerMapper;
@@ -59,14 +61,14 @@ public class InquiryServiceImpl implements InquiryService{
 		return inqMapper.update(inquiryId, inqstus)==1;
 	}
 	
-	//문의 리스트 조회
+	/*
 	@Override
 	public List<InquiryAdminVO> getList() {
 		log.info("Inquiry getList.....");
 		
 		return inqMapper.getList();
 	}
-
+*/
 	//문의 상태 불러오기
 	@Override
 	public String getStus(Long inquiryId) {
@@ -78,6 +80,21 @@ public class InquiryServiceImpl implements InquiryService{
 	@Override
 	public Long getMemberId(Long inquiryId) {
 		return inqMapper.getMemberId(inquiryId);
+	}
+
+	//문의리스트
+	@Override
+	public List<InquiryAdminVO> getList(AdminCriteria adCri) {
+		log.info("get List with Criteria.."+adCri);
+		
+		return inqMapper.getListWithPaging(adCri);
+	}
+
+	@Override
+	public int getTotal(AdminCriteria adCri) {
+		log.info("get total count");
+		
+		return inqMapper.getTotalCount(adCri);
 	}
 
 

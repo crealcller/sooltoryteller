@@ -1,9 +1,11 @@
 package com.sooltoryteller.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,14 +70,21 @@ public class HelpController {
 	}
 	
 	@PostMapping("/inquiryregister")
-	public String inquiryregister(InquiryVO inq, RedirectAttributes rttr) {
+	public String inquiryregister(@Valid InquiryVO inq, BindingResult result, Model model, RedirectAttributes rttr) {
 		
 		log.info("inquiry register...."+inq);
+		
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			return "/help/inquiryregister";
+		}
 		
 		inqService.register(inq);
 		
 		rttr.addFlashAttribute("result", inq.getInquiryId());
 		
+		//1:1문의 조회 리스트 만들변 변경해야함 list로 이동하게끔
 		return "redirect:/help/inquiryregister";
 	}
 	

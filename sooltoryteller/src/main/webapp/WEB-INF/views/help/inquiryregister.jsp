@@ -17,12 +17,17 @@ let msg = '${msg}';
 		alert(msg);
 		location.href = '/login';
 	}
+	
+let errorMsg = '<c:out value="${errorMsg}"/>';
+	if(errorMsg != ""){
+		alert(errorMsg);
+	}
 </script>
 </head>
 <body>
 <h3 style="margin: 0 0 10px 20px;">[1:1문의 등록]</h3>
         <div class="h-inq-body">
-          <form action="/help/inquiryregister" id='h-inqRegForm' method="POST" onsubmit="return blankcheck()">
+          <form action="/help/inquiryregister" id='h-inqRegForm' method="POST">
           <div>
              <p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
               <p style="margin: 0;"><input class="h-inq-title" name="inquiryId"></p>
@@ -87,7 +92,6 @@ $(document).ready(function(){
 	span.onclick = function() { modal.style.display = "none";}
 	YESbtn.onclick = function(){modal.style.display = "none";}
 	
-	
 	//제목 글자수 30자가 넘으면 경고창	
 	$("#title").keyup(function(){
 		
@@ -107,11 +111,22 @@ $(document).ready(function(){
  
 	});
 	
-	//제목 공백제거
+	//입력 형식 검사
 	let inqRegForm = $("#h-inqRegForm");
     	
     	$("#h-inqRegForm button").on("click", function(e){
     		let title = $("#title").val();
+    		
+    		if($("#title").val() == ""){
+    			alert("제목을 입력해 주시기 바랍니다.");
+    			return false;
+    		}
+    		
+    		if($("#cn").val() == ""){
+    			alert("내용을 입력해 주시기 바랍니다.");
+    			return false;
+    		}
+    		
     		$('#title').val(title.trim());
     		e.preventDefault();
     		
@@ -119,22 +134,6 @@ $(document).ready(function(){
     	 });
  });
  
- //아무내용도 입력하지 않고 등록버튼을 누른경우
-	function blankcheck(){
-		
-		if($("#title").val() == ""){
-			alert("제목을 입력해 주시기 바랍니다.");
-			return false;
-		}
-		
-		if($("#cn").val() == ""){
-			alert("내용을 입력해 주시기 바랍니다.");
-			return false;
-		}
-		
-		return true;
-			
-	}
 </script>
 </body>
 </html>

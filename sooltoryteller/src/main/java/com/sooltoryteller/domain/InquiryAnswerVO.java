@@ -3,6 +3,7 @@ package com.sooltoryteller.domain;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,6 @@ public class InquiryAnswerVO {
 
 	
 	// 일련번호 
-	@NotEmpty
     private Long answerId;
 
     // 문의 

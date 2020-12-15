@@ -32,7 +32,7 @@
          <tr>
          <td><c:out value="${inq.inquiryId }"/></td>
          <td><c:out value="${inq.name }"/></td>
-         <td><a class="h-move" href='/admin/getinquiry?inquiryId=<c:out value="${inq.inquiryId}"/>'><c:out value="${inq.title }"/></a></td>
+         <td><a class="h-move" href='<c:out value="${inq.inquiryId}"/>'><c:out value="${inq.title }"/></a></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${inq.inqRegdate }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${inq.anRegdate }"/></td>
          <td>
@@ -52,20 +52,24 @@
          </c:forEach>
         </table>
         
-        <!-- 검색   
+        <!-- 검색   -->
         <div class='h-search-content'>
            <form id='h-searchForm' action="/admin/inquirylist" method='get'>
-             <input type='text' id ='h-keyword' name='keyword' maxlength="30">
-             <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'>
-          	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'>
+           	<select name='type'>
+           		<option value="" <c:out value="${pageMaker.adCri.type == null ? 'selected' : '' }"/>>--</option>
+           		<option value="T" <c:out value="${pageMaker.adCri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
+           		<option value="N" <c:out value="${pageMaker.adCri.type eq 'C' ? 'selected' : '' }"/>>작성자</option>
+           		<option value="TN" <c:out value="${pageMaker.adCri.type eq 'TC' ? 'selected' : '' }"/>>제목 or 작성자</option>
+           	</select>
+             <input type='text' id ='h-keyword' name='keyword' maxlength="30"
+             value='<c:out value="${pageMaker.adCri.keyword}"/>'/>
+             <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'/>
+          	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'/>
           	 <button type='submit' class="h-faq-searchbtn">검색</button>
            </form>
         </div>
         
-        
-        
-        
-        
+		<!-- 페이징 -->        
         <div class="pull-right">
         	<ul class="h-pagination">
         	
@@ -84,11 +88,15 @@
         	  </c:if>
         	</ul>
 		</div>
-		<form id="h-actionForm" action="/admin/faqlist" method='get'>
+		<form id="h-actionForm" action="/admin/inquirylist" method='get'>
 			<input type="hidden" name="pageNum" value="${pageMaker.adCri.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
+			<input type="hidden" name="type" value='<c:out value="${pageMaker.adCri.type }"/>'>
+			<input type="hidden" name="keywoed" value='<c:out value="${pageMaker.adCri.keyword }"/>'>
+			
+			
 		</form>
--->
+
 
     </div><!--인크루드 하는 페이지에 넣기-->
     </div><!--인크루드 하는 페이지에 넣기-->
@@ -131,11 +139,6 @@
 		span.onclick = function() { modal.style.display = "none";}
 		YESbtn.onclick = function(){modal.style.display = "none";}
 		
-/*			
-		//등록버튼 누르면 FAQ 등록페이지로 넘어감
-		$(".h-faq-regbtn").on("click", function(){
-			self.location = "/admin/faqregister";
-		});
 		
 		var actionForm = $("#h-actionForm");
 		
@@ -153,21 +156,28 @@
     	//게시글 조회
     	$(".h-move").on("click", function(e){
         	e.preventDefault();
-        	actionForm.append("<input type='hidden' name='faqId' value='"+$(this).attr("href")+"'>");
-        	actionForm.attr("action", "/admin/faqget");
+        	actionForm.append("<input type='hidden' name='inquiryId' value='"+$(this).attr("href")+"'>");
+        	actionForm.attr("action", "/admin/getinquiry");
         	actionForm.submit();
         }); 
     	
+  	
     	//검색 유효성 검사
-    	let searchForm = $("#h-searchForm");
     	
     	$("#h-searchForm button").on("click", function(e){
-    	let keyword = $("#h-keyword").val();
     		
+    	let searchForm = $("#h-searchForm");
+    	let keyword = $("#h-keyword").val();
+    	
+    	/*	if(!searchForm.find("option:selected").val()){
+				alert("검색 종류를 선택하세요.");
+				return false;
+			}
     		if(!searchForm.find("input[name='keyword']").val()){
     			alert("키워드를 입력하세요");
     			return false;
     		}
+    		*/
     		
     	searchForm.find("input[name='pageNum']").val("1");
     	$('#h-keyword').val(keyword.trim());
@@ -185,7 +195,7 @@
      
     	});
     	
-  */
+  
  });
      </script>
 </body>

@@ -37,7 +37,7 @@
 		<!-- 검색   -->
         <div class='h-search-content'>
            <form id='h-searchForm' action="/help/faq" method='get'>
-             <input type='text' id ='h-keyword' name='keyword'>
+             <input type='text' id ='h-keyword' name='keyword' value='<c:out value="${pageMaker.adCri.keyword}"/>'>
              <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'>
           	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'>
           	 <button type='submit' class="h-faq-searchbtn">검색</button>
@@ -65,6 +65,7 @@
 		<form id="h-actionForm" action="/help/faq" method='get'>
 			<input type="hidden" name="pageNum" value="${pageMaker.adCri.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
+			<input type="hidden" name="keyword" value="${pageMaker.adCri.keyword }">
 		</form>
 
 

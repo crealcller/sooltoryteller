@@ -8,14 +8,17 @@
 <meta charset="UTF-8">
 <title>FAQ등록</title>
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
-
-
-
+<script>
+let errorMsg = '<c:out value="${errorMsg}"/>';
+if(errorMsg != ""){
+	alert(errorMsg);
+}
+</script>
 </head>
 <body>
 	<h3 style="margin-left: 50px;">[FAQ 등록하기]</h3>
     <div class="h-faq-body">
-        <form action="/admin/faqregister" id='h-faqRagForm' method="POST" onsubmit="return blankcheck()">
+        <form action="/admin/faqregister" id='h-faqRagForm' method="POST">
         <div>
        		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
             <p style="margin: 0;"><input class="h-faq-title" name="faqId"></p>
@@ -29,8 +32,8 @@
             <p style="margin: 0;"><textarea class="h-faq-content" id="cn" name="cn" maxlength="330"></textarea></p>
         </div>
         <div style="margin-top:20px;">
-            <button type="submit" class="h-faq-btn">등록</button>
-            <button type="button" class="h-faq-btn" onclick="location.href='/admin/faqlist'">목록</button>
+            <button type="submit" class="h-faq-btn" id='regbtn'>등록</button>
+            <button type="button" class="h-faq-btn" id='listbtn' onclick="location.href='/admin/faqlist'">목록</button>
         </div>
         </form>
 
@@ -62,21 +65,13 @@
  			$(this).val($(this).val().substr(0, $(this).attr('maxlength')));
  		}
  
+	 
 	});
 	//제목 공백제거
 	let faqRagForm = $("#h-faqRagForm");
 	
-	$("#h-faqRagForm button").on("click", function(e){
+	$("#regbtn").on("click", function(e){
 		let title = $("#title").val();
-		$('#title').val(title.trim());
-		e.preventDefault();
-		
-		faqRagForm.submit();
-	 });
- });
- 
- //아무내용도 입력하지 않고 등록버튼을 누른경우
-	function blankcheck(){
 		
 		if($("#title").val() == ""){
 			alert("제목을 입력해 주시기 바랍니다.");
@@ -88,9 +83,13 @@
 			return false;
 		}
 		
-		return true;
-			
-	}
+		$('#title').val(title.trim());
+		e.preventDefault();
+		
+		faqRagForm.submit();
+	 });
+ });
+ 
      </script>
 </body>
 </html>
