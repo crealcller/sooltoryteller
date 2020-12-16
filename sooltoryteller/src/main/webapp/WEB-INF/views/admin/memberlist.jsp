@@ -75,8 +75,9 @@
          <c:forEach items="${memberlist }" var="member">
          <tr>
          <td><c:out value='${member.memberId }'/></td>
-         <!-- 251p get 만들어야함 -->
-         <td><a class='h-move' href="<c:out value='${member.memberId }'/>"><c:out value="${member.email }"/></a></td>
+         <!-- 251p get 만들어야함 [보류]-->
+         <!-- <td><a class='h-move' href="<c:out value='${member.memberId }'/>"><c:out value="${member.email }"/></a></td> -->
+		 <td><c:out value="${member.email }"/></td>
          <td><c:out value="${member.name }"/></td>
          <td><c:out value="${member.telno }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.regdate }"/></td>

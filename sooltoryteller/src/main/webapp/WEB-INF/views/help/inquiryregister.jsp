@@ -29,10 +29,6 @@ let errorMsg = '<c:out value="${errorMsg}"/>';
         <div class="h-inq-body">
           <form action="/help/inquiryregister" id='h-inqRegForm' method="POST">
           <div>
-             <p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
-              <p style="margin: 0;"><input class="h-inq-title" name="inquiryId"></p>
-          </div>
-          <div>
               <p style="text-align: left; margin: 0;">제목</p>
               <p style="margin: 0;"><input class="h-inq-title" name="title" id='title' maxlength="30"></p>
           </div>

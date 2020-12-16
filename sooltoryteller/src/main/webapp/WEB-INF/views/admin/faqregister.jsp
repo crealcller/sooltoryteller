@@ -19,10 +19,7 @@ if(errorMsg != ""){
 	<h3 style="margin-left: 50px;">[FAQ 등록하기]</h3>
     <div class="h-faq-body">
         <form action="/admin/faqregister" id='h-faqRagForm' method="POST">
-        <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
-            <p style="margin: 0;"><input class="h-faq-title" name="faqId"></p>
-        </div>
+        
         <div>
             <p style="text-align: left; margin: 0;">제목</p>
             <p style="margin: 0;"><input class="h-faq-title" id="title" name="title" maxlength="30"></p>

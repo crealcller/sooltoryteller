@@ -70,7 +70,8 @@ public class HelpController {
 	}
 	
 	@PostMapping("/inquiryregister")
-	public String inquiryregister(@Valid InquiryVO inq, BindingResult result, Model model, RedirectAttributes rttr) {
+	public String inquiryregister(@Valid InquiryVO inq, BindingResult result, Model model,
+			RedirectAttributes rttr) {
 		
 		log.info("inquiry register...."+inq);
 		
