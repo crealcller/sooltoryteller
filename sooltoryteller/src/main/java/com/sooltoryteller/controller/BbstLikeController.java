@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @Log4j
 @AllArgsConstructor
-@RequestMapping("/like/")
+@RequestMapping("/bbstLike/")
 public class BbstLikeController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -47,9 +47,15 @@ public class BbstLikeController {
 		@PathVariable("memberId") Long memberId,
 		@PathVariable("bbstId") Long bbstId) {
 		
-		return service.likeBbst(bbstId, memberId)
-			? new ResponseEntity<>("success", HttpStatus.OK)
-			: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+			int result = service.likeBbst(bbstId, memberId);
+			return new ResponseEntity<>("result", HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+//		return service.likeBbst(bbstId, memberId)
+//			? new ResponseEntity<>("success", HttpStatus.OK)
+//			: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	// 좋아요 취소

@@ -8,7 +8,7 @@ import com.sooltoryteller.domain.MyBbstLikePageDTO;
 public interface BbstLikeService {
 
 	// 좋아요
-	public boolean likeBbst(
+	public int likeBbst(
 		@Param("bbstId") Long bbstId,
 		@Param("memberId") Long memberId);
 	
@@ -21,9 +21,6 @@ public interface BbstLikeService {
 	public boolean bbstLikeStus(
 		@Param("bbstId") Long bbstId,
 		@Param("memberId") Long memberId);
-	
-	// 게시글 좋아요수
-	public int bbstLikeCnt(Long bbstId);
 	
 	// 마이페이지
 	// 내가 좋아요 누른 게시글 리스트

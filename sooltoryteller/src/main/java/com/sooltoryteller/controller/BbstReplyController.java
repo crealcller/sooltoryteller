@@ -37,12 +37,9 @@ public class BbstReplyController {
 	@PostMapping(value = "/new",
 		consumes = "application/json",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> createBbstReply(HttpSession session, BbstReplyJoinVO bbstReply,
+	public ResponseEntity<String> createBbstReply(
+		HttpSession session, BbstReplyJoinVO bbstReply,
 		@RequestBody BbstReplyJoinVO vo) {
-		
-		String email = (String)session.getAttribute("email");
-		bbstReply.setMemberId(memberService.getMemberIdName(email).getMemberId());
-		bbstReply.setName(memberService.getMemberIdName(email).getName());
 		
 		log.info("========== BBST REPLY MEMBER JOIN VO: " + vo + " ==========");
 		
@@ -88,12 +85,10 @@ public class BbstReplyController {
 	// 댓글 삭제
 	@DeleteMapping(value = "/{bbstReplyId}",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> removeBbstReply(HttpSession session, BbstReplyJoinVO bbstReply,
-		@PathVariable("bbstReplyId") Long bbstReplyId) {
-		
-		String email = (String)session.getAttribute("email");
-		bbstReply.setMemberId(memberService.getMemberIdName(email).getMemberId());
-		bbstReply.setName(memberService.getMemberIdName(email).getName());
+	public ResponseEntity<String> removeBbstReply(
+		HttpSession session, BbstReplyJoinVO bbstReply,
+		@PathVariable("bbstReplyId") Long bbstReplyId
+		) {
 		
 		log.info("========== REMOVE : " + bbstReplyId + " ==========");
 		

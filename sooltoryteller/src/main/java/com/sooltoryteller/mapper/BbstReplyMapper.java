@@ -12,6 +12,14 @@ public interface BbstReplyMapper {
 	// 댓글 등록
 	public int insertBbstReply(BbstReplyJoinVO vo);
 	
+	// 댓글수 업데이트
+	public void updateReplyCnt(
+		@Param("bbstId") Long bbstId,
+		@Param("cnt") int cnt);
+	
+	// 댓글수
+	public int getBbstReplyCnt(Long bbstId);
+	
 	// 댓글 조회
 	public BbstReplyJoinVO readBbstReply(Long bbstReplyId);
 	
@@ -20,6 +28,9 @@ public interface BbstReplyMapper {
 	
 	// 댓글 삭제
 	public int deleteBbstReply(Long bbstReplyId);
+	
+	// 게시글 삭제 시 댓글도 삭제
+	public void deleteReplyWithBbst(Long bbstId);
 	
 	// 게시글의 모든 댓글 조회
 	public List<BbstReplyJoinVO> getBbstReplyList(

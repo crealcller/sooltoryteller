@@ -11,6 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values (bbst_reply_SEQ.nextval, #{bbstId}, #{memberId}, #{replyCn}, sysdate, sysdate)
 </insert>
 
+<!-- 댓글수 업데이트 -->
+<update id="updateReplyCnt">
+	update bbst_cnt
+	set reply_cnt = reply_cnt + #{cnt}
+	where bbst_id = #{bbstId}
+</update>
+
+<!-- 댓글수 -->
+<select id="getBbstReplyCnt" resultType="int">
+	select reply_cnt from bbst_cnt
+	where bbst_id = #{bbstId}
+</select>
+
 <!-- 댓글 조회 -->
 <select id="readBbstReply" resultType="com.sooltoryteller.domain.BbstReplyJoinVO">
 	select r.*, m.name, m.img
@@ -32,6 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="deleteBbstReply">
 	delete from bbst_reply
 	where bbst_reply_id = #{bbstReplyId}
+</delete>
+
+<!-- 게시글 삭제 시 댓글도 삭제 -->
+<delete id="deleteReplyWithBbst">
+	delete from bbst_reply
+	where bbst_id = #{bbstId}
 </delete>
 
 <!-- 게시글의 모든 댓글 조회 -->
@@ -60,13 +79,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 내가 쓴 댓글 리스트 -->
 <select id="getMyBbstReply" resultType="com.sooltoryteller.domain.BbstReplyJoinVO">
 	<![CDATA[
-	select /*+ index_desc (r bbst_reply_pk) */
-	rownum rn, b.cn_img, r.*, m.name
-	from bbst b, bbst_reply r, member m
-	where b.bbst_id = r.bbst_id(+)
-    and r.member_id = m.member_id(+)
-	and r.member_id = #{memberId}
-	and r.bbst_reply_id > 0
+	select o.* from
+        (select /*+ index_desc (i bbst_reply_pk) */ rownum rn, i.* from
+            (select b.cn_img, r.bbst_reply_id, r.bbst_id, r.member_id, r.reply_cn, r.regdate, m.name
+            from bbst b, bbst_reply r, member m
+            where r.member_id = #{memberId}
+            and b.bbst_id = r.bbst_id
+            and r.member_id = m.member_id
+            and r.bbst_reply_id > 0
+            order by r.bbst_reply_id desc) i
+        where rownum <= #{cri.pageNum} * #{cri.amount}) o
+    where rn > (#{cri.pageNum} -1) * #{cri.amount}
 	]]>
 </select>
 

@@ -25,28 +25,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and member_id = #{memberId}
 </select>
 
-<!-- 좋아요수 +1 / -1 업데이트 -->
-<update id="updateBbstLikeCnt">
+<!-- 게시글 좋아요수 업데이트 -->
+<update id="updateLikeCnt">
 	update bbst_cnt
 	set like_cnt = like_cnt + #{cnt}
 	where bbst_id = #{bbstId}
 </update>
 
 <!-- 게시글 좋아요수 -->
-<select id="bbstLikeCnt" resultType="int">
-	select count(*) from bbst_like
+<select id="getBbstLikeCnt" resultType="int">
+	select like_cnt from bbst_cnt
 	where bbst_id = #{bbstId}
 </select>
 
 <!-- 마이페이지 -->
 <!-- 내가 좋아요 누른 게시글 리스트 -->
 <select id="getMyBbstLike" resultType="com.sooltoryteller.domain.BbstLikeJoinVO">
-	select /*+ index_desc (l bbst_like_pk) */
-	rownum rn, b.cn_img, l.*, c.*
-	from bbst b, bbst_like l, bbst_cnt c
-	where b.bbst_id = l.bbst_id(+)
-	and l.bbst_id = c.bbst_id
-	and l.member_id = #{memberId}
+    <![CDATA[
+    select o.* from (
+	    select /*+ index_desc (i bbst_like_pk) */ rownum rn, i.* from (
+	        select b.cn_img, l.bbst_like_id, l.bbst_id, l.member_id, c.view_cnt, c.reply_cnt, c.like_cnt
+	        from bbst b, bbst_like l, bbst_cnt c
+	        where l.bbst_id = b.bbst_id 
+	        and l.bbst_id = c.bbst_id
+	        and l.member_id = #{memberId}
+	        and l.bbst_id > 0
+	        order by l.bbst_like_id desc) i
+	    where rownum <= #{cri.pageNum} * #{cri.amount}) o
+	where rn > (#{cri.pageNum} -1) * #{cri.amount}
+	]]>
 </select>
 
 <!-- 내가 좋아요 누른 게시글 리스트 - 전체 데이터 개수 처리 -->

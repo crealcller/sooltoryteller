@@ -24,9 +24,6 @@
 
 <style>
 
-.s-myBbstReply-ul {
-}
-
 .s-bbstReply-li {
 	width: 100%;
 	height: 135px;
@@ -51,10 +48,16 @@
 	cursor: pointer;
 }
 
-.s-bbstReply-info-div {
-	width: 700px;
+.s-bbstReply-cn-div {
+	width: 600px;
 	height: 120px;
-	padding-top: 25px;
+	display: inline-block;
+	font-size: 18px;
+}
+
+.s-bbstReply-date-div {
+	width: 100px;
+	height: 120px;
 	display: inline-block;
 	font-size: 18px;
 }
@@ -155,9 +158,8 @@ $(document).ready(function() {
 			for(var i = 0, len = myReplyList.length || 0; i < len; i++) {
 				str += "<li class='s-bbstReply-li'>";
 				str += "<div class='s-bbstReply-item'><div class='s-bbstReply-cnImg-div'><img class='s-bbstReply-cnImg' data-bbstid='" + myReplyList[i].bbstId + "'src='" + myReplyList[i].cnImg + "' /></div>";
-				str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + myReplyList[i].name + "</strong>";
-				str += "<p class='s-bbstReply-cn'>" + myReplyList[i].replyCn + "</p>";
-				str += "<small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(myReplyList[i].regdate) + "</small></div></div></li><hr />";
+				str += "<div class='s-bbstReply-cn-div'><p class='s-bbstReply-cn'>" + myReplyList[i].replyCn + "</p></div>";
+				str += "<div class='s-bbstReply-date-div'><small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(myReplyList[i].regdate) + "</small></div></div></li><hr />";
 			}
 			myReplyUL.html(str);
 			showMyListPage(myReplyCnt);

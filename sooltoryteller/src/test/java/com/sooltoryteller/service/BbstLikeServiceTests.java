@@ -38,13 +38,6 @@ public class BbstLikeServiceTests {
 		service.bbstLikeStus(168L, 8L);
 	}
 
-	// 게시글 좋아요수
-	@Test
-	public void testBbstLikeCnt() {
-		int count = service.bbstLikeCnt(168L);
-		log.info("========== BBST LIKE COUNT: " + count + " ==========");
-	}
-
 	// 마이페이지
 	// 내가 좋아요 누른 게시글 리스트
 }

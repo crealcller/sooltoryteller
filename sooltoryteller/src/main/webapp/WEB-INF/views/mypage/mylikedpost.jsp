@@ -68,9 +68,15 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	width: 180px;
 	transform: translate(-50%, -50%);
 	text-align: center;
 	display: inline-block;
+}
+
+.s-bbst-item-overlay-span {
+	color: white;
+	font-size: 12px;
 }
 
 </style>
@@ -169,8 +175,9 @@ $(document).ready(function() {
 			for(var i = 0, len = myLikeList.length || 0; i < len; i++) {
 				str += '<div class="s-bbst-item-container" data-bbstid="' + myLikeList[i].bbstId + '">';
 				str += '<div class="s-bbst-img-div"><img class="s-bbst-img" src="' + myLikeList[i].cnImg + '" /></div>';
-				str += '<div class="s-bbst-item-overlay"><div class="s-bbst-item-overlay-info"><p><i class="fas fa-heart" style="color: white;"></i>' + myLikeList[i].likeCnt + '</p>';
-				str += '<p><i class="fas fa-comment-dots" style="color: white;"></i>' + myLikeList[i].replyCnt + '</p></div></div></div>';
+				str += '<div class="s-bbst-item-overlay"><div class="s-bbst-item-overlay-info"><i class="fas fa-eye" style="color: white;"></i> <span class="s-bbst-item-overlay-span">' + myLikeList[i].viewCnt + '</span>&nbsp;';
+				str += '<i class="fas fa-heart" style="color: white;"></i> <span class="s-bbst-item-overlay-span">' + myLikeList[i].likeCnt + '</span>&nbsp;';
+				str += '<i class="fas fa-comment-dots" style="color: white;"></i> <span class="s-bbst-item-overlay-span">' + myLikeList[i].replyCnt + '</span></div></div></div>';
 			}
 			bbstBox.html(str);
 			showMyListPage(myLikeCnt);

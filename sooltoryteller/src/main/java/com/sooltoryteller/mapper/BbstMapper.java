@@ -31,6 +31,11 @@ public interface BbstMapper {
 	// 게시글 수정
 	public int updateBbst(BbstJoinVO bbst);
 	
+	// 게시글 조회수 업데이트
+	public void updateViewCnt(
+		@Param("bbstId") Long bbstId,
+		@Param("cnt") int cnt);
+	
 	// 마이페이지
 	// 내가 쓴 게시글 리스트
 	public List<BbstJoinVO> getMyBbstList(

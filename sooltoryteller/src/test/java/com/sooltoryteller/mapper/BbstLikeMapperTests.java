@@ -40,13 +40,13 @@ public class BbstLikeMapperTests {
 	// 게시글 좋아요수 업데이트
 	@Test
 	public void testUpdateBbstLikeCnt() {
-		mapper.updateBbstLikeCnt(168L, 1);
+		mapper.updateLikeCnt(168L, 1);
 	}
 	
 	// 게시글 좋아요수
 	@Test
 	public void testBbstLikeCnt() {
-		int count = mapper.bbstLikeCnt(168L);
+		int count = mapper.getBbstLikeCnt(168L);
 		log.info("========== BBST LIKE COUNT: " + count + " ==========");
 	}
 	

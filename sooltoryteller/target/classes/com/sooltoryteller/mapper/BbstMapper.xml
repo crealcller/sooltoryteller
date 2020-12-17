@@ -29,20 +29,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 모든 게시글 조회 -->
 <select id="getBbstList" resultType="com.sooltoryteller.domain.BbstJoinVO">
 	<![CDATA[
-	select * from (
-		select /*+ index_desc (b bbst_pk) */
-        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, c.inqr_cnt, c.reply_cnt, c.like_cnt
-		from bbst b, member m, bbst_cnt c
-		where
+	select o.* from (
+	    select /*+ index_desc (i bbst_pk) */ rownum rn, i.* from (
+	        select b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+			from bbst b, member m, bbst_cnt c
+			where
 	]]>
 	
 	<include refid="bbstCriteria"></include>
 	
 	<![CDATA[
-		b.member_id = m.member_id
-		and b.bbst_id = c.bbst_id
-		and b.bbst_id > 0
-		and rownum <= #{pageNum} * #{amount})
+			b.member_id = m.member_id
+			and b.bbst_id = c.bbst_id
+			and b.bbst_id > 0
+	        order by b.bbst_id desc) i
+	    where rownum <= #{pageNum} * #{amount}) o
 	where rn > (#{pageNum} -1) * #{amount}
 	]]>
 </select>
@@ -84,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 게시글 조회 -->
 <select id="getBbst" resultType="com.sooltoryteller.domain.BbstJoinVO">
-	select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.regdate, c.inqr_cnt, c.reply_cnt, c.like_cnt
+	select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
 	from bbst b, bbst_cnt c, member m
 	where b.member_id = m.member_id
 	and b.bbst_id = c.bbst_id(+)
@@ -108,19 +109,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where bbst_id = #{bbstId}
 </update>
 
+<!-- 게시글 조회수 업데이트 -->
+<update id="updateViewCnt">
+	update bbst_cnt
+	set view_cnt = view_cnt + #{cnt}
+	where bbst_id = #{bbstId}
+</update>
+
 <!-- 마이페이지 -->
 <!-- 내가 쓴 게시물 리스트 -->
 <select id="getMyBbstList" resultType="com.sooltoryteller.domain.BbstJoinVO">
 	<![CDATA[
-	select * from (
-		select /*+ index_desc (b bbst_pk) */
-        rownum rn, b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, c.inqr_cnt, c.reply_cnt, c.like_cnt
-		from bbst b, member m, bbst_cnt c
-		where b.member_id = #{memberId}
-        and b.member_id = m.member_id
-		and b.bbst_id = c.bbst_id(+)
-		and b.bbst_id > 0
-		and rownum <= #{cri.pageNum} * #{cri.amount})
+	select o.* from (
+	    select /*+ index_desc (i bbst_pk) */ rownum rn, i.* from (
+	        select b.bbst_id, m.member_id, b.title, b.cn_img, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+			from bbst b, member m, bbst_cnt c
+			where b.member_id = #{memberId}
+	        and b.member_id = m.member_id
+			and b.bbst_id = c.bbst_id
+			and b.bbst_id > 0
+	        order by b.bbst_id desc) i
+    	where rownum <= #{cri.pageNum} * #{cri.amount}) o
 	where rn > (#{cri.pageNum} -1) * #{cri.amount}
 	]]>
 </select>
@@ -129,9 +138,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="getMyBbstListTotalCount" resultType="int">
 	select count(*) from bbst
 	where member_id = #{memberId}
-	<!-- select count(*) from bbst b, member m, bbst_cnt c
-	where b.member_id = #{memberId}
-    and b.member_id = m.member_id
-	and b.bbst_id = c.bbst_id(+) -->
 </select>
 </mapper>

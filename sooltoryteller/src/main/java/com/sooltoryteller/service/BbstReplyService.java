@@ -3,6 +3,7 @@ package com.sooltoryteller.service;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.sooltoryteller.domain.BbstReplyCriteria;
 import com.sooltoryteller.domain.BbstReplyJoinVO;
@@ -12,7 +13,9 @@ import com.sooltoryteller.domain.MyBbstReplyPageDTO;
 public interface BbstReplyService {
 
 	// 댓글 등록
-	public int registerBbstReply(BbstReplyJoinVO vo);
+	public int registerBbstReply(
+		BbstReplyJoinVO vo
+		);
 	
 	// 댓글 조회
 	public BbstReplyJoinVO getBbstReply(Long bbstReplyId);
@@ -21,7 +24,9 @@ public interface BbstReplyService {
 	public int modifyBbstReply(BbstReplyJoinVO vo);
 	
 	// 댓글 삭제
-	public int removeBbstReply(Long bbstReplyId);
+	public int removeBbstReply(
+		@Param("bbstReplyId") Long bbstReplyId
+		);
 	
 	// 게시글의 모든 댓글 조회
 	public List<BbstReplyJoinVO> getBbstReplyList(

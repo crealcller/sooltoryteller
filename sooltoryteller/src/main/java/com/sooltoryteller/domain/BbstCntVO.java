@@ -16,7 +16,7 @@ public class BbstCntVO {
 	private Long bbstId;
 
 	// 조회수 
-	private int inqrCnt = 0;
+	private int viewCnt = 0;
 
 	// 댓글수 
 	private int replyCnt = 0;

@@ -24,9 +24,14 @@ public class BbstReplyServiceImpl implements BbstReplyService {
 	private BbstReplyMapper mapper;
 
 	// 댓글 등록
+	@Transactional
 	@Override
 	public int registerBbstReply(BbstReplyJoinVO vo) {
 		log.info("========== REGISTER BBST REPLY ==========");
+		// 댓글수 업데이트
+		mapper.updateReplyCnt(vo.getBbstId(), 1);
+		// 댓글수 가져오기
+		mapper.getBbstReplyCnt(vo.getBbstId());
 		return mapper.insertBbstReply(vo);
 	}
 
@@ -47,15 +52,26 @@ public class BbstReplyServiceImpl implements BbstReplyService {
 	// 댓글 삭제
 	@Transactional
 	@Override
-	public int removeBbstReply(Long bbstReplyId) {
+	public int removeBbstReply(
+		@Param("bbstReplyId") Long bbstReplyId) {
+
 		log.info("========== REMOVE BBST REPLY ==========");
-		return mapper.deleteBbstReply(bbstReplyId);
+		BbstReplyJoinVO vo = mapper.readBbstReply(bbstReplyId);
+		int result = mapper.deleteBbstReply(bbstReplyId);
+		// 댓글수 업데이트
+		mapper.updateReplyCnt(vo.getBbstId(), -1);
+		// 댓글수 가져오기
+		mapper.getBbstReplyCnt(vo.getBbstId());
+		return result;
 	}
 
 	// 게시글의 모든 댓글 조회
+	@Transactional
 	@Override
 	public List<BbstReplyJoinVO> getBbstReplyList(BbstReplyCriteria cri, Long bbstId) {
 		log.info("========== GET BBST REPLY LIST OF BBST " + bbstId + " ==========");
+		// 댓글수 가져오기
+		mapper.getBbstReplyCnt(bbstId);
 		return mapper.getBbstReplyList(cri, bbstId);
 	}
 	

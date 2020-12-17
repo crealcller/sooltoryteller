@@ -31,9 +31,9 @@
 }
 
 .s-bbst-item-container {
-	height: 235px;
+	height: 230px;
 	width: 190px;
-	margin: 10px 0 0 65px;
+	margin: 10px 0 5px 65px;
 	display: inline-block;
 	position: relative;
 	float: left;
@@ -64,7 +64,7 @@
 }
 
 .s-bbst-item-overlay-info {
-	font-size: 12px;
+	font-size: 14px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -74,10 +74,19 @@
 }
 
 .s-bbst-info-div {
-	height: 45px;
+	height: 40px;
 	width: 190px;
 	margin-top: 3px;
-	font-size: 11px;
+	font-size: 12px;
+}
+
+.s-bbst-item-overlay-info {
+	width: 190px;
+}
+
+.s-bbst-item-overlay-span {
+	color: white;
+	font-size: 10px;
 }
 
 .s-paging-container {
@@ -204,11 +213,11 @@ $(document).ready(function() {
 			for(var i = 0, len = myBbstList.length || 0; i < len; i++) {
 				str += '<div class="s-bbst-item-container" data-bbstid="' + myBbstList[i].bbstId + '">';
 				str += '<div class="s-bbst-img-div"><img class="s-bbst-img" src="' + myBbstList[i].cnImg + '" /></div>';
-				str += '<div class="s-bbst-info-div"><p style="font-weight: bold">제목:' + myBbstList[i].title + '</p>';
-				str += '<p>작성일시:' + myBbstService.displayTime(myBbstList[i].regdate) + '</p>';
-				str += '<p>조회수:' + myBbstList[i].inqrCnt + '</p></div>';
-				str += '<div class="s-bbst-item-overlay"><div class="s-bbst-item-overlay-info"><p><i class="fas fa-heart" style="color: white;"></i>' + myBbstList[i].likeCnt + '</p>';
-				str += '<p><i class="fas fa-comment-dots" style="color: white;"></i>' + myBbstList[i].replyCnt + '</p></div></div></a></div>';
+				str += '<div class="s-bbst-info-div"><p style="font-weight: bold">' + myBbstList[i].title + '</p>';
+				str += '<p>' + myBbstService.displayTime(myBbstList[i].regdate) + '</p></div>';
+				str += '<div class="s-bbst-item-overlay"><div class="s-bbst-item-overlay-info"><i class="fas fa-eye" style="color: white;"></i> <span class="s-bbst-item-overlay-span">' + myBbstList[i].viewCnt + '</span>&nbsp;';
+				str += '<i class="fas fa-heart" style="color: white;"></i> <span class="s-bbst-item-overlay-span">' + myBbstList[i].likeCnt + '</span>&nbsp;';
+				str += '<i class="fas fa-comment-dots" style="color: white;"></i> <span class="s-bbst-item-overlay-span">' + myBbstList[i].replyCnt + '</span></div></div></div>';
 			}
 			bbstBox.html(str);
 			showMyListPage(myBbstCnt);

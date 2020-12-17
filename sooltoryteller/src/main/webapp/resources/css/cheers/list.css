@@ -64,9 +64,9 @@
 }
 
 .s-bbst-item-container {
-	height: 320px;
+	height: 300px;
 	width: 250px;
-	margin: 20px 25px 20px 25px;
+	margin: 20px 25px 10px 25px;
 	display: inline-block;
 	position: relative;
 	float: left;
@@ -103,6 +103,10 @@
 	transform: translate(-50%, -50%);
 	text-align: center;
 	display: inline-block;
+}
+
+.s-bbst-item-overlay-span {
+	color: white;
 }
 
 .s-bbst-info-div {

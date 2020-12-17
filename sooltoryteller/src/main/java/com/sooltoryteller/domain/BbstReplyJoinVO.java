@@ -50,7 +50,7 @@ public class BbstReplyJoinVO {
 	private Date updatedate;
 
 	// 조회수 
-	private int inqrCnt;
+	private int viewCnt;
 
 	// 댓글수 
 	private int replyCnt;

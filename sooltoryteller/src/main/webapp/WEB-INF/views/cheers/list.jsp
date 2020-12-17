@@ -77,15 +77,15 @@ let msg = "${msg}";
 					<img class="s-bbst-img" src="<c:out value='${bbst.cnImg }' />" />
 				</div>
 				<div class="s-bbst-info-div">
-					<p style="font-weight: bold">제목: <c:out value="${bbst.title }" /></p>
-					<p>작성자: <c:out value="${bbst.name }" /></p>
-					<p>작성일시: <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /> </p>
-					<p>조회수: <c:out value="${bbst.inqrCnt }" /></p>
+					<p style="font-weight: bold"><c:out value="${bbst.title }" /></p>
+					<p><c:out value="${bbst.name }" /></p>
+					<p><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /> </p>
 				</div>
 				<div class="s-bbst-item-overlay">
 					<div class="s-bbst-item-overlay-info">
-						<p><i class="fas fa-heart" style="color: white;"></i> <c:out value="${bbst.likeCnt }" /></p>
-						<p><i class="fas fa-comment-dots" style="color: white;"></i> <c:out value="${bbst.replyCnt }" /></p>
+						<i class="fas fa-eye" style="color: white;"></i> <span class="s-bbst-item-overlay-span"><c:out value="${bbst.viewCnt }" /></span>&nbsp;
+						<i class="fas fa-heart" style="color: white;"></i> <span class="s-bbst-item-overlay-span"><c:out value="${bbst.likeCnt }" /></span>&nbsp;
+						<i class="fas fa-comment-dots" style="color: white;"></i> <span class="s-bbst-item-overlay-span"><c:out value="${bbst.replyCnt }" /></span>
 					</div>
 				</div>
 			</a></div>

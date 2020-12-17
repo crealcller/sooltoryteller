@@ -27,7 +27,7 @@ public class BbstLikeJoinVO {
 	private String cnImg;
 	
 	// 조회수 
-	private int inqrCnt;
+	private int viewCnt;
 
 	// 댓글수 
 	private int replyCnt;

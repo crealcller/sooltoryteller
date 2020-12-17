@@ -4,19 +4,16 @@ import java.io.File;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,7 +22,7 @@ import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.BbstPageDTO;
 import com.sooltoryteller.domain.BbstVO;
-import com.sooltoryteller.domain.MyBbstPageDTO;
+import com.sooltoryteller.service.BbstReplyService;
 import com.sooltoryteller.service.BbstService;
 import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
@@ -40,6 +37,7 @@ import lombok.extern.log4j.Log4j;
 public class BbstController {
 
 	private BbstService service;
+	private BbstReplyService replyService;
 	private MemberService memberService;
 
 	@Resource(name = "uploadPath")
@@ -73,8 +71,8 @@ public class BbstController {
 	}
 
 	@PostMapping("/register")
-	public String register(HttpSession session, BbstJoinVO bbst, BbstCntVO cnt,
-		MultipartFile file, RedirectAttributes rttr) throws Exception {
+	public String register(HttpSession session, @Valid BbstJoinVO bbst, BindingResult result, Model model,
+		BbstCntVO cnt, MultipartFile file, RedirectAttributes rttr) throws Exception {
 
 		String email = (String)session.getAttribute("email");
 		Long memberId = memberService.getMemberId(email);
@@ -91,14 +89,20 @@ public class BbstController {
 			fileName = bbst.getCnImg();
 			bbst.setCnImg(fileName);
 		}
-
 		bbst.setCnThumbimg(
 		File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 
-		log.info("========== REGISTER: " + bbst + " ==========");
 		bbst.setMemberId(memberId);
-		service.registerBbst(bbst, cnt);
 
+		// 에러 발생 시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+			model.addAttribute("bbst", bbst);
+			return "/cheers/register";
+		}
+		
+		log.info("========== REGISTER: " + bbst + " ==========");
+		service.registerBbst(bbst, cnt);
 		rttr.addFlashAttribute("result", bbst.getBbstId());
 		return "redirect:/cheers/list";
 	}
@@ -125,11 +129,19 @@ public class BbstController {
 
 	// 게시글 수정
 	@PostMapping("/modify")
-	public String modify(HttpSession session, BbstJoinVO bbst, MultipartFile file,
+	public String modify(HttpSession session, @Valid BbstJoinVO bbst, BindingResult result, Model model, MultipartFile file,
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
 
+		// 에러 발생 시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+			model.addAttribute("bbst", bbst);
+			return "/cheers/modify";
+		}
+		
 		String email = (String)session.getAttribute("email");
 		Long memberId = memberService.getMemberId(email);
+		bbst.setMemberId(memberId);
 		
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
@@ -145,31 +157,38 @@ public class BbstController {
 		}
 
 		bbst.setCnThumbimg(
-				File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+			File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		log.info(bbst.getCnImg() + bbst.getCnThumbimg());
 
+		// 에러 발생 시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+			model.addAttribute("bbst", bbst);
+			return "/cheers/register";
+		}
+
 		log.info("========== MODIFY: " + bbst + " ==========");
-		
-		bbst.setMemberId(memberId);
 		if (service.modifyBbst(bbst)) {
 			rttr.addFlashAttribute("result", "success");
 		}
 
-		return "redirect:/cheers/list" + cri.getBbstListLink();
+		return "redirect:/cheers/get" + cri.getBbstListLink() + "&bbstId=" + bbst.getBbstId();
 	}
 
 	// 게시글 삭제
 	@PostMapping("/remove")
-	public String remove(HttpSession session, BbstJoinVO bbst, @RequestParam("bbstId") Long bbstId,
+	public String remove(HttpSession session, BbstJoinVO bbst, @RequestParam("bbstId") Long bbstId, 
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
 
 		String email = (String)session.getAttribute("email");
 		Long memberId = memberService.getMemberId(email);
+		bbst.setMemberId(memberId);
 		
 		log.info("========== REMOVE BBSTID " + bbstId + " ==========");
 
-		bbst.setMemberId(memberId);
 		if (service.removeBbst(bbstId)) {
+			// 댓글도 함께 삭제
+			
 			rttr.addFlashAttribute("result", "success");
 		}
 		

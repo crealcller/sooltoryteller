@@ -24,13 +24,13 @@ public interface BbstLikeMapper {
 		@Param("bbstId") Long bbstId,
 		@Param("memberId") Long memberId);
 	
-	// 게시글 좋아요수 업데이트
-	public void updateBbstLikeCnt(
+	// 좋아요수 업데이트
+	public void updateLikeCnt(
 		@Param("bbstId") Long bbstId,
 		@Param("cnt") int cnt);
 	
-	// 게시글 좋아요수
-	public int bbstLikeCnt(Long bbstId);
+	// 좋아요수
+	public int getBbstLikeCnt(Long bbstId);
 	
 	// 마이페이지
 	// 내가 좋아요 누른 게시글 리스트

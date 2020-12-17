@@ -6,7 +6,7 @@ var bbstLikeService = (function() {
 	function likeStus(param, callback, error) {
 		var memberId = param.memberId;
 		var bbstId = param.bbstId;
-		$.getJSON("/like/" + memberId + "/" + bbstId,
+		$.getJSON("/bbstLike/" + memberId + "/" + bbstId,
 			function(data) {
 			if(callback) {
 				callback(data);
@@ -24,11 +24,12 @@ var bbstLikeService = (function() {
 		var bbstId = param.bbstId;
 		$.ajax({
 			type: "post",
-			url: "/like/new/" + memberId + "/" + bbstId,
+			url: "/bbstLike/new/" + memberId + "/" + bbstId,
 			dataType : "text",
 			success: function(result, status, xhr) {
 				if(callback) {
 					callback(result);
+					
 				}
 			},
 			error: function(xhr, status, er) {
@@ -45,7 +46,7 @@ var bbstLikeService = (function() {
 		var bbstId = param.bbstId;
 		$.ajax({
 			type: "delete",
-			url: "/like/" + memberId + "/" + bbstId,
+			url: "/bbstLike/" + memberId + "/" + bbstId,
 			dataType: "text",
 			success: function(deleteResult, status, xhr) {
 				if(callback) {
@@ -66,7 +67,7 @@ var bbstLikeService = (function() {
 		var memberId = param.memberId;
 		var page = param.page || 1;
 		
-		$.getJSON("/like/mypages/" + memberId + "/" + page + ".json",
+		$.getJSON("/bbstLike/mypages/" + memberId + "/" + page + ".json",
 			function(data) {
 			if(callback) {
 				callback(data.myLikeCnt, data.myLikeList);

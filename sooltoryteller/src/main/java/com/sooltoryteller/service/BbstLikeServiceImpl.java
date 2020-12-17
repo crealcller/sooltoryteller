@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sooltoryteller.domain.BbstLikeCriteria;
 import com.sooltoryteller.domain.MyBbstLikePageDTO;
 import com.sooltoryteller.mapper.BbstLikeMapper;
+import com.sooltoryteller.mapper.BbstMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -24,14 +25,17 @@ public class BbstLikeServiceImpl implements BbstLikeService {
 	// 좋아요
 	@Transactional
 	@Override
-	public boolean likeBbst(
+	public int likeBbst(
 		@Param("bbstId") Long bbstId,
 		@Param("memberId") Long memberId) {
 		
 		log.info("========== LIKE BBST ==========");
-		mapper.updateBbstLikeCnt(bbstId, 1);
-		mapper.bbstLikeCnt(bbstId);
-		return mapper.likeBbst(bbstId, memberId) == 1;
+		mapper.likeBbst(bbstId, memberId);
+		// 좋아요수 업데이트
+		mapper.updateLikeCnt(bbstId, 1);
+		// 좋아요수 가져오기
+		int result = mapper.getBbstLikeCnt(bbstId);
+		return result;
 	}
 	
 	// 좋아요 취소
@@ -42,8 +46,10 @@ public class BbstLikeServiceImpl implements BbstLikeService {
 		@Param("memberId") Long memberId) {
 		
 		log.info("========== CANCEL LIKE BBST ==========");
-		mapper.updateBbstLikeCnt(bbstId, -1);
-		mapper.bbstLikeCnt(bbstId);
+		// 좋아요수 업데이트
+		mapper.updateLikeCnt(bbstId, -1);
+		// 좋아요수 가져오기
+		mapper.getBbstLikeCnt(bbstId);
 		return mapper.cancelLikeBbst(bbstId, memberId) == 1;
 	}
 	
@@ -55,14 +61,6 @@ public class BbstLikeServiceImpl implements BbstLikeService {
 		
 		log.info("========== BBST LIKE STATUS ==========");
 		return mapper.bbstLikeStus(bbstId, memberId) == 1;
-	}
-	
-	// 게시글 좋아요수
-	@Transactional
-	@Override
-	public int bbstLikeCnt(Long bbstId) {
-		log.info("========== BBST LIKE COUNT ==========");
-		return mapper.bbstLikeCnt(bbstId);
 	}
 	
 	// 마이페이지

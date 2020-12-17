@@ -62,17 +62,17 @@
 	margin: 25px auto;
 }
 
-.s-bbst-cnImg-div {
+.s-bbst-cnImg-container {
 	background-color: rgb(245, 245, 245);
 }
 
-.s-bbst-cnImg {
+.s-bbst-cnImg-div {
 	height: 350px;
 	width: 350px;
 	margin: 0 auto;
 }
 
-.s-bbst-cnImg-src {
+.s-bbst-cnImg {
 	height: 350px;
 	width: 350px;
 }
