@@ -126,17 +126,25 @@ let msg = "${msg}";
 		<div class="s-bbstReply-modal-footer">
 			<button id="s-modal-registerBtn" type="button">등록</button>
 			<button id="s-modal-cancelBtn" type="button">취소</button>
-			<%-- <c:if test="${memberId == bbst.memberId }"> --%>
+			<c:if test="${memberId == bbst.memberId }">
 				<button id="s-modal-modifyBtn" type="button">수정</button>
 				<button id="s-modal-removeBtn" type="button">삭제</button>
-			<%-- </c:if> --%>	
+			</c:if>	
 		</div>
 	</div>
 </div>
 
-
 <!-- 댓글 -->
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
+
+<!-- 서버단 유효성 검사 -->
+<script type="text/javascript">	
+let errorMsg = "${errorMsg}";
+if(errorMsg != "") {
+	alert(errorMsg);
+}
+</script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -220,6 +228,7 @@ $(document).ready(function() {
 		
 		// input 데이터 비우기
 		replyModal.find("input").val("");
+		
 		// 로그인한 사용자 닉네임 가져오기
 		replyName.val(loginName);
 		
@@ -229,23 +238,33 @@ $(document).ready(function() {
 	
 	// 등록 버튼 누르면
 	registerReplyBtn.on("click", function(e) {
-		if(confirm("댓글을 등록하시겠습니까?")) {
-			var reply = {
-				memberId : loginMemberId,
-				replyCn : replyCn.val(),
-				bbstId : bbstIdValue
-			};
-			
-			bbstReplyService.add(reply, function(result) {
-				alert("댓글이 성공적으로 등록되었습니다.");
-				replyModal.val("");
-				replyModal.fadeOut(200);
-				showList(-1);
-			});
+		// 유효성 검사
+		if($.trim(replyCn.val()).length < 2) {
+			alert("최소 2자 이상의 댓글을 입력해주세요.");
+			replyCn.val();
+			return false;
+		} else if($.trim(replyCn.val()).length > 100) {
+			alert("최대 100자 이하의 댓글을 입력해주세요.");
+			replyCn.val();
+			return false;
 		} else {
-			replyModal.hide();
+			if(confirm("댓글을 등록하시겠습니까?")) {
+				var reply = {
+					memberId : loginMemberId,
+					replyCn : replyCn.val(),
+					bbstId : bbstIdValue
+				};
+				
+				bbstReplyService.add(reply, function(result) {
+					alert("댓글이 성공적으로 등록되었습니다.");
+					replyModal.val("");
+					replyModal.fadeOut(200);
+					showList(-1);
+				});
+			} else {
+				replyModal.hide();
+			}
 		}
-		
 	});
 	
 	// 취소 버튼 누르면 모달 닫힘
@@ -270,8 +289,7 @@ $(document).ready(function() {
 			removeReplyBtn.show();
 			
 			replyModal.fadeIn(100);
-			
-			// 모달 바깥부분 클릭하면
+			/* // 모달 바깥부분 클릭하면
 			$(document).on("click", function(e) {
 				// 모달 닫기
 				if(replyModal.is(e.target)) {
@@ -279,22 +297,33 @@ $(document).ready(function() {
 				} else {
 					replyModal.css({visibility : "visible", opacity : 1});
 				}
-			});
+			}); */
 		});
 	});
 	
 	// 수정 버튼 누르면
 	modifyReplyBtn.on("click", function(e) {
-		if(confirm("해당 댓글을 수정하시겠습니까?")) {
-			var reply = {bbstReplyId : replyModal.data("bbstreplyid"), replyCn : replyCn.val()};
-			
-			bbstReplyService.update(reply, function(result) {
-				alert("댓글이 성공적으로 수정되었습니다.");
-				replyModal.fadeOut(200);
-				showList(pageNum);
-			});
+		// 유효성 검사
+		if($.trim(replyCn.val()).length < 2) {
+			alert("최소 2자 이상의 댓글을 입력해주세요.");
+			replyCn.val();
+			return false;
+		} else if($.trim(replyCn.val()).length > 100) {
+			alert("최대 100자 이하의 댓글을 입력해주세요.");
+			replyCn.val();
+			return false;
 		} else {
-			replyModal.hide();
+			if(confirm("해당 댓글을 수정하시겠습니까?")) {
+				var reply = {bbstReplyId : replyModal.data("bbstreplyid"), replyCn : replyCn.val()};
+				
+				bbstReplyService.update(reply, function(result) {
+					alert("댓글이 성공적으로 수정되었습니다.");
+					replyModal.fadeOut(200);
+					showList(pageNum);
+				});
+			} else {
+				replyModal.hide();
+			}
 		}
 	});
 	

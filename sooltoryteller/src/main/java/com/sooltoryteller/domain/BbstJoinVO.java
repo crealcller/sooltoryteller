@@ -31,6 +31,7 @@ public class BbstJoinVO {
 	
 	// 게시글 제목
 	@NotBlank
+	@Size(min = 3, max = 30)
 	private String title;
 
 	// 게시글 사진
@@ -43,6 +44,7 @@ public class BbstJoinVO {
 
 	// 게시글 내용
 	@NotBlank
+	@Size(min = 5, max = 500)
 	private String cn;
 
 	// 작성일시

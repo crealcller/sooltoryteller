@@ -134,7 +134,7 @@ public class BbstController {
 
 		// 에러 발생 시
 		if(result.hasErrors()) {
-			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주세요.");
 			model.addAttribute("bbst", bbst);
 			return "/cheers/modify";
 		}
@@ -187,8 +187,6 @@ public class BbstController {
 		log.info("========== REMOVE BBSTID " + bbstId + " ==========");
 
 		if (service.removeBbst(bbstId)) {
-			// 댓글도 함께 삭제
-			
 			rttr.addFlashAttribute("result", "success");
 		}
 		

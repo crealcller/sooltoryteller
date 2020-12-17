@@ -49,15 +49,6 @@
 	color: white;
 }
 
-.s-bbst-search-cancel {
-	width: 60px;
-	border: none;
-	cursor: pointer;
-	transition: 0.3s;
-	background-color: #990000ff;
-	color: white;
-}
-
 .s-bbst-container {
 	width: 900px;
 	margin: 0 auto;

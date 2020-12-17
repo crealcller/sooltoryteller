@@ -57,9 +57,6 @@ let msg = "${msg}";
 			<input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum }' />" />
 			<input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount }' />" />
 			<button class="s-bbst-search-btn" style="background-color: rgb(181, 135, 189);">검색</button>
-			<c:if test='${pageMaker.cri.keyword != null }'>
-				<button class="s-bbst-search-cancel">취소</button>
-			</c:if>
 		</form>
 	</div>
 </div>
@@ -151,36 +148,17 @@ $(document).ready(function() {
 		var blank_pattern = /^\s+|\s+$/g;
 		
 		// 검색어 입력 안 한 경우
-		if(!keyword) {
-			alert("검색어를 입력해주세요.");
-			return false;
+		if(!keyword || $.trim(keyword).length == 0 || keyword.replace(blank_pattern, '') == "") {
+			location.href = "/cheers/list";
 		}
-		
-		// 검색어에 공백만 입력한 경우
-		if(keyword.replace(blank_pattern, '') == "") {
-		    alert("검색어 : 공백만 입력되었습니다.");
-		    return false;
-		}
-		
-		searchForm.find("input[name='pageNum']").val("1");
 		
 		// 검색어에 trim() 적용
 		searchForm.find("input[name='keyword']").val(keyword.trim());
 		
+		searchForm.find("input[name='pageNum']").val("1");
+		
 		e.preventDefault();
 		searchForm.submit();
-	});
-	
-	// 검색 취소 버튼 누를 경우
-	$(".s-bbst-search-cancel").on("click", function() {
-		// list로 되돌아가기
-		location.href = "/cheers/list?"
-			+ "pageNum=1"
-			+ "&amount=9"
-			+ "&type="
-			+ "&keyword=";
-		// 검색 취소 버튼 숨기기
-		$(".s-bbst-search-cancel").hide();
 	});
 });
 

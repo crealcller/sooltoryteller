@@ -16,11 +16,9 @@ import lombok.NoArgsConstructor;
 public class BbstReplyJoinVO {
 
 	// 일련번호 
-	@NotBlank
 	private Long bbstReplyId;
 
 	// 게시글 번호
-	@NotBlank
 	private Long bbstId;
 
 	// 게시글 사진
@@ -28,7 +26,6 @@ public class BbstReplyJoinVO {
 	private String cnImg;
 	
 	// 회원ID
-	@NotBlank
 	private Long memberId;
 	
 	// 회원닉네임
@@ -39,8 +36,8 @@ public class BbstReplyJoinVO {
 	private String img;
 
 	// 댓글 내용 
-	@NotBlank(message = "내용을 입력해주세요.")
-	@Size(min = 2, max = 100, message = "최소 2자에서 최대 100자의 내용을 입력해주세요.") // 한글 기준인지 테스트해봐야 함
+	@NotBlank
+	@Size(min = 2, max = 100)
 	private String replyCn;
 
 	// 등록일시 

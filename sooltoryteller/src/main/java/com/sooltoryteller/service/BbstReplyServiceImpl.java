@@ -52,9 +52,7 @@ public class BbstReplyServiceImpl implements BbstReplyService {
 	// 댓글 삭제
 	@Transactional
 	@Override
-	public int removeBbstReply(
-		@Param("bbstReplyId") Long bbstReplyId) {
-
+	public int removeBbstReply(Long bbstReplyId) {
 		log.info("========== REMOVE BBST REPLY ==========");
 		BbstReplyJoinVO vo = mapper.readBbstReply(bbstReplyId);
 		int result = mapper.deleteBbstReply(bbstReplyId);
@@ -62,6 +60,13 @@ public class BbstReplyServiceImpl implements BbstReplyService {
 		mapper.updateReplyCnt(vo.getBbstId(), -1);
 		// 댓글수 가져오기
 		mapper.getBbstReplyCnt(vo.getBbstId());
+		return result;
+	}
+	
+	// 게시글 삭제 시 댓글도 삭제
+	public int deleteReplyWithBbst(Long bbstId) {
+		int result = mapper.deleteReplyWithBbst(bbstId);
+		log.info("========== " + result + " ==========");
 		return result;
 	}
 

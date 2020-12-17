@@ -30,7 +30,7 @@ public interface BbstReplyMapper {
 	public int deleteBbstReply(Long bbstReplyId);
 	
 	// 게시글 삭제 시 댓글도 삭제
-	public void deleteReplyWithBbst(Long bbstId);
+	public int deleteReplyWithBbst(Long bbstId);
 	
 	// 게시글의 모든 댓글 조회
 	public List<BbstReplyJoinVO> getBbstReplyList(

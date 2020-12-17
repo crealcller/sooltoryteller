@@ -158,16 +158,15 @@ enctype="multipart/form-data" onsubmit="return checkForm();">
 	</div>
 </form>
 
+<!-- 서버단 유효성 검사 -->
 <script type="text/javascript">
-// 서버단의 콘솔창에서 게시글 양식에 맞지 않는 값을 입력할 때
-$("#s-bbst-registerBtn").on("click", function(e) {
-	let errorMsg = "${errorMsg}";
+let errorMsg = "${errorMsg}";
 	if(errorMsg != "") {
 		alert(errorMsg);
 	}
-});
 </script>
 
+<!-- 이미지 확장자 타입 검사 -->
 <script type="text/javascript">
 function checkType(obj) {
 	var file = $("#s-form-cnImg").val().split(".").pop().toLowerCase();
@@ -180,10 +179,9 @@ function checkType(obj) {
 }
 </script>
 
-<!-- <script type="text/javascript">
-//게시글 입력항목 유효성 검사
+<!-- 게시글 입력항목 유효성 검사 -->
+<script type="text/javascript">
 function checkForm() {
-	
 	// 1. 게시글 제목
 	var title = $(".s-form-title");
 	// 공백만 입력
@@ -191,9 +189,9 @@ function checkForm() {
 		alert("제목 : 공백만 입력되었습니다.");
 		return false;
 	}
-	// 최소 2자
-	if($.trim(title.val()).length < 2) {
-		alert("제목 : 최소 2자 이상 입력해주세요.");
+	// 최소 3자
+	if($.trim(title.val()).length < 3) {
+		alert("제목 : 최소 3자 이상 입력해주세요.");
 		return false;
 	}
 	// 최대 30자
@@ -219,7 +217,8 @@ function checkForm() {
 		alert("내용 : 최대 500자까지 입력하실 수 있습니다.");
 		return false;
 	}
+	return true;
 }
-</script> -->
+</script>
 </body>
 </html>

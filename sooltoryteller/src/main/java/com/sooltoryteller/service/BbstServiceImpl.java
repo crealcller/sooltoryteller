@@ -62,6 +62,7 @@ public class BbstServiceImpl implements BbstService {
 	@Override
 	public boolean removeBbst(Long bbstId) {
 		log.info("========== REMOVE BBSTID: " + bbstId + "==========");
+		// 게시글 삭제 시 댓글도 삭제
 		replyMapper.deleteReplyWithBbst(bbstId);
 		return mapper.deleteBbst(bbstId) == 1;
 	}
