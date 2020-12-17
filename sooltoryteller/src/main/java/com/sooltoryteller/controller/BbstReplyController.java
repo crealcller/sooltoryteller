@@ -1,7 +1,5 @@
 package com.sooltoryteller.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -17,33 +15,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sooltoryteller.domain.BbstReplyCriteria;
-import com.sooltoryteller.domain.BbstReplyMemberJoinVO;
+import com.sooltoryteller.domain.BbstReplyJoinVO;
 import com.sooltoryteller.domain.BbstReplyPageDTO;
+import com.sooltoryteller.domain.MyBbstReplyPageDTO;
 import com.sooltoryteller.service.BbstReplyService;
 import com.sooltoryteller.service.MemberService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@RequestMapping("/cheers/get/replies/")
+@RequestMapping("/replies/")
 @RestController
 @Log4j
 @AllArgsConstructor
 public class BbstReplyController {
 
 	private BbstReplyService service;
-	private MemberService mservice;
+	private MemberService memberService;
 	
 	// 댓글 등록
 	@PostMapping(value = "/new",
 		consumes = "application/json",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> createBbstReply(HttpSession session, BbstReplyMemberJoinVO bbstReply,
-		@RequestBody BbstReplyMemberJoinVO vo) {
-		
-		String email = (String)session.getAttribute("email");
-		bbstReply.setMemberId(mservice.getMemberIdName(email).getMemberId());
-		bbstReply.setName(mservice.getMemberIdName(email).getName());
+	public ResponseEntity<String> createBbstReply(
+		HttpSession session, BbstReplyJoinVO bbstReply,
+		@RequestBody BbstReplyJoinVO vo) {
 		
 		log.info("========== BBST REPLY MEMBER JOIN VO: " + vo + " ==========");
 		
@@ -60,12 +56,8 @@ public class BbstReplyController {
 		produces = {
 			MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<BbstReplyMemberJoinVO> getBbstReply(HttpSession session, BbstReplyMemberJoinVO bbstReply,
+	public ResponseEntity<BbstReplyJoinVO> getBbstReply(
 		@PathVariable("bbstReplyId") Long bbstReplyId) {
-		
-		String email = (String)session.getAttribute("email");
-		bbstReply.setMemberId(mservice.getMemberIdName(email).getMemberId());
-		bbstReply.setName(mservice.getMemberIdName(email).getName());
 		
 		log.info("========== GET: " + bbstReplyId + " ==========");
 		
@@ -77,13 +69,9 @@ public class BbstReplyController {
 		value = "/{bbstReplyId}",
 		consumes = "application/json",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> modifyBbstReply(HttpSession session, BbstReplyMemberJoinVO bbstReply,
-		@RequestBody BbstReplyMemberJoinVO vo,
+	public ResponseEntity<String> modifyBbstReply(
+		@RequestBody BbstReplyJoinVO vo,
 		@PathVariable("bbstReplyId") Long bbstReplyId) {
-		
-		String email = (String)session.getAttribute("email");
-		bbstReply.setMemberId(mservice.getMemberIdName(email).getMemberId());
-		bbstReply.setName(mservice.getMemberIdName(email).getName());
 		
 		vo.setBbstReplyId(bbstReplyId);
 		log.info("========== BBST REPLY ID : " + bbstReplyId + " ==========");
@@ -97,12 +85,10 @@ public class BbstReplyController {
 	// 댓글 삭제
 	@DeleteMapping(value = "/{bbstReplyId}",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> removeBbstReply(HttpSession session, BbstReplyMemberJoinVO bbstReply,
-		@PathVariable("bbstReplyId") Long bbstReplyId) {
-		
-		String email = (String)session.getAttribute("email");
-		bbstReply.setMemberId(mservice.getMemberIdName(email).getMemberId());
-		bbstReply.setName(mservice.getMemberIdName(email).getName());
+	public ResponseEntity<String> removeBbstReply(
+		HttpSession session, BbstReplyJoinVO bbstReply,
+		@PathVariable("bbstReplyId") Long bbstReplyId
+		) {
 		
 		log.info("========== REMOVE : " + bbstReplyId + " ==========");
 		
@@ -117,15 +103,8 @@ public class BbstReplyController {
 			MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<BbstReplyPageDTO> getBbstReplyList(
-		HttpSession session, BbstReplyMemberJoinVO bbstReply,
 		@PathVariable("page") int page,
 		@PathVariable("bbstId") Long bbstId) {
-		
-		String email = (String)session.getAttribute("email");
-		Long memberId = mservice.getMemberIdName(email).getMemberId();
-		String name = mservice.getMemberIdName(email).getName();
-		bbstReply.setMemberId(memberId);
-		bbstReply.setName(name);
 		
 		log.info("========== GET BBST REPLY LIST ==========");
 		
@@ -133,6 +112,24 @@ public class BbstReplyController {
 		log.info("========== GET BBST REPLY LIST BBSTID: " + bbstId + " ==========");
 		log.info("========== CRI: " + cri + " ==========");
 		
-		return new ResponseEntity<> (service.getBbstReplyListPage(cri, bbstId), HttpStatus.OK);
+		return new ResponseEntity<>(service.getBbstReplyListPage(cri, bbstId), HttpStatus.OK);
+	}
+	
+	// 마이페이지
+	// 내가 쓴 댓글 리스트
+	@GetMapping(value = "/mypages/{memberId}/{page}",
+		produces = {
+			MediaType.APPLICATION_ATOM_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<MyBbstReplyPageDTO> getMyBbstReply(
+		@PathVariable("page") int page,
+		@PathVariable("memberId") Long memberId) {
+		
+		log.info("========== MEMBERID " + memberId + "'S BBST REPLY LIST ==========");
+		
+		BbstReplyCriteria cri = new BbstReplyCriteria(page, 5);
+		log.info("========== " + cri + " ==========");
+		
+		return new ResponseEntity<>(service.getMyBbstReply(cri, memberId), HttpStatus.OK);
 	}
 }

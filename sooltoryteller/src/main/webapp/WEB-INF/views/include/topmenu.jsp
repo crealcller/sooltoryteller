@@ -182,18 +182,7 @@ a {
             <a href='/mypage/like'>마이페이지 ㅣ</a>
             <a href='/help/faq'>고객센터</a>
         </div>
-
     </div>
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script type="text/javascript">
-		/* function kakaoLogout(){
-		 Kakao.Auth.logout(function(){
-		 setTimeout(function(){
-		 Kakao.init();
-		 location.href='/logout'
-		 }, 1000);
-		 });
-		 } */
-	</script>
+
 </body>
 </html>

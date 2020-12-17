@@ -45,13 +45,15 @@ public class BbstControllerTests {
 			.getModelMap());
 	}
 	
+	// ***** 에러
 	@Test
 	public void testRegisterBbst() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/cheers/register")
-			.param("memberId", "20")
+			.param("memberId", "3L")
 			.param("title", "컨트롤러테스트")
-			.param("img", "컨트롤러테스트")
 			.param("cn", "컨트롤러테스트")
+			.param("cnImg", "test.jpg")
+			.param("cnThumbimg", "test.jpg")
 			).andReturn().getModelAndView().getViewName();
 		
 		log.info("========== RESULTPAGE: " + resultPage + " ==========");

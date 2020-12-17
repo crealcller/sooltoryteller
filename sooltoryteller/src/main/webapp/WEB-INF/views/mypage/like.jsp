@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="/WEB-INF/views/include/topmenu.jsp"  %>
 <!DOCTYPE html>
 <html>
@@ -16,8 +17,17 @@
         <div class="d-mypage-left">
             <div class="d-left-con">
                 <div class="d-mypage-profile-con">
+                <c:set var="tmp" value="${member.img}"/>
+                <c:set var='imgsrc' value="${fn:substring(tmp, 0, 4)}"/>
+                <c:choose>
+                <c:when test="${imgsrc == 'http'.toString()}">
+                <img class="d-mypage-profile" src='<c:out value="${member.img}" />'>
+                </c:when>
+                
+                <c:otherwise>
                 <img class="d-mypage-profile" src='/resources/img/<c:out value="${member.img}" />'>
-           
+                </c:otherwise>
+                </c:choose>
                 <div class="d-mypage-info">
                    <h1><c:out value="${member.name}" />님</h1>
                 </div>
@@ -37,10 +47,13 @@
                     <li class="d-mypage-ref"><a href='#'>게시글 </a></li>
                     <ul class="d-mypage-menu">
                         <li class="d-mypage-li">
-                            <a href='#'>좋아요한 게시글</a>
-                        </li> 
+                            <a href='/mypage/mypost'>내가 작성한 게시글</a>
+                        </li>
                         <li class="d-mypage-li">
-                            <a href='#'>내가 작성한 게시글 </a> 
+                            <a href='/mypage/mycomment'>내가 작성한 댓글</a>
+                        </li>  
+                        <li class="d-mypage-li">
+                            <a href='/mypage/mylikedpost'>좋아요한 게시글</a> 
                         </li>     
                     </ul> 
                     </ul>

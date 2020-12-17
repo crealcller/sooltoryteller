@@ -78,7 +78,7 @@ public class MemberMapperTests {
 	
 //	@Test
 	public void testGetEmail() {
-		log.info(mapper.getEmail("aaa@aaa.com"));
+		log.info(mapper.checkEmail("aaa@aaa.com"));
 	}
 	
 //	@Test

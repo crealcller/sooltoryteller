@@ -2,6 +2,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 <!-- fontawesome -->
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <script type="text/javascript">
 // 로그인이 안된 상태면 로그인페이지로 넘어가게
@@ -10,6 +12,9 @@ let msg = "${msg}";
 		alert(msg);
 		location.href = "/login";
 }
+	
+	
+
 </script>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -51,17 +56,17 @@ let msg = "${msg}";
 		<div class="s-writer-info-div">
 			<p style="font-weight: bold">작성자: <c:out value='${bbst.name }' /></p>
 			<p>작성일시: <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /></p>
-			<p>조회수: <c:out value='${bbst.inqrCnt }' /></p>
+			<p>조회수: <c:out value='${bbst.viewCnt }' /></p>
 		</div>
 		
 		<!-- 회원 프로필 사진 -->
 		<div class="s-writer-img-div">
 			<c:choose>
 				<c:when test="${empty bbst.img }">
-					<span class="s-writer-img"><i class="fas fa-user-circle" style="font-size:35px;"></i></span>
+					<span class="s-writer-img-span"><i class="fas fa-user-circle" style="font-size:35px;"></i></span>
 				</c:when>
 				<c:when test="${not empty bbst.img }">
-					<span class="s-writer-img"><c:out value='${bbst.img }' /></span>
+					<span class="s-writer-img-span"><img class="s-writer-img" src="<c:out value='${bbst.img }' />" /></span>
 				</c:when>
 			</c:choose>
 		</div>
@@ -69,9 +74,9 @@ let msg = "${msg}";
 	
 	<!-- 게시글 내용 -->
 	<div class="s-cn-container">
-		<div class="s-bbst-cnImg-div">
-			<div class="s-bbst-cnImg">
-				<img class="s-bbst-cnImg-src" src="<c:out value='${bbst.cnImg }' />" />
+		<div class="s-bbst-cnImg-container">
+			<div class="s-bbst-cnImg-div">
+				<img class="s-bbst-cnImg" src="<c:out value='${bbst.cnImg }' />" />
 			</div>
 		</div>
 		
@@ -83,7 +88,7 @@ let msg = "${msg}";
 
 <!-- 좋아요수, 댓글수 -->
 <div class="s-bbst-cnt-container">
-	<p><i class="far fa-heart"> 좋아요 <c:out value='${bbst.likesCnt }' /></i></p>
+	<i class="far fa-heart" id="s-bbst-like"></i> 좋아요 <p id="s-bbst-likeCnt"><c:out value='${bbst.likeCnt }' /></p>
 	<p><i class="far fa-comment-dots"> 댓글 <c:out value='${bbst.replyCnt }' /></i></p> 
 </div>
 
@@ -130,17 +135,14 @@ let msg = "${msg}";
 </div>
 
 
-<!-- 좋아요 -->
-
-
 <!-- 댓글 -->
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
-
 <script type="text/javascript">
 
 $(document).ready(function() {
 	
 	var bbstIdValue = "<c:out value='${bbst.bbstId}' />";
+	var img = "<c:out value='{bbst.img}' />";
 	var replyUL = $(".s-bbstReplyList-body");
 	var loginMemberId = "<c:out value='${memberId}' />";
 	var loginName = "<c:out value='${name}' />";
@@ -170,36 +172,39 @@ $(document).ready(function() {
 	function showList(page) {
 		console.log("SHOW BBST REPLY LIST PAGE: " + page);
 		
-		bbstReplyService.getList({bbstId : bbstIdValue, page : page|| 1 }, function(replyCnt, list) {
-				console.log("replyCnt: " + replyCnt);
-				console.log("list: " + list);
-				console.log(list);
+		bbstReplyService.getList({bbstId : bbstIdValue, page : page || 1 }, function(replyCnt, list) {
+			console.log("replyCnt: " + replyCnt);
+			console.log("list: " + list);
+			console.log(list);
+		
+			if(page == -1) {
+				pageNum = Math.ceil(replyCnt / 10.0);
+				showList(pageNum);
+				return;
+			}
 			
-				if(page == -1) {
-					pageNum = Math.ceil(replyCnt / 10.0);
-					showList(pageNum);
-					return;
+			var str = "";
+			
+			if(list == null || list.length == 0) {
+				replyUL.html("<p>등록된 댓글이 없습니다.</p><br />");
+				return;
+			}
+			
+			// 각 댓글에 보일 데이터
+			for(var i = 0, len = list.length || 0; i < len; i++) {
+				str += "<li class='s-bbstReply-item' data-bbstreplyid='" + list[i].bbstReplyId + "'>";
+				if(list[i].img == null) {
+					str += "<div><span class='s-writer-img-span'><i class='fas fa-user-circle' style='font-size:35px;'></i></span>";
+				} else {
+					str += "<div><div class='s-bbstReply-img-div'><img class='s-bbstReply-img' src='" + list[i].img + "' /></div>";
 				}
-				
-				var str = "";
-				
-				if(list == null || list.length == 0) {
-					replyUL.html("<p>등록된 댓글이 없습니다.</p><br />");
-					return;
-				}
-				
-				// 각 댓글에 보일 데이터
-				for(var i = 0, len = list.length || 0; i < len; i++) {
-					str += "<li class='s-bbstReply-item' data-bbstreplyid='" + list[i].bbstReplyId + "'>";
-					str += "<div><div class='s-bbstReply-img-div'><span class='s-bbstReply-img'>" + list[i].img + "</span></div>";
-					str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
-					str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";
-					str += "<small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(list[i].regdate) + "</small></div></div></li><br /><hr /><br />"; 
-				}
-				replyUL.html(str);
-				
-				showReplyPage(replyCnt);
-			});
+				str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
+				str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";
+				str += "<small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(list[i].regdate) + "</small></div></div></li><br /><hr /><br />"; 
+			}
+			replyUL.html(str);
+			showReplyPage(replyCnt);
+		});
 	} // end showList
 	
 	// 댓글 등록 모달
@@ -321,6 +326,10 @@ $(document).ready(function() {
 			endNum = Math.ceil(replyCnt / 10.0);
 		}
 		
+		if(endNum * 10 < replyCnt){
+			next = true;
+		}
+		
 		var str = "<ul class='s-bbstReplyList-pageContainer'>";
 		
 		if(prev) {
@@ -355,9 +364,61 @@ $(document).ready(function() {
 		showList(pageNum);
 	});
 });
+</script>
+
+<!-- 좋아요 -->
+<script type="text/javascript" src="/resources/js/bbstLike.js"></script>
+<script type="text/javascript">
+
+var memberIdValue = "${memberId}" == "" ? -1 : "${memberId}";
+var bbstIdValue = ${bbst.bbstId};
+
+$(document).ready(function() {
+	// 좋아요 상태
+	bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
+		if(data) {
+			$("#s-bbst-like").attr("class", "fas fa-heart");
+		} else {
+			$("#s-bbst-like").attr("class", "far fa-heart");
+		}
+	});
+});
+
+// 좋아요 or 좋아요 취소
+$("#s-bbst-like").on({"click" : function() {
+	
+	var likeCnt = $("#s-bbst-likeCnt").html();
+	
+	if(memberIdValue != -1) {
+		bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
+			if(data) {
+				bbstLikeService.cancelLikeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
+					console.log("CANCEL LIKE BBST");
+					
+					if(count === "success") {
+						$("#s-bbst-like").attr("class", "far fa-heart");
+						$("#s-bbst-likeCnt").html(Number(likeCnt) - 1);
+					}
+				});
+				return;
+			} else {
+				bbstLikeService.likeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
+					console.log("LIKE BBST");
+					if(count === "result") {
+						$("#s-bbst-like").attr("class", "fas fa-heart");
+						$("#s-bbst-likeCnt").html(Number(likeCnt) + 1);
+					}
+				});
+			}
+		});
+	} else {
+		window.location.href = "/login";
+	}
+}});
+
 
 </script>
-	
+
 <script type="text/javascript">
 
 $(document).ready(function() {

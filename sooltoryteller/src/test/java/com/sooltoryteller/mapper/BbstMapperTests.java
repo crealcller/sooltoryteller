@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 
@@ -57,16 +58,20 @@ public class BbstMapperTests {
 		bbst.setMemberId(20L);
 		bbst.setTitle("매퍼제목테스트");
 		bbst.setCnImg("매퍼이미지테스트.jpg");
+		bbst.setCnThumbimg("매퍼이미지테스트.jpg");
 		bbst.setCn("매퍼내용테스트");
 		
 		mapper.insertBbstWithKey(bbst);
+		log.info("========== INSERT BBST: " + bbst + " ==========");
 		
-		log.info("========== INSERT: " + bbst + " ==========");
+		BbstCntVO cnt = new BbstCntVO();
+		mapper.insertBbstCnt(cnt);
+		log.info("========== INSERT CNT: " + cnt + " ==========");
 	}
 	
 	@Test
 	public void testGetBbst() {
-		BbstJoinVO bbst = mapper.getBbst(168L);
+		BbstJoinVO bbst = mapper.getBbst(166L);
 		log.info("========== READ: " + bbst + " ==========");
 	}
 	
@@ -89,4 +94,13 @@ public class BbstMapperTests {
 		log.info("========== UPDATE COUNT: " + count + " ==========");
 	}
 	
+	@Test
+	public void testGetMyBbstList() {
+		BbstCriteria cri = new BbstCriteria();
+		cri.setPageNum(1);
+		cri.setAmount(9);
+		
+		List<BbstJoinVO> list = mapper.getMyBbstList(cri, 2L);
+		list.forEach(myList -> log.info(myList.getMemberId()));
+	}
 }

@@ -15,10 +15,10 @@ public interface MemberMapper {
 	public List<MemberVO> getList();
 	
 	//회원가입시 이메일 중복체크
-	public int getEmail(String email);
+	public int checkEmail(String email);
 	
 	//회원가입시 닉네임 중복체크
-	public int getName(String name);
+	public int checkName(String name);
 	
 	//회원가입시 회원정보 등록
 	public int insert(MemberVO member);
@@ -47,4 +47,7 @@ public interface MemberMapper {
 	// 수빈
 	// 회원 아이디 & 닉네임 불러오기
 	public MemberVO getMemberIdName(String email);
+	
+	//회원 이메일 불러오기
+	public String getEmail(Long memberId);
 }

@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sooltoryteller.domain.BbstReplyCriteria;
-import com.sooltoryteller.domain.BbstReplyMemberJoinVO;
+import com.sooltoryteller.domain.BbstReplyJoinVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -35,7 +35,7 @@ public class BbstReplyMapperTests {
 	public void testInsertBbstReply() {
 		IntStream.rangeClosed(1, 10).forEach(i -> {
 			
-			BbstReplyMemberJoinVO vo = new BbstReplyMemberJoinVO();
+			BbstReplyJoinVO vo = new BbstReplyJoinVO();
 			
 			// 게시글 번호
 			vo.setBbstId(bbstIdArr[i % 5]);
@@ -49,7 +49,7 @@ public class BbstReplyMapperTests {
 	@Test
 	public void testReadBbstReply() {
 		Long targetBbstReplyId = 114L;
-		BbstReplyMemberJoinVO vo = mapper.readBbstReply(targetBbstReplyId);
+		BbstReplyJoinVO vo = mapper.readBbstReply(targetBbstReplyId);
 		log.info("========== TARGET BBST REPLY " + vo + " ==========");
 	}
 	
@@ -63,7 +63,7 @@ public class BbstReplyMapperTests {
 	@Test
 	public void testUpdateBbstReply() {
 		Long targetBbstReplyId = 3L;
-		BbstReplyMemberJoinVO vo = mapper.readBbstReply(targetBbstReplyId);
+		BbstReplyJoinVO vo = mapper.readBbstReply(targetBbstReplyId);
 		vo.setReplyCn("업데이트2");
 		
 		int count = mapper.updateBbstReply(vo);
@@ -74,7 +74,15 @@ public class BbstReplyMapperTests {
 	@Test
 	public void testGetBbstReplyList() {
 		BbstReplyCriteria cri = new BbstReplyCriteria(2, 10);
-		List<BbstReplyMemberJoinVO> bbstReplyList = mapper.getBbstReplyList(cri, 168L);
+		List<BbstReplyJoinVO> bbstReplyList = mapper.getBbstReplyList(cri, 168L);
 		bbstReplyList.forEach(reply -> log.info(reply));
+	}
+	
+	@Test
+	public void testGetMyBbstReply() {
+		Long memberId = 2L;
+		BbstReplyCriteria cri = new BbstReplyCriteria();
+		List<BbstReplyJoinVO> list = mapper.getMyBbstReply(cri, memberId);
+		list.forEach(replyList -> log.info(replyList));
 	}
 }

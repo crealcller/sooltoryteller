@@ -2,13 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
-<%@include file="/resources/css/faqregisterHead.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>FAQ조회</title>
-
+<link rel="stylesheet" href="/resources/css/faqregisterHead.css">
+<!-- 관리자 페이지   -->
 
 
 </head>
@@ -39,6 +39,7 @@
           	<input type="hidden" id="faqId" name="faqId" value='<c:out value="${faq.faqId }"/>'>
           	<input type="hidden" name='pageNum' value='<c:out value="${adCri.pageNum}"/>'>
           	<input type="hidden" name='amount' value='<c:out value="${adCri.amount}"/>'>
+          	<input type="hidden" name='keyword' value='<c:out value="${adCri.keyword}"/>'>
           </form>
         
         </div>

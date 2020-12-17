@@ -4,29 +4,36 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.AdminPageDTO;
+import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.FaqVO;
+import com.sooltoryteller.domain.InquiryAnswerVO;
 import com.sooltoryteller.domain.LiqCnVO;
-import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqCntVO;
+import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqVO;
 import com.sooltoryteller.service.AdminService;
 import com.sooltoryteller.service.FaqService;
+import com.sooltoryteller.service.InquiryAnswerService;
+import com.sooltoryteller.service.InquiryService;
 import com.sooltoryteller.service.LiqCoService;
 import com.sooltoryteller.service.LiqService;
+import com.sooltoryteller.service.MailService;
+import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
@@ -45,6 +52,11 @@ public class AdminController {
 	private FaqService faqService;
 	private LiqService liqService;
 	private LiqCoService liqCoService;
+	private InquiryAnswerService inqAnService;
+	private InquiryService inqService;
+	private MemberService memberService;
+	private MailService mailService;
+	private EmailVO e_mail;
 
 	// 전통주 리스트페이지
 	@GetMapping("/liq-list")
@@ -151,12 +163,17 @@ public class AdminController {
 	}
 
 	// 관리자 메인 페이지
+	
+/*
+	//관리자 메인 페이지[보류]
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String admin() {
 		return "admin";
 	}
 
-	// 관리자-회원리스트페이지
+*/
+	
+	//관리자-회원리스트페이지
 	@GetMapping("/memberlist")
 	public void memberlist(AdminCriteria adCri, Model model) {
 
@@ -191,10 +208,17 @@ public class AdminController {
 	}
 
 	@PostMapping("/faqregister")
-	public String faqregister(FaqVO faq, RedirectAttributes rttr) {
+	public String faqregister(@Valid FaqVO faq, BindingResult result, Model model, RedirectAttributes rttr) {
 
 		log.info("register: " + faq);
 
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("faq", faq);
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			
+		}
+		
 		faqService.register(faq);
 
 		rttr.addFlashAttribute("result", faq.getFaqId());
@@ -211,29 +235,124 @@ public class AdminController {
 
 	// FAQ 수정하기
 	@PostMapping("/faqmodify")
-	public String faqmodify(FaqVO faq, @ModelAttribute("adCri") AdminCriteria adCri, RedirectAttributes rttr) {
-		log.info("modify :" + faq);
+	public String faqmodify(@Valid FaqVO faq, BindingResult result, @ModelAttribute("adCri") AdminCriteria adCri,
+			Model model, RedirectAttributes rttr) {
+		log.info("modify :"+faq);
 
-		if (faqService.modify(faq)) {
-			rttr.addFlashAttribute("result", "success");
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			return "/admin/faqmodify";
+		}
+		
+		
+		if(faqService.modify(faq)) {
+			rttr.addFlashAttribute("result",  "success");
 		}
 
 		rttr.addAttribute("pageNum", adCri.getPageNum());
 		rttr.addAttribute("amount", adCri.getAmount());
+		rttr.addAttribute("keyword", adCri.getKeyword());
+		
 		return "redirect:/admin/faqlist";
 	}
 
 	// FAQ 삭제하기
 	@PostMapping("/faqremove")
-	public String faqremove(@RequestParam("faqId") Long faqId, @ModelAttribute("adCri") AdminCriteria adCri,
-			RedirectAttributes rttr) {
-		log.info("remove...." + faqId);
-		if (faqService.remove(faqId)) {
-			rttr.addFlashAttribute("result", "success");
+	public String faqremove(@RequestParam("faqId") Long faqId, AdminCriteria adCri, RedirectAttributes rttr) {
+		log.info("remove...."+faqId);
+		if(faqService.remove(faqId)) {
+			rttr.addFlashAttribute("result",  "success");
 		}
 		rttr.addAttribute("pageNum", adCri.getPageNum());
 		rttr.addAttribute("amount", adCri.getAmount());
+		rttr.addAttribute("keyword", adCri.getKeyword());
 
 		return "redirect:/admin/faqlist";
+	}
+	
+	//1:1문의 리스트
+	@GetMapping("/inquirylist")
+	public void inquirylist(AdminCriteria adCri, Model model) {
+	
+		log.info("list" + adCri);
+		model.addAttribute("inquirylist", inqService.getList(adCri));
+		
+		int total = inqService.getTotal(adCri);
+		
+		log.info("total : "+total);
+		
+		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+		System.out.println(model);
+	}
+	
+	//1:1문의 조회
+	@GetMapping("/getinquiry")
+	public void getinquiry(@RequestParam("inquiryId")Long inquiryId, 
+			@ModelAttribute("adCri")AdminCriteria adCri, Model model) {
+		
+		log.info("/getinquiry" + inquiryId);
+		model.addAttribute("inq", inqService.get(inquiryId));
+		log.info("inq : "+model);
+	}
+	
+	
+	//문의 답변
+	@GetMapping("/answer")
+	public void answer(@RequestParam("inquiryId")Long inquiryId, Model model) {
+		log.info("문의글 번호: "+inquiryId);
+		
+		model.addAttribute("inquiryId", inquiryId);
+	}
+	
+	//답변 등록 및 이메일전송
+	@PostMapping("/answer")
+	public String answer(@Valid InquiryAnswerVO inqAn, BindingResult result,
+			@ModelAttribute("adCri") AdminCriteria adCri, Model model, RedirectAttributes rttr) {
+		
+		log.info("answer register...."+inqAn);
+		
+		//에러발생시
+		if(result.hasErrors()) {
+			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
+			return "/admin/answer";
+		}
+		
+		
+		//답변등록이 되었다면 이메일전송
+		if(inqAnService.register(inqAn, "IC")) {
+			
+			Long memberId = inqService.getMemberId(inqAn.getInquiryId());
+			String email = memberService.getEmail(memberId);
+			
+			System.out.println("memberId : "+memberId +", memberEmail : "+email);
+			
+			e_mail.setTitle("sooltoryteller 1:1 문의에 대한 답변드립니다.");
+            e_mail.setContent(
+            		//줄바꿈
+            		System.getProperty("line.separator") +
+            		"안녕하세요 sooltoryteller 입니다." +
+            		System.getProperty("line.separator")+
+            		"고객님의 주신 문의에 대하여 답변 보내드립니다."+
+            		System.getProperty("line.separator")+
+            		inqAn.getCn()
+            		);
+        	
+            e_mail.setTo(email);
+            mailService.send(e_mail);
+			rttr.addFlashAttribute("result", true);
+		}
+		rttr.addAttribute("pageNum",  adCri.getPageNum());
+		rttr.addAttribute("amount",  adCri.getAmount());
+		rttr.addFlashAttribute("result", false);
+		return "redirect:/admin/inquirylist";
+	}
+	
+	//답변조회
+	@GetMapping("/getanswer")
+	public void getanswer(@RequestParam("inquiryId")Long inquiryId, Model model) {
+		log.info("문의글 번호: "+inquiryId);
+		
+		model.addAttribute("answer", inqAnService.get(inquiryId));
 	}
 }

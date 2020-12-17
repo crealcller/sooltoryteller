@@ -1,4 +1,8 @@
 package com.sooltoryteller.controller;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import javax.crypto.Mac;
@@ -7,11 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -119,13 +127,31 @@ public class MemberController {
 			HttpServletResponse response, Model model, RedirectAttributes rttr) {
 		
 		//에러발생시
-		if( result.hasErrors()) {
+		if(result.hasErrors()) {
 			model.addAttribute("member", member);
-			model.addAttribute("msg", "입력 형식에 맞지 않습니다.");
+			model.addAttribute("msg", "server : 입력 형식에 맞지 않습니다.");
 			return "/join";
 		}
+		
 		//선호하는 술 체크 배열로 받아오기
 		String[] arr = request.getParameterValues("drink");
+		
+		System.out.println("arr : "+arr);
+		
+		if(arr == null || arr.length !=2) {
+			model.addAttribute("member", member);
+			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
+			return "/join";
+		}
+		//bad
+/*		if(arr == null ) {
+			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
+			return "/join";
+		}else if(arr.length !=2) {
+			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
+			return "/join";
+		}
+*/		
 		
 			//회원가입이 성공했다면
 		if(service.join(member)) {
@@ -183,6 +209,33 @@ public class MemberController {
 	@GetMapping("/userInfo")
 	public void userInfo() {}
 	
+	//선호하는 주종 꺼내오기
+	@RequestMapping(value = "/mypage/getFavAlc", method = RequestMethod.POST) 
+	public @ResponseBody String[] getFavAlc(@RequestParam(value="favalc[]")String[] favalc, HttpSession session) {
+
+		String email = (String) session.getAttribute("email");
+		Long memberId = service.getMemberId(email);
+		String[] drink = {};
+		int[] result = new int[favalc.length];
+		
+		System.out.println(Arrays.toString(favalc));
+		
+		if(favalc != null) {
+			for (int i = 0; i < favalc.length; i++) {
+				result[i] =Integer.parseInt(favalc[i]);
+			}
+			
+			drink = favDrkService.getFavNameList(result);
+			
+			if(memberId != null) {
+				favDrkService.modifyFavDrk(memberId, result);
+			}
+		}
+		
+		System.out.println("drink : "+drink);
+			  return drink;
+	}
+	
 	// 회원정보 수정 view
 	@GetMapping("/mypage/changeuserinfo")
 	public void changeuserinfo(HttpSession session, Model model) {
@@ -191,18 +244,38 @@ public class MemberController {
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
+			Long memberId = service.getMemberId(email);
+			System.out.println("memberId : "+memberId);
+			model.addAttribute("favList", favDrkService.getFavList(memberId));
 			model.addAttribute("member", service.get(email));
 		}
 	}
 	// 회원정보수정
 	@PostMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(MemberVO member, Model model) {
-		log.info("changeUserInfo: " + member);
+	public void changeuserinfo(MemberVO member, HttpSession session, Model model) {
+		String loginEmail = (String) session.getAttribute("email");
+		System.out.println("changeUserInfo: " + member);
+		System.out.println("changeUserInfo: " + loginEmail);
+		
+		if(!loginEmail.equals(member.getEmail())) {
+			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
+			model.addAttribute("member", service.get(loginEmail));
+			model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+			return;
+			
+		}else {
 		// 닉네임,  전화번호, 프로필사진만 변경
-		if(service.modify(member)) {
-			model.addAttribute("success", "회원 정보가 수정되었습니다.");
+			if(service.modify(member)) {
+				model.addAttribute("success", "회원 정보가 수정되었습니다.");
+				model.addAttribute("member", service.get(member.getEmail()));
+				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
+			}else {
+				model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
+				model.addAttribute("member", service.get(loginEmail));
+				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+
+			}
 		}
-		model.addAttribute("member", service.get(member.getEmail()));
 	}
 	
 	//회원탈퇴
@@ -311,10 +384,6 @@ public class MemberController {
 		System.out.println("userInfo:"+userInfo);
 		System.out.println("kimg .... : "+kimg);
 		
-		
-//		mav.addObject("email", kemail);
-//		mav.addObject("img", kimg);
-//		mav.setViewName("snsJoin");
 		if(service.checkEmail(kemail) == 1) {
 			session.setAttribute("email", kemail);
 			return "home";

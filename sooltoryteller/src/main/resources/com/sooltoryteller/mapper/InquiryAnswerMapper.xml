@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.InquiryAnswerMapper">
+
+
+<!-- 답변조회시 상태등록 -->
+<insert id="insert">
+	insert into inquiry_answer(answer_id, inquiry_id)
+	values (inquiry_answer_seq.nextval, #{inquiryId})
+</insert>
+
+<!-- 답변 조회 -->
+<select id="read" resultType="com.sooltoryteller.domain.InquiryAnswerVO">
+	select * from inquiry_answer where inquiry_id = #{inquiryId}
+</select>
+
+<!-- 답변등록 -->
+<update id="update">
+	update inquiry_answer
+	set cn = #{cn},
+	anstus = 'AC',
+	regdate = sysdate
+	where inquiry_id = #{inquiryId}
+
+</update>
+
+<!-- 답변상태 -->
+<select id="readStus" resultType="String">
+	select anstus
+	from inquiry_answer
+	where inquiry_id = #{inquiryId}
+
+</select>
+</mapper>
