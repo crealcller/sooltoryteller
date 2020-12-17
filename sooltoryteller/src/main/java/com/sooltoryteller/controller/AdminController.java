@@ -112,8 +112,9 @@ public class AdminController {
 
 		//에러발생시
 		if(result.hasErrors()) {
+			model.addAttribute("faq", faq);
 			model.addAttribute("errorMsg",  "입력형식이 잘 못 되었습니다.");
-			return "/admin/faqregister";
+			
 		}
 		
 		faqService.register(faq);

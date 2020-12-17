@@ -22,22 +22,22 @@ public class MemberVO {
 
 	// 이메일 
 	@NotEmpty
-	@Email
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z0-9.-]$")
 	private String email;
 
 	// 닉네임 
 	@NotEmpty
-	@Pattern(regexp = "[가-힣]{2,8}")
+	@Pattern(regexp = "^[가-힣]{2,8}$")
 	private String name;
 
 	// 비밀번호 
 	@NotEmpty
-	@Pattern(regexp = "(?=.*?[a-zA-Z])(?=.*?[#?!@$%^&*-]).{5,16}")
+	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[#?!@$%^&*-]).{5,16}$")
 	private String pwd;
 
 	// 전화번호 
 	@NotEmpty
-	@Pattern(regexp = "/^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/")
+	@Pattern(regexp = "^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$")
 	private String telno;
 
 	// 프로필 사진 

@@ -31,6 +31,14 @@
       overflow: hidden;
 	}
 	.h-modibtn{
+	 height: 25px;
+	 width: 43px;
+	 border: none;
+	 color: white;
+	 border-radius: 5%;
+	 background-color: rgb(181, 135, 189);
+	}
+	.h-withdrawal-btn{
       height: 30px;
 	  width: 80px;
 	  border: none;
@@ -61,12 +69,14 @@
 	  background-color: rgb(0,0,0); 
 	  background-color: rgba(0,0,0,0.4);
 	}
+	
 	.h-modal-content {
 	  background-color: #f2eff9;
 	  margin: auto;
 	  padding: 20px;
 	  border: 1px solid #888;
-	  width: 30%;
+	  width: 450px;
+	  height: 150px;
 	}
 	/* The Close Button */
 	.h-close {
@@ -90,7 +100,7 @@
 	}
 	.h-fav-drink{
       margin-top: 25px;
-      border-top: 1.5px solid rgb(181, 135, 189);
+      
 	}
 	.h-drink{
       margin-left: 15px;

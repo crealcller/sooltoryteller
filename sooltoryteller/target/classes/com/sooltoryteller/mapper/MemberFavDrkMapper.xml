@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 회원 가입시 선호하는 술 등록 -->
 <insert id="insert">
 	Insert into member_fav_drk(fav_drk_id, member_id, drk_cd_id)
-	values (fav_drk_id.nextval, #{memberId}, #{drkCdId})
+	values (member_fav_drk_seq.nextval, #{memberId}, #{drkCdId})
 </insert>
 
 <!-- 회원의 선호하는 술 목록(id) 가져오기 -->
@@ -30,4 +30,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set drk_cd_id = #{drkCdId}
 	where fav_drk_id = #{favDrkId}
 </update>
+
+<!-- 회원이 선호하는 술 종류 가져오기 -->
+<select id="getFavList" resultType="String">
+	select d.drk_cate
+	from member_fav_drk fd, drk_cd d
+	where fd.drk_cd_id = d.drk_cd_id
+	and fd.member_id = #{memberId}
+</select>
+
+<!-- 회원정보 수정시 변경할 선호하는 술 이름 가져오기 -->
+<select id="getFavNameList" resultType="String">
+	select drk_cate
+	from drk_cd
+	where drk_cd_id = #{drkCdId}
+</select>
 </mapper>

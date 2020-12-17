@@ -22,11 +22,11 @@ if(errorMsg != ""){
         
         <div>
             <p style="text-align: left; margin: 0;">제목</p>
-            <p style="margin: 0;"><input class="h-faq-title" id="title" name="title" maxlength="30"></p>
+            <p style="margin: 0;"><input class="h-faq-title" id="title" name="title" maxlength="30" value="${faq.title}"></p>
         </div>
         <div>
             <p style="text-align: left; margin: 0;">내용</p>
-            <p style="margin: 0;"><textarea class="h-faq-content" id="cn" name="cn" maxlength="330"></textarea></p>
+            <p style="margin: 0;"><textarea class="h-faq-content" id="cn" name="cn" maxlength="330" ><c:out value="${faq.cn}"/></textarea></p>
         </div>
         <div style="margin-top:20px;">
             <button type="submit" class="h-faq-btn" id='regbtn'>등록</button>

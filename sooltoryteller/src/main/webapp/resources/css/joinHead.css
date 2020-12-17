@@ -4,13 +4,13 @@
 	  margin: 10px;
 	}
 	.h-body{
-	  height: 500px;
-	  width: 100%;
+	  height: 700px;
+	  width: 1600px;
 	  background-color: rgb(245, 245, 245);
 	}
 	.h-left{
-	  height: 450px;
-	  width: 330px;
+	  height: 600px;
+	  width: 680px;
 	  display: inline-block;
 	}
 	#h-leftimg{
@@ -20,17 +20,18 @@
 	  display: inline-block;
 	}
 	.h-right{
-	  height: 450px;
-	  width: 910px;
+	  height: 600px;
+	  width: 920px;
+	  text-align: left;
 	  display: inline-block;
 	}
 	.h-join-content{
-	  height: 450px;
+	  height: 500px;
 	  width: 450px;
 	  border: 3px solid rgb(181, 135, 189);
 	  border-radius: 25%;
 	  display: inline-block;
-	  margin-left: 170px;
+	  
 	  overflow: hidden;
 	}
 	

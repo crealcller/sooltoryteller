@@ -25,13 +25,14 @@ if(msg != ""){
     <h4 style="margin-left:50px;">기본정보</h4>
     
     <form action="/join" method="POST" onsubmit="return validate()">
-    <p class='h-join-p' style="margin-left:50px;">이메일 &nbsp<input type="email" id="email" name="email" value="<c:out value='${member.email }'/>">
+    <p class='h-join-p' style="margin-left:50px;">이메일 &nbsp<input type="text" id="email" name="email" value="<c:out value='${member.email }'/>">
     <button type="button" id="h-checkId" class="id-overlapCheck">중복확인</button></p>
-    <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" value="<c:out value='${member.name }'/>">
+    <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" maxlength="8" value="<c:out value='${member.name }'/>">
     <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p>
-    <p class='h-join-p' style="margin-left:35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd" value="<c:out value='${member.pwd }'/>"></p>
+    <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="nameMsg">닉네임은 한글로 2~8자로 입력해주세요</p>
+    <p class='h-join-p' style="margin-left:35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd" maxlength="16" value="<c:out value='${member.pwd }'/>"></p>
     <p class='h-join-p'>비밀번호 확인 &nbsp<input type="password" id="rePwd" onblur="checkPwd()"></p>
-     <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="repwdMsg">비밀번호를 한 번 더 입력해주세요</p>
+     <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="repwdMsg">비밀 번호는 영문자, 특수문자 포함해서 5~16자리</p>
     <p class='h-join-p' style="margin-left:25px;">핸드폰번호 &nbsp<input type="text" id="telno" name="telno" placeholder="01000000000" value="<c:out value='${member.telno }'/>"></p>
     
     <div class="h-fav-drink">
@@ -100,9 +101,10 @@ if(msg != ""){
 						
 							}else{
 								if(jEmail.test(email) && !blank.test(email)){
+																		
 									alert("사용 가능한 이메일입니다.");
 								    btn.disabled = false;
-									}
+								}
 						    }
 					  } 
 				}	

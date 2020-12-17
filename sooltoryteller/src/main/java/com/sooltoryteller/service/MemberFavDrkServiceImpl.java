@@ -1,5 +1,6 @@
 package com.sooltoryteller.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -61,5 +62,28 @@ public class MemberFavDrkServiceImpl implements MemberFavDrkService{
 		}//if end
 		return false;
 	}
+
+	@Override
+	public List<String> getFavList(Long memberId) {
+		
+		return mapper.getFavList(memberId);
+	}
+
+	@Override
+	public String[] getFavNameList(int[] arr) {
+		
+		String[] drink = new String[arr.length];
+		System.out.println("service arr : " + arr);
+		if(arr.length == 2) {
+			for (int i = 0; i < arr.length; i++) {
+				drink[i] = mapper.getFavNameList(arr[i]);
+			}
+		}
+		
+		System.out.println("service drink :" +drink);
+		
+		return drink;
+	}
+
 
 }
