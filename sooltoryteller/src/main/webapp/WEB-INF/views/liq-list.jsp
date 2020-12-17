@@ -9,12 +9,6 @@
 <meta charset="UTF-8">
 <title>전통주 리스트</title>
 <link rel="stylesheet" href="/resources/css/trad-list.css">
-<style>
-.d-img-con{
-width:10px;
-height:10px;
-}
-</style>
 </head>
 <body>
 

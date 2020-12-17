@@ -2,6 +2,9 @@ package com.sooltoryteller.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +24,8 @@ public class LiqRevwVO {
     private Long memberId;
 
     // 작성내용 
+	@NotBlank(message = "제목을 입력해주세요.")
+	@Size(min = 10, max = 30, message = "최소 3자에서 최대 30자의 제목을 입력해주세요.") // 한글 기준인지 테스트해봐야 함
     private String cn;
 
     // 평점 

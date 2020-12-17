@@ -369,7 +369,7 @@
         <span value=4>★</span>
         <span value=5>★</span>
     </p>
-    <p><textarea maxlength="500" style='width:450px;' rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
+    <p><textarea maxlength="500" style='width:450px; resize: none;' rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
     <button id='revwRegBtn' type='submit'>작성하기</button>
   </div>
 
@@ -500,10 +500,12 @@ $(document).ready(function(){
 			alert("내용을 입력해주세요 ");
 			return;
 		}
+		
 		if(newRevwCn.val().trim().length<10){
-			alert("리뷰내용은 최소 10자이상 입력해주세요");
+			alert("내용을 최소 10자 이상 작성해주세요 ");
 			return;
 		}
+		
 		if(newRevwRate == 0){
 			alert("별점을 선택해주세요");
 			return;
