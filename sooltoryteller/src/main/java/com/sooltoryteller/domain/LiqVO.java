@@ -2,6 +2,8 @@ package com.sooltoryteller.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,7 +49,7 @@ public class LiqVO {
     private Date regdate;
 
     // 수정일시 
-    private Date updatedate=null;
+    private Date updatedate;
     
     //전통주 내용
     private LiqCnVO liqCn;
@@ -56,5 +58,9 @@ public class LiqVO {
     private LiqCoVO liqCo;
     
     //전통주 카운트
-    private LiqNumsVO liqNums;
+    private LiqCntVO liqCnt;
+    
+	private String liqImg;
+	
+	private String liqThumb;
 }

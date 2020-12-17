@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LiqCoVO {
+	
 	// 양조장 일련번호 
-    private Long liqCoId;
+	private Long liqCoId;
 
     // 양조장 이름 
-    private String nm;
+	private String nm;
 
     // 양조장 주소 
     private String addr;

@@ -44,7 +44,7 @@ public class LiqRevwController {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<LiqRevwPageDTO> getList(@PathVariable("page") int page, @PathVariable("liqId") Long liqId) {
 
-		Criteria cri = new Criteria(page, 5);
+		Criteria cri = new Criteria(page, 3);
 		log.info("get revw list liqId:" + liqId);
 		log.info("cri: " + cri);
 
