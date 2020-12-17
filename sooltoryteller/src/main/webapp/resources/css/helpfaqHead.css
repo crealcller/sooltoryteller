@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+	table {
+      border-collapse: collapse;
+      width: 900px;
+      margin-left: 20px;
+    }
+        
+    td, th {
+      border-bottom: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+        
+    tr:nth-child(even) {
+      background-color:  #f2eff9;
+    }
+    ul{
+      list-style:none;
+      margin: 0;
+    }   
+    
+    a{
+      text-decoration: none;
+      color: black;
+    }
+    
+    .pull-right{
+      text-align: right;
+      margin-right: 20px;
+    }
+    
+	.h-pagination {
+  	  display: inline-block;
+	}
+	
+	.h-pagination li {
+  	  color: black;
+  	  float: left;
+  	  padding: 8px 16px;
+  	}
+  	
+  	.h-pagination li.active{
+  	  background-color: rgb(181, 135, 189);
+  	 
+  	}
+  	
+	.h-pagination li.active >a {
+  	  font-weight:bold;
+  	  color: white;
+	}
+
+	.h-pagination li:hover:not(.active) {background-color: #ddd;}
+        
+     .h-faq-searchbtn{
+	   width: 60px;
+       height: 25px;
+       border: none;
+       background-color: rgb(181, 135, 189);
+       color: white;
+     }
+     #h-searchForm{
+       margin: 10px 0 0 22px;
+     
+     }

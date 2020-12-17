@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
-<%@include file="/resources/css/faqlistHead.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="shortcut icon" href="#">
+<link rel="stylesheet" href="/resources/css/faqlistHead.css">
 <meta charset="UTF-8">
 <title>FAQ</title>
 </head>
@@ -39,13 +39,12 @@
         <!-- 검색   -->
         <div class='h-search-content'>
            <form id='h-searchForm' action="/admin/faqlist" method='get'>
-             <input type='text' id ='h-keyword' name='keyword'>
+             <input type='text' id ='h-keyword' name='keyword' maxlength="30"
+             value='<c:out value="${pageMaker.adCri.keyword}"/>'>
              <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'>
           	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'>
           	 <button type='submit' class="h-faq-searchbtn">검색</button>
            </form>
-        
-        
         </div>
         
         
@@ -72,6 +71,7 @@
 		<form id="h-actionForm" action="/admin/faqlist" method='get'>
 			<input type="hidden" name="pageNum" value="${pageMaker.adCri.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
+			<input type="hidden" name="keyword" value='<c:out value="${pageMaker.adCri.keyword }"/>'>
 		</form>
 
 
@@ -161,6 +161,14 @@
     	
     	searchForm.submit();
     		
+    	});
+    	
+    	$("#h-keyword").keyup(function(){
+    		
+    	 	if($(this).val().lenght > $(this).attr('maxlength')){
+     			$(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+     		}
+     
     	});
 			
  });

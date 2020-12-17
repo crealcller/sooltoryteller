@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <insert id="insert">
 	insert into FAQ (faq_id, title, cn)
-	values (#{faqId}, #{title}, #{cn})
+	values (faq_seq.nextval, #{title}, #{cn})
 </insert>
 
 <select id="read" resultType="com.sooltoryteller.domain.FaqVO">

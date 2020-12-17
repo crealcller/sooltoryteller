@@ -59,8 +59,9 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 </bean>
+<!-- 현수추가 트랜잭션 어노테이션설정 -->
+<tx:annotation-driven/>   
 
-<tx:annotation-driven/>
 <mybatis-spring:scan
 	base-package="com.sooltoryteller.mapper" />
 <context:component-scan

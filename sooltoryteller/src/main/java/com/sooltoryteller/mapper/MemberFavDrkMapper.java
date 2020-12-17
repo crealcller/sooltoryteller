@@ -18,4 +18,10 @@ public interface MemberFavDrkMapper {
 	
 	//회원의 선호하는 술 변경하기
 	public int updateFavDrk(MemberFavDrkVO memberFavDrk);
+	
+	//선호하는 술 종류(이름)가져오기
+	public List<String> getFavList(Long memberId);
+	
+	//회원정보 수정시 변경할 선호하는 술 이름 가져오기
+	public String getFavNameList(int drkCdId);
 }

@@ -2,12 +2,14 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sooltoryteller.domain.MemberVO;
 import com.sooltoryteller.mapper.MemberMapper;
@@ -26,9 +28,9 @@ public class MemberServiceImpl implements MemberService{
 	//@Inject
 	//PasswordEncoder PasswordEncoder;  //BCryptPasswordEncoder
 	
+	@Transactional
 	@Override
 	public boolean join(MemberVO member) {
-		int result = 0;
 		
 		if(member != null) {
 			//중복된 이메일, 중복된 닉네임이 있다면
@@ -39,11 +41,11 @@ public class MemberServiceImpl implements MemberService{
 		//member.setPwd(encPwd);
 		//System.out.println("암호화된 비번 : " + encPwd);
 		
-		result = mapper.insert(member);
+		mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));
-		
 	}
-		return result == 1;
+				
+		return true;
 	}
 
 	@Override
@@ -66,9 +68,23 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Transactional
 	@Override
 	public boolean modify(MemberVO member) {
 		log.info("modify..."+member);
+		
+		
+		boolean validName = Pattern.matches("^[가-힣]{2,8}$", member.getName());
+		boolean validTelno = Pattern.matches("^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$", member.getTelno());
+
+		if(!validName) {
+			return false;
+		}
+		
+		if(!validTelno) {
+			return false;
+		}
+		
 		
 		if(mapper.updateInfo(member) == 1) {
 			mapper.insertHist(mapper.read(member.getEmail()));
@@ -92,7 +108,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int checkEmail(String email) {
 		
-		return mapper.getEmail(email);
+		return mapper.checkEmail(email);
 	}
 
 	@Override
@@ -107,8 +123,15 @@ public class MemberServiceImpl implements MemberService{
 		return pwd;
 	}
 
+	@Transactional
 	@Override
 	public boolean modifyPwd(String email, String pwd) {
+		
+		boolean validPwd = Pattern.matches("^(?=.*[a-zA-Z])(?=.*[#?!@$%^&*-]).{5,16}$", pwd);
+		
+		if(validPwd) {
+			return false;
+		}
 		
 		if(mapper.updatePwd(email, pwd) ==1) {
 			mapper.insertHist(mapper.read(email));
@@ -126,7 +149,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int checkName(String name) {
 		
-		return mapper.getName(name);
+		return mapper.checkName(name);
 	}
 	
 	// 수빈
@@ -136,4 +159,11 @@ public class MemberServiceImpl implements MemberService{
 		log.info("========== GET MEMBER ID & NAME : " + mapper.getMemberIdName(email) + " ==========");
 		return mapper.getMemberIdName(email);
 	}
+
+	@Override
+	public String getEmail(Long memberId) {
+		
+		return mapper.getEmail(memberId);
+	}
+
 }
