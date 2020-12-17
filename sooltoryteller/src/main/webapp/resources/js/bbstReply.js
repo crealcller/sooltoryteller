@@ -8,7 +8,7 @@ var bbstReplyService = (function() {
 	
 		$.ajax({
 			type : "post",
-			url : "/cheers/get/replies/new",
+			url : "/replies/new",
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -26,7 +26,7 @@ var bbstReplyService = (function() {
 	
 	// 댓글 조회
 	function get(bbstReplyId, callback, error) {
-		$.get("/cheers/get/replies/" + bbstReplyId + ".json", function(result) {
+		$.get("/replies/" + bbstReplyId + ".json", function(result) {
 			if(callback) {
 				callback(result);
 			}
@@ -43,7 +43,7 @@ var bbstReplyService = (function() {
 		
 		$.ajax({
 			type : "put",
-			url : "/cheers/get/replies/" + reply.bbstReplyId,
+			url : "/replies/" + reply.bbstReplyId,
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, er) {
@@ -63,7 +63,7 @@ var bbstReplyService = (function() {
 	function remove(bbstReplyId, callback, error) {
 		$.ajax({
 			type : "delete",
-			url : "/cheers/get/replies/" + bbstReplyId,
+			url : "/replies/" + bbstReplyId,
 			success : function(deleteResult, status, xhr) {
 				if(callback) {
 					callback(deleteResult);
@@ -82,7 +82,7 @@ var bbstReplyService = (function() {
 		var bbstId = param.bbstId;
 		var page = param.page || 1;
 		
-		$.getJSON("/cheers/get/replies/pages/" + bbstId + "/" + page + ".json",
+		$.getJSON("/replies/pages/" + bbstId + "/" + page + ".json",
 			function(data) {
 			if(callback) {
 				callback(data.replyCnt, data.list);
@@ -92,6 +92,24 @@ var bbstReplyService = (function() {
 				error();
 			}
 		});
+	}
+	
+	// 마이페이지
+	// 내가 쓴 댓글 리스트
+	function getMyBbstReply(param, callback, error) {
+		var memberId = param.memberId;
+		var page = param.page || 1;
+		
+		$.getJSON("/replies/mypages/" + memberId + "/" + page + ".json",
+			function(data) {
+			if(callback) {
+				callback(data.myReplyCnt, data.myReplyList);
+			}
+		}).fail(function(xhr, status, err) {
+			if(error) {
+				error();
+			}
+		}); 
 	}
 	
 	// 시간 처리
@@ -127,6 +145,7 @@ var bbstReplyService = (function() {
 		update : update,
 		remove : remove,
 		getList : getList,
+		getMyBbstReply : getMyBbstReply,
 		displayTime : displayTime
-	};
+	}
 })();

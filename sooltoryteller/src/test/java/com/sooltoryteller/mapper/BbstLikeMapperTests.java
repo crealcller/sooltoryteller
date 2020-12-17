@@ -12,10 +12,10 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class BbstLikesMapperTests {
+public class BbstLikeMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
-	private BbstLikesMapper mapper;
+	private BbstLikeMapper mapper;
 	
 	// 좋아요
 	@Test
@@ -37,10 +37,16 @@ public class BbstLikesMapperTests {
 		mapper.bbstLikeStus(168L, 3L);
 	}
 	
+	// 게시글 좋아요수 업데이트
+	@Test
+	public void testUpdateBbstLikeCnt() {
+		mapper.updateLikeCnt(168L, 1);
+	}
+	
 	// 게시글 좋아요수
 	@Test
 	public void testBbstLikeCnt() {
-		int count = mapper.bbstLikeCnt(168L);
+		int count = mapper.getBbstLikeCnt(168L);
 		log.info("========== BBST LIKE COUNT: " + count + " ==========");
 	}
 	

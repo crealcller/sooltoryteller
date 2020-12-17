@@ -22,20 +22,19 @@ let msg = "${msg}";
 
 <body>
 
-<!-- onclick="checkForm();" -->
 <form role="form" id="modifyform" action="/cheers/modify" method="post"
-enctype="multipart/form-data" >
+enctype="multipart/form-data" onsubmit="return checkForm();">
 	<div class="s-register-container">
 		<div class="s-register-topbar">
 			<div class="s-topbar-title-div">
 				<p>건배의 광장 게시글 수정</p>
 			</div>
 			<div class="s-topbar-btn-div">
-				<button type="submit" data-oper="cancel" class="s-topbar-btn"
+				<button type="button" data-oper="cancel" class="s-topbar-btn"
 				style="background-color: rgb(181, 135, 189);">취소</button>
 				<button type="submit" data-oper="modify" class="s-topbar-btn" id="s-modifyBtn"
 				style="background-color: #6b5b95;">수정</button>
-				<button type="submit" data-oper="remove" class="s-topbar-btn"
+				<button type="button" data-oper="remove" class="s-topbar-btn"
 				style="background-color: #990000ff;">삭제</button>
 			</div>
 		</div>
@@ -43,7 +42,7 @@ enctype="multipart/form-data" >
 		<!-- 제목 -->
 		<div class="s-form-title-div">
 			<input type="text" class="s-form-title" name="title" style="border:none"
-			value="<c:out value='${bbst.title }' />" required onclick="checkTitle();" /> 
+			value="<c:out value='${bbst.title }' />" required /> 
 		</div>
 		
 		<!-- 사진 -->
@@ -52,8 +51,8 @@ enctype="multipart/form-data" >
 				<img src="<c:out value='${bbst.cnImg }' />" />
 			</div>
 			
-			<input type="file" name="file" class="s-form-cnImg" id="s-form-cnImg"
-			style="border:none;" value="<c:out value='${bbst.cnImg }' />" />
+			<input type="file" name="file" class="s-form-cnImg" id="s-form-cnImg" style="border:none;"
+			value="<c:out value='${bbst.cnImg }' />" onchange="checkType(this)" required />
 			<input type="hidden" name="cnImg" value="<c:out value='${bbst.cnImg }' />" />
 			 
 			<script>
@@ -74,7 +73,7 @@ enctype="multipart/form-data" >
 		<div class="s-form-cn-div">
 			<div class="s-form-cn-innerdiv">
 				<textarea class="s-form-cn" name="cn" rows="10" placeholder="내용을 입력해주세요."
-				style="border: 1px rgb(245, 245, 245) solid;" required onclick="checkCn();"><c:out value='${bbst.cn }' /></textarea>
+				style="border: 1px rgb(245, 245, 245) solid;" required><c:out value='${bbst.cn }' /></textarea>
 			</div>
 		</div>
 	</div>
@@ -90,10 +89,72 @@ enctype="multipart/form-data" >
 <input type="hidden" name="regdate" value="<fmt:formatDate pattern='yyyy/MM/dd' value='${bbst.regdate }' />" readonly="readonly" />
 <input type="hidden" name="updatedate" value="<fmt:formatDate pattern='yyyy/MM/dd' value='${bbst.updatedate }' />" readonly="readonly" />
 
+<script type="text/javascript">	
+// 서버단의 콘솔창에서 게시글 양식에 맞지 않는 값을 입력할 때
+let errorMsg = "${errorMsg}";
+if(errorMsg != "") {
+	alert(errorMsg);
+}
+</script>
+
+<script type="text/javascript">
+function checkType(obj) {
+	var file = $("#s-form-cnImg").val().split(".").pop().toLowerCase();
+	
+	if($.inArray(file, ["jpg","gif","png","jpeg","bmp"]) == -1) {
+		alert("이미지 파일만 선택하실 수 있습니다.");
+		$("#s-form-cnImg").val("");
+		return false;
+	}
+}
+</script>
+
+<script type="text/javascript">
+//게시글 입력항목 유효성 검사
+function checkForm() {
+	
+	// 1. 게시글 제목
+	var title = $(".s-form-title");
+	// 공백만 입력
+	if($.trim(title.val()).length == 0) {
+		alert("제목 : 공백만 입력되었습니다.");
+		return false;
+	}
+	// 최소 2자
+	if($.trim(title.val()).length < 2) {
+		alert("제목 : 최소 2자 이상 입력해주세요.");
+		return false;
+	}
+	// 최대 30자
+	if($.trim(title.val()).length > 30) {
+		alert("제목 : 최대 30자까지 입력하실 수 있습니다.");
+		return false;
+	}
+	
+	// 2. 게시글 내용
+	var cn = $(".s-form-cn");
+	// 공백만 입력
+	if($.trim(cn.val()) == 0) {
+	    alert("내용 : 공백만 입력되었습니다.");
+	    return false;
+	}
+	// 최소 5자
+	if($.trim(cn.val()).length < 5) {
+		alert("내용 : 최소 5자 이상 입력해주세요.");
+		return false; 
+	}
+	// 최대 500자
+	if($.trim(cn.val()).length > 500) {
+		alert("내용 : 최대 500자까지 입력하실 수 있습니다.");
+		return false;
+	}
+	return true;
+}
+</script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
-	
 	
 	// 폼 가져오기
 	var formObj = $("#modifyform");
@@ -121,61 +182,16 @@ $(document).ready(function() {
 			formObj.append(amountTag);
 			formObj.append(typeTag);
 			formObj.append(keywordTag);
+			formObj.submit();
 
 		// 수정 버튼 클릭 시
 		} else if(operation === "modify") {
+			e.preventDefault();
 			
-			/* //게시글 입력항목 유효성 검사
-			function checkForm() {
-				
-				// 1. 게시글 제목
-				var title = document.getElementById("s-form-title");
-				
-				// 공백만 입력
-				var blank_pattern = /^\s+|\s+$/g;
-				if(title.value.replace(blank_pattern, '') == "") {
-				    alert("제목 : 공백만 입력되었습니다.");
-				    return false;
-				}
-				
-				// 앞뒤 공백 제거하고 글자수 세기
-				
-				// 최소 5자
-				if(title.value.length < 5) {
-					alert("제목 : 최소 5자 이상 입력하셔야 합니다.");
-					return false;
-				}
-				// 최대 30자
-				if(title.value.length > 30) {
-					alert("제목 : 최대 30자까지 입력하실 수 있습니다.");
-					return false;
-				}
-				
-				// 2. 게시글 내용
-				var cn = document.getElementById("s-form-cn");
-				cn = cn.trim();
-				
-				// 공백만 입력
-				if(cn.value.replace(blank_pattern, '') == "") {
-				    alert("내용 : 공백만 입력되었습니다.");
-				    return false;
-				}
-				
-				// 최소 10자
-				if(cn.value.length < 10) {
-					alert("내용 : 최소 10자 이상 입력하셔야 합니다.");
-					return false;
-				}
-				// 최대 500자
-				if(cn.value.length > 500) {
-					alert("내용 : 최대 500자까지 입력하실 수 있습니다.");
-					return false;
-				}
-				
-				// document.registerForm.submit();
-				return true;
-			} */
-
+			if(!checkForm()){
+				return false;
+			}
+			
 			// 게시글 사진을 수정하지 않을 경우
 			var file = $('#s-form-cnImg').val();
 			if(file == "") {
@@ -183,20 +199,25 @@ $(document).ready(function() {
 				var prevFile = $('#s-form-cnImg').val();
 			}
 			
-			alert("게시글이 수정되었습니다.");
-			formObj.attr("action", "/cheers/modify");
-			
-		} else if(operation === "remove") {
-			// 게시글 삭제 전 확인
-			var chk = confirm("해당 게시글을 삭제하시겠습니까?");
+			var chk = confirm("게시글을 수정하시겠습니까?");
 			if(chk) {
+				alert("게시글이 수정되었습니다.");
+				formObj.attr("action", "/cheers/modify");
+				formObj.submit();
+			}
+		
+		// 삭제 버튼 클릭 시
+		} else if(operation === "remove") {
+			
+			var chk = confirm("게시글을 삭제하시겠습니까?");
+			if(chk) {
+				alert("게시글이 삭제되었습니다.");
 				formObj.attr("action", "/cheers/remove");
+				formObj.submit();
 			}
 		}
-		formObj.submit();
 	});	
 });
-
 	
 </script>
 

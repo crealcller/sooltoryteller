@@ -2,12 +2,15 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sooltoryteller.domain.BbstReplyCriteria;
-import com.sooltoryteller.domain.BbstReplyMemberJoinVO;
+import com.sooltoryteller.domain.BbstReplyJoinVO;
 import com.sooltoryteller.domain.BbstReplyPageDTO;
+import com.sooltoryteller.domain.MyBbstReplyPageDTO;
 import com.sooltoryteller.mapper.BbstReplyMapper;
 
 import lombok.Setter;
@@ -21,37 +24,54 @@ public class BbstReplyServiceImpl implements BbstReplyService {
 	private BbstReplyMapper mapper;
 
 	// 댓글 등록
+	@Transactional
 	@Override
-	public int registerBbstReply(BbstReplyMemberJoinVO vo) {
+	public int registerBbstReply(BbstReplyJoinVO vo) {
 		log.info("========== REGISTER BBST REPLY ==========");
+		// 댓글수 업데이트
+		mapper.updateReplyCnt(vo.getBbstId(), 1);
+		// 댓글수 가져오기
+		mapper.getBbstReplyCnt(vo.getBbstId());
 		return mapper.insertBbstReply(vo);
 	}
 
 	// 댓글 조회
 	@Override
-	public BbstReplyMemberJoinVO getBbstReply(Long bbstReplyId) {
+	public BbstReplyJoinVO getBbstReply(Long bbstReplyId) {
 		log.info("========== GET BBST REPLY ==========");
 		return mapper.readBbstReply(bbstReplyId);
 	}
 
 	// 댓글 수정
 	@Override
-	public int modifyBbstReply(BbstReplyMemberJoinVO vo) {
+	public int modifyBbstReply(BbstReplyJoinVO vo) {
 		log.info("========== MODIFY BBST REPLY ==========");
 		return mapper.updateBbstReply(vo);
 	}
 
 	// 댓글 삭제
+	@Transactional
 	@Override
-	public int removeBbstReply(Long bbstReplyId) {
+	public int removeBbstReply(
+		@Param("bbstReplyId") Long bbstReplyId) {
+
 		log.info("========== REMOVE BBST REPLY ==========");
-		return mapper.deleteBbstReply(bbstReplyId);
+		BbstReplyJoinVO vo = mapper.readBbstReply(bbstReplyId);
+		int result = mapper.deleteBbstReply(bbstReplyId);
+		// 댓글수 업데이트
+		mapper.updateReplyCnt(vo.getBbstId(), -1);
+		// 댓글수 가져오기
+		mapper.getBbstReplyCnt(vo.getBbstId());
+		return result;
 	}
 
 	// 게시글의 모든 댓글 조회
+	@Transactional
 	@Override
-	public List<BbstReplyMemberJoinVO> getBbstReplyList(BbstReplyCriteria cri, Long bbstId) {
+	public List<BbstReplyJoinVO> getBbstReplyList(BbstReplyCriteria cri, Long bbstId) {
 		log.info("========== GET BBST REPLY LIST OF BBST " + bbstId + " ==========");
+		// 댓글수 가져오기
+		mapper.getBbstReplyCnt(bbstId);
 		return mapper.getBbstReplyList(cri, bbstId);
 	}
 	
@@ -61,5 +81,17 @@ public class BbstReplyServiceImpl implements BbstReplyService {
 		return new BbstReplyPageDTO(
 			mapper.getReplyCountByBbstId(bbstId),
 			mapper.getBbstReplyList(cri, bbstId));
+	}
+	
+	// 마이페이지
+	// 내가 쓴 댓글 리스트
+	@Override
+	public MyBbstReplyPageDTO getMyBbstReply(
+		@Param("cri") BbstReplyCriteria cri,
+		@Param("memberId") Long memberId) {
+		
+		return new MyBbstReplyPageDTO(
+			mapper.getMyBbstReplyTotalCount(memberId),
+			mapper.getMyBbstReply(cri, memberId));
 	}
 }

@@ -117,14 +117,14 @@ enctype="multipart/form-data" onsubmit="return checkForm();">
 			<div class="s-topbar-btn-div">
 				<input type="button" class="s-topbar-btn" style="background-color: rgb(181, 135, 189);"
 				onclick="location.href='/cheers/list'" value="취소" />
-				<input type="submit" class="s-topbar-btn" style="background-color: #6b5b95;" value="등록" />
+				<input type="submit" class="s-topbar-btn" id="s-bbst-registerBtn" style="background-color: #6b5b95;" value="등록" />
 			</div>
 		</div>
 		
 		<!-- 제목 -->
 		<div class="s-form-title-div">
 			<input type="text" class="s-form-title" id="s-form-title" name="title" placeholder="제목을 입력해주세요." 
-			style="border:none" required onclick="checkTitle();" />
+			style="border:none; height:27px; width:796px;" value="<c:out value='${bbst.title }' />" required />
 		</div>
 		
 		<!-- 사진 -->
@@ -132,8 +132,8 @@ enctype="multipart/form-data" onsubmit="return checkForm();">
 			<div class="s-select-cnImg"><img src="" /></div>
 			<p>사진 첨부는 필수입니다.</p> <br />
 			<!-- 파일 확장자 설정해서 에러 막기 -->
-			<input type="file" name="file" class="s-form-cnImg" id="s-form-cnImg"
-			style="border:none;" required />
+			<input type="file" name="file" class="s-form-cnImg" id="s-form-cnImg" style="border:none;"
+			accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${bbst.cnImg }' />" required />
 			<script>
 				// 게시글 썸네일사진
 				$("#s-form-cnImg").change(function(){
@@ -151,65 +151,75 @@ enctype="multipart/form-data" onsubmit="return checkForm();">
 		<!-- 내용 -->
 		<div class="s-form-cn-div">
 			<div class="s-form-cn-innerdiv">
-				<textarea class="s-form-cn" id="s-form-cn" name="cn" rows="10" placeholder="내용을 입력해주세요."
-				style="border: 1px rgb(245, 245, 245) solid;" required onclick="checkCn();"></textarea>
+				<textarea class="s-form-cn" id="s-form-cn" name="cn" cols="105" rows="23" placeholder="내용을 입력해주세요."
+				style="border: 1px rgb(245, 245, 245) solid;" required><c:out value='${bbst.cn }' /></textarea>
 			</div>
 		</div>
 	</div>
 </form>
 
 <script type="text/javascript">
+// 서버단의 콘솔창에서 게시글 양식에 맞지 않는 값을 입력할 때
+$("#s-bbst-registerBtn").on("click", function(e) {
+	let errorMsg = "${errorMsg}";
+	if(errorMsg != "") {
+		alert(errorMsg);
+	}
+});
+</script>
 
-// 게시글 입력항목 유효성 검사
+<script type="text/javascript">
+function checkType(obj) {
+	var file = $("#s-form-cnImg").val().split(".").pop().toLowerCase();
+	
+	if($.inArray(file, ["jpg","gif","png","jpeg","bmp"]) == -1) {
+		alert("이미지 파일만 선택하실 수 있습니다.");
+		$("#s-form-cnImg").val("");
+		return false;
+	}
+}
+</script>
+
+<!-- <script type="text/javascript">
+//게시글 입력항목 유효성 검사
 function checkForm() {
 	
 	// 1. 게시글 제목
-	var title = document.getElementById("s-form-title");
-	
+	var title = $(".s-form-title");
 	// 공백만 입력
-	var blank_pattern = /^\s+|\s+$/g;
-	if(title.value.replace(blank_pattern, '') == "") {
-	    alert("제목 : 공백만 입력되었습니다.");
-	    return false;
+	if($.trim(title.val()).length == 0) {
+		alert("제목 : 공백만 입력되었습니다.");
+		return false;
 	}
-	
-	// 앞뒤 공백 제거하고 글자수 세기
-	
-	// 최소 5자
-	if(title.value.length < 5) {
-		alert("제목 : 최소 5자 이상 입력해주세요.");
+	// 최소 2자
+	if($.trim(title.val()).length < 2) {
+		alert("제목 : 최소 2자 이상 입력해주세요.");
 		return false;
 	}
 	// 최대 30자
-	if(title.value.length > 30) {
+	if($.trim(title.val()).length > 30) {
 		alert("제목 : 최대 30자까지 입력하실 수 있습니다.");
 		return false;
 	}
-	
+
 	// 2. 게시글 내용
-	var cn = document.getElementById("s-form-cn");
-	
+	var cn = $(".s-form-cn");
 	// 공백만 입력
-	if(cn.value.replace(blank_pattern, '') == "") {
+	if($.trim(cn.val()) == 0) {
 	    alert("내용 : 공백만 입력되었습니다.");
 	    return false;
 	}
-	
-	// 최소 10자
-	if(cn.value.length < 10) {
-		alert("내용 : 최소 10자 이상 입력해주세요.");
+	// 최소 5자
+	if($.trim(cn.val()).length < 5) {
+		alert("내용 : 최소 5자 이상 입력해주세요.");
 		return false; 
 	}
 	// 최대 500자
-	if(cn.value.length > 500) {
+	if($.trim(cn.val()).length > 500) {
 		alert("내용 : 최대 500자까지 입력하실 수 있습니다.");
 		return false;
 	}
-	
-	document.registerForm.submit();
 }
-
-</script>
-
+</script> -->
 </body>
 </html>
