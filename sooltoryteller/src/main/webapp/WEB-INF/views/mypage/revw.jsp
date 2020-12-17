@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지 > 리뷰</title>
 <link rel="stylesheet" href="/resources/css/mypage.css">
 </head>
 <body>
@@ -65,9 +65,10 @@
 		<div class="d-con">
 		<ul class="d-revw">
 		</ul>
-		</div>
+		
 		<div class="d-paging">
 		</div>
+        </div>
         </div>
     </div>
     <div class="d-mypage-footer">
@@ -106,19 +107,19 @@ $(document).ready(function(){
 		let prev = startNum != 1;
 		let next = false;
 		
-		if(endNum*5>=myRevwCnt){
-			endNum = Math.ceil(myRevwCnt/5.0);
+		if(endNum*4>=myRevwCnt){
+			endNum = Math.ceil(myRevwCnt/4.0);
 		}
-		if(endNum*5<myRevwCnt){
-			next =true;
+		if(endNum*4 < myRevwCnt){
+			next = true;
 		}
-		let str = "<ul>";
+		let str = "<ul class='d-paging'>";
 		
 		if(prev){
 			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'>&#60;</a></li>";
 		}
 		for(let i=startNum; i <=endNum; i++){
-			let active = pageNum == i? "active":"";
+			let active = pageNum == i? "active":"none";
 			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){

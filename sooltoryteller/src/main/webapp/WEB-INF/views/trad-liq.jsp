@@ -48,7 +48,7 @@
 .d-trad-liq-column {
 	width: 100%;
 	border-bottom-style: solid;
-	border-bottom-color: rgb(181, 135, 189);
+	border-bottom-color: #844ce321;
 	background-color: white;
 	padding: 50px;
 }
@@ -93,18 +93,47 @@
 
 .d-new-revw-con {
 	float: left;
-	width: 230px;
-	display: inline-block;
-	border-style: solid;
-	border-color: rgb(245, 245, 245);
-	margin: 40px;
+	width: 300px;
 	height: 300px;
+	display: inline-block;
+	margin-top:20px;
+	
 }
 
+.d-new-revw-con ul{
+	width:260px;
+	padding:10px;
+	list-style: none;
+}
+.d-new-revw-con li{
+	border-bottom: solid 2px #844ce321;
+	padding:10px;
+}
+.d-new-revw-con button{
+	float:left;
+	background-color: Transparent;
+	border : 0;
+	outline: 0;
+}
+.d-new-revw-con img{
+	float:left;
+}
+.d-revw-cnt{
+ 	margin-left:10px;
+ 	font-size:7px;
+}
+.d-revw-cnt-msg{
+	font-size:7px;
+}
 .d-revw-profile {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+	border: solid 1px #ccaeff;
+}
+
+.d-revw-rate{
+	font-size:30px;
 }
 
 .d-paging-btn-active {
@@ -166,11 +195,19 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+.d-star_grade span {
+	text-decoration: none;
+	font-size: 30px;
+	color: grey;
+}
 
+.d-star_grade span.on {
+	color: orange;
+}
 .star_grade span {
 	text-decoration: none;
 	font-size: 30px;
-	color: gray;
+	color: grey;
 }
 
 .star_grade span.on {
@@ -186,19 +223,20 @@
 }
 .d-star-box{
  	display:inline-block;
- 	padding:5px 10px 5px 10px;
- 	background-color: rgb(252, 248, 35);
+ 	padding:3px 8px 3px 8px;
+ 	background-color: #f9f7d6;
  	border-style:none;
-	border-radius: 5px 5px 5px 5px;
+	border-radius: 10px 10px 10px 10px;
 	margin:10px;
 }
 .d-liq-num-img{
 	width: 20px;
 	height: 20px;
 }
+
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전통주 상세</title>
 </head>
 <body>
 <div class="d-con">
@@ -227,16 +265,11 @@
 				수상내역 : <c:out value="${liq.ards}" />
 				</p>
 				</c:if>
-				<p>
-				가격 : 
-					\
-					<fmt:formatNumber type="number" maxFractionDigits="3"
-						value="${liq.prc}" />
-				</p>
+				
 				<div id="liqNums">
-				<img class="d-liq-num-img" src='/resources/img/heart2.png'><c:out value="${liq.liqNums.likesNum}" />
-				<img class="d-liq-num-img" src='/resources/img/pen.png'><c:out value="${liq.liqNums.revwNum}" />
-				<img class="d-liq-num-img" src='/resources/img/eye.png'><c:out value="${liq.liqNums.inqrNum}" />
+				<img class="d-liq-num-img" src='/resources/img/heart2.png'><span class="d-like-cnt"><c:out value="${liq.liqCnt.likeCnt}" /></span>
+				<img class="d-liq-num-img" src='/resources/img/pen.png'><span class="d-revw-cnt"><c:out value="${liq.liqCnt.revwCnt}" /></span>
+				<img class="d-liq-num-img" src='/resources/img/eye.png'><span><c:out value="${liq.liqCnt.inqrCnt}" /></span>
 				</div>
 				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
 				<input  type="text" style="width: 30px;" value="1">
@@ -273,9 +306,29 @@
 				</div>
 			</div>
 			<div class="d-new-revw-con">
-				<h1>리뷰 작성 하기</h1>
-				<button id='addRevwBtn'>작성하기</button>
-				
+			<ul>
+			<li><strong class="``"><c:out value="${liq.liqCnt.avgRate}" /></strong>
+			<span class="d-revw-cnt"><c:out value="${liq.liqCnt.revwCnt}" /></span><span class="d-revw-cnt-msg">개의 리뷰</span></li>
+			
+			<li style="border:none;">
+			지금 리뷰를 작성해보세요!
+			</li>
+      	<c:choose>
+        	 <c:when test = "${member.img eq null}">
+           		<img class='d-revw-profile' src='/resources/img/noprofile.png'>
+         	 </c:when>
+         	<c:otherwise>
+            	<img class='d-revw-profile' src='/resources/img/<c:out value="${member.img}" />'>
+         	</c:otherwise>
+      	</c:choose>
+			<button id='addRevwBtn' class="d-star_grade">
+        	<span value=1>★</span>
+        	<span value=2>★</span>
+        	<span value=3>★</span>
+        	<span value=4>★</span>
+        	<span value=5>★</span>
+    		</button>
+			</ul>
 			</div>	
 		</div>
 		</div>
@@ -340,10 +393,10 @@ $(document).ready(function(){
 		var prev = startNum != 1;
 		var next = false;
 		
-		if(endNum*5>=revwCnt){
-			endNum = Math.ceil(revwCnt/5.0);
+		if(endNum*3>=revwCnt){
+			endNum = Math.ceil(revwCnt/3.0);
 		}
-		if(endNum*5<revwCnt){
+		if(endNum*3<revwCnt){
 			next =true;
 		}
 		var str = "<ul>";
@@ -373,9 +426,11 @@ $(document).ready(function(){
 	});
 	
 	function showList(page){
+	
 		revwService.getList({liqId:liqIdValue,page: page||1},function(revwCnt,list){
+			console.log(revwCnt);
 			if(page == -1){
-				pageNum = Math.ceil(revwCnt/5.0);
+				pageNum = Math.ceil(revwCnt/3.0);
 				showList(pageNum);
 				return;
 			}
@@ -389,8 +444,8 @@ $(document).ready(function(){
 				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+list[i].rate+"</div>"
 				str += "<span>"+list[i].cn+"</span>"
 				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
-				str += "<div><div class='header'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
-				str += "<strong>"+list[i].member.name+"</strong></li>";
+				str += "<div><div class='d-revw-member'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
+				str += "<strong>"+list[i].member.name+"</strong></li></div></div>";
 			}
 			revwUL.html(str);
 			showRevwPage(revwCnt);
@@ -413,6 +468,16 @@ $(document).ready(function(){
         console.log(newRevwRate);
     });
 	
+	$(".d-star_grade span").hover(function(){
+        $(this).parent().children("span").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+        $(this).addClass("on").prevAll("span").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+    });
+	
+
+	$(".d-star_grade span").mouseleave(function(){
+        $(this).parent().children("span").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+    });
+
 	//리뷰작성하기 버튼
 	addRevwBtn.on("click",function(e){
 		if(memberIdValue!=-1){
@@ -430,6 +495,7 @@ $(document).ready(function(){
 	
 	//리뷰 작성후 제출 버튼
 	revwRegBtn.on("click",function(e){
+		let revwCntHtml = $(".d-revw-cnt");
 		if(newRevwCn.val().trim().length==0){
 			alert("내용을 입력해주세요 ");
 			return;
@@ -451,7 +517,7 @@ $(document).ready(function(){
 		revwService.add(revw,function(result){
 			alert("리뷰가 등록 되었습니다");
 			revwModal.fadeOut(100);
-			newRevwRate = 0;
+			revwCntHtml.html(Number(revwCntHtml.html())+1);
 			showList(1);
 		});
 	});
@@ -459,6 +525,7 @@ $(document).ready(function(){
 function resetRevw(){
 	$('.star_grade span').parent().children("span").removeClass("on");
 	newRevwCn.val("");
+	newRevwRate =0;
 }
 	
 });
@@ -468,7 +535,7 @@ function resetRevw(){
 
 <!-- 좋아요 버튼 회원에 따라 페이지로 들어왔을 때 상태 보여줌 --> 
 <script>
-	var memberIdValue = '${memberId}' ==''? -1:'${memberId}';
+	var memberIdValue = '${member.memberId}' ==''? -1:'${member.memberId}';
 	var liqIdValue = ${liq.liqId};
 $(document).ready(function(){
 	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
@@ -485,13 +552,14 @@ $(document).ready(function(){
 <!-- 버튼 눌렀을때 좋아요/취소 --> 
 <script>
 $('#like').on({'click': function() {
-	
+	var likecnt= $(".d-like-cnt").html();
 	if(memberIdValue != -1){
 	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
 		if(data){
 			likeService.cancelLike({memberId:memberIdValue,liqId:liqIdValue}, function(count){
 				console.log("cancel");
 					if(count === "success"){
+						$(".d-like-cnt").html(Number(likecnt)-1);
 						$('#like').attr('src', '/resources/img/heart1.png');
 					}
 				});
@@ -501,6 +569,7 @@ $('#like').on({'click': function() {
 			likeService.like({memberId:memberIdValue,liqId:liqIdValue}, function(count){
 				console.log("like");
 					if(count === "success"){
+						$(".d-like-cnt").html(Number(likecnt)+1);
 						$('#like').attr('src', '/resources/img/heart2.png');
 					}
 				});

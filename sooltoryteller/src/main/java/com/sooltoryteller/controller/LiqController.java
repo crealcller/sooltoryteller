@@ -33,7 +33,7 @@ public class LiqController {
 		if(email != null) {
 		
 		//로그인 상태라면 가져온 이메일로 회원아이디 찾아서 모델에 담아줌
-		model.addAttribute("memberId", memberService.getMemberId(email));
+		model.addAttribute("member", memberService.get(email));
 		}
 			
 		model.addAttribute("liq", service.get(liqId));

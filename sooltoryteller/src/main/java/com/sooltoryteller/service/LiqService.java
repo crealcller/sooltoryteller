@@ -2,8 +2,9 @@ package com.sooltoryteller.service;
 
 import java.util.List;
 
+import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.LiqCnVO;
-import com.sooltoryteller.domain.LiqCoVO;
+import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqVO;
 
 public interface LiqService {
@@ -12,9 +13,15 @@ public interface LiqService {
 		
 		public List<LiqVO> getLiqList();
 		
+		public List<LiqVO> getLiqListWithPaging(AdminCriteria adCri);
+		
 		public List<LiqVO> getLiqListByKind(String kind);
 		
-		public boolean checkExistLiqCo(String liqCoNm);
+		public boolean registerLiq(LiqVO liq, LiqCnVO cn, Long liqCoId, LiqCntVO cnt);
 		
-		public boolean registerLiqCo(LiqCoVO vo);
+		public boolean removeLiq(Long liqId);
+		
+		public boolean modify(LiqVO liq, LiqCnVO cn);
+
+		public int liqCnt();
 }

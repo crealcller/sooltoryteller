@@ -1,20 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>양조장 등록</title>
 </head>
 <body>
-<p>양조장 등록</p>
+<h3 style="margin-left: 20px;">[양조장 등록]</h3>
 <form action="/admin/liq-co-register" method="post">
-<p><label>이름 : <input type="text" name="nm" ></label></p>
-<p><label>주소 : <input type="text" name="addr" ></label></p>
+<p><label>이름 : <input type="text" name="nm" required="required"></label></p>
+<p><label>주소 : <input type="text" name="addr" required="required"></label></p>
 <p><label>홈페이지주소 : <input type="text" name="hmpg" ></label></p>
-<p><label>전화번호 : <input type="text" name="telno" ></label></p>
+<p><label>전화번호 : <input type="text" name="telno" required="required"></label></p>
 <button type="submit">등록하기 </button>
-
 </form>
+       
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#d-liq-co-register").css('background-color', 'navy').css('color','white');
+});
+</script>
 </body>
 </html>

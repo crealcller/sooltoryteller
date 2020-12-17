@@ -1,34 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
-    <%
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
 	String email = (String) session.getAttribute("email");
-	String loginDisplay = ""; 
-	String logoutDisplay = ""; 
-	
+String loginDisplay = "";
+String logoutDisplay = "";
+
 //세션에 로그인 정보가 담겼다면 로그인/회원가입 버튼 비활성화
 if (email != null) {
 	loginDisplay = "none";
 } else {
-	logoutDisplay =  "none";
+	logoutDisplay = "none";
 }
-
 
 //로그아웃시 캐시삭제
 response.setHeader("Cache-Control", "no-cache");
 response.setHeader("Cache-Control", "no-store");
 response.setDateHeader("Expires", 0);
 response.setHeader("Pragma", "no-cache");
-
 %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
 
-    <style>
+<style>
 @font-face {
 	font-family: '전소민체';
 	src:
@@ -44,11 +43,6 @@ response.setHeader("Pragma", "no-cache");
 	box-sizing: border-box;
 }
 
-a {
-	text-decoration: none;
-	color: black;
-}
-
 button {
 	cursor: pointer;
 }
@@ -56,13 +50,20 @@ button {
 #h-company-name {
 	font-family: '전소민체';
 	font-size: 40px;
+	color: black;
 	font-weight: bold;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
 .h-logobar {
-	width: 100%;
-	height: 60px;
-	border-bottom: 1px solid;
+	width: 1400px;
+	height:80px;
+	border-bottom:solid 2px #e1e1e1;
+	margin-bottom:20px;
 }
 
 .h-logo-img {
@@ -71,41 +72,38 @@ button {
 }
 
 .h-logo {
-	width: 55%;
-	text-align: right;
+	width: 800px;
+	text-align: left;
 	display: inline-block;
+	margin-bottom: 10px;
 }
 
 .h-usermenu {
-	width: 45%;
+	width: 600px;
 	font-size: 13px;
 	text-align: right;
-	padding-right: 10px;
 	display: inline-block;
 }
 
-.h-mainMenu {
-	display: block;
-}
-
 .h-dropbtn {
-	background-color: white;
+	background-color: Transparent;
+	width: 120px;
 	color: black;
-	font-size: 20px;
-	padding: 10px;
+	font-size: 15px;
+	font-weight: bold;
 	border: none;
 }
 
 .h-dropdown {
 	display: inline-block;
-	margin-left: 15%;
+	margin-left: 30px;
 }
 
 .h-dropdown-content {
 	display: none;
 	position: absolute;
 	background-color: white;
-	min-width: 160px;
+	width: 120px;
 	z-index: 1;
 }
 
@@ -116,101 +114,86 @@ button {
 	display: block;
 }
 
-#h-dropdown-content1 a:hover {
+.d-main-con {
+	width: 100%;
+	height: 1000px;
+}
+
+.d-main-img-con {
+	width: 100%;
+	height: 900px;
+	background-image: url('/resources/img/Beer-26845_1.gif');
+	background-size: cover;
+}
+
+#h-dropdown-content a:hover {
 	background-color: #f2eff9;
 }
 
-#h-dropdown-content2 a:hover {
-	background-color: #f2eff9;
-}
-
-#h-dropdown-content3 a:hover {
-	background-color: #f2eff9;
-}
-
-#h-dropdown-content4 a:hover {
-	background-color: #f2eff9;
-}
-
-#h-dropdown1:hover #h-dropdown-content1 {
-	border-top: 3px solid purple;
+#h-dropdown:hover #h-dropdown-content {
 	display: block;
 }
 
-#h-dropdown2:hover #h-dropdown-content2 {
-	border-top: 3px solid purple;
-	display: block;
-}
-
-#h-dropdown3:hover #h-dropdown-content3 {
-	border-top: 3px solid purple;
-	display: block;
-}
-
-#h-dropdown4:hover #h-dropdown-content4 {
-	border-top: 3px solid purple;
-	display: block;
+#h-dropdown:hover .h-dropbtn {
+	border-bottom: 3px solid purple;
 }
 </style>
 </head>
 <body>
-    <div class="h-logobar">
+	<div class="h-logobar">
         <div class="h-logo">
         <img class="h-logo-img" src='/resources/img/logo.png'>
-        <a href="/" id="h-company-name">술토리텔러</a>
+        <a href="#" id="h-company-name">술토리텔러</a>
+
+            <div id="h-dropdown" class="h-dropdown">
+            <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
+            <div id="h-dropdown-content" class="h-dropdown-content">
+                <a href="/all-liq">전체</a>
+                <a href="/liq-list?kind=탁주">탁주</a>
+                <a href="/liq-list?kind=약주 청주">약주/청주</a>
+                <a href="/liq-list?kind=과실주">과실주</a>
+                <a href="/liq-list?kind=증류주">증류주</a>
+                <a href="/liq-list?kind=기타류">기타류</a>
+            </div>
+            </div>
+
+            <div id="h-dropdown2" class="h-dropdown">
+            <button id="h-dropbtn2" class="h-dropbtn">술BTI</button>
+            </div>
+
+            <div id="h-dropdown3" class="h-dropdown">
+            <button id="h-dropbtn3" class="h-dropbtn"><a href="/cheers/list">건배의 광장</a></button>
+            </div>
+
+        
+            <div id="h-dropdown4" class="h-dropdown">
+            <button id="h-dropbtn4" class="h-dropbtn">About</button>
+            </div>
+        
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        
+
+
         </div><div class='h-usermenu'>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
-           	<!-- 다울 추가 임시로 like 페이지로 연결 -->
+              <!-- 다울 추가 임시로 like 페이지로 연결 -->
             <a href='/mypage/like'>마이페이지 ㅣ</a>
-            <a href='#'>고객센터</a>
+            <a href='/help/faq'>고객센터</a>
         </div>
-    </div>
-    <div class="h-mainMenu">
-        <div id="h-dropdown1" class="h-dropdown">
-        <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
-        <div id="h-dropdown-content1" class="h-dropdown-content">
-            <!-- 다울변경 -->
-            <a href="/all-liq">전체</a>
-            <a href="/liq-list?kind=탁주">탁주</a>
-            <a href="/liq-list?kind=약주 청주">약주/청주</a>
-            <a href="/liq-list?kind=과실주">과실주</a>
-            <a href="/liq-list?kind=증류주">증류주</a>
-            <a href="/liq-list?kind=기타류">기타류</a>
-        </div>
-    </div>
-        <div id="h-dropdown2" class="h-dropdown">
-        <button id="h-dropbtn2" class="h-dropbtn">술BTI</button>
-        <div id="h-dropdown-content2" class="h-dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </div>
-        <div id="h-dropdown3" class="h-dropdown">
-        <button id="h-dropbtn3" class="h-dropbtn"><a href="/cheers/list">건배의 광장</a></button>
-    </div>
-        <div id="h-dropdown4" class="h-dropdown">
-        <button id="h-dropbtn4" class="h-dropbtn">About</button>
-        <div id="h-dropdown-content4" class="h-dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </div>
-</div>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript">
-/* function kakaoLogout(){
-Kakao.Auth.logout(function(){
-	setTimeout(function(){
-		Kakao.init();
-		location.href='/logout'
-	}, 1000);
-	});
-} */
 
-</script>
+    </div>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script type="text/javascript">
+		/* function kakaoLogout(){
+		 Kakao.Auth.logout(function(){
+		 setTimeout(function(){
+		 Kakao.init();
+		 location.href='/logout'
+		 }, 1000);
+		 });
+		 } */
+	</script>
 </body>
 </html>

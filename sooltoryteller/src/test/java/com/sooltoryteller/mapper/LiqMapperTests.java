@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sooltoryteller.domain.LiqCnVO;
-import com.sooltoryteller.domain.LiqCoVO;
+import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqVO;
 
 import lombok.Setter;
@@ -23,10 +23,39 @@ public class LiqMapperTests {
 	@Setter(onMethod_ =@Autowired )
 	private LiqMapper mapper;
 	
+	
 	@Test
-	public void testLiqCoCnt() {
-		boolean result =mapper.getLiqCoCnt("명세주가")==1;
-		log.info("result : "+ result);
+	public void testInsert() {
+		LiqVO liq = new LiqVO();
+		liq.setNm("123");
+		liq.setCapct(133);
+		liq.setCate("탁주");
+		liq.setImg("1234123");
+		liq.setIrdnt("asdfa");
+		liq.setLv(1);
+		liq.setLiqCoId(1L);
+		mapper.insertLiq(liq, 1L);
+		LiqCntVO cnt = new LiqCntVO();
+		mapper.insertLiqCnt(cnt);
+	}
+	
+	public void testUpdate() {
+		LiqVO liq = new LiqVO();
+		liq.setLiqId(42L);
+		liq.setCate("asdf");
+		liq.setCapct(100);
+		liq.setImg("asdf");
+		liq.setLv(2);
+		liq.setNm("asdf");
+		liq.setLiqCoId(1L);
+		liq.setArds("asdfasdfasd");
+		liq.setIrdnt("asdad");
+		LiqCnVO cn = new LiqCnVO();
+		cn.setLiqId(42L);
+		cn.setIntro("12341asdfdsaf");
+		
+		mapper.update(liq);
+		mapper.updateCn(cn);
 	}
 	
 	public void testGetAllByKindCount() {
