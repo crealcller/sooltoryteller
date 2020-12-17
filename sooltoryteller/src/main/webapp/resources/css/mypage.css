@@ -6,20 +6,22 @@
 	margin: auto;
 	margin-top: 100px;
 	margin-bottom: 100px;
+	border-style:solid;
+	border-color:#e1e1e1;
+	box-shadow: 5px 5px 5px 5px #e1e1e1;
 }
-
 .d-mypage-left {
     float: left;
 	width: 350px;
 	height: 900px;
-	border-style: solid;
+	border-style: none;
 	display:inline-block;
 }
 .d-mypage-right {
     float: left;
 	width: 850px;
 	height: 900px;
-	border-style: solid;
+	border-style: none;
     border-left-style:none;
 	display:inline-block;
 }
@@ -46,12 +48,14 @@
     width: 300px;
 	height: 300px;
     border-style: solid;
+	border-color:#e1e1e1;
 }
 .d-mypage-profile {
-	width: 100px;
-	height: 100px;
+	width: 130px;
+	height: 130px;
 	border-radius: 50%;
 	margin-top:20px;
+	border:solid 1px #ccaeff;
 }
 
 .d-mypage-info {
@@ -93,11 +97,11 @@
 
 .d-paging ul {
 	list-style: none;
+	margin:10px;
 }
 
 .d-paging li {
 	float: left;
-	margin: 0;
 }
 
 .d-paging-btn-active {
@@ -106,7 +110,6 @@
 	height: 25px;
 	background-color: rgb(181, 135, 189);
 	border-radius: 50%;
-	margin: 10px;
 }
 
 .d-paging-btn-active a {
@@ -118,7 +121,6 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	margin: 10px;
 }
 
 .d-my-revw-img{
@@ -130,20 +132,28 @@
 	height:800px;
 	margin:auto;
 }
-.d-con ul {
+.d-like{
 	list-style: none;
     margin-top:50px;
 }
-.d-con li {
+.d-like li {
+	padding:20px;
+}
+
+.d-revw{
+	list-style: none;
+    margin-top:50px;
+}
+.d-revw li {
 	padding:20px;
 }
 .d-con button {
 	float:right;
-	background-color:rgb(181, 135, 189);
 	border-style:none;
-	border-radius: 5px 5px 5px 5px;
+	background-color:white;
 	padding:10px;
-	color:white;
+	color:rgb(181, 135, 189);
+	
 }
 .d-revw-con{
 	border-bottom-style: solid;
@@ -214,8 +224,8 @@
 }
 .d-star-box{
  	display:inline-block;
- 	padding:5px 10px 5px 10px;
- 	background-color: rgb(252, 248, 35);
+ 	padding:3px 8px 3px 8px;
+ 	background-color: #f9f7d6;
  	border-style:none;
 	border-radius: 10px 10px 10px 10px;
 	margin:10px;

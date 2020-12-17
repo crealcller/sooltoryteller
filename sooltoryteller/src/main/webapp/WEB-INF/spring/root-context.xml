@@ -32,7 +32,6 @@
 	<bean class="com.sooltoryteller.service.MailServiceImpl"
 		id="mailService">
 	</bean>
-
 <!-- Root Context: defines shared resources visible to all other web components -->
 <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	<property name="driverClassName"
@@ -61,6 +60,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 </bean>
 
+<tx:annotation-driven/>
 <mybatis-spring:scan
 	base-package="com.sooltoryteller.mapper" />
 <context:component-scan

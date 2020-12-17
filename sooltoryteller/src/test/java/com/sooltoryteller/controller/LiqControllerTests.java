@@ -30,7 +30,7 @@ public class LiqControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();		
 	}
 	
-	@Test
+	
 	public void testGetAll() throws Exception{
 		log.info(mockMvc.perform(MockMvcRequestBuilders
 				.get("/all-liq"))
@@ -47,6 +47,22 @@ public class LiqControllerTests {
 				.andReturn()
 				.getModelAndView().getModelMap()
 			);
+	}
+	
+	@Test
+	public void testRegiser() throws Exception {
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/liq-register")
+				.param("liqCoNm", "명세주가")
+				.param("nm", "asd")
+				.param("capct", "1324")
+				.param("cate", "탁주")
+				.param("lv", "3")
+				.param("img", "ASDADS")
+				.param("irdnt", "탁주")
+				).andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
 	}
 
 

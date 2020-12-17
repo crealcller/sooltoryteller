@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지 > 좋아요</title>
 <link rel="stylesheet" href="/resources/css/mypage.css">
 </head>
 <body>
@@ -66,9 +66,10 @@
 		<div class="d-con">
 		<ul class="d-like">
 		</ul>
-		</div>
+		
 		<div class="d-paging">
 		</div>
+        </div>
         </div>
     </div>
     <div class="d-mypage-footer">
@@ -85,25 +86,25 @@ $(document).ready(function(){
 	showMyList(1);
 	function showMyLikePage(myLikeCnt){
 		console.log(myLikeCnt);
-		var endNum = Math.ceil(pageNum/3.0)*3;
-		var startNum = endNum -2;
+		var endNum = Math.ceil(pageNum/4.0)*4;
+		var startNum = endNum -3;
 		
 		var prev = startNum != 1;
 		var next = false;
 		
-		if(endNum*3>=myLikeCnt){
-			endNum = Math.ceil(myLikeCnt/3.0);
+		if(endNum*4>=myLikeCnt){
+			endNum = Math.ceil(myLikeCnt/4.0);
 		}
-		if(endNum*3<myLikeCnt){
+		if(endNum*4<myLikeCnt){
 			next =true;
 		}
-		var str = "<ul>";
+		var str = "<ul class='d-paging'>";
 		
 		if(prev){
 			str += "<li class='d-paging-btn-none'><a href='" + (startNum - 1)+ "'>&#60;</a></li>";
 		}
 		for(var i=startNum; i <=endNum; i++){
-			var active = pageNum == i? "active":"";
+			var active = pageNum == i? "active":"none";
 			str+="<li class='d-paging-btn-"+active +"'><a href="+i+">"+i+"</a></li>";
 		}
 		if(next){
@@ -113,7 +114,6 @@ $(document).ready(function(){
 		str += "</ul>";
 		paging.html(str);
 		
-			
 	}
 	paging.on("click","li a",function(e){
 		e.preventDefault();

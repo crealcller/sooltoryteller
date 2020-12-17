@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.LiqCnVO;
+import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqVO;
 
@@ -24,8 +26,25 @@ public class LIqServiceTests {
 	private LiqService service;
 	
 	@Test
+	public void testInsert() {
+		LiqVO liq = new LiqVO();
+		liq.setNm("123");
+		liq.setCapct(133);
+		liq.setCate("탁주");
+		liq.setImg("1234123");
+		liq.setIrdnt("asdfa");
+		liq.setLv(1);
+		LiqCnVO cn = new LiqCnVO();
+		
+		cn.setIntro("12341234");
+		LiqCntVO cnt = new LiqCntVO();
+		service.registerLiq(liq, cn, 1L,cnt); 
+		
+	}
+	
 	public void testGetAll() {
-		List<LiqVO> allLiq = service.getLiqList();
+		AdminCriteria adCri = new AdminCriteria();
+		List<LiqVO> allLiq = service.getLiqListWithPaging(adCri);
 		allLiq.forEach(liq->log.info(liq));
 	}
 	

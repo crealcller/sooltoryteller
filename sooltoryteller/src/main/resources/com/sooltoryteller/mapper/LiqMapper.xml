@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sooltoryteller.mapper.LiqMapper">	
+<mapper namespace="com.sooltoryteller.mapper.LiqMapper">
 	<resultMap id="LiqVO" type="com.sooltoryteller.domain.LiqVO">
 		<result column="liq_id" property="liqId" />
 		<result column="liq_co_id" property="liqCoId" />
@@ -13,30 +13,37 @@
 		<result column="irdnt" property="irdnt" />
 		<result column="ards" property="ards" />
 		<result column="img" property="img" />
-		
+		<result column="regdate" property="regdate" />
+		<result column="updatedate" property="updatedate" />
+		<result column="liq_img" property="liqImg" />
+		<result column="liq_thumb" property="liqThumb" />
+
 		<!-- 전통주내용 -->
-		<association property="liqCn" javaType="com.sooltoryteller.domain.LiqCnVO">
-		<result column="liq_id" property="liqId" />
-		<result column="intro" property="intro" />
-		<result column="pair" property="pair" />
+		<association property="liqCn"
+			javaType="com.sooltoryteller.domain.LiqCnVO">
+			<result column="liq_id" property="liqId" />
+			<result column="intro" property="intro" />
+			<result column="pair" property="pair" />
 		</association>
-		
-		<!-- 양조장-->
-		<association property="liqCo" javaType="com.sooltoryteller.domain.LiqCoVO">
-		<result column="liq_co_id" property="liqCoId" />
-		<result column="co_name" property="nm" />
-		<result column="addr" property="addr" />
-		<result column="hmpg" property="hmpg" />
-		<result column="telno" property="telno" />
+
+		<!-- 양조장 -->
+		<association property="liqCo"
+			javaType="com.sooltoryteller.domain.LiqCoVO">
+			<result column="liq_co_id" property="liqCoId" />
+			<result column="co_name" property="nm" />
+			<result column="addr" property="addr" />
+			<result column="hmpg" property="hmpg" />
+			<result column="telno" property="telno" />
 		</association>
-		
-		<!-- 전통주 카운트-->
-		<association property="liqNums" javaType="com.sooltoryteller.domain.LiqNumsVO">
-		<result column="liq_id" property="liqId" />
-		<result column="likes_num" property="likesNum" />
-		<result column="revw_num" property="revwNum" />
-		<result column="avg_rate" property="avgRate" />
-		<result column="inqr_num" property="inqrNum" />
+
+		<!-- 전통주 카운트 -->
+		<association property="liqCnt"
+			javaType="com.sooltoryteller.domain.LiqCntVO">
+			<result column="liq_id" property="liqId" />
+			<result column="like_cnt" property="likeCnt" />
+			<result column="revw_cnt" property="revwCnt" />
+			<result column="avg_rate" property="avgRate" />
+			<result column="inqr_cnt" property="inqrCnt" />
 		</association>
 	</resultMap>
 
@@ -46,26 +53,69 @@
 		l.liq_id,l.nm,l.prc,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.img,
 		n.intro,n.pair,
 		c.nm co_name,c.addr,c.hmpg,c.telno,
-		num.avg_rate,num.inqr_num,num.likes_num,num.revw_num
-		from liq l, liq_cn n, liq_co c,liq_nums num
+		t.avg_rate,t.inqr_cnt,t.like_cnt,t.revw_cnt
+		from liq l, liq_cn n,
+		liq_co c,liq_cnt t
 		where l.liq_id=n.liq_id
 		and l.liq_co_id=c.liq_co_id
-		and l.liq_id=num.liq_id
+		and l.liq_id=t.liq_id
 		and l.liq_id =#{liqId}
 	</select>
 
+	<!-- 정렬에 문제 있음 -->
 	<select id="getLiqList" resultMap="LiqVO">
 		<![CDATA[
-		select/*+index_desc(l liq_pk) index_desc(c liq_co_pk)*/
-		l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
+		select /*+index_desc(t liq_cnt_pk) index_desc(c liq_co_pk)*/
+		l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,l.regdate,l.updatedate,
 		c.nm co_name,
-		num.avg_rate,num.inqr_num,num.revw_num
-		from liq l,liq_co c,liq_nums num
+		t.avg_rate,t.inqr_cnt,t.revw_cnt,like_cnt
+		from liq l,liq_co c,liq_cnt t
 		where l.liq_co_id=c.liq_co_id
-		and l.liq_id=num.liq_id
+		and l.liq_id=t.liq_id
 		and l.liq_id>0
 		]]>
 	</select>
+
+	<select id="getLiqListWithPaging" resultMap="LiqVO">
+		<![CDATA[
+		select c.liq_id, c.nm, c.cate,c.regdate,c.updatedate,c.liq_img
+		from (select rownum rn,liq.liq_id, liq.nm, liq.cate,liq.regdate,liq.updatedate,liq.liq_img
+		from (select liq_id, nm, cate,regdate,updatedate,liq_img
+		from liq 
+        order by liq_id desc) liq
+        where rownum<=#{pageNum}*#{amount}
+        ) c
+		where rownum>(#{pageNum} -1)*#{amount}
+		]]>
+	</select>
+	
+	<select id="liqCnt" resultType="int">
+		<![CDATA[
+		select count(*) from liq 
+		where liq_id > 0 
+		]]>
+	</select>
+
+	<update id="update">
+		update liq
+		set prc=#{prc},
+		cate=#{cate},
+		capct=#{capct},
+		lv=#{lv},
+		irdnt=#{irdnt},
+		ards=#{ards},
+		img=#{img},
+		updatedate = sysdate
+		where liq_id = #{liqId}
+	</update>
+
+	<update id="updateCn">
+		update liq_cn
+		set intro=#{intro},
+		pair=#{pair},
+		updatedate = sysdate
+		where liq_id = #{liqId}
+	</update>
 
 	<select id="getCountLiqList" resultType="Integer">
 		<![CDATA[
@@ -75,63 +125,96 @@
 		and l.liq_id>0
 		]]>
 	</select>
+
 	<select id="getLiqListByKind" resultMap="LiqVO">
 		<![CDATA[
 		select/*+index_desc(l liq_pk) index_desc(c liq_co_pk)*/
 		l.liq_id, c.liq_co_id, l.nm, l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
 		c.nm co_name,
-		num.avg_rate,num.inqr_num,num.revw_num
-		from liq l,liq_co c,liq_nums num
+		t.avg_rate,t.inqr_cnt,t.revw_cnt,like_cnt
+		from liq l,liq_co c,liq_cnt t
 		where l.liq_co_id=c.liq_co_id
 		and l.cate = #{kind}
-		and l.liq_id=num.liq_id
+		and l.liq_id=t.liq_id
 		and l.liq_id>0
 		]]>
 	</select>
+
 	<select id="getCountLiqListByKind" resultType="Integer">
 		<![CDATA[
 		select count(*)
 		from liq l,liq_co c
-		where l.liq_co_id=c.liq_co_id
-		and l.liq_id=num.liq_id
+		where l.liq_co_id = c.liq_co_id
+		and l.liq_id = t.liq_id
 		and l.cate = #{kind}
 		and l.liq_id>0
 		]]>
 	</select>
 
 	<update id="updateRevwCnt">
-		update liq_nums
-		set revw_num = revw_num + #{amount}
+		update liq_cnt
+		set revw_cnt = revw_cnt + #{amount}
 		where liq_id = #{liqId}
 	</update>
 
 	<update id="updateRevwRate">
-		update liq_nums
-		set avg_rate =(select trunc(avg(rate),4) from liq_revw
+		update liq_cnt
+		set avg_rate =(select
+		trunc(avg(rate),1) from liq_revw
 		where liq_id =#{liqId})
-		where liq_id=#{liqId}
+		where
+		liq_id=#{liqId}
 	</update>
 
 	<update id="updateLikeCnt">
-		update liq_nums
-		set likes_num = likes_num + #{amount}
+		update liq_cnt
+		set like_cnt = like_cnt + #{amount}
 		where liq_id = #{liqId}
 	</update>
 
 	<update id="updateViewCnt">
-		update liq_nums
-		set inqr_num = inqr_num + #{amount}
+		update liq_cnt
+		set inqr_cnt = inqr_cnt + #{amount}
 		where liq_id = #{liqId}
 	</update>
-	
-	<select id="getLiqCoCnt" resultType="int">
-	select count(*)
-	from liq_co
-	where nm = #{liqCoNm}
-	</select>
-	
-	<insert id="insertLiqCo">
-	insert into liq_co(liq_co_id,nm,addr,hmpg,telno)
-	values(LIQ_CO_SEQ.nextval,#{nm},#{addr},#{hmpg},#{telno})
+
+	<insert id="insertLiq">
+		insert into
+		liq(liq_id,liq_co_id,nm,prc,cate,capct,lv,irdnt,ards,img,liq_img,liq_thumb)
+		values(LIQ_SEQ.nextval,#{liqCoId},#{liq.nm},#{liq.prc},#{liq.cate},#{liq.capct},#{liq.lv},#{liq.irdnt},#{liq.ards},#{liq.img},#{liq.liqImg}, #{liq.liqThumb})
 	</insert>
+
+	<insert id="insertLiqCn">
+		<selectKey keyProperty="liqId" order="BEFORE"
+			resultType="long">
+			select liq_seq.currval from dual
+		</selectKey>
+
+		insert into liq_cn(liq_id,intro,pair)
+		values(#{liqId},#{intro},#{pair})
+	</insert>
+
+	<insert id="insertLiqCnt">
+		<selectKey keyProperty="liqId" order="BEFORE"
+			resultType="long">
+			select liq_seq.currval from dual
+		</selectKey>
+		insert into liq_cnt(liq_id)
+		values(#{liqId})
+	</insert>
+
+	<delete id="deleteLiq">
+		delete liq
+		where liq_id=#{liqId}
+	</delete>
+
+	<delete id="deleteLiqCn">
+		delete liq_cn
+		where liq_id=#{liqId}
+	</delete>
+
+	<delete id="deleteLiqCnt">
+		delete liq_cnt
+		where liq_id=#{liqId}
+	</delete>
 </mapper>
