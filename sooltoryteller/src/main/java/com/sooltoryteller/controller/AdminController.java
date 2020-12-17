@@ -44,10 +44,10 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @RequestMapping("/admin/*")
 public class AdminController {
-
+/*
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-
+*/
 	private AdminService adService;
 	private FaqService faqService;
 	private LiqService liqService;
@@ -78,7 +78,7 @@ public class AdminController {
 	@GetMapping("/liq-register")
 	public void liqRegister() {
 	}
-
+/*
 	// 전통주 등록
 	@PostMapping("/liq-register")
 	public String liqRegister(LiqVO liq, LiqCnVO cn, String liqCoNm, LiqCntVO cnt, RedirectAttributes rttr,MultipartFile file) throws IOException, Exception {
@@ -116,7 +116,7 @@ public class AdminController {
 		}
 		return "redirect:/admin/";
 	}
-
+*/
 	// 전통주 삭제
 	@PostMapping("/admin/remove-liq")
 	public String removeLiq(Long liqId, RedirectAttributes rttr) {

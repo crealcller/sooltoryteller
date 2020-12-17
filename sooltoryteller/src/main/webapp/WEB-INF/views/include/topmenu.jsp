@@ -48,10 +48,7 @@ button {
 }
 
 #h-company-name {
-	font-family: '전소민체';
-	font-size: 40px;
-	color: black;
-	font-weight: bold;
+	padding:20px;
 }
 
 a {
@@ -60,26 +57,26 @@ a {
 }
 
 .h-logobar {
-	width: 1400px;
-	height:80px;
+	width: 1600px;
+	height:90px;
 	border-bottom:solid 2px #e1e1e1;
-	margin-bottom:20px;
 }
 
 .h-logo-img {
-	height: 50px;
-	width: 40px;
+	height: 60px;
+	width: 145px;
+	margin:15px 0px 0px 30px;
 }
 
 .h-logo {
-	width: 800px;
+	width: 900px;
 	text-align: left;
 	display: inline-block;
 	margin-bottom: 10px;
 }
 
 .h-usermenu {
-	width: 600px;
+	width: 700px;
 	font-size: 13px;
 	text-align: right;
 	display: inline-block;
@@ -96,7 +93,6 @@ a {
 
 .h-dropdown {
 	display: inline-block;
-	margin-left: 30px;
 }
 
 .h-dropdown-content {
@@ -119,12 +115,6 @@ a {
 	height: 1000px;
 }
 
-.d-main-img-con {
-	width: 100%;
-	height: 900px;
-	background-image: url('/resources/img/Beer-26845_1.gif');
-	background-size: cover;
-}
 
 #h-dropdown-content a:hover {
 	background-color: #f2eff9;
@@ -142,8 +132,7 @@ a {
 <body>
 	<div class="h-logobar">
         <div class="h-logo">
-        <img class="h-logo-img" src='/resources/img/logo.png'>
-        <a href="#" id="h-company-name">술토리텔러</a>
+        <a href="#" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
 
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
