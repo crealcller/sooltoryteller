@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.BbstPageDTO;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MemberService;
 
@@ -41,16 +43,20 @@ public class LiqController {
 	
 	//전체 리스트
 	@GetMapping("/all-liq")
-	public void allLiq(Model model) {
+	public void allLiq(Model model,BbstCriteria cri) {
 		log.info("get allLiq......");
-		model.addAttribute("allLiq", service.getLiqList());
+		int total = service.liqCnt();
+		model.addAttribute("allLiq", service.getAllLiqList(cri));
+		model.addAttribute("pageMaker",  new BbstPageDTO(cri, total));
 	}
 	
 	//주종별 리스트
 	@GetMapping("/liq-list")
-	public void allDistilledSpirits(Model model, String kind) {
-		model.addAttribute("kind", kind);
-		model.addAttribute("allLiq", service.getLiqListByKind(kind));
+	public void allDistilledSpirits(Model model, String cate, BbstCriteria cri) {
+		model.addAttribute("cate", cate);
+		int total = service.liqCntByCate(cate);
+		model.addAttribute("allLiq", service.getLiqListByCate(cate,cri));
+		model.addAttribute("pageMaker",  new BbstPageDTO(cri, total));
 	}
 	
 	

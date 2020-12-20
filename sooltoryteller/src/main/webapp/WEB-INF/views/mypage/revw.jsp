@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/resources/css/mypage.css">
 </head>
 <body>
+<div style="padding:100px 0px 100px 0px;" class="s-main-background">
 <div class="d-mypage-wrapper">
         <div class="d-mypage-left">
             <div class="d-left-con">
@@ -70,6 +71,7 @@
 		</div>
         </div>
         </div>
+    </div>
     </div>
     <div class="d-mypage-footer">
         <h1>footer</h1>
@@ -152,7 +154,7 @@ $(document).ready(function(){
 			}
 			for(let i=0,len = myList.length || 0; i<len; i++){
 				str += "<li id='move' style='cursor:pointer;' class='d-revw-con' data-liqid = '"+myList[i].liqId+"'>";
-				str += "<img class='d-my-revw-img' src='/resources/img/"+myList[i].img+"'/>"
+				str += "<img class='d-my-revw-img' src='"+myList[i].liqThumb+"'/>"
 				str += "<span>"+myList[i].nm+"</span></li>"
 				//리뷰 삭제 버튼
 				str += "<button style='cursor:pointer;' data-revwid = '"+myList[i].revwId+"' id='deleteBtn'>&times;</button>";

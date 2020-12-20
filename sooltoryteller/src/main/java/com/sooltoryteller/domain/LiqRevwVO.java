@@ -24,8 +24,8 @@ public class LiqRevwVO {
     private Long memberId;
 
     // 작성내용 
-	@NotBlank(message = "제목을 입력해주세요.")
-	@Size(min = 10, max = 30, message = "최소 3자에서 최대 30자의 제목을 입력해주세요.") // 한글 기준인지 테스트해봐야 함
+	@NotBlank(message = "리뷰내용을 작성해주세요.")
+	@Size(min = 10, max = 500, message = "리뷰내용은 최소 10자에서 최대 500자까지 작성가능합니다.") // 한글 기준인지 테스트해봐야 함
     private String cn;
 
     // 평점 

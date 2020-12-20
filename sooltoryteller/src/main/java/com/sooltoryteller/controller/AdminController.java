@@ -2,6 +2,7 @@ package com.sooltoryteller.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,13 +83,15 @@ public class AdminController {
 
 	// 전통주 등록
 	@PostMapping("/liq-register")
-	public String liqRegister(LiqVO liq, LiqCnVO cn, String liqCoNm, LiqCntVO cnt, RedirectAttributes rttr,MultipartFile file) throws IOException, Exception {
-		log.info("liq register");
+	public String liqRegister(@Valid LiqVO liq, BindingResult result, String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws IOException, Exception {
+		
+		log.info("liq register"+liq);
+		
+		//양조장이름으로 존재하는 양조장인지 liqCoId체크
 		Long liqCoId = liqCoService.checkExistLiqCo(liqCoNm);
-		
-		
+		 
 		// 첨부파일 업로드 설정
-		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+		String imgUploadPath = uploadPath + File.separator + "imgUploadLiq"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 		
@@ -98,14 +102,24 @@ public class AdminController {
 			fileName = liq.getLiqImg();
 			liq.setLiqImg(fileName);
 		}
-		liq.setLiqImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		liq.setLiqImg(File.separator + "imgUploadLiq" + ymdPath + File.separator + fileName);
 		liq.setLiqThumb(
-				File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+				File.separator + "imgUploadLiq" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		log.info("============================");
+		
+		if(result.hasErrors()) { 
+			List<ObjectError> errorList = result.getAllErrors();
+			log.info(result.getFieldError());
+	        for (ObjectError error : errorList)
+	            log.info("=====error: " + error.getDefaultMessage());
+			rttr.addAttribute("result", "error");
+				return "redirect:/admin/liq-register"; 
+		}
+		
+		
 		if (liqCoId != null) {
-			
 
-			if (liqService.registerLiq(liq, cn, liqCoId, cnt)) {
-
+			if (liqService.registerLiq(liq, liqCoId)) {
 				rttr.addAttribute("result", "success");
 				log.info("성공");
 				
@@ -114,19 +128,19 @@ public class AdminController {
 				log.info("실패");
 			}
 		}
-		return "redirect:/admin/";
+		return "redirect:/admin/liq-list";
 	}
 
 	// 전통주 삭제
-	@PostMapping("/admin/remove-liq")
+	@PostMapping("/remove-liq")
 	public String removeLiq(Long liqId, RedirectAttributes rttr) {
 		log.info("remove "+liqId);
 		liqService.removeLiq(liqId);
-		return "redirect:/admin/";
+		return "redirect:/admin/liq-list";
 	}
 	
 	// 전통주 수정
-	@PostMapping("/admin/modify-liq")
+	@PostMapping("/modify-liq")
 	public String modifyLiq(LiqVO liq, LiqCnVO cn, RedirectAttributes rttr) {
 		liqService.modify(liq, cn);
 		
@@ -157,9 +171,17 @@ public class AdminController {
 
 	// 양조장 등록
 	@PostMapping("/liq-co-register")
-	public String liqCoRegister(LiqCoVO vo) {
+	public String liqCoRegister(LiqCoVO vo,RedirectAttributes rttr) {
+		
+		Long liqCoId = liqCoService.checkExistLiqCo(vo.getNm());
+		
+		if(liqCoId != null) {
+			rttr.addAttribute("error", "이미 존재하는 양조장");
+			return "redirect:/admin/liq-co-register";
+		}
+		
 		log.info("result : " + liqCoService.registerLiqCo(vo));
-		return "redirect:/admin/";
+		return "redirect:/admin/liq-co-list";
 	}
 
 	// 관리자 메인 페이지
@@ -172,6 +194,9 @@ public class AdminController {
 	}
 
 */
+	//관리자 메인 페이지
+	@GetMapping("/")
+	public void admin() {}
 	
 	//관리자-회원리스트페이지
 	@GetMapping("/memberlist")

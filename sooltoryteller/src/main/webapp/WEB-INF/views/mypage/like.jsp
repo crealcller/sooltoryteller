@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/resources/css/mypage.css">
 </head>
 <body>
-
+<div style="padding:100px 0px 100px 0px;" class="s-main-background">
     <div class="d-mypage-wrapper">
         <div class="d-mypage-left">
             <div class="d-left-con">
@@ -85,9 +85,11 @@
         </div>
         </div>
     </div>
+ </div>  
     <div class="d-mypage-footer">
         <h1>footer</h1>
     </div>
+    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/like.js"></script>
 <script>
@@ -149,7 +151,7 @@ $(document).ready(function(){
 			}
 			for(var i=0,len = myList.length || 0; i<len; i++){
 				str += "<li id='move' style='cursor:pointer;' class='d-revw-con' data-liqid='"+myList[i].liqId+"'>";
-				str += "<img class='d-my-revw-img' src='/resources/img/"+myList[i].img+"'/>";
+				str += "<img class='d-my-revw-img' src='"+myList[i].liqThumb+"'/>";
 				str += "<span class='d-like-cancel-btn' style='cursor:pointer;' data-liqid='"+myList[i].liqId+"' id='cancelLikeBtn'>&times;</span>";
 				str += "<span>"+myList[i].nm+"</span><br>";
 				str += "<span>도수 : "+myList[i].lv+" %</span><br>";

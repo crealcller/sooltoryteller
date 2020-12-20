@@ -3,6 +3,7 @@ package com.sooltoryteller.domain;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,9 +24,12 @@ public class LiqVO {
 
     // 이름 
     private String nm;
-
-    // 가격 
-    private int prc;
+    
+    //전통주 이미지
+	private String liqImg;
+	
+	//전통주 썸네일
+	private String liqThumb;
 
     // 주종 
     private String cate;
@@ -34,16 +38,13 @@ public class LiqVO {
     private int capct;
 
     // 도수 
-    private int lv;
+    private float lv;
 
-    // 원재료 
+    // 원재료
     private String irdnt;
 
     // 수상내역 
     private String ards;
-
-    // 전통주 사진 
-    private String img;
 
     // 등록일시 
     private Date regdate;
@@ -60,7 +61,5 @@ public class LiqVO {
     //전통주 카운트
     private LiqCntVO liqCnt;
     
-	private String liqImg;
-	
-	private String liqThumb;
+
 }

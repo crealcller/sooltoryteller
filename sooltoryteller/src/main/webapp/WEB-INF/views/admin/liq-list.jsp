@@ -64,6 +64,7 @@
           <tr>
           	<th>전통주 일련번호</th>
             <th>이름</th>
+            <th>주종</th>
             <th>양조장</th>
             <th>등록일시</th>
             <th>변경일시</th>
@@ -71,10 +72,10 @@
          </thead>
          
          <c:forEach items="${liq }" var="liq">
-         <img style="width:10px;height:10px;" src="<c:out value='${liq.liqImg }'/>">
          <tr>
          <td><c:out value='${liq.liqId }'/></td>
          <td><a class='h-move' href="<c:out value='${liq.liqId }'/>"><c:out value="${liq.nm }"/></a></td>
+         <td><c:out value='${liq.cate }'/></td>
          <td><c:out value="${liq.liqCo.nm }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${liq.regdate }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${liq.updatedate }"/></td>

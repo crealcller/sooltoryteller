@@ -35,18 +35,12 @@ public class LiqRevwController {
 
 	// 리뷰 작성
 	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> create(@ModelAttribute @Valid LiqRevwVO revws,
-	         BindingResult bresult, @RequestBody LiqRevwVO vo) {
+	public ResponseEntity<String> create(@RequestBody LiqRevwVO vo) {
 		log.info("LiqRevwVO:" + vo);
+
+		int result = service.register(vo);
 		
-		//에러발생시
-	      if(bresult.hasErrors()) {
-	       return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	      }else {
-	    	  log.info("emdfhr");
-	    	  int result = service.register(vo);
-	    	  return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK):new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	      }
+		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK):new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	// 페이지와 함께 리뷰리스트 가져오기

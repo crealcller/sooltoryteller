@@ -4,11 +4,10 @@
 	width: 1210px;
 	height: 900px;
 	margin: auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
 	border-style: solid;
 	border-color: #e1e1e1;
-	box-shadow: 5px 5px 5px 5px #e1e1e1;
+	background-color:white;
+	box-shadow: 10px 10px 13px -1px #c8c2c2;
 }
 
 .d-mypage-left {

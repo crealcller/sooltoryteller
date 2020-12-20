@@ -9,30 +9,46 @@
 <style>
 .d-con {
 	width: 100%;
+	height:100%;
+	padding-top:20px; 
 }
 /* 구메정보부분 배경 */
 .d-trad-liq-info {
-	width: 100%;
+	width: 70%;
 	height: 400px;
-	background-color: rgb(245, 245, 245);
+	background-color: white;
+	margin: 0 auto 25px auto;
+	box-shadow: 10px 10px 13px -1px #c8c2c2;
+	
 }
 /* 구메정보부분 */
 .d-trad-liq-info-con {
 	width: 800px;
-	margin: auto;
+	height:100%;
+	display:inline-block;
+	margin-left:120px;
 }
+
+.d-trad-liq-info-con-heart {
+	float:right;
+	width: 120px;
+	height:100%;
+	padding-top:30px;
+	display: inline-block;
+}
+
 /* 구매정보부분 - 사진 */
 .d-trad-liq-img-con {
-	width: 200px;
-	height: 300px;
+	width: 230px;
+	height: 320px;
 	display: inline-block;
 	float: left;
-	margin: 50px;
+	margin: 40px;
 }
 /* 구매정보부분 - 글 */
 .d-trad-liq-text-con {
-	padding: 50px;
-	width: 500px;
+	padding-top:50px;
+	width: 450px;
 	height: 100%;
 	display: inline-block;
 	float: left;
@@ -42,8 +58,9 @@
 	margin: 0 auto;
 	padding: 0;
 	width: 70%;
-	height: 500px;
+	
 }
+
 /* 전통주상세 */
 .d-trad-liq-column {
 	width: 100%;
@@ -51,6 +68,7 @@
 	border-bottom-color: #844ce321;
 	background-color: white;
 	padding: 50px;
+	margin-bottom:20px;
 }
 
 .d-revw-wrapper {
@@ -71,7 +89,7 @@
 }
 /* 리뷰 */
 .d-revw-con {
-	box-shadow: 3px 3px 3px 3px rgba(196, 150, 204, 0.151);
+	box-shadow: 5px 5px 13px -1px #F2EFF9;
 	border-style: solid;
 	border-color: rgb(245, 245, 245);
 	padding: 20px;
@@ -106,7 +124,7 @@
 	list-style: none;
 }
 .d-new-revw-con li{
-	border-bottom: solid 2px #844ce321;
+	border-bottom: solid 2px #F2EFF9;
 	padding:10px;
 }
 .d-new-revw-con button{
@@ -229,9 +247,9 @@
 	border-radius: 10px 10px 10px 10px;
 	margin:10px;
 }
-.d-liq-num-img{
-	width: 20px;
-	height: 20px;
+
+#like{
+	font-size: 30px;
 }
 
 </style>
@@ -239,38 +257,37 @@
 <title>전통주 상세</title>
 </head>
 <body>
+<div class="s-main-background">
 <div class="d-con">
 	<div class="d-trad-liq-info">
 		<div class="d-trad-liq-info-con">
-			<img class="d-trad-liq-img-con" src='/resources/img/<c:out value="${liq.img}" />'>
+			<img class="d-trad-liq-img-con" src="<c:out value='${liq.liqImg}'/>">
 			<div class="d-trad-liq-text-con">
-				<img id='like' src='/resources/img/heart1.png' style="float:right;width:30px;height:30px;"><br>
+				
 				<h1>
 					<c:out value="${liq.nm}" />
-				</h1><br>
+				</h1><br><br>
 				<p>
 				주종 : <c:out value="${liq.cate}" />
-				</p>
+				</p><br>
 				<p>
 				용량 : <c:out value="${liq.capct}" />ml
-				</p>
+				</p><br>
 				<p>
 				도수 : <c:out value="${liq.lv}" />%
-				</p>
+				</p><br>
 				<p>
 				주재료 : <c:out value="${liq.irdnt}" />
-				</p>
+				</p><br>
 				<c:if test="${liq.ards ne null}">
 				<p>
 				수상내역 : <c:out value="${liq.ards}" />
-				</p>
+				</p><br>
 				</c:if>
 				
-				<div id="liqNums">
-				<img class="d-liq-num-img" src='/resources/img/heart2.png'><span class="d-like-cnt"><c:out value="${liq.liqCnt.likeCnt}" /></span>
-				<img class="d-liq-num-img" src='/resources/img/pen.png'><span class="d-revw-cnt"><c:out value="${liq.liqCnt.revwCnt}" /></span>
-				<img class="d-liq-num-img" src='/resources/img/eye.png'><span><c:out value="${liq.liqCnt.inqrCnt}" /></span>
-				</div>
+				<i class="fas fa-heart"  id="d-like-cnt"> <c:out value="${liq.liqCnt.likeCnt}" /></i>
+				<i class="far fa-comment-dots" id="d-revw-cnt"> <c:out value="${liq.liqCnt.revwCnt}" /></i>
+				<i class="fas fa-eye"> <c:out value="${liq.liqCnt.inqrCnt}" /></i>
 				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
 				<input  type="text" style="width: 30px;" value="1">
 				<button type="button" style="padding:0px 10px 0px 10px;">+</button>
@@ -278,6 +295,9 @@
 				<button type="submit">술바구니</button>
 				<button type="submit">구매하기</button> -->
 			</div>
+		</div>
+		<div class="d-trad-liq-info-con-heart">
+		<i id='like' class="far fa-heart"></i>
 		</div>
 	</div>
 	<div class="d-trad-liq-con">
@@ -307,7 +327,7 @@
 			</div>
 			<div class="d-new-revw-con">
 			<ul>
-			<li><strong class="``"><c:out value="${liq.liqCnt.avgRate}" /></strong>
+			<li><strong><c:out value="${liq.liqCnt.avgRate}" /></strong>
 			<span class="d-revw-cnt"><c:out value="${liq.liqCnt.revwCnt}" /></span><span class="d-revw-cnt-msg">개의 리뷰</span></li>
 			
 			<li style="border:none;">
@@ -354,13 +374,13 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 <div id="addRevw" class="d-revw-modal">
 
   <!-- Modal content -->
   <div class="d-revw-modal-content">
     <span class="d-revw-modal-close">&times;</span>
-	<div><img style='width:100px;height:150px;' src='/resources/img/<c:out value="${liq.img}" />'><c:out value="${liq.nm}" /></div>
+	<div><img style='width:100px;height:150px;' src='/resources/img/<c:out value="${liq.liqThumb}" />'><c:out value="${liq.nm}" /></div>
     
      <p class="star_grade">
         <span value=1>★</span>
@@ -373,6 +393,8 @@
     <button id='revwRegBtn' type='submit'>작성하기</button>
   </div>
 
+</div>
+</div>
 </div>
 <!-- 리뷰 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -495,7 +517,8 @@ $(document).ready(function(){
 	
 	//리뷰 작성후 제출 버튼
 	revwRegBtn.on("click",function(e){
-		let revwCntHtml = $(".d-revw-cnt");
+		let revwCntHtml = $("#d-revw-cnt");
+		let revwCnt = $(".d-revw-cnt");
 		if(newRevwCn.val().trim().length==0){
 			alert("내용을 입력해주세요 ");
 			return;
@@ -520,6 +543,7 @@ $(document).ready(function(){
 			alert("리뷰가 등록 되었습니다");
 			revwModal.fadeOut(100);
 			revwCntHtml.html(Number(revwCntHtml.html())+1);
+			revwCnt.html(Number(revwCnt.html())+1);
 			showList(1);
 		});
 	});
@@ -542,11 +566,9 @@ function resetRevw(){
 $(document).ready(function(){
 	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
 		if(data){
-			$('#like').attr('src', '/resources/img/heart2.png');
-			
-			
+			$('#like').attr('class', 'fas fa-heart');
 		}else{
-			$('#like').attr('src', '/resources/img/heart1.png');
+			$('#like').attr('class', 'far fa-heart');
 		}
 	});
 });
@@ -554,15 +576,15 @@ $(document).ready(function(){
 <!-- 버튼 눌렀을때 좋아요/취소 --> 
 <script>
 $('#like').on({'click': function() {
-	var likecnt= $(".d-like-cnt").html();
+	var like= $("#d-like-cnt")
 	if(memberIdValue != -1){
 	likeService.checkLike({memberId:memberIdValue,liqId:liqIdValue},function(data){
 		if(data){
 			likeService.cancelLike({memberId:memberIdValue,liqId:liqIdValue}, function(count){
 				console.log("cancel");
 					if(count === "success"){
-						$(".d-like-cnt").html(Number(likecnt)-1);
-						$('#like').attr('src', '/resources/img/heart1.png');
+						like.html(" "+(Number(like.html())-1));
+						$('#like').attr('class', 'far fa-heart');
 					}
 				});
 			return;
@@ -571,8 +593,8 @@ $('#like').on({'click': function() {
 			likeService.like({memberId:memberIdValue,liqId:liqIdValue}, function(count){
 				console.log("like");
 					if(count === "success"){
-						$(".d-like-cnt").html(Number(likecnt)+1);
-						$('#like').attr('src', '/resources/img/heart2.png');
+						like.html(" "+(Number(like.html())+1));
+						$('#like').attr('class', 'fas fa-heart');
 					}
 				});
 		}

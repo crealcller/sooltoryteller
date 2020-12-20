@@ -30,7 +30,7 @@ public class LiqControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();		
 	}
 	
-	
+	@Test
 	public void testGetAll() throws Exception{
 		log.info(mockMvc.perform(MockMvcRequestBuilders
 				.get("/all-liq"))
@@ -49,7 +49,7 @@ public class LiqControllerTests {
 			);
 	}
 	
-	@Test
+	
 	public void testRegiser() throws Exception {
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/liq-register")

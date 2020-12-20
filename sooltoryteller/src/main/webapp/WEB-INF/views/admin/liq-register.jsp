@@ -25,15 +25,22 @@
 <input type="file" id="liqImg" name="file"/>
 <div class="select-img"><img src=""/></div>
 </div>
-<span><label>양조장 : <input type="text" name="liqCoNm" required="required" ></label></span>
-<span><label>이름 : <input type="text" name="nm" required="required"></label></span>
-<span><label>소개 : <input type="text" name="intro" required="required"></label></span>
-<span><label>맛 페어링 : <input type="text" name="pair" ></label></span>
-<span><label>주종 : <input type="text" name="cate" required="required"></label></span>
-<span><label>용량 : <input type="text" name="capct" required="required"></label></span>
-<span><label>도수 : <input type="text" name="lv" required="required"></label></span>
-<span><label>원재료 : <input type="text" name="irdnt" required="required"></label></span>
-<span><label>수상내역 : <input type="text" name="ards" ></label></span>
+<p><label>양조장 : <input type="text" name="liqCoNm" required="required" ></label></p>
+<p><label>이름 : <input type="text" name="nm" required="required"></label></p>
+<p class='h-join-p'>
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='탁주'>탁주
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='약주 청주'>약주 청주
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='과실주'>과실주
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='증류주'>증류주
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='기타류'>기타류
+ </p>
+<p><label>용량 : <input type="text" name="capct" required="required"></label></p>
+<p><label>도수 : <input type="text" name="lv" required="required"></label></p>
+<p><label>원재료 : <input type="text" name="irdnt" required="required"></label></p>
+<p><label>수상내역 : <input type="text" name="ards" ></label></p>
+<p><label>소개 : <input type="text" name="liqCn.intro" required="required"></label></p>
+<p><label>맛 페어링 : <input type="text" name="liqCn.pair" ></label></p>
+<input type="hidden" name="liqCnt.revwCnt" value=0>
 
 <button type="submit">등록하기 </button>
 </form>
@@ -45,7 +52,7 @@
 	if(this.files && this.files[0]) {
     var reader = new FileReader;
     reader.onload = function(data) {
-    $(".select-img img").attr("src", data.target.result).width(100);        
+    $(".select-img img").attr("src", data.target.result).width(30);        
     }
     reader.readAsDataURL(this.files[0]);
     }
@@ -55,6 +62,22 @@
 $(document).ready(function(){
 	$("#d-liq-register").css('background-color', 'navy').css('color','white');
 });
+
+const maxCount = 1;
+let count = 0;
+
+function checkedCnt(cate){
+	if(cate.checked){
+		++count;
+	}else{
+		--count;
+	}
+	
+	if(count > maxCount){
+		cate.checked = false;
+		--count;
+	}
+}
 </script>
 </body>
 </html>

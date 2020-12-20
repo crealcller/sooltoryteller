@@ -17,6 +17,7 @@ public class LiqCoVO {
 	private Long liqCoId;
 
     // 양조장 이름 
+	@NotBlank
 	private String nm;
 
     // 양조장 주소 
@@ -26,6 +27,7 @@ public class LiqCoVO {
     private String hmpg;
 
     // 전화번호 
+    @NotBlank
     private String telno;
 
     // 등록일시 

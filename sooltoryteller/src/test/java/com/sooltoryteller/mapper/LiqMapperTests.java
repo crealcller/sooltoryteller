@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sooltoryteller.domain.AdminCriteria;
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqCnVO;
 import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqVO;
@@ -24,13 +27,12 @@ public class LiqMapperTests {
 	private LiqMapper mapper;
 	
 	
-	@Test
+	
 	public void testInsert() {
 		LiqVO liq = new LiqVO();
 		liq.setNm("123");
 		liq.setCapct(133);
 		liq.setCate("탁주");
-		liq.setImg("1234123");
 		liq.setIrdnt("asdfa");
 		liq.setLv(1);
 		liq.setLiqCoId(1L);
@@ -44,7 +46,6 @@ public class LiqMapperTests {
 		liq.setLiqId(42L);
 		liq.setCate("asdf");
 		liq.setCapct(100);
-		liq.setImg("asdf");
 		liq.setLv(2);
 		liq.setNm("asdf");
 		liq.setLiqCoId(1L);
@@ -58,8 +59,9 @@ public class LiqMapperTests {
 		mapper.updateCn(cn);
 	}
 	
-	public void testGetAllByKindCount() {
-		int listCnt = mapper.getCountLiqListByKind("탁주");
+	
+	public void testGetAllByCateCount() {
+		int listCnt = mapper.getLiqCntByCate("탁주");
 		log.info(listCnt);
 	}
 	
@@ -68,13 +70,27 @@ public class LiqMapperTests {
 		log.info(allCnt);
 	}
 	
-	public void testGetAllByKind(){
-		List<LiqVO> liqList = mapper.getLiqListByKind("탁주");
+	public void testGetAllByCate(){
+		BbstCriteria cri = new BbstCriteria(1,12);
+		List<LiqVO> liqList = mapper.getLiqListByCate("탁주",cri);
 		liqList.forEach(liq->log.info(liq));
 	}
 	
+	@Test
 	public void testGetAll() {
-		List<LiqVO> liqList = mapper.getLiqList();
+		BbstCriteria cri= new BbstCriteria();
+		List<LiqVO> liqList = mapper.getAllLiqList(cri);
+		liqList.forEach(liq->log.info(liq));
+	}
+	//public void testUpdate(){
+	//}
+	//public void testUpdateCn(){
+	//}
+	
+
+	public void testGetListWithPaging() {
+		AdminCriteria cri = new AdminCriteria();
+		List<LiqVO> liqList = mapper.getLiqListWithPaging(cri);
 		liqList.forEach(liq->log.info(liq));
 	}
 	
