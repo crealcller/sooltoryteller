@@ -47,3 +47,13 @@
 	.h-pwd-p{
 	  margin: 10px 0 10px 0;'
 	}
+	.h-con {
+      width: 700px;
+	  height: 800px;
+	  margin: auto;
+	  padding: 10px;
+	}
+	#pwd, #newpwd, #repwd{
+	  height: 25px;
+      width: 200px;
+	}

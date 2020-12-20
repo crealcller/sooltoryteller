@@ -108,7 +108,6 @@
 					</a></li>
 					<li class="d-mypage-li"><a href='/mypage/changepwd'>비밀번호
 							변경 </a></li>
-					<li class="d-mypage-li"><a href='#'>관심사 변경?</a></li>
 				</ul>
 			</ul>
 		</div>

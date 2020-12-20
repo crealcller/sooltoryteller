@@ -1,25 +1,18 @@
 package com.sooltoryteller.controller;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
-import javax.crypto.Mac;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +40,7 @@ public class MemberController {
 	
 	//로그인 view
 	@GetMapping("/login")
-	public ModelAndView login(HttpSession session) {
+	public ModelAndView soollogin(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		String kakaoUrl = kakaoController.getAuthorizationUrl(session);
@@ -59,7 +52,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
+	public String soollogin(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes rttr) {
 		// id저장 체크박스
 		String save = request.getParameter("save");
@@ -68,6 +61,7 @@ public class MemberController {
 		// 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
 		if (service.loginCheck(email, pwd)) {
 			session.setAttribute("email", email);
+			session.setAttribute("authority", service.getAuthority(email));
 			// id저장 체크박스가 체크되어 있다면 쿠키 저장
 			if (save != null) {
 				response.addCookie(cookie);

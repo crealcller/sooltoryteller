@@ -1,37 +1,16 @@
 @charset "UTF-8";
 
 	.h-login-p{
-	  padding: 8.5px;
+	  padding: 10px;
 	}
-	.h-body{
-	  height: 500px;
-	  width: 100%;
-	  background-color: rgb(245, 245, 245);
-	  
-	}
-	.h-left{
-	  height: 450px;
-	  width: 330px;
-	  display: inline-block;
-	}
-	#h-leftimg{
-	  height: 480px;
-	  width: 330px;
-	  opacity:0.9;
-	  display: inline-block;
-	}
-	.h-right{
-	height: 450px;
-	width: 910px;
-	display: inline-block;
-	}
+	
 	.h-login-content{
 	height: 450px;
 	width: 450px;
 	border: 3px solid rgb(181, 135, 189);
-	border-radius: 25%;
+	background-color: white;
+	margin-top:100px;
 	display: inline-block;
-	margin-left: 170px;
 	overflow: hidden;
 	}
 	
@@ -40,16 +19,16 @@
 	}
 	.login-btn{
 	  height: 40px;
-	  width: 160px;
+	  width: 350px;
 	  border: none;
-	  margin: 10px;
-	  border-radius: 5%;
+	  margin: 0;
 	  color:white;
 	  background-color: rgb(181, 135, 189);
 	}
 	.snslogin{
-	  height: 40px;
-	  width: 350px;
+	  height: 45px;
+	  width: 120px;
+	  margin: 0 20px 0 20px;
 	}
 	
 	
@@ -60,7 +39,7 @@
 		  padding-top: 100px; 
 		  left: 0;
 		  top: 0;
-		  width: 100%; 
+		  width: 1520px; 
 		  height: 100%; 
 		  overflow: auto; 
 		  background-color: rgb(0,0,0); 
@@ -122,4 +101,8 @@
 	  color: white;
 	  margin: 10px;
 	  background-color: rgb(181, 135, 189);
+	}
+	#email, #pwd{
+	height: 25px;
+	width: 200px;
 	}

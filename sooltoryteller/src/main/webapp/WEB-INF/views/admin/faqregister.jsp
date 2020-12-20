@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +9,21 @@
 <title>FAQ등록</title>
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
 <script>
+//권한체크
+let msg ='${msg}';
+
+if(msg != ''){
+	alert(msg);
+	location.href = '/';
+}
+
+//유효성검사
 let errorMsg = '<c:out value="${errorMsg}"/>';
 if(errorMsg != ""){
 	alert(errorMsg);
 }
 </script>
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 </head>
 <body>
 	<h3 style="margin-left: 50px;">[FAQ 등록하기]</h3>
@@ -89,4 +99,5 @@ if(errorMsg != ""){
  
      </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

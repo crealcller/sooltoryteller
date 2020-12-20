@@ -18,32 +18,21 @@
       height: 550px;
       opacity: 0.5;
 	}
-	.h-modify-content{
-      width: 380px;
-      height: 430px;
-      margin: 0 0 50px 70px; 
-      text-align: center;
-      border-radius: 5%;
-      border: 2px solid  rgb(181, 135, 189);
-      background-color:  rgb(250, 250, 250);
-      padding: 30px;
-      display: inline-block;
-      overflow: hidden;
-	}
 	.h-modibtn{
 	 height: 25px;
 	 width: 43px;
 	 border: none;
 	 color: white;
+	 margin-left:10px;
 	 border-radius: 5%;
 	 background-color: rgb(181, 135, 189);
 	}
 	.h-withdrawal-btn{
       height: 30px;
-	  width: 80px;
+	  width: 90px;
 	  border: none;
 	  color: white;
-      margin: 20px;
+      margin: 40px 20px 0 20px;
 	  background-color: rgb(181, 135, 189);
 	}
 	.h-photo{
@@ -63,7 +52,7 @@
 	  padding-top: 100px; 
 	  left: 0;
 	  top: 0;
-	  width: 100%; 
+	  width: 1520px; 
 	  height: 100%; 
 	  overflow: auto; 
 	  background-color: rgb(0,0,0); 
@@ -105,14 +94,32 @@
 	.h-drink{
       margin-left: 15px;
 	}
-	#h-checkName{
+	
+	.h-con {
+      width: 700px;
+	  height: 800px;
+	  margin: auto;
+	}
+
+
+	#email, #name, #telno{
 	  height: 25px;
-      width: 60px;
-      font-size: 5px;
-      border: none;
-      border-radius: 5%;
-  	  font-weight: bold;
-  	  margin-left: 5px;
-  	  color: white;
-  	  background-color: rgb(181, 135, 189);
+      width: 180px;
+	}
+	
+	#h-telno-ok, #h-name-ok, #h-favalc-ok{
+	  height: 30px;
+	  width: 50px;
+	  border: none;
+	  color: white;
+	  background-color: rgb(181, 135, 189);
+	}
+	
+	.h-overlap-btn{
+	  height: 25px;
+	  width: 78px;
+	  border: none;
+	  color: white;
+	  margin-left:10px;
+	  background-color: rgb(181, 135, 189);
 	}

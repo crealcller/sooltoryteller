@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +9,21 @@
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
 
 <script>
+//권한체크
+let msg ='${msg}';
+
+if(msg != ''){
+	alert(msg);
+	location.href = '/';
+}
+//답변 유효성체크
 let errorMsg = '<c:out value="${errorMsg}"/>';
 if(errorMsg != ""){
 	alert(errorMsg);
 }
 </script>
 
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 </head>
 <body>
 	<h3 style="margin-left: 50px;">[1:1문의 답변보내기]</h3>
@@ -73,4 +81,5 @@ if(errorMsg != ""){
 	}
      </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

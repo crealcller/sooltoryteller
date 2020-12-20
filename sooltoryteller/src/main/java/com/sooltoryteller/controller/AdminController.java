@@ -1,9 +1,6 @@
 package com.sooltoryteller.controller;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -13,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.AdminCriteria;
@@ -23,7 +21,6 @@ import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.FaqVO;
 import com.sooltoryteller.domain.InquiryAnswerVO;
 import com.sooltoryteller.domain.LiqCnVO;
-import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqVO;
 import com.sooltoryteller.service.AdminService;
@@ -34,7 +31,6 @@ import com.sooltoryteller.service.LiqCoService;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberService;
-import com.sooltoryteller.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -60,23 +56,51 @@ public class AdminController {
 
 	// 전통주 리스트페이지
 	@GetMapping("/liq-list")
-	public void liq(Model model, AdminCriteria adCri) {
-		log.info("liq list");
-		model.addAttribute("liq", liqService.getLiqListWithPaging(adCri));
-		int total = liqService.liqCnt();
-		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+	public void liq(Model model, AdminCriteria adCri, HttpSession session) {
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+			
+			log.info("liq list");
+			model.addAttribute("liq", liqService.getLiqListWithPaging(adCri));
+			int total = liqService.liqCnt();
+			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+
+		}
 	}
 
 	// 전통주 관리페이지
 	@GetMapping("/get-liq")
-	public void getLiq(Model model, Long liqId) {
-		log.info("liq" + liqId);
-		model.addAttribute("liq", liqService.get(liqId));
+	public void getLiq(Model model, Long liqId, HttpSession session) {
+
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+			log.info("liq" + liqId);
+			model.addAttribute("liq", liqService.get(liqId));
+		}
 	}
 
 	// 전통주 등록 페이지
 	@GetMapping("/liq-register")
-	public void liqRegister() {
+	public void liqRegister(Model model, HttpSession session) {
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+		}
+		
 	}
 /*
 	// 전통주 등록
@@ -135,24 +159,51 @@ public class AdminController {
 
 	// 양조장 리스트페이지
 	@GetMapping("/liq-co-list")
-	public void liqCo(Model model, AdminCriteria adCri) {
-		log.info("liq co list");
-		model.addAttribute("liqCo", liqCoService.getLiqCoListWithPaging(adCri));
-		int total = liqCoService.liqCoCnt();
-		
-		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
-	}
+	public void liqCo(Model model, AdminCriteria adCri, HttpSession session) {
 
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+		
+			log.info("liq co list");
+			model.addAttribute("liqCo", liqCoService.getLiqCoListWithPaging(adCri));
+			int total = liqCoService.liqCoCnt();
+			
+			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+
+		}
+	}
 	// 양조장 관리페이지
 	@GetMapping("/get-liq-co")
-	public void getLiqCo(Model model, Long liqCoId) {
-		log.info("liq co" + liqCoId);
-		model.addAttribute("liqCo", liqCoService.getLiqCoById(liqCoId));
+	public void getLiqCo(Model model, Long liqCoId, HttpSession session) {
+
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+			log.info("liq co" + liqCoId);
+			model.addAttribute("liqCo", liqCoService.getLiqCoById(liqCoId));
+		}
 	}
 
 	// 양조장 등록페이지
 	@GetMapping("/liq-co-register")
-	public void liqCoRegister() {
+	public void liqCoRegister(Model model, HttpSession session) {
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+		}
+			
 	}
 
 	// 양조장 등록
@@ -162,49 +213,74 @@ public class AdminController {
 		return "redirect:/admin/";
 	}
 
-	// 관리자 메인 페이지
-	
-/*
+/*	
 	//관리자 메인 페이지[보류]
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String admin() {
 		return "admin";
 	}
-
 */
 	
 	//관리자-회원리스트페이지
 	@GetMapping("/memberlist")
-	public void memberlist(AdminCriteria adCri, Model model) {
+	public void memberlist(AdminCriteria adCri, Model model, HttpSession session) {
 
-		log.info("memberList : " + adCri);
-
-		model.addAttribute("memberlist", adService.getList(adCri));
-
-		int total = adService.getTotal(adCri);
-
-		log.info("total: " + total);
-
-		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+		
+			log.info("memberList : " + adCri);
+	
+			model.addAttribute("memberlist", adService.getList(adCri));
+	
+			int total = adService.getTotal(adCri);
+	
+			log.info("total: " + total);
+	
+			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+			
+			
+		}
 	}
 
 	// FAQ리스트 불러오기
 	@GetMapping("/faqlist")
-	public void faqlist(AdminCriteria adCri, Model model) {
+	public void faqlist(AdminCriteria adCri, Model model, HttpSession session) {
 		log.info("faqlist:" + adCri);
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
 
-		model.addAttribute("faqlist", faqService.getList(adCri));
-
-		int total = faqService.getTotal(adCri);
-
-		log.info("total: " + total);
-
-		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+			model.addAttribute("faqlist", faqService.getList(adCri));
+	
+			int total = faqService.getTotal(adCri);
+	
+			log.info("total: " + total);
+	
+			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+		
+		}
 	}
 
 	// FAQ 등록하기
 	@GetMapping("/faqregister")
-	public void faqregister() {
+	public void faqregister(Model model, HttpSession session) {
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+		}
 	}
 
 	@PostMapping("/faqregister")
@@ -228,9 +304,22 @@ public class AdminController {
 
 	// FAQ 불러오기
 	@GetMapping({ "/faqget", "/faqmodify" })
-	public void faqget(@RequestParam("faqId") Long faqId, @ModelAttribute("adCri") AdminCriteria adCri, Model model) {
+	public void faqget(@RequestParam("faqId") Long faqId, 
+			@ModelAttribute("adCri") AdminCriteria adCri, Model model, HttpSession session) {
+		
 		log.info("/faqget or /faqmodify");
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+		
 		model.addAttribute("faq", faqService.get(faqId));
+		
+		}
 	}
 
 	// FAQ 수정하기
@@ -273,36 +362,64 @@ public class AdminController {
 	
 	//1:1문의 리스트
 	@GetMapping("/inquirylist")
-	public void inquirylist(AdminCriteria adCri, Model model) {
+	public void inquirylist(AdminCriteria adCri, Model model, HttpSession session) {
 	
-		log.info("list" + adCri);
-		model.addAttribute("inquirylist", inqService.getList(adCri));
+		String authority = (String) session.getAttribute("authority");
 		
-		int total = inqService.getTotal(adCri);
-		
-		log.info("total : "+total);
-		
-		model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
-		System.out.println(model);
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+			
+			log.info("list" + adCri);
+			model.addAttribute("inquirylist", inqService.getList(adCri));
+			
+			int total = inqService.getTotal(adCri);
+			
+			log.info("total : "+total);
+			
+			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
+			System.out.println(model);
+		}
 	}
 	
 	//1:1문의 조회
 	@GetMapping("/getinquiry")
 	public void getinquiry(@RequestParam("inquiryId")Long inquiryId, 
-			@ModelAttribute("adCri")AdminCriteria adCri, Model model) {
+			@ModelAttribute("adCri")AdminCriteria adCri, Model model, HttpSession session) {
 		
 		log.info("/getinquiry" + inquiryId);
-		model.addAttribute("inq", inqService.get(inquiryId));
-		log.info("inq : "+model);
+		
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("inq", inqService.get(inquiryId));
+			log.info("inq : "+model);
+		}
 	}
 	
 	
 	//문의 답변
 	@GetMapping("/answer")
-	public void answer(@RequestParam("inquiryId")Long inquiryId, Model model) {
+	public void answer(@RequestParam("inquiryId")Long inquiryId, Model model, HttpSession session) {
+		
 		log.info("문의글 번호: "+inquiryId);
 		
-		model.addAttribute("inquiryId", inquiryId);
+		String authority = (String) session.getAttribute("authority");
+		
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+		
+			model.addAttribute("inquiryId", inquiryId);
+		}
 	}
 	
 	//답변 등록 및 이메일전송
@@ -350,9 +467,18 @@ public class AdminController {
 	
 	//답변조회
 	@GetMapping("/getanswer")
-	public void getanswer(@RequestParam("inquiryId")Long inquiryId, Model model) {
+	public void getanswer(@RequestParam("inquiryId")Long inquiryId, 
+			Model model, HttpSession session) {
 		log.info("문의글 번호: "+inquiryId);
 		
-		model.addAttribute("answer", inqAnService.get(inquiryId));
+		String authority = (String) session.getAttribute("authority");
+
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return;
+			
+		}else if(authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("answer", inqAnService.get(inquiryId));
+		}
 	}
 }

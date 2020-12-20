@@ -1,13 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+//권한체크
+let msg ='${msg}';
+
+if(msg != ''){
+	alert(msg);
+	location.href = '/';
+}
+</script>
 <link rel="shortcut icon" href="#">
 <link rel="stylesheet" href="/resources/css/faqlistHead.css">
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 <meta charset="UTF-8">
 <title>FAQ</title>
 </head>
@@ -174,4 +184,5 @@
  });
      </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

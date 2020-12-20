@@ -44,4 +44,7 @@ public interface MemberService {
 	
 	//회원 이메일 불러오기
 	public String getEmail(Long memberId);
+	
+	//회원 권한 가져오기
+	public String getAuthority(String email);
 }

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 
-<!DOCTYPE html>
 <html>
 <head>
+<script>
+//권한체크
+let msg ='${msg}';
+
+if(msg != ''){
+	alert(msg);
+	location.href = '/';
+}
+
+
+</script>
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 <meta charset="UTF-8">
 <title>회원관리</title>
 <style>
@@ -34,6 +44,10 @@
       text-decoration: none;
       color: black;
     }
+ 	.pull-right{  
+      text-align: right;
+      margin: 20px 100px 0 0;
+	}
     
 	.h-pagination {
   	  display: inline-block;
@@ -82,7 +96,18 @@
          <td><c:out value="${member.telno }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.regdate }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.updatedate }"/></td>
-         <td><c:out value="${member.regstus }"/></td>
+         <td>
+
+         <c:choose>
+        		 <c:when test="${member.regstus  == 'JN'.toString()}">
+        		 	가입
+        		 </c:when>
+        		 <c:when test="${inq.anstus  == 'AC'.toString()}">
+        		        탈퇴
+        		 </c:when>	
+        	 </c:choose>
+         
+         </td>
          </tr>
          </c:forEach>
         </table>
@@ -144,4 +169,5 @@
     
     </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

@@ -1,15 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+//권한체크
+let msg ='${msg}';
+
+if(msg != ''){
+	alert(msg);
+	location.href = '/';
+}
+</script>
 <meta charset="UTF-8">
 <title>FAQ조회</title>
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
 <!-- 관리자 페이지   -->
-
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 
 </head>
 <body>
@@ -74,4 +83,5 @@
  });
      </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

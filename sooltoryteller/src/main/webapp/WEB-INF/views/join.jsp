@@ -15,44 +15,43 @@ if(msg != ""){
 
 <body>
 
- <div class="h-body">
-<div class="h-left"><img src="/resources/img/barsign.jpg" id="h-leftimg">
-</div><div class="h-right">
+ <div class="s-main-background" ">
+	<div class="s-main-column" style="height:750px; text-align: center;">
   
-  <div class="h-join-content">
-    <div class="h-content">
-    <h2 style="margin-left:50px;">회원가입</h2>
-    <h4 style="margin-left:50px;">기본정보</h4>
-    
-    <form action="/join" method="POST" onsubmit="return validate()">
-    <p class='h-join-p' style="margin-left:50px;">이메일 &nbsp<input type="text" id="email" name="email" value="<c:out value='${member.email }'/>">
-    <button type="button" id="h-checkId" class="id-overlapCheck">중복확인</button></p>
-    <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" maxlength="8" value="<c:out value='${member.name }'/>">
-    <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p>
-    <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="nameMsg">닉네임은 한글로 2~8자로 입력해주세요</p>
-    <p class='h-join-p' style="margin-left:35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd" maxlength="16" value="<c:out value='${member.pwd }'/>"></p>
-    <p class='h-join-p'>비밀번호 확인 &nbsp<input type="password" id="rePwd" onblur="checkPwd()"></p>
-     <p class='h-join-p' style="font-size:5px; margin-left:120px;" id="repwdMsg">비밀 번호는 영문자, 특수문자 포함해서 5~16자리</p>
-    <p class='h-join-p' style="margin-left:25px;">핸드폰번호 &nbsp<input type="text" id="telno" name="telno" placeholder="01000000000" value="<c:out value='${member.telno }'/>"></p>
-    
-    <div class="h-fav-drink">
-      <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
-    <p class='h-join-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='1'>소주
-  							    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='2'>맥주
-    						    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='3'>막걸리
-    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='4'>칵테일 </p>
-    
-    <p class='h-join-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name="drink" value='5'>보드카
-   							    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='6'>양주
-    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='7'>와인
-    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8'>기타 </p>
-    							
-    <p class='h-join-p' style="text-align: center; margin:0;"><button style="margin: 0" type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
-    <button type="button" class="join-btn" >취소</button></p>
-    </div>
-    </form>
-    </div>
-  </div>
+	  <div class="h-join-content">
+	    <div class="h-content">
+	    <h2 style="margin:50px 0 0 50px; width:300px; text-align: left;">회원가입</h2>
+	    <h4 style="margin:15px 0 0 50px; width:300px; text-align: left;">기본정보</h4>
+	    
+	    <form action="/join" method="POST" onsubmit="return validate()">
+	    <p class='h-join-p' style="margin-left:50px;">이메일 &nbsp<input type="text" id="email" name="email" value="<c:out value='${member.email }'/>">
+	    <button type="button" id="h-checkId" class="id-overlapCheck">중복확인</button></p>
+	    <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name" maxlength="8" value="<c:out value='${member.name }'/>">
+	    <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p>
+	    <p class='h-join-p' style="font-size:12px; margin-left:70px;" id="nameMsg">닉네임은 한글로 2~8자로 입력해주세요</p>
+	    <p class='h-join-p' style="margin-left:60px;text-align: left;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd" maxlength="16" value="<c:out value='${member.pwd }'/>"></p>
+	    <p class='h-join-p' style="margin-left:23px;text-align: left;">비밀번호 확인 &nbsp<input type="password" id="rePwd" onblur="checkPwd()"></p>
+	     <p class='h-join-p' style="font-size:12px; margin-left:120px;" id="repwdMsg">비밀 번호는 영문자, 특수문자 포함해서 5~16자리</p>
+	    <p class='h-join-p' style="margin-left:45px; text-align: left;">핸드폰번호 &nbsp<input type="text" id="telno" name="telno" placeholder="01000000000" value="<c:out value='${member.telno }'/>"></p>
+	    
+	    <div class="h-fav-drink">
+	      <h5 style="margin:20px">선호하는 주종(2가지 선택)</h5>
+	    <p class='h-join-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='1' id='a'> <label for='a'>소주</label>
+	  						<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='2' id='b'> <label for='b'>맥주</label>
+	    					<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='3' id='c'> <label for='c'>막걸리</label>
+	    					<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='4' id='d'> <label for='d'>칵테일</label> </p>
+	    
+	    <p class='h-join-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name="drink" value='5' id='e'> <label for='e'>보드카</label>
+	   						<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='6' id='f'> <label for='f'>양주</label>
+	    					<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='7' id='g'> <label for='g'>와인</label>
+	    					<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8' id='h'> <label for='h'>기타</label> </p>
+	    							
+	    <p class='h-join-p' style="text-align: center; margin:20px;"><button type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
+	    <button type="button" class="join-btn" >취소</button></p>
+	    </div>
+	    </form>
+	    </div>
+	  </div>
 
 </div>
   </div>
@@ -282,4 +281,5 @@ if(msg != ""){
   </script>
   
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

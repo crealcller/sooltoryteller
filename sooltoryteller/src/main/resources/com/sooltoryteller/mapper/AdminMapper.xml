@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		rownum rn, member_id, email, name, telno, regdate, updatedate, regstus
 		from member
 		where rownum <= #{pageNum} * #{amount}
+		and authority = 'USER'
 		)
 	where rn > (#{pageNum} -1) * #{amount}
 	]]>

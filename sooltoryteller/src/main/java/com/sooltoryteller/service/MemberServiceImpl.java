@@ -166,4 +166,9 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.getEmail(memberId);
 	}
 
+	@Override
+	public String getAuthority(String email) {
+		return mapper.getAuthority(email);
+	}
+
 }
