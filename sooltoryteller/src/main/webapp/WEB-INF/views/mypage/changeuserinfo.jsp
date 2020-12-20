@@ -217,7 +217,6 @@
 	
 	
 		
-//회원 탈퇴 확인 모달창
 let wModal = document.getElementById("h-withdrawal-Modal");
 let nModal = document.getElementById("h-name-Modal");
 let tModal = document.getElementById("h-telno-Modal");

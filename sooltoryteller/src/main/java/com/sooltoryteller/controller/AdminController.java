@@ -246,6 +246,29 @@ public class AdminController {
 			
 		}
 	}
+	
+	//회원탈퇴
+	@GetMapping("/withdraw")
+	public String withdraw(@RequestParam("memberId") Long memberId, @ModelAttribute("adCri") AdminCriteria adCri,
+			Model model, HttpSession session, RedirectAttributes rttr) {
+			
+		log.info("member withdraw");
+			
+		String authority = (String) session.getAttribute("authority");
+			
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			model.addAttribute("msg", "권한이 필요한 페이지 입니다.");
+			return "/";
+				
+		}else if(authority.equalsIgnoreCase("admin")) {
+			String email = memberService.getEmail(memberId);
+			
+			memberService.modifyRegStus(email);
+				
+			
+		}
+		return "redirect:/admin/memberlist";
+	}
 
 	// FAQ리스트 불러오기
 	@GetMapping("/faqlist")
