@@ -224,4 +224,12 @@
 		delete liq_cnt
 		where liq_id=#{liqId}
 	</delete>
+	
+	<select id="getOtherLiq" resultMap="LiqVO">
+	select l.liq_id, l.nm, l.liq_thumb, c.avg_rate from liq l, liq_cnt c 
+	where l.liq_id = c.liq_id
+    and liq_co_id = (
+	select liq_co_id from liq
+	where liq_id=#{liqId})
+	</select>
 </mapper>

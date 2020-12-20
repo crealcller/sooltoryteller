@@ -112,7 +112,7 @@ a {
 <body>
    <div class="h-logobar">
         <div class="h-logo">
-        <a href="#" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
+        <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">

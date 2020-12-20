@@ -26,7 +26,11 @@ public class LiqMapperTests {
 	@Setter(onMethod_ =@Autowired )
 	private LiqMapper mapper;
 	
-	
+	@Test
+	public void testGetOtherLiq() {
+		List<LiqVO> list = mapper.getOtherLiq(3L);
+		list.forEach(liq -> log.info(liq));
+	}
 	
 	public void testInsert() {
 		LiqVO liq = new LiqVO();
@@ -76,7 +80,7 @@ public class LiqMapperTests {
 		liqList.forEach(liq->log.info(liq));
 	}
 	
-	@Test
+	
 	public void testGetAll() {
 		BbstCriteria cri= new BbstCriteria();
 		List<LiqVO> liqList = mapper.getAllLiqList(cri);

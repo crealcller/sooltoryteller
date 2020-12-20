@@ -70,4 +70,6 @@ public interface LiqMapper {
 
 	// 좋아요수 업데이트
 	public void updateLikeCnt(@Param("liqId") Long liqId, @Param("amount") int amount);
+	
+	public List<LiqVO> getOtherLiq(Long liqId);
 }

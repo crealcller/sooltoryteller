@@ -9,8 +9,8 @@
 <style>
 .d-con {
 	width: 100%;
-	height:100%;
-	padding-top:20px; 
+	height: 100%;
+	padding-top: 20px;
 }
 /* 구메정보부분 배경 */
 .d-trad-liq-info {
@@ -19,21 +19,20 @@
 	background-color: white;
 	margin: 0 auto 25px auto;
 	box-shadow: 10px 10px 13px -1px #c8c2c2;
-	
 }
 /* 구메정보부분 */
 .d-trad-liq-info-con {
 	width: 800px;
-	height:100%;
-	display:inline-block;
-	margin-left:120px;
+	height: 100%;
+	display: inline-block;
+	margin-left: 120px;
 }
 
 .d-trad-liq-info-con-heart {
-	float:right;
+	float: right;
 	width: 120px;
-	height:100%;
-	padding-top:30px;
+	height: 100%;
+	padding-top: 30px;
 	display: inline-block;
 }
 
@@ -47,7 +46,7 @@
 }
 /* 구매정보부분 - 글 */
 .d-trad-liq-text-con {
-	padding-top:50px;
+	padding-top: 50px;
 	width: 450px;
 	height: 100%;
 	display: inline-block;
@@ -58,7 +57,6 @@
 	margin: 0 auto;
 	padding: 0;
 	width: 70%;
-	
 }
 
 /* 전통주상세 */
@@ -68,7 +66,7 @@
 	border-bottom-color: #844ce321;
 	background-color: white;
 	padding: 50px;
-	margin-bottom:20px;
+	margin-bottom: 20px;
 }
 
 .d-revw-wrapper {
@@ -114,35 +112,40 @@
 	width: 300px;
 	height: 300px;
 	display: inline-block;
-	margin-top:20px;
-	
+	margin-top: 20px;
 }
 
-.d-new-revw-con ul{
-	width:260px;
-	padding:10px;
+.d-new-revw-con ul {
+	width: 260px;
+	padding: 10px;
 	list-style: none;
 }
-.d-new-revw-con li{
+
+.d-new-revw-con li {
 	border-bottom: solid 2px #F2EFF9;
-	padding:10px;
+	padding: 10px;
 }
-.d-new-revw-con button{
-	float:left;
+
+.d-new-revw-con button {
+	float: left;
 	background-color: Transparent;
-	border : 0;
+	border: 0;
 	outline: 0;
 }
-.d-new-revw-con img{
-	float:left;
+
+.d-new-revw-con img {
+	float: left;
 }
-.d-revw-cnt{
- 	margin-left:10px;
- 	font-size:7px;
+
+.d-revw-cnt {
+	margin-left: 10px;
+	font-size: 7px;
 }
-.d-revw-cnt-msg{
-	font-size:7px;
+
+.d-revw-cnt-msg {
+	font-size: 7px;
 }
+
 .d-revw-profile {
 	width: 50px;
 	height: 50px;
@@ -150,8 +153,8 @@
 	border: solid 1px #ccaeff;
 }
 
-.d-revw-rate{
-	font-size:30px;
+.d-revw-rate {
+	font-size: 30px;
 }
 
 .d-paging-btn-active {
@@ -213,6 +216,7 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
 .d-star_grade span {
 	text-decoration: none;
 	font-size: 30px;
@@ -222,6 +226,7 @@
 .d-star_grade span.on {
 	color: orange;
 }
+
 .star_grade span {
 	text-decoration: none;
 	font-size: 30px;
@@ -235,23 +240,92 @@
 .star_grade :hover {
 	cursor: pointer;
 }
+
 .d-revw-star {
-	font-size:20px;
+	font-size: 20px;
 	color: orange;
 }
-.d-star-box{
- 	display:inline-block;
- 	padding:3px 8px 3px 8px;
- 	background-color: #f9f7d6;
- 	border-style:none;
+
+.d-star-box {
+	display: inline-block;
+	padding: 3px 8px 3px 8px;
+	background-color: #f9f7d6;
+	border-style: none;
 	border-radius: 10px 10px 10px 10px;
-	margin:10px;
+	margin: 10px;
 }
 
-#like{
+#like {
 	font-size: 30px;
 }
 
+li {
+	list-style: none;
+}
+
+.clearfix {
+	overflow: auto;
+}
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.clear {
+	clear: both;
+}
+
+.gallery {
+	width: 800px;
+	height: 400px;
+	margin: 20px auto;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	padding-left: 0;
+}
+
+.gallery ul {
+	width: 300%;
+	position: relative;
+	left: -300px;
+}
+
+.gallery ul li {
+	float: left;
+	width: 220px;
+	height: 400px;
+	box-sizing: border-box;
+	padding: 15px;
+	text-align: center;
+	line-height: 150px;
+}
+
+.gallery ul li .img {	
+	width: 180px;
+	height: 230px;
+	border: 3px solid #ccc;
+}
+
+.g_item {
+	width: 900px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.g_item ul li {
+	display: inline-block;
+	margin-right: 10px;
+	background: #ccc;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+}
+
+.g_item ul li.on {
+	background: #f00;
+}
 </style>
 <meta charset="UTF-8">
 <title>전통주 상세</title>
@@ -380,7 +454,7 @@
   <!-- Modal content -->
   <div class="d-revw-modal-content">
     <span class="d-revw-modal-close">&times;</span>
-	<div><img style='width:100px;height:150px;' src='/resources/img/<c:out value="${liq.liqThumb}" />'><c:out value="${liq.nm}" /></div>
+	<div><img style='width:100px;height:150px;' src='<c:out value="${liq.liqThumb}" />'><c:out value="${liq.nm}" /></div>
     
      <p class="star_grade">
         <span value=1>★</span>
@@ -400,6 +474,57 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>
 <script type="text/javascript" src="/resources/js/like.js"></script>
+
+
+<script>
+
+var gall  = setInterval(galleryFun, 2000);
+  var inter = true;
+  var idx = 2;
+  
+   function galleryFun(){
+     
+      $(".gallery ul").animate({
+        "left":-300*idx+"px"
+      },300);
+     $(".g_item ul li").eq(idx-1).addClass("on").siblings().removeClass("on");
+     idx++;
+     if(idx> $(".gallery ul li").length-3){
+       $(".gallery ul").animate({
+         "left":0
+       },0);
+       idx=0;
+       
+     }
+   }
+   
+   
+   $(".gallery , .g_item").hover(function(){
+     if(inter==true){
+       clearInterval(gall);
+       inter=false;
+     }
+   },function(){
+     if(inter==false){
+       gall  = setInterval(galleryFun, 2000);
+       inter=true;
+     }
+     
+   });
+   
+   
+   
+   $(".g_item ul li").on('click',function(){
+     $(this).addClass("on").siblings().removeClass("on");
+     idx = $(this).index()+1;
+     $(".gallery ul").animate({
+        "left":-300*idx+"px"
+      },1000);
+     
+   });
+
+       </script>
+
 <script>
 $(document).ready(function(){
 	var liqIdValue = '<c:out value="${liq.liqId}"/>'

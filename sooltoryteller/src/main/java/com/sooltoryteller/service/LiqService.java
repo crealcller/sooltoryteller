@@ -28,4 +28,6 @@ public interface LiqService {
 		public int liqCnt();
 		
 		public int liqCntByCate(String cate);
+		
+		public List<LiqVO> getOtherLiq(Long liqId);
 }

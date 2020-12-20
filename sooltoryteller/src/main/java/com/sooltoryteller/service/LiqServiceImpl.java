@@ -105,4 +105,11 @@ public class LiqServiceImpl implements LiqService{
 		log.info("liq cnt by cate");
 		return mapper.getLiqCntByCate(cate);
 	}
+
+	@Override
+	public List<LiqVO> getOtherLiq(Long liqId) {
+		// TODO Auto-generated method stub
+		return mapper.getOtherLiq(liqId);
+	}
+
 }

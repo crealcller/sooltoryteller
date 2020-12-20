@@ -39,6 +39,7 @@ public class LiqController {
 		}
 			
 		model.addAttribute("liq", service.get(liqId));
+		model.addAttribute("others", service.getOtherLiq(liqId));
 	}
 	
 	//전체 리스트
