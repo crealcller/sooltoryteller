@@ -24,6 +24,10 @@ public class LiqRevwMapperTests {
 	private LiqRevwMapper mapper;
 	
 	@Test
+	public void testGetCountByLiqId() {
+		mapper.getCountByLiqId(1L);
+	}
+	
 	public void testGetMyListWithPaging() {
 		Criteria cri = new Criteria(2,5);
 		List<MyRevwVO> revws = mapper.getMyListWithPaging(4L, cri);

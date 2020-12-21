@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sooltoryteller.domain.AdminCriteria;
+import com.sooltoryteller.domain.BbstCriteria;
+import com.sooltoryteller.domain.Criteria;
 import com.sooltoryteller.domain.LiqCnVO;
 import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqVO;
@@ -36,19 +38,22 @@ public class LiqServiceImpl implements LiqService{
 	}
 
 	@Override
-	public List<LiqVO> getLiqListByKind(String kind) {
-		log.info("get liq list by kind");
-		return mapper.getLiqListByKind(kind);
+	public List<LiqVO> getLiqListByCate(String cate,BbstCriteria cri) {
+		log.info("get liq list by cate");
+		cri.setAmount(12);
+		return mapper.getLiqListByCate(cate,cri);
 	}
-
-	
 
 	@Override
 	@Transactional
-	public boolean registerLiq(LiqVO liq, LiqCnVO cn, Long liqCoId, LiqCntVO cnt) {
-		log.info("register liq with liq cn");
-		
+	public boolean registerLiq(LiqVO liq,  Long liqCoId) {
+		log.info("register liq with liq cn and liq cnt");
+	
 		int liqResult = mapper.insertLiq(liq, liqCoId);
+		
+		LiqCnVO cn = liq.getLiqCn();
+		LiqCntVO cnt = liq.getLiqCnt();
+		cnt.setInqrCnt(0L);
 		int cnResult = mapper.insertLiqCn(cn);
 		int cntResult = mapper.insertLiqCnt(cnt);
 		
@@ -84,13 +89,33 @@ public class LiqServiceImpl implements LiqService{
 	}
 
 	@Override
-	public List<LiqVO> getLiqList() {
-		return mapper.getLiqList();
+	public List<LiqVO> getAllLiqList(BbstCriteria cri) {
+		cri.setAmount(12);
+		return mapper.getAllLiqList(cri);
 	}
 
 	@Override
 	public int liqCnt() {
 		log.info("liq cnt");
-		return mapper.liqCnt();
+		return mapper.getliqCnt();
 	}
+
+	@Override
+	public int liqCntByCate(String cate) {
+		log.info("liq cnt by cate");
+		return mapper.getLiqCntByCate(cate);
+	}
+
+	@Override
+	public List<LiqVO> getOtherLiq(Long liqId) {
+		// TODO Auto-generated method stub
+		return mapper.getOtherLiq(liqId);
+	}
+
+	@Override
+	public int getliqExist(String liqNm) {
+
+		return mapper.getliqExist(liqNm);
+	}
+
 }

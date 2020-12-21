@@ -56,8 +56,8 @@
 		select /*+INDEX(r idx_revw) */
 		rownum rn, r.liq_id,r.revw_id, r.cn, r.rate, r.regdate, m.img member_img, m.name member_name
 		from liq_revw r, member m
-        where liq_id = #{liqId}
-		and r.member_id=m.member_id
+        where r.member_id=m.member_id
+		and liq_id = #{liqId}
 		and revw_id>0
 		and rownum <=#{cri.pageNum}*#{cri.amount}
 		)rv where rn > (#{cri.pageNum} -1)*#{cri.amount}
@@ -73,16 +73,16 @@
 	
 	<select id="getMyListWithPaging" resultType="com.sooltoryteller.domain.MyRevwVO">
 		<![CDATA[
-		select 
-		rv.liq_id, rv.nm, rv.cate,rv.img,rv.revw_id,rv.cn,rv.rate,rv.regdate
-		from(select /*+index_desc(r liq_revw_pk)*/ 
-		rownum rn, l.liq_id, l.nm, l.cate,l.img,
-		r.revw_id,r.cn,r.rate,r.regdate
+		select a.revw_id, a.liq_id, a.nm, a.cate,a.liq_thumb,a.cn,a.rate,a.regdate 
+        from (select rownum rn, rv.revw_id, rv.liq_id, rv.nm, rv.cate,rv.liq_thumb,rv.cn,rv.rate,rv.regdate
+        from(select r.revw_id,l.liq_id, l.nm, l.cate,l.liq_thumb, r.cn,r.rate,r.regdate
 		from liq l, liq_revw r
 		where l.liq_id = r.liq_id
 		and r.member_id = #{memberId}
-		and rownum <= #{cri.pageNum}*#{cri.amount}
-		)rv where rn > (#{cri.pageNum} -1)*#{cri.amount}
+		order by revw_id desc)rv 
+        where rownum<=#{cri.pageNum}*#{cri.amount}
+        )a
+        where rn > (#{cri.pageNum} -1)*#{cri.amount}
 		]]>
 	</select>
 	

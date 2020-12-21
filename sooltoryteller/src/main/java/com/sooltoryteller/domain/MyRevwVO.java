@@ -22,7 +22,7 @@ public class MyRevwVO {
 	private String cate;
     
     // 전통주 사진 
-    private String img;
+    private String liqThumb;
 
 	// 리뷰일련번호 
     private Long revwId;
