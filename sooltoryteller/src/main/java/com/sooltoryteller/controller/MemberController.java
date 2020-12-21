@@ -1,37 +1,36 @@
 package com.sooltoryteller.controller;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
-import javax.crypto.Mac;
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.MemberVO;
 import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
+import com.sooltoryteller.utils.UploadFileUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -44,6 +43,9 @@ public class MemberController {
 	private MemberService service;
 	private MemberFavDrkService favDrkService;
 	private KakaoLoginController kakaoController;
+	
+	@Resource(name = "uploadPath")
+	private String uploadPath;
 	
 	//로그인 view
 	@GetMapping("/login")
@@ -252,15 +254,33 @@ public class MemberController {
 	}
 	// 회원정보수정
 	@PostMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(MemberVO member, HttpSession session, Model model) {
+	public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
 		String loginEmail = (String) session.getAttribute("email");
 		System.out.println("changeUserInfo: " + member);
 		System.out.println("changeUserInfo: " + loginEmail);
 		
+		// 첨부파일 업로드 설정
+		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
+		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
+
+		if(file != null || !file.getOriginalFilename().equalsIgnoreCase("user.png")) { 
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			member.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+			// user.png 파일로 대체
+			fileName = File.separator + "images" + File.separator + "user.png";
+			member.setImg(fileName);
+			member.setThumbImg(fileName);
+		}
+
 		if(!loginEmail.equals(member.getEmail())) {
 			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
 			model.addAttribute("member", service.get(loginEmail));
 			model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+			model.addAttribute("img", service.get(member.getImg()));
+			model.addAttribute("thumbImg", service.get(member.getThumbImg()));
 			return;
 			
 		}else {
@@ -269,11 +289,14 @@ public class MemberController {
 				model.addAttribute("success", "회원 정보가 수정되었습니다.");
 				model.addAttribute("member", service.get(member.getEmail()));
 				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
+				model.addAttribute("img", service.get(member.getImg()));
+				model.addAttribute("thumbImg", service.get(member.getThumbImg()));
 			}else {
 				model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
 				model.addAttribute("member", service.get(loginEmail));
 				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
-
+				model.addAttribute("img", service.get(member.getImg()));
+				model.addAttribute("thumbImg", service.get(member.getThumbImg()));
 			}
 		}
 	}

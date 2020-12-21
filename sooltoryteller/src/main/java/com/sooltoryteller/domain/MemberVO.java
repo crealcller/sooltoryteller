@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.Data;
@@ -40,8 +41,11 @@ public class MemberVO {
 	@Pattern(regexp = "^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$")
 	private String telno;
 
-	// 프로필 사진 
-	private String img;
+	// 프로필 사진
+	private String img = "user.png";
+	
+	// 프로필 썸네일사진
+	private String thumbImg = "user.png";
 
 	// 가입일시 
 	private Date regdate;

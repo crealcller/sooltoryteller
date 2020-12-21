@@ -24,9 +24,10 @@ public interface BbstReplyService {
 	public int modifyBbstReply(BbstReplyJoinVO vo);
 	
 	// 댓글 삭제
-	public int removeBbstReply(
-		@Param("bbstReplyId") Long bbstReplyId
-		);
+	public int removeBbstReply(Long bbstReplyId);
+
+	// 게시글 삭제 시 댓글도 삭제
+	public int deleteReplyWithBbst(Long bbstId);
 	
 	// 게시글의 모든 댓글 조회
 	public List<BbstReplyJoinVO> getBbstReplyList(

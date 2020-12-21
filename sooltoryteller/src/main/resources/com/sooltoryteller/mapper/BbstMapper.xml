@@ -83,6 +83,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values(#{bbstId})
 </insert>
 
+<delete id="deleteBbstCnt">
+	delete bbst_cnt
+	where bbst_id = #{bbstId}
+</delete>
+
 <!-- 게시글 조회 -->
 <select id="getBbst" resultType="com.sooltoryteller.domain.BbstJoinVO">
 	select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt

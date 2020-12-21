@@ -11,7 +11,7 @@
 <title>마이페이지 > 좋아요</title>
 </head>
 <body>
-	<h2>내가 좋아요한 전통주</h2>
+		<h2>내가 좋아요한 전통주</h2>
 		<div class="d-con">
 		<ul class="d-like">
 		</ul>

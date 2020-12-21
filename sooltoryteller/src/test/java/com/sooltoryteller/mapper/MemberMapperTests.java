@@ -56,6 +56,7 @@ public class MemberMapperTests {
 		member.setName("test4");
 		member.setTelno("01098769876");
 		member.setImg("a11.jpg");
+		member.setThumbImg("a11.jpg");
 		
 		mapper.updateInfo(member);
 		mapper.insertHist(mapper.read(member.getEmail()));

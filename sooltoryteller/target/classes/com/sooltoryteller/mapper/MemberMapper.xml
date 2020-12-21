@@ -25,8 +25,8 @@ values (member_hist_seq.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno
 
 <!-- 회원가입시 회원정보 등록 0 -->
 <insert id ="insert">
-	INSERT INTO member (member_id, email, name, pwd, telno, img)
-	VALUES (member_seq.nextval, #{email}, #{name}, #{pwd}, #{telno}, #{img})
+	INSERT INTO member (member_id, email, name, pwd, telno, img, thumbImg)
+	VALUES (member_seq.nextval, #{email}, #{name}, #{pwd}, #{telno}, #{img}, #{thumbImg})
 </insert>
 
 <!-- 회원정보 불러오기 0-->
@@ -65,6 +65,7 @@ values (member_hist_seq.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno
 	set name = #{name},
 	telno = #{telno},
 	img = #{img},
+	thumbImg = #{thumbImg},
 	updatedate = sysdate
 	where email = #{email}
 </update>

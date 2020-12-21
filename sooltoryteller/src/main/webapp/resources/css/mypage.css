@@ -6,14 +6,15 @@
 	background-color: rgb(250 245 255);
 	padding-top: 80px;
 }
+
 .d-mypage-wrapper {
 	width: 1210px;
 	height: 900px;
 	margin: 0 auto;
 	border-style: solid;
-	border-color: #E1E1E1;
+	border-color: #e1e1e1;
 	background-color: white;
-	box-shadow: 5px 5px 5px 5px #E1E1E1;
+	box-shadow: 5px 5px 5px 5px #e1e1e1;
 }
 .d-mypage-left {
 	float: left;

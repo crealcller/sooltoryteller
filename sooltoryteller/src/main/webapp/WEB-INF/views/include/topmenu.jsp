@@ -1,7 +1,15 @@
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+
 <%
-   String email = (String) session.getAttribute("email");
+String email = (String) session.getAttribute("email");
 String loginDisplay = "";
 String logoutDisplay = "";
 //세션에 로그인 정보가 담겼다면 로그인/회원가입 버튼 비활성화
@@ -42,7 +50,7 @@ a {
 .h-logobar {
    width: 1520px;
    height:90px;
-   border-bottom:solid 2px #E1E1E1;
+   border-bottom:solid 2px #e1e1e1;
 }
 .h-logo-img {
    height: 60px;
@@ -90,7 +98,7 @@ a {
    height: 1000px;
 }
 #h-dropdown-content a:hover {
-   background-color: #F2EFF9;
+   background-color: #f2eff9;
 }
 #h-dropdown:hover #h-dropdown-content {
    display: block;
@@ -143,6 +151,3 @@ a {
             <a href='/help/faq'>고객센터</a>
         </div>
     </div>
-		
-		<!-- </div>
-    </div> -->

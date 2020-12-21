@@ -1,3 +1,8 @@
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/include/topmenu.jsp" %>
 <link rel="stylesheet" href="/resources/css/changeUserInfoHead.css">
@@ -38,9 +43,39 @@
         </div><div class="h-modify-content">
         <h3 style="margin-bottom: 5px;">회원정보 수정/ 회원탈퇴</h3>
         <p style="font-size:12px; color:red;">선호하는 주종 외에는 수정 버튼을 눌러야 반영이 됩니다.</p>
-        <form action ="/mypage/changeuserinfo" method="post">
-        <div class="h-photo"><img src="${member.img }" class="h-profile-photo"></div>
-        <p style="margin-top:10px;"><input type="file" class="h-addfile"></p>
+        <form action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
+        
+        <div class="h-photo">
+        	<div class="h-profile-photo">
+   		      	<c:if test="${member.img eq 'user.png' }">
+					<img class="d-mypage-profile"
+					src='/resources/img/<c:out value="${member.img}" />'>
+				</c:if>
+				<c:if test="${member.img ne 'user.png' }">
+					<img class="d-mypage-profile"
+					src='<c:out value="${member.img}" />'>
+				</c:if>
+        	</div>
+        </div>
+        
+       	<p style="margin-top:10px;">
+	        <!-- 파일 확장자 설정해서 에러 막기 -->
+			<input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
+			accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${member.img }' />" />
+			<script>
+				// 게시글 썸네일사진
+				$("#h-addfile").change(function(){
+					if(this.files && this.files[0]) {
+				    var reader = new FileReader;
+				    reader.onload = function(data) {
+				    $(".h-profile-photo img").attr("src", data.target.result).width(120);        
+				    }
+				    reader.readAsDataURL(this.files[0]);
+				    }
+				});
+			</script>
+        </p>
+	        
 	    <p style="margin:10px 0 10px 0; padding-right:45px;">이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
 	    <p style="margin-bottom:10px;">닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>" readonly="readonly">
 	    <button type="button" class="h-modibtn" id="modi-name-btn">변경</button></p>
@@ -102,8 +137,20 @@
 </div>
 
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 이미지 확장자 타입 검사 -->
+<script type="text/javascript">
+function checkType(obj) {
+	var file = $("#h-addfile").val().split(".").pop().toLowerCase();
+	
+	if($.inArray(file, ["jpg","gif","png","jpeg","bmp"]) == -1) {
+		alert("이미지 파일만 선택하실 수 있습니다.");
+		$("#h-addfile").val("");
+		return false;
+	}
+}
+</script>
+
 <script>
 //정규식
 	const jName = /^[가-힣]{2,8}$/; // 닉네임은 문자 제한없이 2~8자리
@@ -257,6 +304,13 @@ tokBtn.onclick = function(){
 //선호하는 주종 수정 모달창 오픈
 fBtn.onclick = function() {
 	fModal.style.display = "block";
+	
+	// 프로필사진을 수정하지 않을 경우
+	var file = $('#h-addfile').val();
+	if(file == "" || file.equalsIgnoreCase("user.png")) {
+		$('#h-addfile').prop('type', 'text');
+		var prevFile = $('#h-addfile').val();
+	}
 }
 //모달창 닫기 버튼
 span[3].onclick = function() {

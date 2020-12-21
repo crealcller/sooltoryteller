@@ -1,75 +1,146 @@
 @charset "UTF-8";
 
+.s-main-background {
+	width: 1520px;
+	background-color: #daebe8;
+	padding-top: 50px;
+}
+
+.s-main-column {
+	height: auto;
+	width: 1000px;
+	background-color: white;
+	margin: 0 auto;
+}
+
 .s-bbst-container {
-	border: 1px solid black;
-	height: 900px;
+	height: 570px;
 	width: 800px;
 	margin: 0 auto;
-	margin-top: 50px;
+	padding-top: 30px;
 }
 
 .s-title-container {
-	border: 1px solid black;
-	height: 30px;
+	border: 3px solid #eef3f3;
+	height: 40px;
 	width: 100%;
-	margin: 5px 0;
+	margin: 0 0 10px 0;
+	font-size: 20px;
+}
+
+.s-title {
+	width: 42px;
+	margin: 4.5px 0 0 6px;
+	display: inline-block;
+	color: white;
+	background-color: #77a8a8;
+}
+
+.s-title-val {
+	width: 500px;
+	margin: 4.5px 0 0 2px;
+	display: inline-block;
 }
 
 .s-writer-info-container {
-	border: 1px solid black;
-	height: 50px;
+	border: 3px solid #eef3f3;
+	height: 60px;
 	width: 100%;
 }
 
+.s-writer-info-btn-div {
+	height: 100%;
+	width: 150px;
+	float: right;
+}
+
 .s-writer-info-div {
-	border: 1px solid black;
 	height: 100%;
 	width: 500px;
+	margin-left: 10px;
 	display: inline-block;
-	font-size: 10px;
+	font-size: 13px;
 }
 
 .s-writer-img-div {
-	border: 1px solid black;
 	height: 100%;
-	width: 50px;
+	width: 54px;
+	margin-left: 4.5px;
 	display: inline-block;
 	float: left;
 }
 
+.s-writer-img-span {
+	margin: 10px 0 0 7px;
+}
+
 .s-writer-img {
-	margin-left: 6px;
+	height: 35px;
+	width: 35px;
+	border-radius: 50px;
 }
 
 .s-listBtn {
+	height: 30px;
 	width: 60px;
 	border: none;
-	margin-top: 15px;
-	margin-right: 10px;
+	border-radius: 10px;
+	margin: 13px 15px 0 0;
 	cursor: pointer;
 	float: right;
+	transition: 0.3s;
 	color: white;
+	background-color: #96ceb4;
+}
+
+.s-modifyBtn {
+	height: 30px;
+	width: 60px;
+	border: none;
+	border-radius: 10px;
+	margin: 13px 15px 0 0;
+	cursor: pointer;
+	float: right;
+	transition: 0.3s;
+	color: white;
+	background-color: #ff6f69;
 }
 
 .s-listBtn a {
 	color: white;
 }
 
-.s-cn-container {
-	border: 1px solid #f2eff9;
-	height: 760px;
-	width: 95%;
-	margin: 25px auto;
+.s-modifyBtn a {
+	color: white;
 }
 
-.s-bbst-cnImg-container {
-	background-color: rgb(245, 245, 245);
+.s-listBtn:hover {
+	background-color: #667292;
+}
+
+.s-modifyBtn:hover {
+	background-color: #667292;
+}
+
+.s-cn-container {
+	height: 400px;
+	width: 800px;
+	margin: 10px auto 0 auto;
+	background-color: #eef3f3;
+}
+
+.s-bbst-cn-div {
+	height: 400px;
+	width: 100%;
+	float: left;
 }
 
 .s-bbst-cnImg-div {
 	height: 350px;
 	width: 350px;
-	margin: 0 auto;
+	margin: 25px 33px 0 33px;
+	float: left;
+	display: inline-block;
 }
 
 .s-bbst-cnImg {
@@ -77,13 +148,73 @@
 	width: 350px;
 }
 
-.s-bbst-cn-div {
-	border: 1px solid black;
-	height: 380px;
-	width: 100%;
-	margin-top: 30px;
-	padding: 20px;
-	background-color: rgb(245, 245, 245);
+.s-bbst-cnVal-div {
+	height: 350px;
+	width: 350px;
+	margin-top: 25px;
+	padding: 15px 15px;
+	display: inline-block;
+	background-color: white;
+}
+
+.s-bbst-cn {
+	width: 34px;
+	color: white;
+	background-color: #77a8a8;
+}
+
+.s-bbst-cnt-container {
+	height: 25px;
+	width: 800px;
+	margin: 0 auto;
+	font-size: 15px;
+}
+
+.s-bbst-cnt-container p {
+	display: inline-block;
+}
+
+.s-bbstReplyList-container {
+	width: 800px;
+	margin: 10px auto;
+	border-top: 3px solid #eef3f3;
+	padding-top: 10px;
+	font-size: 15px;
+}
+
+.s-bbstReplyList-top {
+	height: 30px;
+}
+
+.s-bbstReply {
+	width: 30px;
+	display: inline-block;
+	margin-top: 5px;
+	font-size: 15px;
+	color: white;
+	background-color: #77a8a8;
+}
+
+.s-bbstReplyList-body {
+	margin-top: 10px;
+	border-top: 3px solid #eef3f3;
+	padding-top: 10px;
+	list-style: none;
+}
+
+.s-bbstReply-openModalBtn {
+	height: 30px;
+	width: 70px;
+	border: none;
+	border-radius: 10px;
+	float: right;
+	transition: 0.3s;
+	color: white;
+	background-color: #ffcc5c;
+}
+
+.s-bbstReply-openModalBtn:hover {
+	background-color: #667292;
 }
 
 .s-bbstReply-modal-container {
@@ -105,4 +236,134 @@
 	border: 1px solid #888;
 	height: 350px;
 	width: 350px;
+}
+
+.s-bbstReply-modal-top {
+	height: 20px;
+	width: 235px;
+	margin: 20px auto 0 auto;
+}
+
+.s-modal-regdate {
+	width: 145px;
+	text-align: right;
+	border: none;
+	float: right;
+}
+
+.s-bbstReply-modal-body {
+	height: 210px;
+	width: 300px;
+	margin: 5px auto 15px auto;
+	text-align: center;
+}
+
+.s-modal-name {
+	width: 165px;
+	margin: 5px 0 15px 0;
+	text-align: center;
+}
+
+.s-modal-replyCn {
+	height: 120px;
+	width: 230px;
+	margin-top: 5px;
+}
+
+.s-bbstReply-modal-footer {
+	width: 230px;
+	margin: 0 auto;
+}
+
+.s-modalBtn {
+	height: 30px;
+	width: 50px;
+	margin-left: 10px;
+	border: none;
+	border-radius: 10px;
+	float: right;
+	cursor: pointer;
+	transition: 0.3s;	
+}
+
+#s-modal-registerBtn {
+	color: white;
+	background-color: #ff6f69;
+}
+
+#s-modal-cancelBtn {
+	color: white;
+	background-color: #96ceb4;
+}
+
+#s-modal-modifyBtn {
+	color: white;
+	background-color: #ffcc5c;
+}
+
+#s-modal-removeBtn {
+	color: white;
+	background-color: #ff6f69;
+}
+
+.s-bbstReply-item {
+	margin-bottom: 10px;
+	border: 3px solid #eef3f3;
+	overflow: hidden;
+}
+
+.s-writer-img-span {
+	height: 54px;
+	width: 54px;
+	display: inline-block;
+	margin: 10px 0 0 10px;
+}
+
+.s-bbstReply-img-div {
+	height: 54px;
+	width: 54px;
+	display: inline-block;
+}
+
+.s-bbstReply-info-div {
+	height: auto;
+	width: 720px;
+	overflow: hidden;
+	margin-right: 10px;
+	padding: 5px 0;
+	font-size: 12px;
+	display: inline-block;
+	float: right;
+}
+
+.s-bbstReply-cn {
+	margin-right: 30px;
+}
+
+.s-bbstReplyList-pageContainer {
+	width: 800px;
+	margin: 20px auto;
+	padding: 10px 0;
+	bottom: 0;
+	display: block;
+	overflow: hidden;
+	list-style: none;
+	text-align: center;
+}
+
+.s-bbstReplyList-pageContainer li {
+	height: 25px;
+	width: 25px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.s-bbstReplyList-pageContainer li:hover, .s-bbstReplyList-pageContainer li:hover >a {
+	color: white;
+	background-color: #96ceb4;
+}
+
+.s-bbstReplyList-pageContainer li.active, .s-bbstReplyList-pageContainer li.active >a {
+	color: white;
+	background-color: #5b9aa0;
 }

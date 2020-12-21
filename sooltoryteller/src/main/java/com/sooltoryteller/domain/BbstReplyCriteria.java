@@ -16,7 +16,7 @@ public class BbstReplyCriteria {
 	private String keyword;
 	
 	public BbstReplyCriteria() {
-		this(1, 10);
+		this(1, 5);
 	}
 	
 	public BbstReplyCriteria(int pageNum, int amount) {

@@ -1,10 +1,13 @@
 package com.sooltoryteller.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +41,7 @@ public class BbstReplyController {
 		consumes = "application/json",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> createBbstReply(
-		HttpSession session, BbstReplyJoinVO bbstReply,
+		HttpSession session, BbstReplyJoinVO bbstReply, 
 		@RequestBody BbstReplyJoinVO vo) {
 		
 		log.info("========== BBST REPLY MEMBER JOIN VO: " + vo + " ==========");
@@ -70,7 +73,7 @@ public class BbstReplyController {
 		consumes = "application/json",
 		produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> modifyBbstReply(
-		@RequestBody BbstReplyJoinVO vo,
+		@RequestBody BbstReplyJoinVO vo, 
 		@PathVariable("bbstReplyId") Long bbstReplyId) {
 		
 		vo.setBbstReplyId(bbstReplyId);
@@ -108,7 +111,7 @@ public class BbstReplyController {
 		
 		log.info("========== GET BBST REPLY LIST ==========");
 		
-		BbstReplyCriteria cri = new BbstReplyCriteria(page, 10);
+		BbstReplyCriteria cri = new BbstReplyCriteria(page, 5);
 		log.info("========== GET BBST REPLY LIST BBSTID: " + bbstId + " ==========");
 		log.info("========== CRI: " + cri + " ==========");
 		
