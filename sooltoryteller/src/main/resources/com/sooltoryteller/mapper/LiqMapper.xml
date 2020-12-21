@@ -166,13 +166,12 @@
 
 	<update id="updateRevwRate">
 		update liq_cnt
-		set avg_rate =(select
-		trunc(avg(rate),1) from liq_revw
+		set avg_rate =(select NVL(trunc(avg(rate),1), 0) from liq_revw
 		where liq_id =#{liqId})
 		where
 		liq_id=#{liqId}
 	</update>
-
+	
 	<update id="updateLikeCnt">
 		update liq_cnt
 		set like_cnt = like_cnt + #{amount}
@@ -232,4 +231,10 @@
 	select liq_co_id from liq
 	where liq_id=#{liqId})
 	</select>
+	
+	<select id="getliqExist" resultType="Integer">
+	select count(*) from liq
+	where nm =#{liqNm}
+	</select>
+	
 </mapper>

@@ -40,6 +40,7 @@ import com.sooltoryteller.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import oracle.net.aso.r;
 
 @Controller
 @Log4j
@@ -89,7 +90,7 @@ public class AdminController {
 		
 		//양조장이름으로 존재하는 양조장인지 liqCoId체크
 		Long liqCoId = liqCoService.checkExistLiqCo(liqCoNm);
-		 
+		int liqExist = liqService.getliqExist(liq.getNm());
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUploadLiq"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
@@ -106,29 +107,37 @@ public class AdminController {
 		liq.setLiqThumb(
 				File.separator + "imgUploadLiq" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		log.info("============================");
-		
 		if(result.hasErrors()) { 
 			List<ObjectError> errorList = result.getAllErrors();
 			log.info(result.getFieldError());
-	        for (ObjectError error : errorList)
+	        for (ObjectError error : errorList) {
 	            log.info("=====error: " + error.getDefaultMessage());
-			rttr.addAttribute("result", "error");
+	            rttr.addFlashAttribute("result", error.getDefaultMessage());
+	        }
 				return "redirect:/admin/liq-register"; 
 		}
 		
-		
 		if (liqCoId != null) {
-
+			if(liqExist != 1) {
 			if (liqService.registerLiq(liq, liqCoId)) {
 				rttr.addAttribute("result", "success");
 				log.info("성공");
-				
 			} else {
 				rttr.addAttribute("result", "등록에 실패 하였습니다");
 				log.info("실패");
 			}
+			return "redirect:/admin/liq-list";
+			
+			}else {
+				rttr.addFlashAttribute("liqError", "이미 존재하는 전통주입니다.");
+				return "redirect:/admin/liq-register";
+			}
+			
+			
+		}else {
+			rttr.addFlashAttribute("error", "존재하지않는 양조장입니다.");
+			return "redirect:/admin/liq-register";
 		}
-		return "redirect:/admin/liq-list";
 	}
 
 	// 전통주 삭제
@@ -171,12 +180,23 @@ public class AdminController {
 
 	// 양조장 등록
 	@PostMapping("/liq-co-register")
-	public String liqCoRegister(LiqCoVO vo,RedirectAttributes rttr) {
+	public String liqCoRegister(@Valid LiqCoVO vo, BindingResult result,RedirectAttributes rttr) {
+		
+		if(result.hasErrors()) { 
+			List<ObjectError> errorList = result.getAllErrors();
+			
+			log.info(result.getFieldError());
+	        for (ObjectError error : errorList) 
+	        	log.info(error);
+	        	rttr.addFlashAttribute("result", "양식에 맞게 작성해주세요.");
+	        
+				return "redirect:/admin/liq-co-register"; 
+		}
 		
 		Long liqCoId = liqCoService.checkExistLiqCo(vo.getNm());
 		
 		if(liqCoId != null) {
-			rttr.addAttribute("error", "이미 존재하는 양조장");
+			rttr.addFlashAttribute("error", "이미 존재하는 양조장입니다.");
 			return "redirect:/admin/liq-co-register";
 		}
 		

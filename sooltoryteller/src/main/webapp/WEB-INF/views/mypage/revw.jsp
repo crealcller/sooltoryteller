@@ -2,66 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="/WEB-INF/views/include/topmenu.jsp"  %>
+<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 > 리뷰</title>
-<link rel="stylesheet" href="/resources/css/mypage.css">
 </head>
 <body>
-<div style="padding:100px 0px 100px 0px;" class="s-main-background">
-<div class="d-mypage-wrapper">
-        <div class="d-mypage-left">
-            <div class="d-left-con">
-                <div class="d-mypage-profile-con">
-                <img class="d-mypage-profile" src='/resources/img/<c:out value="${member.img}" />'>
-           
-                <div class="d-mypage-info">
-                   <h1><c:out value="${member.name}" />님</h1>
-                </div>
-                </div>
-                <ul class="d-mypage-menu-con">
-                <li class="d-mypage-ref"><a href='/mypage/like'>전통주</a> </li>
-                <ul class="d-mypage-menu">
-                    <li class="d-mypage-li">
-                        <a href='/mypage/like'>좋아요한 전통주</a> 
-                    </li> 
-                    <li class="d-mypage-li">
-                        <a href='/mypage/revw'>내가 작성한 리뷰 </a> 
-                    </li>     
-                </ul> 
-                </ul>
-                <ul class="d-mypage-menu-con">
-                    <li class="d-mypage-ref"><a href='#'>게시글 </a></li>
-                    <ul class="d-mypage-menu">
-                        <li class="d-mypage-li">
-                            <a href='#'>좋아요한 게시글 </a>
-                        </li> 
-                        <li class="d-mypage-li">
-                            <a href='#'>내가 작성한 게시글 </a> 
-                        </li>     
-                    </ul> 
-                    </ul>
-                    <ul class="d-mypage-menu-con" style="border-style: none;">
-                        <li class="d-mypage-ref"><a href='/mypage/changeuserinfo'>회원정보</a> </li>
-                        <ul class="d-mypage-menu">
-                            <li class="d-mypage-li">
-                                <a href='/mypage/changeuserinfo'>회원정보수정 </a> 
-                            </li> 
-                            <li class="d-mypage-li">
-                                <a href='/mypage/changepwd'>비밀번호 변경 </a> 
-                            </li>    
-                            <li class="d-mypage-li"> 
-                                <a href='#'>관심사 변경?</a>
-                            </li>
-                        </ul> 
-                        </ul>
-
-            </div>
-        </div>
-        <div class="d-mypage-right">
 		<h2>내가 작성한 전통주 리뷰</h2>
 		<div class="d-con">
 		<ul class="d-revw">
@@ -71,12 +19,9 @@
 		</div>
         </div>
         </div>
-    </div>
-    </div>
-    <div class="d-mypage-footer">
-        <h1>footer</h1>
-    </div>
-
+    	</div>
+    	</div>
+ 
 <div id="getRevw" class="d-revw-modal">
   <!-- Modal content -->
   <div class="d-revw-modal-content">
@@ -159,7 +104,7 @@ $(document).ready(function(){
 				//리뷰 삭제 버튼
 				str += "<button style='cursor:pointer;' data-revwid = '"+myList[i].revwId+"' id='deleteBtn'>&times;</button>";
 				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+myList[i].rate+"</div>"
-				str += "<span>"+myList[i].cn+"</span>"
+				str += "<span class='d-revw-cn-con'>"+myList[i].cn+"</span>"
 				//리뷰목록의 수정하기 버튼
 				str += "<button style='cursor:pointer;'  data-liqid = '"+myList[i].liqId+"' data-revwid = '"+myList[i].revwId+"' id='revwB'>수정하기</button></li>";
 			}
@@ -176,10 +121,13 @@ $(document).ready(function(){
 	//리뷰의 X버튼 클릭시 해당리뷰삭제
 	dRevw.on("click","#deleteBtn",function(e){
 		let targetRevw = $(this).data('revwid');
+		console.log("target"+targetRevw);
 		revwService.remove(targetRevw,function(result){
 			if(result === "success"){
-				showMyList(1);
 				alert("리뷰가 삭제 되었습니다");
+				location.reload();
+			}else{
+				alert("실패");
 			}
 		});
 	});

@@ -52,6 +52,10 @@
 	display: inline-block;
 	float: left;
 }
+.d-trad-liq-text-con p{
+	padding:10px;
+ }
+
 /* 전통주상세 컨테이너 */
 .d-trad-liq-con {
 	margin: 0 auto;
@@ -340,28 +344,31 @@ li {
 				
 				<h1>
 					<c:out value="${liq.nm}" />
-				</h1><br><br>
-				<p>
-				주종 : <c:out value="${liq.cate}" />
-				</p><br>
-				<p>
-				용량 : <c:out value="${liq.capct}" />ml
-				</p><br>
-				<p>
-				도수 : <c:out value="${liq.lv}" />%
-				</p><br>
-				<p>
-				주재료 : <c:out value="${liq.irdnt}" />
-				</p><br>
-				<c:if test="${liq.ards ne null}">
-				<p>
-				수상내역 : <c:out value="${liq.ards}" />
-				</p><br>
-				</c:if>
-				
+				</h1>
+				<div style="padding:10px;">
 				<i class="fas fa-heart"  id="d-like-cnt"> <c:out value="${liq.liqCnt.likeCnt}" /></i>
 				<i class="far fa-comment-dots" id="d-revw-cnt"> <c:out value="${liq.liqCnt.revwCnt}" /></i>
 				<i class="fas fa-eye"> <c:out value="${liq.liqCnt.inqrCnt}" /></i>
+				</div>
+				<p>
+				주종 : <c:out value="${liq.cate}" />
+				</p>
+				<p>
+				용량 : <c:out value="${liq.capct}" />ml
+				</p>
+				<p>
+				도수 : <c:out value="${liq.lv}" />%
+				</p>
+				<p>
+				주재료 : <c:out value="${liq.irdnt}" />
+				</p>
+				<c:if test="${liq.ards ne null}">
+				<p>
+				수상내역 : <c:out value="${liq.ards}" />
+				</p>
+				</c:if>
+				
+				
 				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
 				<input  type="text" style="width: 30px;" value="1">
 				<button type="button" style="padding:0px 10px 0px 10px;">+</button>
@@ -444,7 +451,7 @@ li {
 			</p>
 			</div>
 			<div id="map"
-				style="width: 450px; height: 350px; display:inline-block">
+				style="width: 450px; height: 350px; display:inline-block; margin-left:50px;">
 			</div>
 		</div>
 	</div>
@@ -474,57 +481,6 @@ li {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>
 <script type="text/javascript" src="/resources/js/like.js"></script>
-
-
-<script>
-
-var gall  = setInterval(galleryFun, 2000);
-  var inter = true;
-  var idx = 2;
-  
-   function galleryFun(){
-     
-      $(".gallery ul").animate({
-        "left":-300*idx+"px"
-      },300);
-     $(".g_item ul li").eq(idx-1).addClass("on").siblings().removeClass("on");
-     idx++;
-     if(idx> $(".gallery ul li").length-3){
-       $(".gallery ul").animate({
-         "left":0
-       },0);
-       idx=0;
-       
-     }
-   }
-   
-   
-   $(".gallery , .g_item").hover(function(){
-     if(inter==true){
-       clearInterval(gall);
-       inter=false;
-     }
-   },function(){
-     if(inter==false){
-       gall  = setInterval(galleryFun, 2000);
-       inter=true;
-     }
-     
-   });
-   
-   
-   
-   $(".g_item ul li").on('click',function(){
-     $(this).addClass("on").siblings().removeClass("on");
-     idx = $(this).index()+1;
-     $(".gallery ul").animate({
-        "left":-300*idx+"px"
-      },1000);
-     
-   });
-
-       </script>
-
 <script>
 $(document).ready(function(){
 	var liqIdValue = '<c:out value="${liq.liqId}"/>'
@@ -632,6 +588,7 @@ $(document).ready(function(){
 			$('#addRevw').fadeIn(300);
 		}else{
 			alert("로그인이 필요합니다");
+			window.location.href ='/login';
 		}
 	});
 	
@@ -725,11 +682,53 @@ $('#like').on({'click': function() {
 		}
 	});
 	}else{
+		alert("로그인이 필요합니다.")
 		window.location.href ='/login';
 	}
 }	
 });
 </script>
 
+	<!--카카오 지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12d8a59ec91065369e7c717d28c1c667&libraries=services,clusterer,drawing"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 7 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+var targetAddr = '${liq.liqCo.addr}';
+var targetNm = '${liq.liqCo.nm}';
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(targetAddr , function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+targetNm+'</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
 </body>
 </html>

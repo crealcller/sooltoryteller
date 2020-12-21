@@ -67,7 +67,8 @@ public class LiqRevwController {
 	// 리뷰 삭제
 	@DeleteMapping(value = "/{revwId}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> remove(@PathVariable("revwId") Long revwId) {
-
+		log.info("삭제");
+		
 		return service.remove(revwId) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 

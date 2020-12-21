@@ -48,7 +48,7 @@ public class LiqServiceImpl implements LiqService{
 	@Transactional
 	public boolean registerLiq(LiqVO liq,  Long liqCoId) {
 		log.info("register liq with liq cn and liq cnt");
-		
+	
 		int liqResult = mapper.insertLiq(liq, liqCoId);
 		
 		LiqCnVO cn = liq.getLiqCn();
@@ -110,6 +110,12 @@ public class LiqServiceImpl implements LiqService{
 	public List<LiqVO> getOtherLiq(Long liqId) {
 		// TODO Auto-generated method stub
 		return mapper.getOtherLiq(liqId);
+	}
+
+	@Override
+	public int getliqExist(String liqNm) {
+
+		return mapper.getliqExist(liqNm);
 	}
 
 }

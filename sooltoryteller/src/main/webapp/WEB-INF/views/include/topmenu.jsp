@@ -100,7 +100,7 @@ a {
 }
 .s-main-background {
 	width: 1520px;
-	background-color: #F2EFF9;
+	background-color: rgb(250 245 255);
 }
 .s-main-column {
 	width: 1000px;

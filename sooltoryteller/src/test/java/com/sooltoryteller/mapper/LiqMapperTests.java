@@ -27,6 +27,15 @@ public class LiqMapperTests {
 	private LiqMapper mapper;
 	
 	@Test
+	public void testGetLiqExist() {
+		
+		log.info("result : "+mapper.getliqExist("술취한 원숭이"));
+	}
+	
+	public void testUpdateRevwCnt() {
+		mapper.updateRevwCnt(11L, -1);
+	}
+	
 	public void testGetOtherLiq() {
 		List<LiqVO> list = mapper.getOtherLiq(3L);
 		list.forEach(liq -> log.info(liq));

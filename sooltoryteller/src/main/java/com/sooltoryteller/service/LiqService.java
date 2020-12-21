@@ -30,4 +30,6 @@ public interface LiqService {
 		public int liqCntByCate(String cate);
 		
 		public List<LiqVO> getOtherLiq(Long liqId);
+		
+		public int getliqExist(String liqNm);
 }

@@ -64,6 +64,9 @@ public interface LiqMapper {
 
 	// 평균평점 업데이트
 	public int updateRevwRate(Long liqId);
+	
+	// 리뷰삭제후 해당 전통주의 리뷰수가 0일겨우
+	public int updateRevwRateToZero(Long liqId);
 
 	// 조회수 업데이트
 	public void updateViewCnt(@Param("liqId") Long liqId, @Param("amount") int amount);
@@ -71,5 +74,8 @@ public interface LiqMapper {
 	// 좋아요수 업데이트
 	public void updateLikeCnt(@Param("liqId") Long liqId, @Param("amount") int amount);
 	
+	//같은 양조장의 전통주들
 	public List<LiqVO> getOtherLiq(Long liqId);
+	
+	public int getliqExist(String liqNm);
 }
