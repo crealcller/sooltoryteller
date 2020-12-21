@@ -22,6 +22,9 @@ public interface BbstMapper {
 	// 게시글 집계 등록
 	public void insertBbstCnt(BbstCntVO cnt);
 	
+	// 게시글 집계 삭제
+	public void deleteBbstCnt(Long bbstId);
+	
 	// 게시글 조회
 	public BbstJoinVO getBbst(Long bbstId);
 	 

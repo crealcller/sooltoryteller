@@ -1,16 +1,23 @@
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
 <%
-	String email = (String) session.getAttribute("email");
+   String email = (String) session.getAttribute("email");
 String loginDisplay = "";
 String logoutDisplay = "";
 
 //세션에 로그인 정보가 담겼다면 로그인/회원가입 버튼 비활성화
 if (email != null) {
-	loginDisplay = "none";
+   loginDisplay = "none";
 } else {
-	logoutDisplay = "none";
+   logoutDisplay = "none";
 }
 
 //로그아웃시 캐시삭제
@@ -28,122 +35,115 @@ response.setHeader("Pragma", "no-cache");
 <title>Document</title>
 
 <style>
-@font-face {
-	font-family: '전소민체';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/전소민체.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 button {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 #h-company-name {
-	font-family: '전소민체';
-	font-size: 40px;
-	color: black;
-	font-weight: bold;
+   padding:20px;
 }
 
 a {
-	text-decoration: none;
-	color: black;
+   text-decoration: none;
+   color: black;
 }
 
 .h-logobar {
-	width: 1400px;
-	height:80px;
-	border-bottom:solid 2px #e1e1e1;
-	margin-bottom:20px;
+   width: 1520px;
+   height:90px;
+   border-bottom:solid 2px #e1e1e1;
 }
 
 .h-logo-img {
-	height: 50px;
-	width: 40px;
+   height: 60px;
+   width: 145px;
+   margin:15px 0px 0px 30px;
 }
 
 .h-logo {
-	width: 800px;
-	text-align: left;
-	display: inline-block;
-	margin-bottom: 10px;
+   width: 800px;
+   text-align: left;
+   display: inline-block;
+   margin-bottom: 10px;
 }
 
 .h-usermenu {
-	width: 600px;
-	font-size: 13px;
-	text-align: right;
-	display: inline-block;
+   width: 700px;
+   font-size: 13px;
+   text-align: right;
+   display: inline-block;
 }
 
 .h-dropbtn {
-	background-color: Transparent;
-	width: 120px;
-	color: black;
-	font-size: 15px;
-	font-weight: bold;
-	border: none;
+   background-color: Transparent;
+   width: 120px;
+   color: black;
+   font-size: 15px;
+   font-weight: bold;
+   border: none;
 }
 
 .h-dropdown {
-	display: inline-block;
-	margin-left: 30px;
+   display: inline-block;
 }
 
 .h-dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: white;
-	width: 120px;
-	z-index: 1;
+   display: none;
+   position: absolute;
+   background-color: white;
+   width: 120px;
+   z-index: 1;
 }
 
 .h-dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
 }
 
 .d-main-con {
-	width: 100%;
-	height: 1000px;
+   width: 100%;
+   height: 1000px;
 }
 
-.d-main-img-con {
-	width: 100%;
-	height: 900px;
-	background-image: url('/resources/img/Beer-26845_1.gif');
-	background-size: cover;
-}
 
 #h-dropdown-content a:hover {
-	background-color: #f2eff9;
+   background-color: #f2eff9;
 }
 
 #h-dropdown:hover #h-dropdown-content {
-	display: block;
+   display: block;
 }
 
 #h-dropdown:hover .h-dropbtn {
-	border-bottom: 3px solid purple;
+   border-bottom: 3px solid purple;
 }
+
+.s-main-background {
+	width: 1520px;
+	background-color: #f2eff9;
+}
+
+.s-main-column {
+	width: 1000px;
+	background-color: white;
+	margin: 0 auto;
+}
+
 </style>
 </head>
 <body>
-	<div class="h-logobar">
+   <div class="h-logobar">
         <div class="h-logo">
-        <img class="h-logo-img" src='/resources/img/logo.png'>
-        <a href="#" id="h-company-name">술토리텔러</a>
+        <a href="#" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
 
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
@@ -183,6 +183,9 @@ a {
             <a href='/help/faq'>고객센터</a>
         </div>
     </div>
-
-</body>
-</html>
+        
+	<!-- topmenu.jsp에 css만 공통으로 넣고, div는 각자 페이지에 알아서 적용 -->
+    <!-- <div class="s-main-background">
+		<div class="s-main-column">
+		</div>    
+    </div> -->

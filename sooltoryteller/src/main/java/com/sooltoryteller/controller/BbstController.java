@@ -37,7 +37,6 @@ import lombok.extern.log4j.Log4j;
 public class BbstController {
 
 	private BbstService service;
-	private BbstReplyService replyService;
 	private MemberService memberService;
 
 	@Resource(name = "uploadPath")
@@ -76,34 +75,36 @@ public class BbstController {
 
 		String email = (String)session.getAttribute("email");
 		Long memberId = memberService.getMemberId(email);
-		
-		// 첨부파일 업로드 설정
-		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
-		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
-
-		if(file != null) { 
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-			fileName = bbst.getCnImg();
-			bbst.setCnImg(fileName);
+		if(email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			// 첨부파일 업로드 설정
+			String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
+			String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
+			
+			if(file != null) { 
+				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+				bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+				fileName = bbst.getCnImg();
+				bbst.setCnImg(fileName);
+			}
+			bbst.setCnThumbimg(
+					File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+			
+			bbst.setMemberId(memberId);
+			
+			// 에러 발생 시
+//		if(result.hasErrors()) {
+//			rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+//			return "/cheers/register";
+//		}
+			
+			log.info("========== REGISTER: " + bbst + " ==========");
+			service.registerBbst(bbst, cnt);
+			rttr.addFlashAttribute("result", bbst.getBbstId());
 		}
-		bbst.setCnThumbimg(
-		File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-
-		bbst.setMemberId(memberId);
-
-		// 에러 발생 시
-		if(result.hasErrors()) {
-			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
-			model.addAttribute("bbst", bbst);
-			return "/cheers/register";
-		}
-		
-		log.info("========== REGISTER: " + bbst + " ==========");
-		service.registerBbst(bbst, cnt);
-		rttr.addFlashAttribute("result", bbst.getBbstId());
 		return "redirect:/cheers/list";
 	}
 
@@ -132,13 +133,6 @@ public class BbstController {
 	public String modify(HttpSession session, @Valid BbstJoinVO bbst, BindingResult result, Model model, MultipartFile file,
 		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) throws Exception {
 
-		// 에러 발생 시
-		if(result.hasErrors()) {
-			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주세요.");
-			model.addAttribute("bbst", bbst);
-			return "/cheers/modify";
-		}
-		
 		String email = (String)session.getAttribute("email");
 		Long memberId = memberService.getMemberId(email);
 		bbst.setMemberId(memberId);
@@ -162,9 +156,9 @@ public class BbstController {
 
 		// 에러 발생 시
 		if(result.hasErrors()) {
-			model.addAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+			rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
 			model.addAttribute("bbst", bbst);
-			return "/cheers/register";
+			return "/cheers/modify";
 		}
 
 		log.info("========== MODIFY: " + bbst + " ==========");

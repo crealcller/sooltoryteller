@@ -25,7 +25,7 @@
                 </c:when>
                 
                 <c:otherwise>
-                <img class="d-mypage-profile" src='/resources/img/<c:out value="${member.img}" />'>
+                <img class="d-mypage-profile" src='/resources/<c:out value="${member.img}" />'>
                 </c:otherwise>
                 </c:choose>
                 <div class="d-mypage-info">
@@ -50,7 +50,7 @@
                             <a href='/mypage/mypost'>내가 작성한 게시글</a>
                         </li>
                         <li class="d-mypage-li">
-                            <a href='/mypage/mycomment'>내가 작성한 댓글</a>
+                            <a href='/mypage/myreply'>내가 작성한 댓글</a>
                         </li>  
                         <li class="d-mypage-li">
                             <a href='/mypage/mylikedpost'>좋아요한 게시글</a> 

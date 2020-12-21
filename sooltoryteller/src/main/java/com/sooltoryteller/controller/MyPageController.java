@@ -30,8 +30,6 @@ import lombok.extern.log4j.Log4j;
 public class MyPageController {
 
 	private MemberService memberService;
-	private BbstService bbstService;
-	private BbstReplyService replyService;
 	
 	@GetMapping("/like")
 	public String myLikeList(Model model, Long memberId,HttpServletRequest request) {

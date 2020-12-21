@@ -111,7 +111,7 @@ public class BbstReplyController {
 		
 		log.info("========== GET BBST REPLY LIST ==========");
 		
-		BbstReplyCriteria cri = new BbstReplyCriteria(page, 10);
+		BbstReplyCriteria cri = new BbstReplyCriteria(page, 5);
 		log.info("========== GET BBST REPLY LIST BBSTID: " + bbstId + " ==========");
 		log.info("========== CRI: " + cri + " ==========");
 		

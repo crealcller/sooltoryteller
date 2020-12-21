@@ -36,7 +36,7 @@ response.setHeader("Pragma", "no-cache");
         </a>
 
             <div id="h-dropdown" class="h-dropdown">
-            <button id="h-dropbtn1" class="h-dropbtn" style="margin-left:10px;">전통주</button>
+            <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">
                 <a href="/all-liq">전체</a>
                 <a href="/liq-list?kind=탁주">탁주</a>

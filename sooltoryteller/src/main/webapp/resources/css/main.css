@@ -1,24 +1,17 @@
 @charset "UTF-8";
 
-@font-face {
-	font-family: '전소민체';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/전소민체.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-} 
+}
+
 button {
 	cursor: pointer;
 }
 
 #h-company-name {
-	padding:20px;
+	padding: 20px;
 }
 
 a {
@@ -27,25 +20,25 @@ a {
 }
 
 .h-logobar {
-	width: 1500px;
+	width: 1519px;
 	height: 70px;
 }
 
 .h-logo-img {
-	height: 50px;
-	width: 150px;
-	margin:20px 0px 0px 30px;
+	height: 60px;
+	width: 145px;
+	margin: 15px 0px 0px 30px;
 }
 
 .h-logo {
-	width: 900px;
+	width: 800px;
 	text-align: left;
 	display: inline-block;
 	margin-bottom: 10px;
 }
 
 .h-usermenu {
-	width: 600px;
+	width: 700px;
 	font-size: 13px;
 	text-align: right;
 	display: inline-block;
@@ -62,13 +55,13 @@ a {
 
 .h-dropdown {
 	display: inline-block;
-	margin-left: 30px;
 }
 
 .h-dropdown-content {
 	display: none;
 	position: absolute;
 	background-color: white;
+	opacity: 0.8;
 	width: 120px;
 	z-index: 1;
 }
@@ -81,7 +74,7 @@ a {
 }
 
 .d-main-con {
-	width: 100%;
+	width: 1520px;
 	height: 1000px;
 }
 

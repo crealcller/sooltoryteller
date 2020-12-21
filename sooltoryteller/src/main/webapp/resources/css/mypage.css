@@ -1,13 +1,19 @@
 @charset "UTF-8";
 
+.s-main-background {
+	height: 1080px;
+	width: 1520px;
+	background-color: rgb(250 245 255);
+	padding-top: 80px;
+}
+
 .d-mypage-wrapper {
 	width: 1210px;
 	height: 900px;
-	margin: auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin: 0 auto;
 	border-style: solid;
 	border-color: #e1e1e1;
+	background-color: white;
 	box-shadow: 5px 5px 5px 5px #e1e1e1;
 }
 
@@ -242,4 +248,13 @@
 	border-style: none;
 	border-radius: 10px 10px 10px 10px;
 	margin: 10px;
+}
+
+.d-revw-cn-con {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 500px;
+  height: 20px;
+  display: inline-block;
 }
