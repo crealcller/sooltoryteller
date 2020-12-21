@@ -24,7 +24,7 @@ if(msg != ''){
 	<h3 style="margin-left: 50px;">[1:1문의 조회]</h3>
     <div class="h-inq-body">
         <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
+       		<p style="text-align: left; margin: 0;">번호</p>
             <p style="margin: 0;"><input class="h-inq-title" name="inquiryId" 
             value='<c:out value="${inq.inquiryId }"/>' readonly="readonly"></p>
         </div>

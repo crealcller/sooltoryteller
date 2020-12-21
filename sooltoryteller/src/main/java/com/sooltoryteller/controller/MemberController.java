@@ -137,15 +137,6 @@ public class MemberController {
 			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
 			return "/join";
 		}
-		//bad
-/*		if(arr == null ) {
-			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
-			return "/join";
-		}else if(arr.length !=2) {
-			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
-			return "/join";
-		}
-*/		
 		
 			//회원가입이 성공했다면
 		if(service.join(member)) {
@@ -232,7 +223,7 @@ public class MemberController {
 	
 	// 회원정보 수정 view
 	@GetMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(HttpSession session, Model model) {
+	public void changeuserinfo(HttpSession session, Model model, RedirectAttributes rttr) {
 		// 로그인 성공 후 세션에 저장된 email 정보를 꺼내와서 member 정보를 불러옴
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
@@ -245,32 +236,32 @@ public class MemberController {
 		}
 	}
 	// 회원정보수정
-	@PostMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(MemberVO member, HttpSession session, Model model) {
-		String loginEmail = (String) session.getAttribute("email");
-		System.out.println("changeUserInfo: " + member);
-		System.out.println("changeUserInfo: " + loginEmail);
-		
-		if(!loginEmail.equals(member.getEmail())) {
-			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
-			model.addAttribute("member", service.get(loginEmail));
-			model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
-			return;
+		@PostMapping("/mypage/changeuserinfo")
+		public void changeuserinfo(MemberVO member, HttpSession session, Model model, RedirectAttributes rttr) {
+			String loginEmail = (String) session.getAttribute("email");
+			System.out.println("changeUserInfo: " + member);
+			System.out.println("changeUserInfo: " + loginEmail);
 			
-		}else {
-		// 닉네임,  전화번호, 프로필사진만 변경
-			if(service.modify(member)) {
-				model.addAttribute("success", "회원 정보가 수정되었습니다.");
-				model.addAttribute("member", service.get(member.getEmail()));
-				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
-			}else {
-				model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
+			if(!loginEmail.equals(member.getEmail())) {
+				model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
 				model.addAttribute("member", service.get(loginEmail));
 				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+				return;
+				
+			}else {
+			// 닉네임,  전화번호, 프로필사진만 변경
+				if(service.modify(member)) {
+					model.addAttribute("success", "회원 정보가 수정되었습니다.");
+					model.addAttribute("member", service.get(member.getEmail()));
+					model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
+				}else {
+					model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
+					model.addAttribute("member", service.get(loginEmail));
+					model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
 
+				}
 			}
 		}
-	}
 	
 	//회원탈퇴
 	@GetMapping("/withdrawal")
@@ -293,6 +284,8 @@ public class MemberController {
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		}else {
+			model.addAttribute("member", service.get(email));
 		}
 	}
 	
@@ -301,11 +294,8 @@ public class MemberController {
 	public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
 		String email = (String) session.getAttribute("email");
 		
-		//회원의 현재 비밀번호 불러오기
-		String tmp = service.getPwd(email);
-		System.out.println("현재비밀번호 : "+tmp);
-		
-		if(!tmp.equals("") && tmp.equals(pwd)) {
+		//회원의 현재 비밀번호 검사
+		if(service.examinePwd(email, pwd)) {
 			service.modifyPwd(email, newpwd);
 			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
 		}else {

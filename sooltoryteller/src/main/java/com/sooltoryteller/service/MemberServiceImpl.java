@@ -131,7 +131,6 @@ public class MemberServiceImpl implements MemberService{
 	public String getPwd(String email) {
 		
 		String pwd = "";
-
 		if(email != null) {
 			pwd = mapper.getPwd(email);
 		}
@@ -185,6 +184,23 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String getAuthority(String email) {
 		return mapper.getAuthority(email);
+	}
+
+	@Override
+	public boolean examinePwd(String email, String pwd) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String result = "";
+		
+		if(email != null) {
+			result = mapper.getPwd(email);
+		}
+		
+		if(encoder.matches(pwd, result)) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

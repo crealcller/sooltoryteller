@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/include/topmenu.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
 
 
 
@@ -29,72 +29,11 @@
 		
 </script>
 <link rel="stylesheet" href="/resources/css/changeUserInfoHead.css">
-<link rel="stylesheet" href="/resources/css/mypage.css">
 <meta charset="UTF-8">
 <title>회원정보수정</title>
 </head>
 <body>
 	
-<div class="h-mypageBody" style="width: 1520px;">	
-	<div class="d-mypage-wrapper">
-        <div class="d-mypage-left">
-            <div class="d-left-con">
-                <div class="d-mypage-profile-con">
-                <c:set var="tmp" value="${member.img}"/>
-                <c:set var='imgsrc' value="${fn:substring(tmp, 0, 4)}"/>
-                <c:choose>
-                <c:when test="${imgsrc == 'http'.toString()}">
-                <img class="d-mypage-profile" src='<c:out value="${member.img}" />'>
-                </c:when>
-                
-                <c:otherwise>
-                <img class="d-mypage-profile" src='/resources/img/<c:out value="${member.img}" />'>
-                </c:otherwise>
-                </c:choose>
-                <div class="d-mypage-info">
-                   <h1><c:out value="${member.name}" />님</h1>
-                </div>
-                </div>
-                <ul class="d-mypage-menu-con">
-                <li class="d-mypage-ref"><a href='/mypage/like'>전통주</a> </li>
-                <ul class="d-mypage-menu">
-                    <li class="d-mypage-li">
-                        <a href='/mypage/like'>좋아요한 전통주 </a> 
-                    </li> 
-                    <li class="d-mypage-li">
-                        <a href='/mypage/revw'>내가 작성한 리뷰 </a> 
-                    </li>     
-                </ul> 
-                </ul>
-                <ul class="d-mypage-menu-con">
-                    <li class="d-mypage-ref"><a href='#'>게시글 </a></li>
-                    <ul class="d-mypage-menu">
-                        <li class="d-mypage-li">
-                            <a href='/mypage/mypost'>내가 작성한 게시글</a>
-                        </li>
-                        <li class="d-mypage-li">
-                            <a href='/mypage/mycomment'>내가 작성한 댓글</a>
-                        </li>  
-                        <li class="d-mypage-li">
-                            <a href='/mypage/mylikedpost'>좋아요한 게시글</a> 
-                        </li>     
-                    </ul> 
-                    </ul>
-                    <ul class="d-mypage-menu-con" style="border-style: none;">
-                        <li class="d-mypage-ref"><a href='/mypage/changeuserinfo'>회원정보</a> </li>
-                        <ul class="d-mypage-menu">
-                            <li class="d-mypage-li">
-                                <a href='/mypage/changeuserinfo'>회원정보수정 </a> 
-                            </li> 
-                            <li class="d-mypage-li">
-                                <a href='/mypage/changepwd'>비밀번호 변경 </a> 
-                            </li>    
-                        </ul> 
-                        </ul>
-
-            </div>
-        </div>
-        <div class="d-mypage-right">
 			<h2>회원정보 수정 / 탈퇴</h2>
 			<div class="h-con">
 	
@@ -115,9 +54,10 @@
 				</form> 
 				
 			</div>
-		</div>
 	</div>
 </div> <!-- h-mypagebody end -->
+    
+    
     
 	<!-- 회원 탈퇴 모달창 -->
 	<div id="h-withdrawal-Modal" class="h-modal">

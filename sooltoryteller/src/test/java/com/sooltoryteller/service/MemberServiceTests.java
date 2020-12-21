@@ -84,9 +84,10 @@ public class MemberServiceTests {
 		System.out.println(service.getPwd("gustn@gustn.com"));
 	}
 	
-//	@Test
+	@Test
 	public void testUpdatePwd() {
-		log.info(service.modifyPwd("gustn@gustn.com", "7777"));
+		
+		log.info("현재비밀번호 확인: " +service.examinePwd("ccc@ccc.com", "asdf!!"));
 	}
 	
 //	@Test

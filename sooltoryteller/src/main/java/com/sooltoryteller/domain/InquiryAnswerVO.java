@@ -18,7 +18,6 @@ public class InquiryAnswerVO {
     private Long answerId;
 
     // 문의 
-	@NotEmpty
     private Long inquiryId;
 
     // 답변 내용 
