@@ -19,9 +19,6 @@ public class MyLikeVO {
     // 전통주 이름 
     private String nm;
 
-    // 가격 
-    private int prc;
-
     // 주종 
     private String cate;
     
@@ -38,6 +35,6 @@ public class MyLikeVO {
     private String ards;
 
     // 전통주 사진 
-    private String img;
+    private String liqThumb;
 
 }

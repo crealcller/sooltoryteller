@@ -20,7 +20,7 @@ height:150px;
 </head>
 <body>
 <div class="d-con">
-<span><img class="d-img-con" src="/resources/img/<c:out value='${liq.img}'/>"></span>
+<span><img class="d-img-con" src="<c:out value='${liq.liqThumb}'/>"></span>
 <span><c:out value='${liq.nm }'/></span>
 <p><c:out value='${liq.liqCn.intro }'/></p>
 <p><c:out value='${liq.liqCn.pair }'/></p>

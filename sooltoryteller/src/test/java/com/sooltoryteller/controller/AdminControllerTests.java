@@ -33,6 +33,23 @@ public class AdminControllerTests {
 	}
 	
 	@Test
+	public void testRegisterLiq() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/admin/liq-register")
+				.param("liqCoNm",  "명세주가")
+				.param("nm",  "1")
+				.param("capct",  "1")
+				.param("cate",  "1")
+				.param("img",  "1")
+				.param("irdnt",  "1")
+				.param("liqImg",  "1")
+				.param("liqThumb",  "1")
+				.param("lv",  "1")
+				.param("liqCn.intro",  "1")
+				.param("liqCnt.revwCnt", "0")
+				).andReturn().getModelAndView().getModelMap());
+	}
+	
+	//@Test
 	public void testListPaging() throws Exception{
 		
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/memberlist")
@@ -41,7 +58,7 @@ public class AdminControllerTests {
 				.andReturn().getModelAndView().getModelMap());
 	}
 	
-	@Test
+	//@Test
 	public void testFaqList()throws Exception{
 		
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/faqlist"))

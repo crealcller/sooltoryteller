@@ -22,10 +22,10 @@ and liq_id=#{liqId}
 
 <select id="getMyListWithPaging" resultType="com.sooltoryteller.domain.MyLikeVO">
 	<![CDATA[
-	select lk.liq_id, lk.nm,lk.prc,lk.cate,lk.capct,lk.lv, lk.irdnt,lk.img,
+	select lk.liq_id, lk.nm,lk.cate,lk.capct,lk.lv, lk.irdnt,lk.liq_thumb,
 	lk.liq_like_id    
  	from(select /*+index_desc(k liq_like_pk)*/ 
-	rownum rn,l.liq_id, l.nm,l.prc,l.cate,l.capct,l.lv, l.irdnt,l.img,
+	rownum rn,l.liq_id, l.nm,l.cate,l.capct,l.lv, l.irdnt,l.liq_thumb,
 	k.liq_like_id
 	from liq l,liq_like k
 	where l.liq_id = k.liq_id
