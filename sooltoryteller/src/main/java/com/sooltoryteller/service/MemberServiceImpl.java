@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,21 +26,22 @@ public class MemberServiceImpl implements MemberService{
 	
 	private MemberMapper mapper;
 	
-	//@Inject
-	//PasswordEncoder PasswordEncoder;  //BCryptPasswordEncoder
+	
 	
 	@Transactional
 	@Override
 	public boolean join(MemberVO member) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		if(member != null) {
 			//중복된 이메일, 중복된 닉네임이 있다면
 			if(checkEmail(member.getEmail()) >=1 || checkName(member.getName())>=1) {
 				return false;
 			}
-		//String encPwd = PasswordEncoder.encode(member.getPwd());
-		//member.setPwd(encPwd);
-		//System.out.println("암호화된 비번 : " + encPwd);
+		String encPwd = encoder.encode(member.getPwd());
+		member.setPwd(encPwd);
+		System.out.println("암호화된 비번 : " + encPwd);
 		
 		mapper.insert(member);
 		mapper.insertHist(mapper.read(member.getEmail()));
@@ -50,7 +52,20 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public boolean loginCheck(String email, String pwd) {
-
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		String result = mapper.getPwd(email);
+		System.out.println("비밀번호 꺼내오기 : "+result);
+		
+		if(result !=null) {
+			if(encoder.matches(pwd, result)) {
+				return true;
+			}
+		}
+		
+		return false;
+/*		
 		MemberVO member = mapper.getLoginInfo(email, pwd);
 		
 		if(member == null) {
@@ -59,6 +74,7 @@ public class MemberServiceImpl implements MemberService{
 			
 			return true;
 		}
+*/
 	}
 
 	@Override
@@ -115,7 +131,6 @@ public class MemberServiceImpl implements MemberService{
 	public String getPwd(String email) {
 		
 		String pwd = "";
-
 		if(email != null) {
 			pwd = mapper.getPwd(email);
 		}
@@ -164,6 +179,28 @@ public class MemberServiceImpl implements MemberService{
 	public String getEmail(Long memberId) {
 		
 		return mapper.getEmail(memberId);
+	}
+
+	@Override
+	public String getAuthority(String email) {
+		return mapper.getAuthority(email);
+	}
+
+	@Override
+	public boolean examinePwd(String email, String pwd) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String result = "";
+		
+		if(email != null) {
+			result = mapper.getPwd(email);
+		}
+		
+		if(encoder.matches(pwd, result)) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

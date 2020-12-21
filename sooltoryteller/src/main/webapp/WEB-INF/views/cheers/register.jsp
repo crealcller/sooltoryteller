@@ -220,6 +220,10 @@ let msg = "${msg}";
 	</div>
 </div>
 
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
+
 <!-- 이미지 확장자 타입 검사 -->
 <script type="text/javascript">
 function checkType(obj) {

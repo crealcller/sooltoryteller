@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +9,22 @@
 <title>1:1문의 조회</title>
 <link rel="stylesheet" href="/resources/css/getinquiryHead.css">
 <!-- 관리자 페이지   -->
+<script>
+//권한체크
+let msg ='${msg}';
 
-
+if(msg != ''){
+	alert(msg);
+	location.href = '/';
+}
+</script>
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 </head>
 <body>
 	<h3 style="margin-left: 50px;">[1:1문의 조회]</h3>
     <div class="h-inq-body">
         <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
+       		<p style="text-align: left; margin: 0;">번호</p>
             <p style="margin: 0;"><input class="h-inq-title" name="inquiryId" 
             value='<c:out value="${inq.inquiryId }"/>' readonly="readonly"></p>
         </div>
@@ -61,4 +69,5 @@
  });
 </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

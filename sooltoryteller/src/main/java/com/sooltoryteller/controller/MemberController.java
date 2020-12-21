@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.UUID;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +52,7 @@ public class MemberController {
 	
 	//로그인 view
 	@GetMapping("/login")
-	public ModelAndView login(HttpSession session) {
+	public ModelAndView soollogin(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		String kakaoUrl = kakaoController.getAuthorizationUrl(session);
@@ -61,7 +64,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
+	public String soollogin(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes rttr) {
 		// id저장 체크박스
 		String save = request.getParameter("save");
@@ -70,6 +73,7 @@ public class MemberController {
 		// 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
 		if (service.loginCheck(email, pwd)) {
 			session.setAttribute("email", email);
+			session.setAttribute("authority", service.getAuthority(email));
 			// id저장 체크박스가 체크되어 있다면 쿠키 저장
 			if (save != null) {
 				response.addCookie(cookie);
@@ -145,15 +149,6 @@ public class MemberController {
 			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
 			return "/join";
 		}
-		//bad
-/*		if(arr == null ) {
-			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
-			return "/join";
-		}else if(arr.length !=2) {
-			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
-			return "/join";
-		}
-*/		
 		
 			//회원가입이 성공했다면
 		if(service.join(member)) {
@@ -240,7 +235,7 @@ public class MemberController {
 	
 	// 회원정보 수정 view
 	@GetMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(HttpSession session, Model model) {
+	public void changeuserinfo(HttpSession session, Model model, RedirectAttributes rttr) {
 		// 로그인 성공 후 세션에 저장된 email 정보를 꺼내와서 member 정보를 불러옴
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
@@ -322,6 +317,8 @@ public class MemberController {
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		}else {
+			model.addAttribute("member", service.get(email));
 		}
 	}
 	
@@ -330,11 +327,8 @@ public class MemberController {
 	public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
 		String email = (String) session.getAttribute("email");
 		
-		//회원의 현재 비밀번호 불러오기
-		String tmp = service.getPwd(email);
-		System.out.println("현재비밀번호 : "+tmp);
-		
-		if(!tmp.equals("") && tmp.equals(pwd)) {
+		//회원의 현재 비밀번호 검사
+		if(service.examinePwd(email, pwd)) {
 			service.modifyPwd(email, newpwd);
 			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
 		}else {

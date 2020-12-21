@@ -29,11 +29,11 @@ let errorMsg = '<c:out value="${errorMsg}"/>';
         <div class="h-inq-body">
           <form action="/help/inquiryregister" id='h-inqRegForm' method="POST">
           <div>
-              <p style="text-align: left; margin: 0;">제목</p>
+              <p style="text-align: left; margin: 5px 0 5px 0;">제목</p>
               <p style="margin: 0;"><input class="h-inq-title" name="title" id='title' maxlength="30"></p>
           </div>
           <div>
-              <p style="text-align: left; margin: 0;">내용</p>
+              <p style="text-align: left; margin: 5px 0 5px 0;">내용</p>
               <p style="margin: 0;"><textarea class="h-inq-content" name="cn" id='cn' maxlength="330"></textarea></p>
           </div>
           <input type="hidden" name="memberId" value="${memberId }">
@@ -132,4 +132,5 @@ $(document).ready(function(){
  
 </script>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

@@ -3,8 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%
 	String email = (String) session.getAttribute("email");
+    String authority = (String) session.getAttribute("authority");
 	String loginDisplay = "";
 	String logoutDisplay = "";
+	String authorityDisplay = "";
 	
 //세션에 로그인 정보가 담겼다면 로그인/회원가입 버튼 비활성화
 if (email != null) {
@@ -12,6 +14,12 @@ if (email != null) {
 } else {
 	logoutDisplay =  "none";
 }
+
+//로그인한 회원의 권한이 관리자가 아니라면 관리자 페이지 비활성화
+if(authority == null || !authority.equalsIgnoreCase("admin")){
+	authorityDisplay = "none";
+}
+
 //로그아웃시 캐시삭제
 response.setHeader("Cache-Control", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -52,12 +60,15 @@ response.setHeader("Pragma", "no-cache");
             </div>
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>
+        <!-- 현수 추가 관리자 페이지로 이동 -->
+            <a href='/admin/memberlist' style="display:<%=authorityDisplay%>">관리자페이지 ㅣ</a>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
               <!-- 다울 추가 임시로 like 페이지로 연결 -->
             <a href='/mypage/like'>마이페이지 ㅣ</a>
             <a href='/help/faq'>고객센터</a>
+            
         </div>
     </div>
      </div>

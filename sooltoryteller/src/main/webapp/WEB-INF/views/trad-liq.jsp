@@ -477,6 +477,8 @@ li {
 </div>
 </div>
 </div>
+
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 <!-- 리뷰 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/revw.js"></script>

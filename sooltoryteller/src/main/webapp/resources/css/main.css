@@ -1,5 +1,8 @@
 @charset "UTF-8";
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/hyeonsu2
 * {
 	margin: 0;
 	padding: 0;
@@ -7,6 +10,7 @@
 }
 button {
 	cursor: pointer;
+	outline: 0;
 }
 #h-company-name {
 	padding: 20px;

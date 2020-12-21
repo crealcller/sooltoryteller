@@ -22,7 +22,7 @@
 	
 	<!-- 게시판 첨부파일 업로드 패스 설정 --> 
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="C:\Users\user\Documents\workspace-sts-3.9.12.RELEASE\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\sooltoryteller\resources" />
+		<beans:constructor-arg value="D:\sw\sts\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\sooltoryteller\resources" />
 	</beans:bean>
 	
 	<!-- 게시판 첨부파일  일반 파일 업로드 경로 -->

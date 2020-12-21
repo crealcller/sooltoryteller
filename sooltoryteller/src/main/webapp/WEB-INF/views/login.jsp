@@ -27,24 +27,24 @@ if(emailMsg != ""){
 
 </script>
 <body>
- <div class="h-body">
-<div class="h-left"><img src="/resources/img/barsign.jpg" id="h-leftimg">
-</div><div class="h-right">
-  <div class="h-login-content">
-    <div class="h-content">
-    <h2 style="margin:0 0 15px 50px;">로그인</h2>
-    <form action="/login" method="POST">
-    <p class="h-login-p" style="margin-left: 50px;">이메일 &nbsp<input type="text" id="email" name="email" value =<%=cookieVal !="" ? cookieVal : "" %>></p>
-    <p class="h-login-p" style="margin-left: 35px;">비밀번호 &nbsp<input type="password" id="pwd" name="pwd"></p>
-    <p  class="h-login-p"style="color:red">${msg }</p>
-    <p style="text-align: center;"><input type="checkbox" name = "save"<%=cookieVal!=""?"checked" : ""%>>이메일 저장 ㅣ
-    <a style = "cursor: pointer;" id="h-findPwd-btn">비밀번호 찾기</a></p>
-    <p class="h-login-p" style="text-align: center;"><button type="submit" class="login-btn">로그인</button>
-    <button type="button" class="login-btn" id="regbtn" onclick="location.href='/join'">회원가입</button></p>
-    <p class="h-login-p" style="text-align: center;"><a href="${kakaoUrl}">
-    <img src="/resources/img/kakao_login.png" class="snslogin"></a></p>
-    <p class="h-login-p" style="text-align: center;"><a href="#" onclick="alert('준비중입니다...')"><img src="/resources/img/naver_login.PNG" class="snslogin"></a></p>
-    </form>
+<div class="s-main-background">
+	<div class="s-main-column" style="height:750px; text-align: center;">
+	
+	  <div class="h-login-content">
+	    <div class="h-content">
+	    <h2 style="margin:50px 0 0 50px; width:300px; text-align: left;">로그인</h2>
+	    <form action="/login" method="POST">
+	    <p class="h-login-p">이메일 &nbsp<input type="text" id="email" name="email" value =<%=cookieVal !="" ? cookieVal : "" %>></p>
+	    <p class="h-login-p">비밀번호 &nbsp<input type="password" id="pwd" name="pwd"></p>
+	    <p  class="h-login-p" style="color:red;">${msg }</p>
+	    <p style="text-align: center; margin-bottom: 10px"><input type="checkbox" name = "save"<%=cookieVal!=""?"checked" : ""%>>이메일 저장 ㅣ
+	    <a style = "cursor: pointer;" id="h-findPwd-btn">비밀번호 찾기</a></p>
+	    <p class="h-login-p" style="text-align: center;"><button type="submit" class="login-btn">로그인</button></p>
+	    <p class="h-login-p" style="text-align: center;"><button type="button" class="login-btn" id="regbtn" onclick="location.href='/join'">회원가입</button></p>
+	    <p class="h-login-p" style="text-align: center;"><a href="${kakaoUrl}">
+	    <img src="/resources/img/kakao_login_medium.png" class="snslogin"></a>
+	    <a href="#" onclick="alert('준비중입니다...')"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
+	    </form>
     
     </div>
   </div>
@@ -86,4 +86,5 @@ if(emailMsg != ""){
   </script>
 
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

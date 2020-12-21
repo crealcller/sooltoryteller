@@ -8,11 +8,13 @@
 
         .h-inq-title{
             width: 700px;
+            height: 25px;
         }
         .h-inq-content{
             width: 700px;
             height: 300px;
             resize: none;
+            font-size: 18px;
         }
         .h-inq-btn{
             width: 50px;

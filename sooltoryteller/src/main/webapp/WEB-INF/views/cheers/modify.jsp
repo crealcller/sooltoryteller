@@ -86,6 +86,10 @@ let msg = "${msg}";
 	</div>
 </div>
 
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
+
 <!-- 서버단 유효성 검사 -->
 <script type="text/javascript">	
 let errorMsg = "${errorMsg}";

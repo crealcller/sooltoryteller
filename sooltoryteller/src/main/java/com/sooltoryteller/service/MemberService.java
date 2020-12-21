@@ -44,4 +44,10 @@ public interface MemberService {
 	
 	//회원 이메일 불러오기
 	public String getEmail(Long memberId);
+	
+	//회원 권한 가져오기
+	public String getAuthority(String email);
+	
+	//현재비밀번호와 맞는지 검사
+	public boolean examinePwd(String email, String pwd);
 }

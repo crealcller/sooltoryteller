@@ -8,12 +8,14 @@
 
 	.h-faq-title{
       width: 700px;
+      height: 25px
 	}
 	
 	.h-faq-content{
       width: 700px;
       height: 300px;
       resize: none;
+      font-size:18px;
     }
     .h-faq-btn{
       width: 50px;

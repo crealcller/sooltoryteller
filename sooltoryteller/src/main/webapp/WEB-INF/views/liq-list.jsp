@@ -51,6 +51,7 @@
 </ul>
 		
 </div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <form id="s-actionForm" action="/all-liq" method="get">
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />

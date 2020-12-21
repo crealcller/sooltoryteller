@@ -120,6 +120,10 @@ let msg = "${msg}";
 	</div>    
 </div>
 
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
+
 <script type="text/javascript">
 
 $(document).ready(function() {

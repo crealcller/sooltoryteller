@@ -1,13 +1,13 @@
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/include/topmenu.jsp" %>
-<link rel="stylesheet" href="/resources/css/changeUserInfoHead.css">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
 
+
+
+<!DOCTYPE html>
+<html>
+<head>
 <script>
     //로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = '${msg}';
@@ -28,23 +28,15 @@
 		
 		
 </script>
-
-<!DOCTYPE html>
-<html>
-<head>
+<link rel="stylesheet" href="/resources/css/changeUserInfoHead.css">
 <meta charset="UTF-8">
 <title>회원정보수정</title>
 </head>
 <body>
-<div class="h-back">
-        <div class="h-imgarea">
-        <img id="h-backImg" src="/resources/img/zzan.JPG">
-        
-        </div><div class="h-modify-content">
-        <h3 style="margin-bottom: 5px;">회원정보 수정/ 회원탈퇴</h3>
-        <p style="font-size:12px; color:red;">선호하는 주종 외에는 수정 버튼을 눌러야 반영이 됩니다.</p>
-        <form action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
-        
+        <h2>회원정보 수정 / 탈퇴</h2>
+         <div class="h-con">
+			<p style="font-size:12px; color:red; margin-bottom: 10px;">선호하는 주종 외에는 수정 버튼을 눌러야 반영이 됩니다.</p>
+            <form action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
         <div class="h-photo">
         	<div class="h-profile-photo">
    		      	<c:if test="${member.img eq 'user.png' }">
@@ -76,23 +68,27 @@
 			</script>
         </p>
 	        
-	    <p style="margin:10px 0 10px 0; padding-right:45px;">이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
-	    <p style="margin-bottom:10px;">닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>" readonly="readonly">
-	    <button type="button" class="h-modibtn" id="modi-name-btn">변경</button></p>
-	    <p style="margin-bottom:10px;">핸드폰 : &nbsp<input type = "text" name="telno" id="telno" value="<c:out value='${member.telno }'/>" readonly="readonly">
-	    <button type="button" class="h-modibtn" id="modi-telno-btn">변경</button></p>
-	    <span id="h-favalc">선호하는 주종 : 
-	    <c:forEach items="${favList}" var="alc">
-	    	<c:out value="${alc}"/>
-	    </c:forEach></span><button style="margin-left:41px;" type="button" class="h-modibtn" id="modi-favalc-btn">수정</button>
-	   <p><button type="submit" id="modify" class="h-withdrawal-btn">수정</button><button type="button" id="withdrawal" class="h-withdrawal-btn">회원탈퇴</button></p>
-	</form> 
-    </div>
-    </div>
+	     <p style="margin:15px 0 15px 0; padding-right:45px;">이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
+             <p style="margin-bottom:20px;">닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>" readonly="readonly">
+             <button type="button" class="h-modibtn" id="modi-name-btn" >변경</button></p>
+             <p style="margin-bottom:20px;">핸드폰 : &nbsp<input type = "text" name="telno" id="telno" value="<c:out value='${member.telno }'/>" readonly="readonly">
+             <button type="button" class="h-modibtn" id="modi-telno-btn">변경</button></p>
+             <span id="h-favalc">선호하는 주종 : 
+             <c:forEach items="${favList}" var="alc">
+             <c:out value="${alc}"/>
+               </c:forEach></span><button style="margin-left:72px;" type="button" class="h-modibtn" id="modi-favalc-btn" >수정</button>
+               <p><button type="submit" id="modify" class="h-withdrawal-btn" >수정</button><button type="button" id="withdrawal" class="h-withdrawal-btn">회원탈퇴</button></p>
+            </form> 
+            
+         </div>
+   </div>
+</div> <!-- h-mypagebody end -->
+	
+    
 	<!-- 회원 탈퇴 모달창 -->
 	<div id="h-withdrawal-Modal" class="h-modal">
     <div class="h-modal-content">
-    <span class="h-close">&times;</span>
+    <span class="h-close" style="cursor: pointer;">&times;</span>
 	<p style="text-align: center;">정말 탈퇴하시겠습니까??</p>
 	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES...</button> <button type="button" class="h-btn" id="h-NObtn">NO!!!!</button></p>
    </div>
@@ -100,9 +96,9 @@
    
    <!-- 닉네임 변경 모달창 -->
    <div id="h-name-Modal" class="h-modal">
-    <div class="h-modal-content">
-    <span class="h-close">&times;</span>
-	<p>	변경할 닉네임 <input type="text" id="modi-name"><button type="button" class="h-overlap-btn">중복확인</button></p>
+    <div class="h-modal-content" >
+    <span class="h-close" style="cursor: pointer;">&times;</span>
+	<p style="margin: 20px 0 20px 0;">변경할 닉네임 &nbsp<input type="text" id="modi-name"><button type="button" class="h-overlap-btn">중복확인</button></p>
 	<p style="text-align: center;"><button type="button" id="h-name-ok">확인</button></p>
    </div>
    </div>
@@ -110,8 +106,8 @@
    <!-- 핸드폰 번호 변경 모달창 -->
    <div id="h-telno-Modal" class="h-modal">
     <div class="h-modal-content">
-    <span class="h-close">&times;</span>
-	<p>	변경할 핸드폰 번호<input type="text" id="modi-telno"></p>
+    <span class="h-close" style="cursor: pointer;">&times;</span>
+	<p style="margin: 20px 0 20px 0;">변경할 핸드폰 번호 &nbsp<input type="text" id="modi-telno"></p>
 	<p style="text-align: center;"><button type="button" id="h-telno-ok">확인</button></p>
    </div>
    </div>
@@ -119,7 +115,7 @@
    <!-- 선호하는 주종 변경 모달창 -->
    <div id="h-favalc-Modal" class="h-modal">
     <div class="h-modal-content">
-    <span class="h-close">&times;</span>
+    <span class="h-close" style="cursor: pointer;">&times;</span>
 	<div class="h-fav-drink">
       <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
     <p class='h-modi-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='1'>소주
@@ -132,12 +128,14 @@
     							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='7'>와인
     							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8'>기타 </p>
     </div>
-	<p style="text-align: center;"><button type="button" id="h-favalc-ok">확인</button></p>
+	<p style="text-align: right;"><button type="button" id="h-favalc-ok">확인</button></p>
    </div>
 </div>
 
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 이미지 확장자 타입 검사 -->
 <script type="text/javascript">
 function checkType(obj) {
@@ -199,7 +197,6 @@ function checkType(obj) {
 	
 	
 		
-//회원 탈퇴 확인 모달창
 let wModal = document.getElementById("h-withdrawal-Modal");
 let nModal = document.getElementById("h-name-Modal");
 let tModal = document.getElementById("h-telno-Modal");
@@ -361,6 +358,7 @@ function checkedCnt(drink){
 }
 
 </script>
-
+<%-- <%@include file="/WEB-INF/views/include/footer.jsp" %> --%>
 </body>
 </html>
+

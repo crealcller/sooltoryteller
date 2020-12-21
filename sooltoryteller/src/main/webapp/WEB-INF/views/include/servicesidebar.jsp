@@ -2,20 +2,20 @@
 
 <style>
 		.h-imgarea{
-            width: 1300px;
-            height: 400px;            
+            width: 1520px;
+            height: 300px;            
             background-color: white;
             text-align: center;
         }
         .h-centerImg{
-            width: 1300px;
-            height: 400px;
+            width: 1520px;
+            height: 300px;
         }
         .h-body{
-            width: 1300px;
+            width: 1520px;
             height: 600px;
+            margin-top:30px;
             display: inline-block;
-            
         }
 
         
@@ -54,7 +54,7 @@
 </style>
 <body>
 	<div class="h-imgarea">
-    <img src='/resources/img/service.jpg' class="h-centerImg">
+    <img src='/resources/img/QnaTitle.jpg' class="h-centerImg">
 	</div>
 
 	<div class="h-body">

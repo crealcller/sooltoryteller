@@ -32,10 +32,10 @@ public class MemberServiceTests {
 	public void testJoin() {
 		
 		MemberVO member = new MemberVO();
-		member.setEmail("yuhuhu@yuhuhu.com");
-		member.setName("유후후");
-		member.setPwd("lkjh12##");
-		member.setTelno("01098736482");
+		member.setEmail("ccc@ccc.com");
+		member.setName("씨씨씨");
+		member.setPwd("TlTl!!");
+		member.setTelno("01044444444");
 		
 		System.out.println("회원가입!! : "+service.join(member));
 	}
@@ -68,9 +68,9 @@ public class MemberServiceTests {
 		service.modifyRegStus("gustn@gustn.com");
 	}
 	
-//	@Test
+	@Test
 	public void testLogin() {
-		System.out.println(service.loginCheck("aaa@aaa.com", "1111"));
+		System.out.println("로그인 성공? : "+service.loginCheck("ccc@ccc.com", "apdl!!"));
 		
 	}
 	
@@ -84,9 +84,10 @@ public class MemberServiceTests {
 		System.out.println(service.getPwd("gustn@gustn.com"));
 	}
 	
-//	@Test
+	@Test
 	public void testUpdatePwd() {
-		log.info(service.modifyPwd("gustn@gustn.com", "7777"));
+		
+		log.info("현재비밀번호 확인: " +service.examinePwd("ccc@ccc.com", "asdf!!"));
 	}
 	
 //	@Test

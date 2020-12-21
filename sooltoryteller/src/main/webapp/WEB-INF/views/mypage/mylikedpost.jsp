@@ -1,7 +1,3 @@
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 <script type="text/javascript">
 	// 로그인이 안된 상태면 로그인페이지로 넘어가게
@@ -124,11 +120,7 @@
 	</div>
 </div>
 
-<%-- <%@include file="/WEB-INF/views/include/footer.jsp" %> --%>
-
-<div class="d-mypage-footer">
-	<h1>footer</h1>
-</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <script type="text/javascript" src="/resources/js/bbstLike.js"></script>
 <script type="text/javascript">

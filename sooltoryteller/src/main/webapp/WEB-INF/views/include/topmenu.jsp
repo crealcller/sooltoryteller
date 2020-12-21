@@ -1,17 +1,11 @@
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- ajax -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%
 String email = (String) session.getAttribute("email");
+String authority = (String) session.getAttribute("authority");
 String loginDisplay = "";
 String logoutDisplay = "";
+String authorityDisplay = "";
+
 //세션에 로그인 정보가 담겼다면 로그인/회원가입 버튼 비활성화
 if (email != null) {
    loginDisplay = "none";
@@ -23,14 +17,26 @@ response.setHeader("Cache-Control", "no-cache");
 response.setHeader("Cache-Control", "no-store");
 response.setDateHeader("Expires", 0);
 response.setHeader("Pragma", "no-cache");
+
+//로그인한 회원의 권한이 관리자가 아니라면 관리자 페이지 비활성화
+if(authority == null || !authority.equalsIgnoreCase("admin")){
+	authorityDisplay = "none";
+}
 %>
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <style>
 * {
    margin: 0;
@@ -39,6 +45,7 @@ response.setHeader("Pragma", "no-cache");
 }
 button {
    cursor: pointer;
+   outline: 0;
 }
 #h-company-name {
    padding:20px;
@@ -50,7 +57,7 @@ a {
 .h-logobar {
    width: 1520px;
    height:90px;
-   border-bottom:solid 2px #e1e1e1;
+   border-bottom:solid 2px #E1E1E1;
 }
 .h-logo-img {
    height: 60px;
@@ -98,7 +105,7 @@ a {
    height: 1000px;
 }
 #h-dropdown-content a:hover {
-   background-color: #f2eff9;
+   background-color: #F2EFF9;
 }
 #h-dropdown:hover #h-dropdown-content {
    display: block;
@@ -143,11 +150,13 @@ a {
             </div>
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>
+         <!-- 현수 추가 관리자 페이지로 이동 -->
+            <a href='/admin/memberlist' style="display:<%=authorityDisplay%>">관리자페이지 ㅣ</a>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
               <!-- 다울 추가 임시로 like 페이지로 연결 -->
             <a href='/mypage/like'>마이페이지 ㅣ</a>
-            <a href='/help/faq'>고객센터</a>
+            <a href='/help/faq'>고객센터 </a>
         </div>
     </div>

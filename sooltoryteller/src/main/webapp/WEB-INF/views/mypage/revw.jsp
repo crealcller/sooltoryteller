@@ -21,6 +21,8 @@
         </div>
     	</div>
     	</div>
+    	
+    	<%@include file="/WEB-INF/views/include/footer.jsp" %>
  
 <div id="getRevw" class="d-revw-modal">
   <!-- Modal content -->

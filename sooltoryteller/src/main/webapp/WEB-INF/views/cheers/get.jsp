@@ -1,10 +1,6 @@
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- ajax -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <script type="text/javascript">
 // 로그인이 안된 상태면 로그인페이지로 넘어가게
 let msg = "${msg}";
@@ -13,15 +9,11 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-
 <link rel="stylesheet" href="/resources/css/cheers/get.css">
 
 <div class="s-main-background">
@@ -128,6 +120,10 @@ let msg = "${msg}";
 				</div>
 			</div>
 		</div>
+
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <!-- 댓글 -->
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
