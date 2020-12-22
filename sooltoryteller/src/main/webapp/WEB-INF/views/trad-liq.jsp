@@ -70,7 +70,7 @@
 	border-bottom-color: #844ce321;
 	background-color: white;
 	padding: 50px;
-	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 .d-revw-wrapper {

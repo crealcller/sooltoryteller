@@ -4,7 +4,6 @@
 .s-bbst-container {
 	width: 1000px;
 	margin: auto ;
-	padding:60px 0px 60px 0px;
 	background-color: rgb(250 245 255);
 }
 
@@ -29,12 +28,11 @@
 }
 
 .s-pagination {
-	width: 800px;
-	bottom: 0;
+	width: 400px;
 	display: block;
 	overflow: hidden;
 	list-style: none;
-	margin: 25px auto 10px auto;
+	margin: 30px auto 0px auto;
 	text-align: center;
 }
 

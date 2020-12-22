@@ -118,7 +118,7 @@ public class AdminController {
 		Long liqCoId = liqCoService.checkExistLiqCo(liqCoNm);
 		int liqExist = liqService.getliqExist(liq.getNm());
 		// 첨부파일 업로드 설정
-		String imgUploadPath = uploadPath + File.separator + "imgUploadLiq"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 		
@@ -129,9 +129,9 @@ public class AdminController {
 			fileName = liq.getLiqImg();
 			liq.setLiqImg(fileName);
 		}
-		liq.setLiqImg(File.separator + "imgUploadLiq" + ymdPath + File.separator + fileName);
+		liq.setLiqImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		liq.setLiqThumb(
-				File.separator + "imgUploadLiq" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+				File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		log.info("============================");
 		if(result.hasErrors()) { 
 			List<ObjectError> errorList = result.getAllErrors();

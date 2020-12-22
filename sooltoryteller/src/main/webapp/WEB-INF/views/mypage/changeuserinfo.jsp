@@ -39,14 +39,8 @@
             <form action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
         <div class="h-photo">
         	<div class="h-profile-photo">
-   		      	<c:if test="${member.img eq 'user.png' }">
-					<img class="d-mypage-profile"
-					src='/resources/img/<c:out value="${member.img}" />'>
-				</c:if>
-				<c:if test="${member.img ne 'user.png' }">
 					<img class="d-mypage-profile"
 					src='<c:out value="${member.img}" />'>
-				</c:if>
         	</div>
         </div>
         

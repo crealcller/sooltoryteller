@@ -116,6 +116,8 @@ a {
 .s-main-background {
 	width: 1520px;
 	background-color: rgb(250 245 255);
+	/* 다울추가 */
+	padding: 50px 0px 50px 0px;
 }
 .s-main-column {
 	width: 1000px;
