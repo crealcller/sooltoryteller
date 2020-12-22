@@ -140,9 +140,10 @@ if(msg != ''){
 			}
 			
 			if(result){
+				alert(result);
 				$(".h-modal-body").html("문의 답변이  전송 되었습니다.");
+				modal.style.display = "block";
 			}
-			modal.style.display = "block";
 			
 		}
 		//모달창 닫기버튼

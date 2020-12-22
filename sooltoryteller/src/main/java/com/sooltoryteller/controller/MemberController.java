@@ -1,5 +1,4 @@
 package com.sooltoryteller.controller;
-import java.io.File;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,7 +30,6 @@ import com.sooltoryteller.domain.MemberVO;
 import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
-import com.sooltoryteller.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -46,10 +43,10 @@ public class MemberController {
 	private MemberService service;
 	private MemberFavDrkService favDrkService;
 	private KakaoLoginController kakaoController;
-	
+	/*
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-	
+	*/
 	//로그인 view
 	@GetMapping("/login")
 	public ModelAndView soollogin(HttpSession session) {
@@ -148,21 +145,21 @@ public class MemberController {
 			model.addAttribute("member", member);
 			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
 			return "/join";
-		}
+		}else {
 		
 			//회원가입이 성공했다면
-		if(service.join(member)) {
-			//회원아이디를 가져와서 선호하는 술 등록
-			Long memberId = service.getMemberId(member.getEmail());
-			favDrkService.registerFavDrk(memberId, arr);
-			
-			//세션에 회원 닉네임, 이메일 저장 ->로그인상태로
-			HttpSession session = request.getSession();
-			session.setAttribute("name", member.getName());
-			session.setAttribute("email", member.getEmail());
-			return "redirect:/userInfo";
+			if(service.join(member)) {
+				//회원아이디를 가져와서 선호하는 술 등록
+				Long memberId = service.getMemberId(member.getEmail());
+				favDrkService.registerFavDrk(memberId, arr);
+				
+				//세션에 회원 닉네임, 이메일 저장 ->로그인상태로
+				HttpSession session = request.getSession();
+				session.setAttribute("name", member.getName());
+				session.setAttribute("email", member.getEmail());
+				return "redirect:/userInfo";
+			}
 		}
-		
 		return "/join";
 		
 	}
@@ -249,11 +246,13 @@ public class MemberController {
 	}
 	// 회원정보수정
 	@PostMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
+	//public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
+		public void changeuserinfo(MemberVO member, HttpSession session, Model model) throws Exception {
 		String loginEmail = (String) session.getAttribute("email");
 		System.out.println("changeUserInfo: " + member);
 		System.out.println("changeUserInfo: " + loginEmail);
 		
+		/*
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
@@ -269,13 +268,16 @@ public class MemberController {
 			member.setImg(fileName);
 			member.setThumbImg(fileName);
 		}
+		*/
 
 		if(!loginEmail.equals(member.getEmail())) {
 			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
 			model.addAttribute("member", service.get(loginEmail));
 			model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+			/*
 			model.addAttribute("img", service.get(member.getImg()));
 			model.addAttribute("thumbImg", service.get(member.getThumbImg()));
+			*/
 			return;
 			
 		}else {
@@ -284,14 +286,18 @@ public class MemberController {
 				model.addAttribute("success", "회원 정보가 수정되었습니다.");
 				model.addAttribute("member", service.get(member.getEmail()));
 				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
+				/*
 				model.addAttribute("img", service.get(member.getImg()));
 				model.addAttribute("thumbImg", service.get(member.getThumbImg()));
+				*/
 			}else {
 				model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
 				model.addAttribute("member", service.get(loginEmail));
 				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+				/*
 				model.addAttribute("img", service.get(member.getImg()));
 				model.addAttribute("thumbImg", service.get(member.getThumbImg()));
+				*/
 			}
 		}
 	}

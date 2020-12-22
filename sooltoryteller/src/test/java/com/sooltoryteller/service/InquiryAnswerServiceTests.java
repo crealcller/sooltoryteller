@@ -40,8 +40,8 @@ public class InquiryAnswerServiceTests {
 	public void testRegister() {
 		InquiryAnswerVO inqAn = new InquiryAnswerVO();
 		
-		inqAn.setAnswerId(2L);
-		inqAn.setInquiryId(2L);
+		inqAn.setAnswerId(9L);
+		inqAn.setInquiryId(11L);
 		inqAn.setCn("서비스테스트 답변드려요~");
 		inqAn.setAnstus("AC");
 		
@@ -51,7 +51,7 @@ public class InquiryAnswerServiceTests {
 		if(inqStus != null && inqAnStu != null) {
 			if(inqAnStu.equals("AW") && inqStus.equals("IP")) {
 				
-				inqAnService.register(inqAn, "IC");
+			System.out.println("@@@@@@@ : "+inqAnService.register(inqAn, "IC"));
 			}
 		}
 		

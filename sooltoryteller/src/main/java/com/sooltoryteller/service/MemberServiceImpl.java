@@ -60,21 +60,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		if(result !=null) {
 			if(encoder.matches(pwd, result)) {
+				if(mapper.getRegStus(email).equalsIgnoreCase("JN")) {
 				return true;
+				}
 			}
 		}
 		
 		return false;
-/*		
-		MemberVO member = mapper.getLoginInfo(email, pwd);
-		
-		if(member == null) {
-			return false;
-		}else {
-			
-			return true;
-		}
-*/
 	}
 
 	@Override

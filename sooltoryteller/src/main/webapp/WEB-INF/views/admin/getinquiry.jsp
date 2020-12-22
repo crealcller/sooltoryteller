@@ -44,8 +44,18 @@ if(msg != ''){
             readonly="readonly"><c:out value="${inq.cn }"/></textarea></p>
         </div>
         <div style="margin-top:20px;">
-            <button type="button" class="h-inq-btn" data-oper="answer"
-            onclick="location.href='/admin/answer?inquiryId=<c:out value="${inq.inquiryId}"/>'">답변</button>
+        <!-- 답변 완료 상태면 답변 버튼 숨기기 -->
+        <c:choose>
+        		 <c:when test="${inq.inqstus == 'IC'.toString()}">
+        		 	<button type="button" class="h-inq-btn" data-oper="answer"
+          			  onclick="location.href='/admin/answer?inquiryId=<c:out value="${inq.inquiryId}"/>'" style="display:none;">답변</button>
+        		 </c:when>
+        		 <c:otherwise>
+        		  <button type="button" class="h-inq-btn" data-oper="answer"
+           			  onclick="location.href='/admin/answer?inquiryId=<c:out value="${inq.inquiryId}"/>'">답변</button>
+        		 </c:otherwise>
+        	 </c:choose>
+        	 
             <button type="button" class="h-inq-btn" data-oper="list" onclick="location.href='/admin/inquirylist'">목록</button>
 
          <form id="operForm" action="/admin/answer" method="get">

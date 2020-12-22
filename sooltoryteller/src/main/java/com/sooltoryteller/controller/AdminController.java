@@ -48,8 +48,11 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @RequestMapping("/admin/*")
 public class AdminController {
+	/*
 	@Resource(name = "uploadPath")
 	private String uploadPath;
+	*/
+	
 	private AdminService adService;
 	private FaqService faqService;
 	private LiqService liqService;
@@ -108,6 +111,7 @@ public class AdminController {
 		}
 		
 	}
+	/*
 	// 전통주 등록
 	@PostMapping("/liq-register")
 	public String liqRegister(@Valid LiqVO liq, BindingResult result, String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws IOException, Exception {
@@ -165,6 +169,8 @@ public class AdminController {
 			return "redirect:/admin/liq-register";
 		}
 	}
+	*/
+	
 	// 전통주 삭제
 	@PostMapping("/remove-liq")
 	public String removeLiq(Long liqId, RedirectAttributes rttr) {
@@ -493,29 +499,35 @@ public class AdminController {
 			return "/admin/answer";
 		}
 		
+		String inqStus = inqService.getStus(inqAn.getInquiryId());
+		String inqAnStu = inqAnService.getStus(inqAn.getInquiryId());
 		
-		//답변등록이 되었다면 이메일전송
-		if(inqAnService.register(inqAn, "IC")) {
-			
-			Long memberId = inqService.getMemberId(inqAn.getInquiryId());
-			String email = memberService.getEmail(memberId);
-			
-			System.out.println("memberId : "+memberId +", memberEmail : "+email);
-			
-			e_mail.setTitle("sooltoryteller 1:1 문의에 대한 답변드립니다.");
-            e_mail.setContent(
-            		//줄바꿈
-            		System.getProperty("line.separator") +
-            		"안녕하세요 sooltoryteller 입니다." +
-            		System.getProperty("line.separator")+
-            		"고객님의 주신 문의에 대하여 답변 보내드립니다."+
-            		System.getProperty("line.separator")+
-            		inqAn.getCn()
-            		);
-        	
-            e_mail.setTo(email);
-            mailService.send(e_mail);
-			rttr.addFlashAttribute("result", true);
+		if(inqStus != null && inqAnStu != null) {
+			if(inqAnStu.equals("AW") && inqStus.equals("IP")) {
+				//답변등록이 되었다면 이메일전송
+				if(inqAnService.register(inqAn, "IC")) {
+					
+					Long memberId = inqService.getMemberId(inqAn.getInquiryId());
+					String email = memberService.getEmail(memberId);
+					
+					System.out.println("memberId : "+memberId +", memberEmail : "+email);
+					
+					e_mail.setTitle("sooltoryteller 1:1 문의에 대한 답변드립니다.");
+		            e_mail.setContent(
+		            		//줄바꿈
+		            		System.getProperty("line.separator") +
+		            		"안녕하세요 sooltoryteller 입니다." +
+		            		System.getProperty("line.separator")+
+		            		"고객님의 주신 문의에 대하여 답변 보내드립니다."+
+		            		System.getProperty("line.separator")+
+		            		inqAn.getCn()
+		            		);
+		        	
+		            e_mail.setTo(email);
+		            mailService.send(e_mail);
+					rttr.addFlashAttribute("result", true);
+				}
+			}
 		}
 		rttr.addAttribute("pageNum",  adCri.getPageNum());
 		rttr.addAttribute("amount",  adCri.getAmount());
