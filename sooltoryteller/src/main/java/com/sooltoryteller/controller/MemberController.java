@@ -259,16 +259,14 @@ public class MemberController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
-		if(file != null || !file.getOriginalFilename().equalsIgnoreCase("user.png")) { 
+		if(file != null) { 
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			member.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-			member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-			// user.png 파일로 대체
-			fileName = File.separator + "images" + File.separator + "user.png";
+			fileName = member.getImg();
 			member.setImg(fileName);
-			member.setThumbImg(fileName);
 		}
+		member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 
 		if(!loginEmail.equals(member.getEmail())) {
 			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");

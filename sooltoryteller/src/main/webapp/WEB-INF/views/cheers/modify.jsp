@@ -60,7 +60,7 @@ let msg = "${msg}";
 								if(this.files && this.files[0]) {
 							    var reader = new FileReader;
 							    reader.onload = function(data) {
-							    $(".s-select-cnImg img").attr("src", data.target.result).width(500);        
+							    $(".s-select-cnImg img").attr("src", data.target.result).width(280);        
 							    }
 							    reader.readAsDataURL(this.files[0]);
 							    }
@@ -187,8 +187,9 @@ $(document).ready(function() {
 			// 게시글 사진을 수정하지 않을 경우
 			var file = $('#s-form-cnImg').val();
 			if(file == "") {
-				$('#s-form-cnImg').prop('type', 'text');
-				var prevFile = $('#s-form-cnImg').val();
+				//$('#s-form-cnImg').prop('type', 'text');
+				//var prevFile = $('#s-form-cnImg').val();
+				//$('#s-form-cnImg').replaceWith($("#s-form-cnImg").clone(true));
 			}
 			
 			var chk = confirm("게시글을 수정하시겠습니까?");
@@ -196,6 +197,8 @@ $(document).ready(function() {
 				alert("게시글이 수정되었습니다.");
 				formObj.attr("action", "/cheers/modify");
 				formObj.submit();
+			} else {
+				$('#s-form-cnImg').val("");
 			}
 		
 		// 삭제 버튼 클릭 시

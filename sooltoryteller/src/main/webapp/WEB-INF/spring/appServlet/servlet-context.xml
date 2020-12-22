@@ -26,7 +26,7 @@
 	</beans:bean>
 	
 	<!-- 게시판 첨부파일  일반 파일 업로드 경로 -->
-	<resources mapping="/imgUploadLiq/**" location="/resources/imgUploadLiq/" />
+	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
 	
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 		<beans:property name="maxUploadSize" value="10485760"/>
