@@ -63,7 +63,7 @@ a {
 }
 .d-main-con {
 	width: 1520px;
-	height: 1000px;
+	height: 900px;
 }
 .d-main-img-con {
 	width: 100%;
@@ -80,3 +80,70 @@ a {
 #h-dropdown:hover .h-dropbtn {
 	border-bottom: 3px solid purple;
 }
+.s-bbst-container {
+	width: 1520px;
+	height: 500px;
+}
+
+.s-bbst-div {
+	height: 330px;
+	width: 1320px;
+	margin: 0 auto;
+	top: 95px;
+	position: relative;
+}
+
+.s-bbst-item-container {
+	height: 325px;
+	width: 300px;
+	margin: 5px 15px;
+	display: inline-block;
+	position: relative;
+	float: left;
+}
+
+.s-bbst-img {
+	height: 300px;
+	width: 300px;
+	display: block;
+}
+
+.s-bbst-info-div {
+	height: 20px;
+	width: 248px;
+	margin-top: 3px;
+	font-size: 11px;
+	color: black;
+}
+
+.s-bbst-item-overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 300px;
+	width: 300px;
+	opacity: 0;
+	transition: .3s ease;
+	background-color: rgba(104, 8, 34, 0.7);
+}
+
+.s-bbst-item-container:hover .s-bbst-item-overlay {
+	opacity: 0.9;
+}
+
+.s-bbst-item-overlay-info {
+	font-size: 12px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	display: inline-block;
+}
+
+.s-bbst-item-overlay-span {
+	color: white;
+}
+

@@ -82,4 +82,9 @@ public class BbstServiceTests {
 		BbstCriteria cri = new BbstCriteria();
 		service.getMyBbstList(cri, memberId);
 	}
+	
+	@Test
+	public void testGetBbstByView() {
+		service.getBbstByView();
+	}
 }

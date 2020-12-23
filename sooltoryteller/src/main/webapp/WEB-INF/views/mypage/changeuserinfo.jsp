@@ -40,15 +40,15 @@
             	<form class="h-info-form" action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
         			<div class="h-photo">
         				<div class="h-profile-photo">
-							<img class="d-mypage-profile" src='<c:out value="${member.img}" />'>
+							<img class="d-mypage-profile" name="img" src='<c:out value="${member.img}" />'>
         				</div>
         			</div>
         
 			       	<p style="margin-top:10px;">
 				        <!-- 파일 확장자 설정해서 에러 막기 -->
 						<input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
-						accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${member.thumbImg }' />" />
-						<input type="hidden" name="thumbImg" value="<c:out value='${member.thumbImg }' />" />
+						accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${member.img }' />" />
+						<input type="hidden" name="img" value="<c:out value='${member.img }' />" />
 						<script>
 							// 게시글 썸네일사진
 							$("#h-addfile").change(function(){

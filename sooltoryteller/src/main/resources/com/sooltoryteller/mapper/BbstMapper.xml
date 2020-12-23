@@ -144,4 +144,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select count(*) from bbst
 	where member_id = #{memberId}
 </select>
+
+<!-- 메인페이지 게시글 리스트 - 조회수 높은순 -->
+<select id="getBbstByView" resultType="com.sooltoryteller.domain.BbstJoinVO">
+	<![CDATA[
+	select * from (
+	select rownum rn, b.bbst_id, b.title, m.member_id, b.cn_img, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+	from bbst b, bbst_cnt c, member m
+	where b.bbst_id = c.bbst_id
+	and b.member_id = m.member_id
+	order by c.view_cnt desc, b.bbst_id desc)
+	where rownum <= 4
+	]]>
+</select>
 </mapper>

@@ -30,6 +30,10 @@ response.setHeader("Pragma", "no-cache");
 <head>
 <title>Home</title>
 <link rel="stylesheet" href="/resources/css/main.css">
+<!-- jquery script src -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- fontawesome -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
 <div class="d-main-con">
@@ -68,10 +72,42 @@ response.setHeader("Pragma", "no-cache");
               <!-- 다울 추가 임시로 like 페이지로 연결 -->
             <a href='/mypage/like'>마이페이지 ㅣ</a>
             <a href='/help/faq'>고객센터</a>
-            
         </div>
     </div>
-     </div>
-    </div>
+</div>
+</div>
+
+<!-- 게시글 리스트 - 조회수 높은순 -->
+<div class="s-bbst-container">
+	<div class="s-bbst-div">
+		<c:if test="${empty bbstList }">
+					<p>작성된 게시글이 없습니다.</p>
+		</c:if>
+		<c:if test="${not empty bbstList }">
+			<c:forEach items="${bbstList }" var="bbst">
+				<div class="s-bbst-item-container">
+					<a class="move" href="<c:out value='${bbst.bbstId }' />">
+					<div class="s-bbst-img-div">            
+						<img class="s-bbst-img" src="<c:out value='${bbst.cnImg }' />" />
+					</div>
+					<div class="s-bbst-info-div">
+						<p style="font-weight: bold">제목: <c:out value="${bbst.title }" /></p>
+					</div>
+					<div class="s-bbst-item-overlay">
+						<div class="s-bbst-item-overlay-info">
+							<i class="fas fa-eye" style="color: white;"></i> <span class="s-bbst-item-overlay-span"><c:out value="${bbst.viewCnt }" /></span>&nbsp;
+							<i class="fas fa-heart" style="color: white;"></i> <span class="s-bbst-item-overlay-span"><c:out value="${bbst.likeCnt }" /></span>&nbsp;
+							<i class="fas fa-comment-dots" style="color: white;"></i> <span class="s-bbst-item-overlay-span"><c:out value="${bbst.replyCnt }" /></span>
+						</div>
+					</div>
+				</a></div>
+			</c:forEach>
+		</c:if>
+	</div>
+</div>
+
+<div>
+
+</div>
 </body>
 </html>

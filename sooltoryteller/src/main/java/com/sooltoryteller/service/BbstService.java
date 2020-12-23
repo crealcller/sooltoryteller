@@ -34,4 +34,7 @@ public interface BbstService {
 	public MyBbstPageDTO getMyBbstList(
 		@Param("cri") BbstCriteria cri,
 		@Param("memberId") Long memberId);
+	
+	// 메인페이지 게시글 리스트 - 조회수 높은순
+	public List<BbstJoinVO> getBbstByView();
 }

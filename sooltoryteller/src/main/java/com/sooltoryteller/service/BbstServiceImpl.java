@@ -104,4 +104,11 @@ public class BbstServiceImpl implements BbstService {
 			mapper.getMyBbstListTotalCount(memberId),
 			mapper.getMyBbstList(cri, memberId));
 	}
+	
+	@Override
+	// 메인페이지 게시글 리스트 - 조회수 높은순
+	public List<BbstJoinVO> getBbstByView() {
+		log.info("========== GET BBST LIST BY VIEW ==========");
+		return mapper.getBbstByView();
+	}
 }
