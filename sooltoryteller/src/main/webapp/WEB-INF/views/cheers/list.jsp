@@ -26,7 +26,7 @@ let msg = "${msg}";
 <div class="s-main-background">
 	<!-- 게시판 메인 이미지 -->
 	<div class="s-bbst-main-img-container">
-		<img class="s-bbst-main-img-div" src="/resources/img/beach.jpg" />
+		<img class="s-bbst-main-img" src="/resources/img/beach.jpg" />
 	</div>
 	
 	<!-- 게시판 검색창 & 글쓰기 버튼 -->

@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	select o.* from (
 	    select /*+ index_desc (i bbst_pk) */ rownum rn, i.* from (
-	        select b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+	        select b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn_thumbImg, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
 			from bbst b, member m, bbst_cnt c
 			where
 	]]>

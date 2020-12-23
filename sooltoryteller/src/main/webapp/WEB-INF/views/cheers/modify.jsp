@@ -187,9 +187,9 @@ $(document).ready(function() {
 			// 게시글 사진을 수정하지 않을 경우
 			var file = $('#s-form-cnImg').val();
 			if(file == "") {
-				//$('#s-form-cnImg').prop('type', 'text');
+				$('#s-form-cnImg').prop('type', 'text');
+				$('#s-form-cnImg').val();
 				//var prevFile = $('#s-form-cnImg').val();
-				//$('#s-form-cnImg').replaceWith($("#s-form-cnImg").clone(true));
 			}
 			
 			var chk = confirm("게시글을 수정하시겠습니까?");
@@ -198,7 +198,8 @@ $(document).ready(function() {
 				formObj.attr("action", "/cheers/modify");
 				formObj.submit();
 			} else {
-				$('#s-form-cnImg').val("");
+				//$('#s-form-cnImg').val("");
+				
 			}
 		
 		// 삭제 버튼 클릭 시

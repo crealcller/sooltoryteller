@@ -262,11 +262,12 @@ public class MemberController {
 		if(file != null) { 
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			member.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
 			fileName = member.getImg();
 			member.setImg(fileName);
+			member.setThumbImg(member.getThumbImg());
 		}
-		member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 
 		if(!loginEmail.equals(member.getEmail())) {
 			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
