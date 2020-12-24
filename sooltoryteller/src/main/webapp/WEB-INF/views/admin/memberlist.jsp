@@ -60,6 +60,27 @@ if(msg != ''){
          </c:forEach>
         </table>
         
+         <!-- 검색   -->
+        <div class='h-search-content'>
+           <form id='h-searchForm' action="/admin/memberlist" method='get'>
+           	<select name='type'>
+           		<option value="" <c:out value="${pageMaker.adCri.type == null ? 'selected' : '' }"/>>--</option>
+           		<option value="E" <c:out value="${pageMaker.adCri.type eq 'E' ? 'selected' : '' }"/>>이메일</option>
+           		<option value="N" <c:out value="${pageMaker.adCri.type eq 'N' ? 'selected' : '' }"/>>닉네임</option>
+           		<option value="T" <c:out value="${pageMaker.adCri.type eq 'T' ? 'selected' : '' }"/>>전화번호</option>
+           	</select>
+             <input type='text' id ='h-keyword' name='keyword' maxlength="30"
+             value='<c:out value="${pageMaker.adCri.keyword}"/>'/>
+             <input type="hidden" name='pageNum' value='<c:out value="${pageMaker.adCri.pageNum}"/>'/>
+          	 <input type="hidden" name='amount' value='<c:out value="${pageMaker.adCri.amount}"/>'/>
+          	 <button type='submit' class="h-faq-searchbtn">검색</button>
+           </form>
+        </div>
+        
+        
+        
+        
+        
         <div class="pull-right">
         	<ul class="h-pagination">
         	
@@ -81,6 +102,8 @@ if(msg != ''){
 		<form id="h-actionForm" action="/admin/memberlist" method='get'>
 			<input type="hidden" name="pageNum" value="${pageMaker.adCri.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
+			<input type="hidden" name="type" value='<c:out value="${pageMaker.adCri.type }"/>'>
+			<input type="hidden" name="keywoed" value='<c:out value="${pageMaker.adCri.keyword }"/>'>
 		</form>
 
     </div><!--인크루드 하는 페이지에 넣기-->
@@ -139,7 +162,8 @@ if(msg != ''){
     		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     		actionForm.submit();
     	});
- /*   	
+    	
+ /*   회원 게시물, 댓글 조회(보류)
       $(".h-move").on("click", function(e){
     	e.preventDefault();
     	actionForm.append("<input type='hidden' name='memberId' value='"+$(this).attr("href")+"'>");
@@ -148,6 +172,28 @@ if(msg != ''){
     }); 
  */
  	
+ 
+    	//검색 유효성 검사
+    	$("#h-searchForm button").on("click", function(e){
+    		
+    	let searchForm = $("#h-searchForm");
+    	let keyword = $("#h-keyword").val();
+    	
+    	searchForm.find("input[name='pageNum']").val("1");
+    	$('#h-keyword').val(keyword.trim());
+    	e.preventDefault();
+    	
+    	searchForm.submit();
+    		
+    	});
+    	
+    	$("#h-keyword").keyup(function(){
+    		
+    	 	if($(this).val().lenght > $(this).attr('maxlength')){
+     			$(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+     		}
+     
+    	});
 });	
     
     

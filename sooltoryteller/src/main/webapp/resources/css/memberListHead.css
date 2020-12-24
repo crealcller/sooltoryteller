@@ -47,8 +47,19 @@
   	  color: white;
 	}
 
-.h-pagination li:hover:not(.active) {background-color: #ddd;}
+	.h-pagination li:hover:not(.active) {background-color: #ddd;}
 
+	.h-faq-searchbtn{
+	   width: 60px;
+       height: 25px;
+       border: none;
+       background-color: navy;
+       color: white;
+     }
+     #h-searchForm{
+       margin: 10px 0 0 22px;
+     
+     }
 .h-modal {
 	  display: none;
 	  position: fixed; 

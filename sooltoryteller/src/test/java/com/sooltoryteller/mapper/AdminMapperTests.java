@@ -34,4 +34,17 @@ public class AdminMapperTests {
 		
 		list.forEach(member -> log.info(member.getMemberId()));
 	}
+	
+	@Test
+	public void testSearch() {
+		
+		AdminCriteria adCri = new AdminCriteria();
+		adCri.setKeyword("ff");
+		adCri.setType("E");
+		
+		List<MemberVO> list = mapper.getListWithPaging(adCri);
+		
+		list.forEach(member -> log.info(member));
+	
+	}
 }

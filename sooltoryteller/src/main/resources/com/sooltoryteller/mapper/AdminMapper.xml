@@ -3,6 +3,28 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooltoryteller.mapper.AdminMapper">
+<sql id="adminCriteria">
+<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+   		  <foreach item='type' collection="typeArr">
+   		  	<trim prefix="OR">
+   		  		<choose>
+   		  			<when test="type == 'E'.toString()">
+   		  				email like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'N'.toString()">
+   		  				name like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'T'.toString()">
+   		  				telno like '%' || #{keyword} || '%'
+   		  			</when>
+   		  		</choose>
+   		  	</trim>
+   		  </foreach>
+   		</trim>
+   	</sql>
+
+
+
 <!-- 회원 리스트 페이징 처리 -->
 <select id="getListWithPaging" resultType="com.sooltoryteller.domain.MemberVO">
 	<![CDATA[
@@ -10,7 +32,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from( select /*+INDEX_DESC(member member_pk) */
 		rownum rn, member_id, email, name, telno, regdate, updatedate, regstus
 		from member
-		where rownum <= #{pageNum} * #{amount}
+		where 
+		]]>
+		
+		<include refid="adminCriteria"></include>
+		
+<![CDATA[
+		rownum <= #{pageNum} * #{amount}
 		and authority = 'USER'
 		)
 	where rn > (#{pageNum} -1) * #{amount}
@@ -20,5 +48,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 모든 회원 수 -->
 <select id="getTotalCount" resultType="int">
 	select count(*) from member
+	where 
+	
+	<include refid="adminCriteria"></include>
+	
+	authority = 'USER'
+	and	member_id > 0
 </select>
 </mapper>

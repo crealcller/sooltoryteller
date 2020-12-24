@@ -525,13 +525,13 @@ public class AdminController {
 		        	
 		            e_mail.setTo(email);
 		            mailService.send(e_mail);
-					rttr.addFlashAttribute("result", true);
+					rttr.addFlashAttribute("result", "success");
 				}
 			}
 		}
 		rttr.addAttribute("pageNum",  adCri.getPageNum());
 		rttr.addAttribute("amount",  adCri.getAmount());
-		rttr.addFlashAttribute("result", false);
+		rttr.addFlashAttribute("result", "fail");
 		return "redirect:/admin/inquirylist";
 	}
 	
