@@ -419,7 +419,7 @@ li {
            		<img class='d-revw-profile' src='/resources/img/noprofile.png'>
          	 </c:when>
          	<c:otherwise>
-            	<img class='d-revw-profile' src='/resources/img/<c:out value="${member.img}" />'>
+            	<img class='d-revw-profile' src='<c:out value="${member.thumbImg}" />'>
          	</c:otherwise>
       	</c:choose>
 			<button id='addRevwBtn' class="d-star_grade">
@@ -549,7 +549,7 @@ $(document).ready(function(){
 				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+list[i].rate+"</div>"
 				str += "<span>"+list[i].cn+"</span>"
 				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
-				str += "<div><div class='d-revw-member'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
+				str += "<div><div class='d-revw-member'><img class='d-revw-profile' src='"+list[i].member.thumbImg+"'>";
 				str += "<strong>"+list[i].member.name+"</strong></li></div></div>";
 			}
 			revwUL.html(str);

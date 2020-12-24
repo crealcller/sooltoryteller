@@ -19,7 +19,7 @@
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	opacity: 0.5;
-	filter: blur(3px);
+	/* filter: blur(3px); */
 	position: absolute;
 	content: "";
 	z-index: -1;
@@ -38,7 +38,7 @@
 	position: absolute;
 	content: "";
 	vertical-align: middle;
-	z-index: 1;
+	z-index: 0;
 }
 
 .s-container .s-content {
@@ -49,7 +49,7 @@
 	color: #f1f1f1;
 	width: 100%;
 	padding: 20px;
-	z-index: 999;
+	z-index: 1;
 }
 </style>
 </head>

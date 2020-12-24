@@ -53,7 +53,8 @@
 </div>
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
-<form id="s-actionForm" action="/all-liq" method="get">
+<form id="s-actionForm" action="/liq-list" method="get">
+	<input type="hidden" name="cate" value="${cate }" />
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
 	<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
 </form>

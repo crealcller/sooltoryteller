@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j;
 public class AboutController {
 
 	@GetMapping("/about")
-	public void about(Model model) {
-		log.info("about page");
-	}
+	   public void about(Model model) {
+	      log.info("about page");
+	   }
 }

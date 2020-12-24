@@ -39,8 +39,6 @@ response.setHeader("Pragma", "no-cache");
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="d-main-con">
-<div class="d-main-img-con">
     <div class="h-logobar">
         <div class="h-logo">
        <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-1.png'>
@@ -72,12 +70,13 @@ response.setHeader("Pragma", "no-cache");
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
               <!-- 다울 추가 임시로 like 페이지로 연결 -->
-            <a href='/mypage/like'>마이페이지 ㅣ</a>
+            <a href='/mypage/revw'>마이페이지 ㅣ</a>
             <a href='/help/faq'>고객센터</a>
         </div>
     </div>
+<div class="d-main-img-con">
 </div>
-</div>
+
 
 <!-- 게시글 리스트 - 조회수 높은순 -->
 <div class="s-bbst-container">
@@ -108,6 +107,43 @@ response.setHeader("Pragma", "no-cache");
 		</c:if>
 	</div>
 </div>
+<div class="s-bbst-container" style="background-color: black">
+<div class="s-bbst-div" style="top: 100px;">
+	<h3 style="margin: 0 0 10px 15px; color:white;">전통주 둘러보기</h3>
+	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=탁주';">
+	<div class="s-bbst-img-div">
+	<img class="d-bbst-img" src="resources/img/main1.png"/>
+	</div>
+	<div class="d-bbst-info-div">
+	<h2>탁주</h2>
+	</div>
+	</div>
+	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=약주 청주';">
+	<div class="s-bbst-img-div">
+    <img class="d-bbst-img" src="resources/img/main2.jpg"/>
+	</div>
+	<div class="d-bbst-info-div">
+	<h2>약주/청주</h2>
+	</div>
+	</div>
+	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=과실주';">
+	<div class="s-bbst-img-div">
+    <img class="d-bbst-img" src="resources/img/main3.jpg" />            
+	</div>
+	<div class="d-bbst-info-div">
+	<h2>과실주</h2>
+	</div>
+	</div>
+	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=증류주 리큐르';">
+	<div class="s-bbst-img-div">
+    <img class="d-bbst-img" src="resources/img/main4.jpg" />           
+	</div>
+	<div class="d-bbst-info-div">
+	<h2>증류주/리큐르</h2>
+	</div>
+	</div>
+</div>
+</div>
 
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
@@ -121,6 +157,31 @@ $(document).ready(function() {
 		actionForm.submit();
 	});
 });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(window).scroll(function(evt) {
+	var y=$(".h-logobar").offset().top
+	if(y>=200){
+		$(".h-logobar").css('height','90px');
+		$(".h-logobar").css('box-shadow','0px -2px 8px 5px #e1e1e1');
+		$(".h-logobar").css('background-color','white');
+		$(".h-logo-img").attr('src','/resources/img/Logo_1-2.png');
+		$('.h-usermenu').find('a').css('color','black');
+		$('.h-dropbtn').find('a').css('color','black');
+		$('.h-dropbtn').css('color','black');
+		
+	}else{
+		$(".h-logobar").css('height','');
+		$(".h-logobar").css('box-shadow','none');
+		$(".h-logobar").css('background', '');
+		$(".h-logo-img").attr('src','/resources/img/Logo_1-1.png');
+		$('.h-usermenu').find('a').css('color','white');
+		$('.h-dropbtn').find('a').css('color','white');
+		$('.h-dropbtn').css('color','white');
+		
+	}
+	});
 </script>
 </body>
 </html>

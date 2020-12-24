@@ -23,10 +23,10 @@
 					<ul class="d-mypage-menu-con">
 						<li class="d-mypage-ref"><a href='/mypage/like'>전통주</a></li>
 						<ul class="d-mypage-menu">
-							<li class="d-mypage-li"><a href='/mypage/like'>좋아요한 전통주 </a>
-							</li>
 							<li class="d-mypage-li"><a href='/mypage/revw'>내가 작성한 리뷰
 							</a></li>
+							<li class="d-mypage-li"><a href='/mypage/like'>좋아요 누른 전통주 </a>
+							</li>
 						</ul>
 					</ul>
 					<ul class="d-mypage-menu-con">

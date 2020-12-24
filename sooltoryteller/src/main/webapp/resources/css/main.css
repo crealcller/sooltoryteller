@@ -12,13 +12,17 @@ button {
 #h-company-name {
 	padding: 20px;
 }
+
 a {
 	text-decoration: none;
 	color: white;
 }
 .h-logobar {
-	width: 1519px;
-	height: 70px;
+	width: 1520px;
+	height: 0px;
+    top: 0px;
+    position: sticky;
+	z-index: 999;   
 }
 .h-logo-img {
 	height: 60px;
@@ -68,7 +72,7 @@ a {
 	height: 900px;
 }
 .d-main-img-con {
-	width: 100%;
+	width: 1520px;
 	height: 900px;
 	background-image: url('/resources/img/Beer-26845_1.gif');
 	background-size: cover;
@@ -89,7 +93,7 @@ a {
 }
 
 .s-bbst-div {
-	height: 370px;
+	height: 310px;
 	width: 1320px;
 	margin: 0 auto;
 	top: 70px;
@@ -104,6 +108,7 @@ a {
 	position: relative;
 	float: left;
 	border-radius: 3%;
+	cursor: pointer;
 }
 
 .s-bbst-img {
@@ -150,6 +155,20 @@ a {
 }
 
 .s-bbst-item-overlay-span {
+	color: white;
+}
+
+.d-bbst-img {
+	height: 220px;
+	width: 300px;
+	display: block;
+	border-radius: 3%;
+}
+
+.d-bbst-info-div {
+	height: 20px;
+	width: 248px;
+	margin-top: 15px;
 	color: white;
 }
 

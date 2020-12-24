@@ -61,7 +61,11 @@ a {
 .h-logobar {
    width: 1520px;
    height:90px;
-   border-bottom:solid 2px #E1E1E1;
+   position: sticky;
+   top: 0px;   
+   background-color: white;
+   box-shadow : 0px -2px 8px 5px #e1e1e1;
+   z-index: 999;
 }
 .h-logo-img {
    height: 60px;
@@ -162,7 +166,7 @@ a {
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
               <!-- 다울 추가 임시로 like 페이지로 연결 -->
-            <a href='/mypage/like'>마이페이지 ㅣ</a>
+            <a href='/mypage/revw'>마이페이지 ㅣ</a>
             <a href='/help/faq'>고객센터 </a>
         </div>
     </div>
