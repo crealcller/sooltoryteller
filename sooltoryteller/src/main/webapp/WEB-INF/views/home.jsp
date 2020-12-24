@@ -80,6 +80,7 @@ response.setHeader("Pragma", "no-cache");
 <!-- 게시글 리스트 - 조회수 높은순 -->
 <div class="s-bbst-container">
 	<div class="s-bbst-div">
+		<h3 style="margin: 0 0 10px 15px;">건배의 광장 인기 게시물</h3>
 		<c:if test="${empty bbstList }">
 					<p>작성된 게시글이 없습니다.</p>
 		</c:if>

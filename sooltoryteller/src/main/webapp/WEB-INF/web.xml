@@ -54,15 +54,11 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
-		
-		<!-- 첨부파일 설정 -->
-		<multipart-config>
-			<location>D:\\cillian\\tmp</location>
-			<max-file-size>20971520</max-file-size> <!-- 1MB * 20 -->
-			<max-request-size>41943040</max-request-size> <!-- 40MB -->
-			<file-size-threshold>20971520</file-size-threshold> <!-- 20MB -->
-		</multipart-config>
 	</servlet>
 		
 	<servlet-mapping>

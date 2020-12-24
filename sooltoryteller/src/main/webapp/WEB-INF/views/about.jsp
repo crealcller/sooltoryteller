@@ -4,6 +4,7 @@
 <head>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
 <style>
 .s-main-background {
 	height: 630px;

@@ -127,6 +127,18 @@ let msg = "${msg}";
 <script type="text/javascript">
 
 $(document).ready(function() {
+	
+	var result = "<c:out value='${result}' />";
+	checkAlert(result);
+	function checkAlert(result) {
+		if(result === '' || history.state) {
+			return;
+		}
+	}
+	
+	
+	history.replaceState({}, null, null);
+	
 	var actionForm = $("#s-actionForm");
 	
 	$(".s-paginate_button a").on("click", function(e) {
