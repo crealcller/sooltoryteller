@@ -49,8 +49,7 @@ response.setHeader("Pragma", "no-cache");
                 <a href="/liq-list?cate=탁주">탁주</a>
                 <a href="/liq-list?cate=약주 청주">약주/청주</a>
                 <a href="/liq-list?cate=과실주">과실주</a>
-                <a href="/liq-list?cate=증류주">증류주</a>
-                <a href="/liq-list?cate=기타류">기타류</a>
+                <a href="/liq-list?cate=증류주 리큐르">증류주/리큐르</a>
             </div>
             </div>
             <div id="h-dropdown2" class="h-dropdown">

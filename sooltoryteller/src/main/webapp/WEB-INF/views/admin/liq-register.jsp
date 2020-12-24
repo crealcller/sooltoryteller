@@ -42,10 +42,9 @@ if(msg != ''){
 <p><label>이름 : <input type="text" name="nm"  maxlength="12" placeholder="1~12자"></label></p>
 <p class='h-join-p'>
 <input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='탁주'>탁주
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='약주 청주'>약주 청주
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='약주 청주'>약주/청주
 <input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='과실주'>과실주
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='증류주'>증류주
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='기타류'>기타류
+<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='증류주 리큐르'>증류주/리큐르
  </p>
 <p><label>용량 : <input type="text" name="capct" maxlength="6"  placeholder="숫자만 입력해주세요."></label></p>
 <p><label>도수 : <input type="text" name="lv" maxlength="4" placeholder="숫자만 입력해주세요."></label></p>

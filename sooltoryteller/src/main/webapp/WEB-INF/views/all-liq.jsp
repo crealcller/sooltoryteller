@@ -15,7 +15,6 @@
 <div class="s-main-background">
 
 <ul class="s-bbst-container">
-<h2>전체</h2>
 <c:forEach items="${allLiq}" var="allLiq">
 <li class="s-bbst-item-container" OnClick="location.href ='/trad-liq?liqId=<c:out value="${allLiq.liqId}" />'" style="cursor:pointer;">
 <div class="s-bbst-img-con">   
@@ -34,19 +33,19 @@
 <ul class="s-pagination">
 	<c:if test="${pageMaker.prev }">
 		<li class="s-paginate_button previous" style="width: 50px;">
-			<a href="${pageMaker.startPage -1 }"><i class="fas fa-arrow-circle-left"></i></a>
+			<a href="${pageMaker.startPage -1 }">&#60;</a>
 		</li>
 	</c:if>
 	
 	<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-		<li class="s-paginate_button ${pageMaker.cri.pageNum == num ? "active":"" } ">
+		<li class="d-paging-btn-${pageMaker.cri.pageNum == num ? 'active':'none' } ">
 			<a href="${num }">${num }</a>
 		</li>
 	</c:forEach>
 	
 	<c:if test="${pageMaker.next }">
 		<li class="s-paginate_button next" style="width: 50px;">
-			<a href="${pageMaker.endPage + 1 }"><i class="fas fa-arrow-circle-right"></i></a>
+			<a href="${pageMaker.endPage + 1 }">&#62;</a>
 		</li>
 	</c:if>
 </ul>
@@ -64,7 +63,7 @@
 $(document).ready(function() {
 	var actionForm = $("#s-actionForm");
 	
-	$(".s-paginate_button a").on("click", function(e) {
+	$(".s-pagination li a").on("click", function(e) {
 		e.preventDefault();
 		console.log("click");
 		
