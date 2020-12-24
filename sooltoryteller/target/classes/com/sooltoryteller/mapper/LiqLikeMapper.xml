@@ -28,8 +28,8 @@ and liq_id=#{liqId}
 	rownum rn,l.liq_id, l.nm,l.cate,l.capct,l.lv, l.irdnt,l.liq_thumb,
 	k.liq_like_id
 	from liq l,liq_like k
-	where l.liq_id = k.liq_id
-	and k.member_id=#{memberId}
+	where k.member_id=#{memberId}
+	and l.liq_id = k.liq_id
     and rownum <=#{cri.pageNum}*#{cri.amount}
     )lk where rn > (#{cri.pageNum} -1)*#{cri.amount}
     ]]>
