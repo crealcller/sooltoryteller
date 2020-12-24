@@ -57,7 +57,10 @@ a {
 .h-logobar {
    width: 1520px;
    height:90px;
-   border-bottom:solid 2px #E1E1E1;
+   position: sticky;
+   top: 0px;   
+   background-color: white;
+   box-shadow : 0px -2px 8px 5px #e1e1e1
 }
 .h-logo-img {
    height: 60px;
