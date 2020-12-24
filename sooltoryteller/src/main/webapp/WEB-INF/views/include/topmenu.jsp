@@ -33,6 +33,9 @@ if(authority == null || !authority.equalsIgnoreCase("admin")){
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <!-- ajax -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +45,7 @@ if(authority == null || !authority.equalsIgnoreCase("admin")){
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   font-family: 'Nanum Gothic', sans-serif;
 }
 button {
    cursor: pointer;

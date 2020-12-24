@@ -16,7 +16,7 @@ public class BbstLikeCriteria {
 	private String keyword;
 	
 	public BbstLikeCriteria() {
-		this(1, 12);
+		this(1, 9);
 	}
 	
 	public BbstLikeCriteria(int pageNum, int amount) {

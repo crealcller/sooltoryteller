@@ -1,7 +1,13 @@
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
+
+<head>
+<link rel="stylesheet" href="/resources/css/cheers/list.css">
 
 <!-- 로그인이 안된 상태면 로그인페이지로 넘어가게 -->
 <script type="text/javascript">
@@ -11,17 +17,9 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
+</head>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-
-<link rel="stylesheet" href="/resources/css/cheers/list.css">
-
+<body>
 <!-- topmenu.jsp에 css만 공통으로 넣고, div는 각자 페이지에 알아서 적용 -->
 <div class="s-main-background">
 	<!-- 게시판 메인 이미지 -->
@@ -74,9 +72,9 @@ let msg = "${msg}";
 							<img class="s-bbst-img" src="<c:out value='${bbst.cnImg }' />" />
 						</div>
 						<div class="s-bbst-info-div">
-							<p style="font-weight: bold">제목: <c:out value="${bbst.title }" /></p>
-							<p>작성자: <c:out value="${bbst.name }" /></p>
-							<p>작성일시: <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /> </p>
+							<p style="font-weight: bold"><c:out value="${bbst.title }" /></p>
+							<p><c:out value="${bbst.name }" /></p>
+							<p><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bbst.regdate }" /> </p>
 						</div>
 						<div class="s-bbst-item-overlay">
 							<div class="s-bbst-item-overlay-info">
@@ -122,10 +120,10 @@ let msg = "${msg}";
 
 </div>
 </div>
+
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <script type="text/javascript">
-
 $(document).ready(function() {
 	
 	var result = "<c:out value='${result}' />";
@@ -136,11 +134,7 @@ $(document).ready(function() {
 		}
 	}
 	
-	
-	history.replaceState({}, null, null);
-	
 	var actionForm = $("#s-actionForm");
-	
 	$(".s-paginate_button a").on("click", function(e) {
 		e.preventDefault();
 		console.log("click");
@@ -159,7 +153,6 @@ $(document).ready(function() {
 
 	/* 검색 버튼 이벤트 처리 : 1페이지 보이기 + 검색 조건 및 검색어 보이기*/
 	var searchForm = $("#s-searchForm");
-	
 	$("#s-searchForm button").on("click", function(e) {
 		
 		var keyword = searchForm.find("input[name='keyword']").val();
@@ -172,17 +165,12 @@ $(document).ready(function() {
 		
 		// 검색어에 trim() 적용
 		searchForm.find("input[name='keyword']").val(keyword.trim());
-		
 		searchForm.find("input[name='pageNum']").val("1");
 		
 		e.preventDefault();
 		searchForm.submit();
 	});
-	
-	// 뒤로 가기
-	
 });
 </script>
-
 </body>
 </html>

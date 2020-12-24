@@ -34,6 +34,9 @@ response.setHeader("Pragma", "no-cache");
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 <!-- fontawesome -->
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="d-main-con">
@@ -79,19 +82,19 @@ response.setHeader("Pragma", "no-cache");
 <!-- 게시글 리스트 - 조회수 높은순 -->
 <div class="s-bbst-container">
 	<div class="s-bbst-div">
-		<h3 style="margin: 0 0 10px 15px;">건배의 광장 인기 게시물</h3>
+		<h2 style="margin: 0 0 8px 15px;">건배의 광장 인기 게시물</h2>
 		<c:if test="${empty bbstList }">
-					<p>작성된 게시글이 없습니다.</p>
+			<p>작성된 게시글이 없습니다.</p>
 		</c:if>
 		<c:if test="${not empty bbstList }">
 			<c:forEach items="${bbstList }" var="bbst">
 				<div class="s-bbst-item-container">
-					<a class="move" href="<c:out value='${bbst.bbstId }' />">
+					<a class="move" href="/cheers/get?bbstId=<c:out value='${bbst.bbstId }' />">
 					<div class="s-bbst-img-div">            
 						<img class="s-bbst-img" src="<c:out value='${bbst.cnImg }' />" />
 					</div>
 					<div class="s-bbst-info-div">
-						<p style="font-weight: bold">제목: <c:out value="${bbst.title }" /></p>
+						<p style="font-weight: bold; font-size: 15px;"><c:out value="${bbst.title }" /></p>
 					</div>
 					<div class="s-bbst-item-overlay">
 						<div class="s-bbst-item-overlay-info">
@@ -106,8 +109,18 @@ response.setHeader("Pragma", "no-cache");
 	</div>
 </div>
 
-<div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 
-</div>
+<script>
+$(document).ready(function() {
+	/* 게시물 클릭 시 이동하는 이벤트 처리 */
+	$(".move").on("click", function(e) {
+		/* e.preventDefault(); */
+		actionForm.append("<input type='hidden' name='bbstId' value='"+$(this).attr("href") + "'>");
+		actionForm.attr("action", "/cheers/get");
+		actionForm.submit();
+	});
+});
+</script>
 </body>
 </html>
