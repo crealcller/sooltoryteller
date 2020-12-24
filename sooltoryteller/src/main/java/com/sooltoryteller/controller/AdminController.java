@@ -110,7 +110,7 @@ public class AdminController {
 	}
 	// 전통주 등록
 	@PostMapping("/liq-register")
-	public String liqRegister(@Valid LiqVO liq, BindingResult result, String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws IOException, Exception {
+	public String liqRegister(@Valid LiqVO liq, BindingResult result,String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws IOException, Exception {
 		
 		log.info("liq register"+liq);
 		
@@ -168,6 +168,7 @@ public class AdminController {
 	// 전통주 삭제
 	@PostMapping("/remove-liq")
 	public String removeLiq(Long liqId, RedirectAttributes rttr) {
+		
 		log.info("remove "+liqId);
 		liqService.removeLiq(liqId);
 		return "redirect:/admin/liq-list";
@@ -176,6 +177,7 @@ public class AdminController {
 	// 전통주 수정
 	@PostMapping("/modify-liq")
 	public String modifyLiq(LiqVO liq, LiqCnVO cn, RedirectAttributes rttr) {
+		
 		liqService.modify(liq, cn);
 		
 		return "redirect:/admin/";
