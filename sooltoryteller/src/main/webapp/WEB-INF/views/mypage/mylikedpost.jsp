@@ -124,7 +124,6 @@
 
 <script type="text/javascript" src="/resources/js/bbstLike.js"></script>
 <script type="text/javascript">
-
 $(document).ready(function() {
 	var memberIdValue = "<c:out value='${member.memberId}' />";
 	var bbstBox = $(".s-bbst-container-box");
@@ -140,10 +139,10 @@ $(document).ready(function() {
 		var prev = startNum != 1;
 		var next = false;
 		
-		if(endNum * 5 >= myLikeCnt) {
-			endNum = Math.ceil(myLikeCnt / 5.0);
+		if(endNum * 9 >= myLikeCnt) {
+			endNum = Math.ceil(myLikeCnt / 9.0);
 		}
-		if(endNum * 5 < myLikeCnt){
+		if(endNum * 9 < myLikeCnt){
 			next = true;
 		}
 		

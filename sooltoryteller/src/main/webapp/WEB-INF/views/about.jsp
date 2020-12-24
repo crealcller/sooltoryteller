@@ -6,33 +6,50 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
 <style>
-.s-main-background {
-	height: 630px;
+.s-about-background {
+	height: 650px;
 	width: 1520px;
-	padding: 30px;
+	position: relative;
+}
+
+.s-about-background::after {
+	height: 650px;
+	width: 1520px;
+	background-image: url("/resources/img/cheers.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	opacity: 0.5;
+	/* filter: blur(3px); */
+	position: absolute;
+	content: "";
+	z-index: -1;
 }
 
 .s-container {
-	height: auto;
-	width: 1000px;
+	height: 500px;
+	width: 800px;
 	position: relative;
+	top: 75px;
+	left: 350px;
 	margin: 0 auto;
-	font-family: 'Nanum Myeongjo', serif;
-}
-
-.s-container img {
-	height: 100%;
-	width: 100%;
+	background-image: url("/resources/img/cheers.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	content: "";
 	vertical-align: middle;
+	z-index: 0;
 }
 
 .s-container .s-content {
 	position: absolute;
 	bottom: 0;
+	font-family: 'Nanum Myeongjo', serif;
 	background: rgba(0, 0, 0, 0.5);
 	color: #f1f1f1;
 	width: 100%;
 	padding: 20px;
+	z-index: 1;
 }
 </style>
 </head>
@@ -40,9 +57,8 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
-<div class="s-main-background" style="background-color: #2b1410;">
+<div class="s-about-background">
 	<div class="s-container">
-		<img src="/resources/img/pub.jpg" />
 		<div class="s-content">
 			<h2>술토리텔러들의 이야기</h2><br />
 			<p>안녕하세요. 술토리텔러에 방문해주셔서 감사 드립니다.<br />

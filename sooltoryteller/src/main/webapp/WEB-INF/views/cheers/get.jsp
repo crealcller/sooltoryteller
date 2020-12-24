@@ -164,6 +164,8 @@ $(document).ready(function() {
 	var cancelReplyBtn = $("#s-modal-cancelBtn");
 	var modifyReplyBtn = $("#s-modal-modifyBtn");
 	var removeReplyBtn = $("#s-modal-removeBtn");
+	// 댓글수
+	var replyCnt = $("#s-bbst-replyCnt").html();
 	
 	var pageNum = 1;
 	var replyPageFooter = $(".s-bbstReplyList-footer");
@@ -286,15 +288,6 @@ $(document).ready(function() {
 			}
 			
 			replyModal.fadeIn(100);
-			/* // 모달 바깥부분 클릭하면
-			$(document).on("click", function(e) {
-				// 모달 닫기
-				if(replyModal.is(e.target)) {
-					replyModal.css({visibility : "hidden", opacity : 0});
-				} else {
-					replyModal.css({visibility : "visible", opacity : 1});
-				}
-			}); */
 		});
 	});
 	

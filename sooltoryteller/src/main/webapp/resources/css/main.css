@@ -3,6 +3,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 button {
 	cursor: pointer;
@@ -92,10 +93,10 @@ a {
 }
 
 .s-bbst-div {
-	height: 370px;
+	height: 310px;
 	width: 1320px;
 	margin: 0 auto;
-	top: 95px;
+	top: 70px;
 	position: relative;
 }
 
@@ -106,6 +107,7 @@ a {
 	display: inline-block;
 	position: relative;
 	float: left;
+	border-radius: 3%;
 	cursor: pointer;
 }
 
@@ -113,6 +115,7 @@ a {
 	height: 300px;
 	width: 300px;
 	display: block;
+	border-radius: 3%;
 }
 
 .s-bbst-info-div {
@@ -133,6 +136,7 @@ a {
 	width: 300px;
 	opacity: 0;
 	transition: .3s ease;
+	border-radius: 3%;
 	background-color: rgba(104, 8, 34, 0.7);
 }
 
