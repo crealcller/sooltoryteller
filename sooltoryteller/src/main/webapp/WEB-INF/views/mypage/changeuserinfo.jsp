@@ -35,7 +35,6 @@
 <body>
         <h2>회원정보 수정 / 탈퇴</h2>
          <div class="h-con">
-<<<<<<< HEAD
          	<div class="h-info-div">
 				<p class="h-comment">선호하는 주종 외에는 수정 버튼을 눌러야 반영이 됩니다.</p>
             	<form class="h-info-form" action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
