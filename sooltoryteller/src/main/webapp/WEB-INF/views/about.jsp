@@ -7,13 +7,13 @@
 
 <style>
 .s-about-background {
-	height: 560px;
+	height: 650px;
 	width: 1520px;
 	background-color: rgb(243 248 224);
 }
 
 .s-container {
-	height: 560px;
+	height: 650px;
 	width: 1100px;
 	margin: 0 auto;
 	position: relative;
@@ -26,10 +26,10 @@
 }	
 
 .s-content {
-	height: 560px;
+	height: 650px;
 	width: 400px;
 	margin: 0 auto;
-	padding: 65px 0 0 25px;
+	padding: 80px 0 0 25px;
 	position: absolute;
 	top: 0;
 	right: 0;

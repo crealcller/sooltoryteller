@@ -103,7 +103,7 @@ let msg = "${msg}";
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next }">
-				<li class="s-paginate_button next" style="width: 50px;">
+				<li class="s-paginate_button next" style="width: 30px;">
 					<a href="${pageMaker.endPage + 1 }"><i class="fas fa-arrow-circle-right"></i></a>
 				</li>
 			</c:if>
