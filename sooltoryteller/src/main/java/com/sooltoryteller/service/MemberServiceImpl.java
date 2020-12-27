@@ -134,13 +134,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public boolean modifyPwd(String email, String pwd) {
 		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		boolean validPwd = Pattern.matches("^(?=.*[a-zA-Z])(?=.*[#?!@$%^&*-]).{5,16}$", pwd);
 		
-		if(validPwd) {
-			return false;
-		}
+		String encPwd = encoder.encode(pwd);
 		
-		if(mapper.updatePwd(email, pwd) ==1) {
+		if(!validPwd && mapper.updatePwd(email, encPwd) == 1) {
 			mapper.insertHist(mapper.read(email));
 			return true;
 		}

@@ -1,13 +1,21 @@
 package com.sooltoryteller.controller;
 
+import java.awt.PageAttributes.MediaType;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +26,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.AdminPageDTO;
 import com.sooltoryteller.domain.EmailVO;
@@ -37,6 +47,7 @@ import com.sooltoryteller.service.InquiryService;
 import com.sooltoryteller.service.LiqCoService;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MailService;
+import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
 
@@ -61,6 +72,7 @@ public class AdminController {
 	private InquiryService inqService;
 	private MemberService memberService;
 	private MailService mailService;
+	private MemberFavDrkService favDrkService;
 	private EmailVO e_mail;
 
 	// 전통주 리스트페이지
@@ -260,6 +272,44 @@ public class AdminController {
 		
 		log.info("result : " + liqCoService.registerLiqCo(vo));
 		return "redirect:/admin/liq-co-list";
+	}
+	
+	//관리자-home
+	@RequestMapping(value="/" ,method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView admin() {
+		ModelAndView mav = new ModelAndView();
+		
+		int[] drkId = {1,2,3,4,5,6,7,8};
+		String[] drkNameArr = favDrkService.getFavNameList(drkId);//주종이름
+		int[] cntArr = favDrkService.getFavCnt(drkId); //주종 카운트
+		
+		String str = "[";
+		str += "['선호하는 주종', 'COUNT'],";
+		int num = 0;
+		
+		for (int i = 0; i < drkId.length; i++) {
+			
+			str +="['";
+			str += drkNameArr[i];
+			str +="' , ";
+			str += cntArr[i];
+			str +=" ]";
+			
+			num++;
+			
+			if(num < drkId.length) {
+				str += ",";
+			}
+		}
+		
+		str += "]";
+		
+		mav.addObject("data", str);
+		mav.setViewName("/admin");
+		
+		return mav;
+		
 	}
 
 	//관리자-회원리스트페이지

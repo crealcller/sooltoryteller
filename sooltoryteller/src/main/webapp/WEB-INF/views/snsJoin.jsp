@@ -26,7 +26,7 @@ if(msg != ""){
     <button type="button" id="h-checkId" class="id-overlapCheck">중복확인</button></p>
     <p class='h-join-p' style="margin-left:50px;">닉네임 &nbsp<input type="text" id="name" name="name">
     <button type="button" id="h-checkName" class="n-overlapCheck">중복확인</button></p>
-    <p class='h-join-p' style="margin-left:25px;">핸드폰번호 &nbsp<input type="text" id="telno" name="telno" placeholder="01000000000" ></p>
+    <p class='h-join-p' style="margin-left:25px;">핸드폰번호 &nbsp<input type="text" id="telno" name="telno" placeholder="01000000000" value="<c:out value='${telno }'/>" ></p>
     <input type="hidden" name="img" value="<c:out value='${img }'/>"> 
     <div class="h-fav-drink">
       <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
