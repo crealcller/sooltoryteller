@@ -82,7 +82,7 @@ public class MemberController {
 	   
 	   @PostMapping("/login")
 	   public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
-	         Model model, HttpSession session) {
+	         HttpSession session, RedirectAttributes rttr) {
 	      
 	      String referer = (String) session.getAttribute("referer");
 	      System.out.println("이전페이지 url : "+referer);
@@ -105,7 +105,7 @@ public class MemberController {
 	         }
 	      } else {
 	         String msg = "입력하신 이메일 또는 비밀번호가 일치하지 않습니다.";
-	         model.addAttribute("msg", msg);
+	         rttr.addFlashAttribute("msg", msg);
 	      }
 	      return "redirect:"+referer;
 	   }

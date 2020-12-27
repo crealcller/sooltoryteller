@@ -276,7 +276,6 @@ public class AdminController {
 	
 	//관리자-home
 	@RequestMapping(value="/" ,method=RequestMethod.GET)
-	@ResponseBody
 	public ModelAndView admin() {
 		ModelAndView mav = new ModelAndView();
 		

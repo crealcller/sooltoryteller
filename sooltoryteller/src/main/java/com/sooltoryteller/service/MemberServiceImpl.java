@@ -140,7 +140,9 @@ public class MemberServiceImpl implements MemberService{
 		
 		String encPwd = encoder.encode(pwd);
 		
-		if(!validPwd && mapper.updatePwd(email, encPwd) == 1) {
+		System.out.println("새로운 비밀번호 인코딩 : "+encPwd);
+		
+		if(validPwd && mapper.updatePwd(email, encPwd) == 1) {
 			mapper.insertHist(mapper.read(email));
 			return true;
 		}

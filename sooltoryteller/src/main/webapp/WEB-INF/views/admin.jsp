@@ -12,8 +12,6 @@
   		<div style="background-color: white;">
     </div>
 
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -37,10 +35,6 @@
     chart.draw(data, options);
   }
 </script>
-
-
-
-
 
 </body>
 </html>

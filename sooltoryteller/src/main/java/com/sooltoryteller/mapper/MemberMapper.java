@@ -39,7 +39,7 @@ public interface MemberMapper {
 	public String getPwd(String email);
 	
 	//비밀번호 변경
-	public int updatePwd(@Param("email")String email, @Param("pwd")String pwd);
+	public int updatePwd(@Param("email")String email, @Param("encPwd")String encPwd);
 	
 	//회원탈퇴
 	public int updateRegstus(String email);

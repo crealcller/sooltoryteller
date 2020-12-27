@@ -79,7 +79,7 @@ values (member_hist_seq.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno
 <!-- 비밀번호 변경 -->
 <update id="updatePwd">
 	update member
-	set pwd = #{pwd},
+	set pwd = #{encPwd},
 	updatedate = sysdate
 	where email = #{email}
 </update>
