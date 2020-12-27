@@ -186,8 +186,9 @@
 }
 .d-like-cancel-btn {
 	float: right;
-	font-size: 30px;
+	font-size: 15px;
 	color: rgb(181, 135, 189);
+	font-weight:bold;
 }
 .star_grade span {
 	text-decoration: none;

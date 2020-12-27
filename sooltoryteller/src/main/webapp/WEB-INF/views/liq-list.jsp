@@ -32,7 +32,7 @@
 <!-- 페이징 처리 -->
 <ul class="s-pagination">
 	<c:if test="${pageMaker.prev }">
-		<li class="s-paginate_button previous" style="width: 50px;">
+		<li class="d-paging-btn-none" style="width: 50px;">
 			<a href="${pageMaker.startPage -1 }">&#60;</a>
 		</li>
 	</c:if>
@@ -44,7 +44,7 @@
 	</c:forEach>
 	
 	<c:if test="${pageMaker.next }">
-		<li class="s-paginate_button next" style="width: 50px;">
+		<li class="d-paging-btn-none" style="width: 50px;">
 			<a href="${pageMaker.endPage + 1 }">&#62;</a>
 		</li>
 	</c:if>
@@ -54,7 +54,9 @@
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <form id="s-actionForm" action="/liq-list" method="get">
+	<c:if test="${cate ne null}">
 	<input type="hidden" name="cate" value="${cate }" />
+	</c:if>
 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
 	<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
 </form>

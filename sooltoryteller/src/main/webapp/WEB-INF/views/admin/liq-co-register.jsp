@@ -45,7 +45,10 @@ input[type="number"]::-webkit-inner-spin-button {
 <p><label>전화번호 : <input type="number" name="telno" maxlength="15" placeholder="숫자만 입력해주세요." required="required"></label></p>
 <button type="submit">등록하기 </button>
 </form>
- </div>     
+ </div>
+     </div><!--인크루드 하는 페이지에 넣기-->
+    </div><!--인크루드 하는 페이지에 넣기-->
+ <%@include file="/WEB-INF/views/include/footer.jsp" %>     
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){

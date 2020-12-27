@@ -4,12 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.BbstCriteria;
-import com.sooltoryteller.domain.Criteria;
-import com.sooltoryteller.domain.LiqCnVO;
-import com.sooltoryteller.domain.LiqCoVO;
-import com.sooltoryteller.domain.LiqCntVO;
 import com.sooltoryteller.domain.LiqVO;
 
 public interface LiqMapper {
@@ -17,47 +12,11 @@ public interface LiqMapper {
 	// 전통주 정보
 	public LiqVO get(Long liqId);
 	
-	// 전통주 수정 
-	public int update(LiqVO liq);
-	
-	// 전통주 상세 수정
-	public int updateCn(LiqCnVO cn);
-
-	// 전통주 전체 리스트
-	public List<LiqVO> getAllLiqList(BbstCriteria cri);
-
-	// 전통주 전체 리스트의 개수
-	public int getCountLiqList();
-	
-	// 전통주 주종별 리스트의 개수
-	public int getliqCnt();
-	
-	// for admin liq list
-	public List<LiqVO> getLiqListWithPaging(AdminCriteria adCri);
-
 	// 전통주의 주종별 리스트
 	public List<LiqVO> getLiqListByCate(@Param("cate") String cate, @Param("cri") BbstCriteria cri);
 
 	// 전통주 주종별 리스트의 개수
-	public int getLiqCntByCate(String cate);
-
-	// 전통주 등록
-	public int insertLiq(@Param("liq") LiqVO liq, @Param("liqCoId") Long liqCoId);
-
-	// 전통주 상세 등록
-	public int insertLiqCn(LiqCnVO cn);
-
-	// 전통주 count 등록
-	public int insertLiqCnt(LiqCntVO cnt);
-
-	// 전통주 삭제
-	public int deleteLiq(Long liqId);
-
-	// 전통주 상세 삭제
-	public int deleteLiqCn(Long liqId);
-
-	// 전통주 count 삭제
-	public int deleteLiqCnt(Long liqId);
+	public int getLiqCntByCate(@Param("cate") String cate);
 
 	// 리뷰수 업데이트
 	public void updateRevwCnt(@Param("liqId") Long liqId, @Param("amount") int amount);
@@ -65,9 +24,6 @@ public interface LiqMapper {
 	// 평균평점 업데이트
 	public int updateRevwRate(Long liqId);
 	
-	// 리뷰삭제후 해당 전통주의 리뷰수가 0일겨우
-	public int updateRevwRateToZero(Long liqId);
-
 	// 조회수 업데이트
 	public void updateViewCnt(@Param("liqId") Long liqId, @Param("amount") int amount);
 
@@ -76,6 +32,4 @@ public interface LiqMapper {
 	
 	//같은 양조장의 전통주들
 	public List<LiqVO> getOtherLiq(Long liqId);
-	
-	public int getliqExist(String liqNm);
 }

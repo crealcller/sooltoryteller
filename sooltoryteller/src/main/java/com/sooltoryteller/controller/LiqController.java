@@ -42,15 +42,6 @@ public class LiqController {
 		model.addAttribute("others", service.getOtherLiq(liqId));
 	}
 	
-	//전체 리스트
-	@GetMapping("/all-liq")
-	public void allLiq(Model model,BbstCriteria cri) {
-		log.info("get allLiq......");
-		int total = service.liqCnt();
-		model.addAttribute("allLiq", service.getAllLiqList(cri));
-		model.addAttribute("pageMaker",  new BbstPageDTO(cri, total));
-	}
-	
 	//주종별 리스트
 	@GetMapping("/liq-list")
 	public void allDistilledSpirits(Model model, String cate, BbstCriteria cri) {

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>      
   
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,6 @@ if(msg != ''){
 	location.href = '/';
 }
 </script>
-<%@include file="/WEB-INF/views/include/adminMenu.jsp" %>  
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <meta charset="UTF-8">
 <title>전통주 등록</title>
@@ -38,14 +38,18 @@ if(msg != ''){
 <input type="file" id="liqImg" name="file" required="required"/>
 <div class="select-img"><img src=""/></div>
 </div>
-<p><label>양조장 : <input type="text" maxlength="20" name="liqCoNm" placeholder="1~20자" ></label></p>
+<p><label>양조장을 선택해주세요. </label></p>
+<p>
+<c:forEach items="${coList }" var="coList">
+<input type="radio" class="liqCoNm" name='liqCoNm' value='<c:out value="${coList }"/>'><c:out value="${coList }"/>
+</c:forEach></p>
 <p><label>이름 : <input type="text" name="nm"  maxlength="12" placeholder="1~12자"></label></p>
-<p class='h-join-p'>
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='탁주'>탁주
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='약주 청주'>약주/청주
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='과실주'>과실주
-<input type="checkbox" class="cate" onclick = 'checkedCnt(this)' name='cate' value='증류주 리큐르'>증류주/리큐르
- </p>
+<p>
+<input type="radio" class="cate" name='cate' value='탁주'>탁주
+<input type="radio" class="cate"  name='cate' value='약주 청주'>약주/청주
+<input type="radio" class="cate" name='cate' value='과실주'>과실주
+<input type="radio" class="cate"  name='cate' value='증류주 리큐르'>증류주/리큐르
+</p>
 <p><label>용량 : <input type="text" name="capct" maxlength="6"  placeholder="숫자만 입력해주세요."></label></p>
 <p><label>도수 : <input type="text" name="lv" maxlength="4" placeholder="숫자만 입력해주세요."></label></p>
 <p><label>원재료 : <input type="text" name="irdnt" maxlength="60" placeholder="0~60자"></label></p>
@@ -56,7 +60,9 @@ if(msg != ''){
 
 <button type="submit">등록하기 </button>
 </form>
-
+    </div><!--인크루드 하는 페이지에 넣기-->
+    </div><!--인크루드 하는 페이지에 넣기-->
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 <script>
 	// 게시글 썸네일사진
 	$("#liqImg").change(function(){
@@ -75,21 +81,6 @@ $(document).ready(function(){
 	$("#d-liq-register").css('background-color', 'navy').css('color','white');
 });
 
-const maxCount = 1;
-let count = 0;
-
-function checkedCnt(cate){
-	if(cate.checked){
-		++count;
-	}else{
-		--count;
-	}
-	
-	if(count > maxCount){
-		cate.checked = false;
-		--count;
-	}
-}
 </script>
 </body>
 </html>

@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.AdminCriteria;
@@ -34,7 +32,6 @@ import com.sooltoryteller.service.AdminService;
 import com.sooltoryteller.service.FaqService;
 import com.sooltoryteller.service.InquiryAnswerService;
 import com.sooltoryteller.service.InquiryService;
-import com.sooltoryteller.service.LiqCoService;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberService;
@@ -53,7 +50,6 @@ public class AdminController {
 	private AdminService adService;
 	private FaqService faqService;
 	private LiqService liqService;
-	private LiqCoService liqCoService;
 	private InquiryAnswerService inqAnService;
 	private InquiryService inqService;
 	private MemberService memberService;
@@ -73,8 +69,8 @@ public class AdminController {
 		}else if(authority.equalsIgnoreCase("admin")) {
 			
 			log.info("liq list");
-			model.addAttribute("liq", liqService.getLiqListWithPaging(adCri));
-			int total = liqService.liqCnt();
+			model.addAttribute("liq", adService.getLiqListWithPaging(adCri));
+			int total = liqService.liqCntByCate("");
 			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
 
 		}
@@ -91,8 +87,8 @@ public class AdminController {
 			return;
 			
 		}else if(authority.equalsIgnoreCase("admin")) {
-			log.info("liq" + liqId);
-			model.addAttribute("liq", liqService.get(liqId));
+			log.info("liq : " + liqId);
+			model.addAttribute("liq", adService.getLiq(liqId));
 		}
 	}
 
@@ -107,16 +103,18 @@ public class AdminController {
 			return;
 		}
 		
+		model.addAttribute("coList", adService.coNm());
+		
 	}
 	// 전통주 등록
 	@PostMapping("/liq-register")
 	public String liqRegister(@Valid LiqVO liq, BindingResult result,String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws IOException, Exception {
 		
-		log.info("liq register"+liq);
+		log.info("liq register : "+liq);
 		
 		//양조장이름으로 존재하는 양조장인지 liqCoId체크
-		Long liqCoId = liqCoService.checkExistLiqCo(liqCoNm);
-		int liqExist = liqService.getliqExist(liq.getNm());
+		Long liqCoId = adService.checkExistLiqCo(liqCoNm);
+		int liqExist = adService.getliqExist(liq.getNm());
 		// 첨부파일 업로드 설정
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
@@ -145,11 +143,11 @@ public class AdminController {
 		
 		if (liqCoId != null) {
 			if(liqExist != 1) {
-			if (liqService.registerLiq(liq, liqCoId)) {
+			if (adService.registerLiq(liq, liqCoId)) {
 				rttr.addAttribute("result", "success");
 				log.info("성공");
 			} else {
-				rttr.addAttribute("result", "등록에 실패 하였습니다");
+				rttr.addAttribute("result", "fail");
 				log.info("실패");
 			}
 			return "redirect:/admin/liq-list";
@@ -170,7 +168,7 @@ public class AdminController {
 	public String removeLiq(Long liqId, RedirectAttributes rttr) {
 		
 		log.info("remove "+liqId);
-		liqService.removeLiq(liqId);
+		adService.removeLiq(liqId);
 		return "redirect:/admin/liq-list";
 	}
 	
@@ -178,7 +176,7 @@ public class AdminController {
 	@PostMapping("/modify-liq")
 	public String modifyLiq(LiqVO liq, LiqCnVO cn, RedirectAttributes rttr) {
 		
-		liqService.modify(liq, cn);
+		adService.modify(liq, cn);
 		
 		return "redirect:/admin/";
 	}
@@ -196,8 +194,8 @@ public class AdminController {
 		}else if(authority.equalsIgnoreCase("admin")) {
 		
 			log.info("liq co list");
-			model.addAttribute("liqCo", liqCoService.getLiqCoListWithPaging(adCri));
-			int total = liqCoService.liqCoCnt();
+			model.addAttribute("liqCo", adService.getLiqCoListWithPaging(adCri));
+			int total = adService.liqCoCnt();
 			
 			model.addAttribute("pageMaker", new AdminPageDTO(adCri, total));
 
@@ -214,8 +212,8 @@ public class AdminController {
 			return;
 			
 		}else if(authority.equalsIgnoreCase("admin")) {
-			log.info("liq co" + liqCoId);
-			model.addAttribute("liqCo", liqCoService.getLiqCoById(liqCoId));
+			log.info("liq co : " + liqCoId);
+			model.addAttribute("liqCo", adService.getLiqCoById(liqCoId));
 		}
 	}
 
@@ -247,14 +245,14 @@ public class AdminController {
 				return "redirect:/admin/liq-co-register"; 
 		}
 		
-		Long liqCoId = liqCoService.checkExistLiqCo(vo.getNm());
+		Long liqCoId = adService.checkExistLiqCo(vo.getNm());
 		
 		if(liqCoId != null) {
 			rttr.addFlashAttribute("error", "이미 존재하는 양조장입니다.");
 			return "redirect:/admin/liq-co-register";
 		}
 		
-		log.info("result : " + liqCoService.registerLiqCo(vo));
+		log.info("result : " + adService.registerLiqCo(vo));
 		return "redirect:/admin/liq-co-list";
 	}
 

@@ -9,19 +9,58 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 > 좋아요</title>
+<style>
+
+.s-bbst-container {
+	width: 800px;
+	height: 700px;
+	margin: 0 auto;
+}
+
+.s-bbst-item-container {
+	height: 300px;
+	width: 170px;
+	margin: 20px 0 30px 60px;
+	display: inline-block;
+	position: relative;
+	float: left;
+	cursor: pointer;
+	box-shadow: 5px 5px 13px -1px #938f8f;
+}
+.s-bbst-item-container h3{
+	padding-bottom: 5px;
+}
+.s-bbst-img-div{
+	height: 210px;
+	width: 170px;
+}
+.s-bbst-img {
+	height: 210px;
+	width: 170px;
+	display: block;
+}
+.s-bbst-info-div {
+	height: 90px;
+	width: 170px;
+	display: block;
+	color:#6d6d6d;
+	overflow: auto;
+	font-size:10px;
+	padding:10px;
+}
+</style>
 </head>
 <body>
-		<h2>좋아요 누른 전통주</h2>
-		<div class="d-con">
-		<ul class="d-like">
-		</ul>
-		
-		<div class="d-paging">
+			<h2>좋아요 누른 게시글</h2>
+			<div class="s-bbst-container">
+				<div class="s-bbst-container-box"></div>
+			</div>
+			
+			<!-- 페이징 처리 -->
+			<div class="d-paging" style="width: 700px; margin-right: 25px;"></div>
 		</div>
-        </div>
-    </div>
- </div>  
- </div>
+	</div>
+</div>
 
 <%@include file="/WEB-INF/views/include/footer.jsp" %>    
     
@@ -29,22 +68,22 @@
 <script>
 $(document).ready(function(){
 	var memberIdValue = '<c:out value="${member.memberId}"/>'
-	var dLike = $(".d-like");
+	var dLike = $(".s-bbst-container-box");
 	var pageNum = 1;
 	var paging = $(".d-paging");
 	showMyList(1);
 	function showMyLikePage(myLikeCnt){
 		console.log(myLikeCnt);
-		var endNum = Math.ceil(pageNum/4.0)*4;
-		var startNum = endNum -3;
+		var endNum = Math.ceil(pageNum/5.0)*5;
+		var startNum = endNum -4;
 		
 		var prev = startNum != 1;
 		var next = false;
 		
-		if(endNum*4>=myLikeCnt){
-			endNum = Math.ceil(myLikeCnt/4.0);
+		if(endNum*6>=myLikeCnt){
+			endNum = Math.ceil(myLikeCnt/6.0);
 		}
-		if(endNum*4<myLikeCnt){
+		if(endNum*6<myLikeCnt){
 			next =true;
 		}
 		var str = "<ul class='d-paging'>";
@@ -75,7 +114,7 @@ $(document).ready(function(){
 	function showMyList(page){
 		likeService.getMyList({memberId:memberIdValue,page: page||1},function(myLikeCnt,myList){
 			if(page == -1){
-				pageNum = Math.ceil(myLikeCnt/3.0);
+				pageNum = Math.ceil(myLikeCnt/6.0);
 				showMyList(pageNum);
 				return;
 			}
@@ -84,12 +123,13 @@ $(document).ready(function(){
 				return;
 			}
 			for(var i=0,len = myList.length || 0; i<len; i++){
-				str += "<li id='move' style='cursor:pointer;' class='d-revw-con' data-liqid='"+myList[i].liqId+"'>";
-				str += "<img class='d-my-revw-img' src='"+myList[i].liqThumb+"'/>";
-				str += "<span class='d-like-cancel-btn' style='cursor:pointer;' data-liqid='"+myList[i].liqId+"' id='cancelLikeBtn'>&times;</span>";
-				str += "<span>"+myList[i].nm+"</span><br>";
+				str += "<li id='move' class='s-bbst-item-container' style='cursor:pointer;' data-liqid='"+myList[i].liqId+"'>";
+				str += "<div class='s-bbst-img-div'><img class='s-bbst-img' src='"+myList[i].liqThumb+"'/>";
+				str += " <div class='s-bbst-info-div'><span class='d-like-cancel-btn' style='cursor:pointer;' data-liqid='"+myList[i].liqId+"' id='cancelLikeBtn'>&times;</span>";
+				str += "<h3>"+myList[i].nm+"<span style='color:#ff8040;'>["+myList[i].cate+"]</span></h3>";
 				str += "<span>도수 : "+myList[i].lv+" %</span><br>";
-				str += "<span>원재료  : "+myList[i].irdnt+"</span></li>";
+				str += "<span>용량 : "+myList[i].capct+"ml</span><br>";
+				str += "<span>양조장  : "+myList[i].coName+"</span></li></div></div>";
 				
 			}
 			dLike.html(str);
