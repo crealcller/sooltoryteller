@@ -19,27 +19,31 @@ if(msg != ''){
 <link rel="stylesheet" href="/resources/css/faqregisterHead.css">
 <!-- 관리자 페이지   -->
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
-
+<style>
+.h-faq-body {
+	margin-left: 100px;
+}
+</style>
 </head>
 <body>
-	<h3 style="margin-left: 50px;">[FAQ 조회하기]</h3>
+	<h3 style="margin: 0 0 10px 15px;">[ FAQ 조회하기 ]</h3>
     <div class="h-faq-body">
-        <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
+        <div style="margin-bottom: 10px;">
+       		<p style="text-align: left; margin: 0;">번호</p>
             <p style="margin: 0;"><input class="h-faq-title" name="faqId" 
             value='<c:out value="${faq.faqId }"/>' readonly="readonly"></p>
         </div>
-        <div>
+        <div style="margin-bottom: 10px;">
             <p style="text-align: left; margin: 0;">제목</p>
             <p style="margin: 0;"><input class="h-faq-title" name="title"
             value='<c:out value="${faq.title }"/>' readonly="readonly"></p>
         </div>
-        <div>
+        <div style="margin-bottom: 10px;">
             <p style="text-align: left; margin: 0;">내용</p>
             <p style="margin: 0;"><textarea class="h-faq-content" name="cn"
             readonly="readonly"><c:out value="${faq.cn }"/></textarea></p>
         </div>
-        <div style="margin-top:20px;">
+        <div style="margin:15px 150px 0 0; float: right;">
             <button type="button" class="h-faq-btn" data-oper="modify"
             onclick="location.href='/admin/faqmodify?faqId=<c:out value="${faq.faqId}"/>'">수정</button>
             <button type="button" class="h-faq-btn" data-oper="list" onclick="location.href='/admin/faqlist'">목록</button>
@@ -50,19 +54,16 @@ if(msg != ''){
           	<input type="hidden" name='amount' value='<c:out value="${adCri.amount}"/>'>
           	<input type="hidden" name='keyword' value='<c:out value="${adCri.keyword}"/>'>
           </form>
-        
         </div>
-
     </div>
-
 </div><!--인크루드 하는 페이지에 넣기-->
 </div><!--인크루드 하는 페이지에 넣기-->
-
+</div><!--인크루드 하는 페이지에 넣기-->
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-	document.getElementById("h-admin-faq").style="background-color: navy;color: white;";
+	document.getElementById("h-admin-faq").style="background-color: rgb(10, 29, 74); color: white;";
 	
 	var operForm = $("#operForm");
 	
@@ -76,10 +77,7 @@ if(msg != ''){
 		operForm.find('#faqId').remove();
 		operForm.attr("action", "/admin/faqlist")
 		operForm.submit();
-		
 	})
-		
-		
  });
      </script>
 </body>

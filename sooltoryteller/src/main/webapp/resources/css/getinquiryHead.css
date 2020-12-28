@@ -3,10 +3,10 @@
 	.h-inq-body{
       width: 900px;
       height: 600px;
+	  margin: 30px 0 0 100px;
       padding-left: 50px;
 	}
 
-	
 	.h-inq-title{
       width: 700px;
 	}

@@ -6,14 +6,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
 <style>
-/* .s-about-background {
-	height: 650px;
-	width: 1520px;
-	background-color: rgb(243 248 224);
-}
- */
 .s-container {
-	height: 750px;
+	height: 620px;
 	width: 1520px;
 	position: relative;
 	color: white;
@@ -25,10 +19,10 @@
 }	
 
 .s-content {
-	height: 750px;
+	height: 620px;
 	width: 500px;
 	margin: 0 auto;
-	padding: 100px 0 0 25px;
+	padding: 85px 0 0 70px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -37,20 +31,16 @@
 }
 
 .s-content p {
-	font-size: 18px;
+	font-size: 15px;
 	line-height: 2;
 }
 
 </style>
 </head>
 <body>
-
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-
-<!-- <div class="s-about-background"> -->
 	<div class="s-container">
-		<!-- <img class="s-img" src="/resources/img/beer.jpg" /> -->
-		<img class="s-img" src="/resources/img/wineglass.gif" />
+		<img class="s-img" src="/resources/img/wineglass-edit.gif" />
 		<div class="s-content">
 			<h2>술토리텔러들의 이야기</h2><br />
 			<p>안녕하세요.<br />
@@ -66,9 +56,6 @@
 			만남의 공간입니다.</p>
 		</div>
 	</div>
-<!-- </div> -->
-
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
-
 </body>
 </html>

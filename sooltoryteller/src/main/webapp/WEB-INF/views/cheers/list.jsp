@@ -23,8 +23,10 @@ let msg = "${msg}";
 <!-- topmenu.jsp에 css만 공통으로 넣고, div는 각자 페이지에 알아서 적용 -->
 <div class="s-main-background">
 	<!-- 게시판 메인 이미지 -->
-	<div class="s-bbst-main-img-container">
-		<img class="s-bbst-main-img" src="/resources/img/beach.jpg" />
+	<div class="s-bbst-main-img-container" id="s-slide" val="1" mx="3">
+		<li id="s-img1"><img class="s-bbst-main-img" src="/resources/img/beach-edit.jpg" /></li>
+		<li id="s-img2"><img class="s-bbst-main-img" src="/resources/img/splash-edit.jpg" /></li>
+		<li id="s-img3"><img class="s-bbst-main-img" src="/resources/img/can-edit.jpg" /></li>
 	</div>
 	
 	<!-- 게시판 검색창 & 글쓰기 버튼 -->
@@ -120,8 +122,25 @@ let msg = "${msg}";
 
 </div>
 </div>
-
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
+
+<!-- 이미지 슬라이드쇼 -->
+<script type="text/javascript">
+imgSlide();
+function imgSlide() {
+	$val = $("#s-slide").attr("val");
+	$mx = $("#s-slide").attr("mx");
+	$("#s-img" + $val).hide();
+	if($val == $mx) {
+		$val = 1;
+	} else {
+		$val++;
+	}
+	$("#s-img" + $val).fadeIn(500);
+	$("#s-slide").attr("val", $val);
+	setTimeout("imgSlide()", 3000);
+}
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {

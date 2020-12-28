@@ -3,6 +3,7 @@
 	.h-faq-body{
       width: 900px;
       height: 600px;
+      margin: 30px 0 0 100px;
       padding-left: 50px;
 	}
 
@@ -13,14 +14,14 @@
 	
 	.h-faq-content{
       width: 700px;
-      height: 300px;
+      height: 200px;
       resize: none;
-      font-size:18px;
+      font-size:15px;
     }
     .h-faq-btn{
       width: 50px;
       height: 25px;
       border: none;
-      background-color: navy;
+      background-color: rgb(10, 29, 74);
       color: white;
     }

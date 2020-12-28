@@ -37,17 +37,13 @@ let errorMsg = '<c:out value="${errorMsg}"/>';
               <p style="margin: 0;"><textarea class="h-inq-content" name="cn" id='cn' maxlength="330"></textarea></p>
           </div>
           <input type="hidden" name="memberId" value="${memberId }">
-          <div style="margin-top:20px;">
-              <button type="submit" class="h-inq-btn" id="h-reg-btn">등록</button>
-              <input type="reset" class="h-inq-btn" value='취소'>
+          <div style="margin:20px 180px 0 0; float: right;">
+              <button type="submit" class="h-inq-btn" id="h-reg-btn" style="background-color: rgb(10, 29, 74);">등록</button>
+              <input type="reset" class="h-inq-btn" value='취소' style="background-color: rgb(10, 29, 74);">
           </div>
           </form>
   
       </div>
-
-    
-
-
     </div><!--인크루드 하는 페이지에 넣기-->
     </div><!--인크루드 하는 페이지에 넣기-->
 
@@ -63,7 +59,7 @@ let errorMsg = '<c:out value="${errorMsg}"/>';
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 $(document).ready(function(){
-	document.getElementById("h-help-inquiry").style="background-color: rgb(181, 135, 189); color: white;";
+	document.getElementById("h-help-inquiry").style="background-color: rgb(10 29 74); color: white;";
 	
 	var result = '<c:out value="${result}"/>';
 	var modal = document.getElementById("h-myModal");

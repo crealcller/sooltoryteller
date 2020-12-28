@@ -29,8 +29,6 @@ response.setDateHeader("Expires", 0);
 response.setHeader("Pragma", "no-cache");
 %>
 
-
-
 	<style>
         * {
    margin: 0;
@@ -160,7 +158,6 @@ display: inline-block;
  </style>
   <body>
 
-        
          <div class="h-logobar">
         <div class="h-logo">
         <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
@@ -200,7 +197,6 @@ display: inline-block;
         <div class="h-imgarea">
             <img src='/resources/img/garrison.jpg' class="h-centerImg">
         </div>
-        
         
         <div class="h-body">
         	<div class="h-column">
