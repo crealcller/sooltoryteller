@@ -77,7 +77,6 @@ response.setHeader("Pragma", "no-cache");
 <div class="d-main-img-con">
 </div>
 
-
 <!-- 게시글 리스트 - 조회수 높은순 -->
 <div class="s-bbst-container">
 	<div class="s-bbst-div">
@@ -114,6 +113,11 @@ response.setHeader("Pragma", "no-cache");
 	<div class="s-bbst-img-div">
 	<img class="d-bbst-img" src="resources/img/main1.png"/>
 	</div>
+	<div class="s-bbst-item-overlay" style="height: 220px; border-radius: 3%;">
+		<div class="s-bbst-item-overlay-info">
+			<p style="color: white; font-size: 18px; font-weight: bold;">탁주 둘러보기</p>
+		</div>
+	</div>
 	<div class="d-bbst-info-div">
 	<h2>탁주</h2>
 	</div>
@@ -121,6 +125,11 @@ response.setHeader("Pragma", "no-cache");
 	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=약주 청주';">
 	<div class="s-bbst-img-div">
     <img class="d-bbst-img" src="resources/img/main2.jpg"/>
+	</div>
+	<div class="s-bbst-item-overlay" style="height: 220px; border-radius: 3%;">
+		<div class="s-bbst-item-overlay-info">
+			<p style="color: white; font-size: 18px; font-weight: bold;">약주/청주 둘러보기</p>
+		</div>
 	</div>
 	<div class="d-bbst-info-div">
 	<h2>약주/청주</h2>
@@ -130,6 +139,11 @@ response.setHeader("Pragma", "no-cache");
 	<div class="s-bbst-img-div">
     <img class="d-bbst-img" src="resources/img/main3.jpg" />            
 	</div>
+	<div class="s-bbst-item-overlay" style="height: 220px; border-radius: 3%;">
+		<div class="s-bbst-item-overlay-info">
+			<p style="color: white; font-size: 18px; font-weight: bold;">과실주 둘러보기</p>
+		</div>
+	</div>
 	<div class="d-bbst-info-div">
 	<h2>과실주</h2>
 	</div>
@@ -137,6 +151,11 @@ response.setHeader("Pragma", "no-cache");
 	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=증류주 리큐르';">
 	<div class="s-bbst-img-div">
     <img class="d-bbst-img" src="resources/img/main4.jpg" />           
+	</div>
+	<div class="s-bbst-item-overlay" style="height: 220px; border-radius: 3%;">
+		<div class="s-bbst-item-overlay-info">
+			<p style="width: 200px; color: white; font-size: 18px; font-weight: bold;">증류주/리큐르 둘러보기</p>
+		</div>
 	</div>
 	<div class="d-bbst-info-div">
 	<h2>증류주/리큐르</h2>
