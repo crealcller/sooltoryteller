@@ -18,7 +18,7 @@ let msg = "${msg}";
 <body>
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
-<div class="s-main-background" style="background-color: #daebe8;">
+<div class="s-main-background" style="background-color: #daebe8; padding: 50px 0 30px 0">
 	<div class="s-main-column">
 	
 		<div class="s-bbst-container">
@@ -59,7 +59,9 @@ let msg = "${msg}";
 							<span class="s-writer-img-span"><img src="" /><i class="fas fa-user-circle" style="font-size:35px;"></i></span>
 						</c:when>
 						<c:when test="${bbst.img != 'user.png'}"> --%>
-							<span class="s-writer-img-span"><img class="s-writer-img" src="<c:out value='${bbst.img }' />" /></span>
+							<span class="s-writer-img-span" style="margin: 4px 0 0 7px;">
+								<img class="s-writer-img" src="<c:out value='${bbst.img }' />" />
+							</span>
 					<%-- 	</c:when>
 					</c:choose> --%>
 				</div>
@@ -115,8 +117,8 @@ let msg = "${msg}";
 				</div>
 				
 				<div class="s-bbstReply-modal-footer">
-					<button class="s-modalBtn" id="s-modal-registerBtn" type="button">등록</button>
 					<button class="s-modalBtn" id="s-modal-cancelBtn" type="button">취소</button>
+					<button class="s-modalBtn" id="s-modal-registerBtn" type="button">등록</button>
 					<button class="s-modalBtn" id="s-modal-modifyBtn" type="button">수정</button>
 					<button class="s-modalBtn" id="s-modal-removeBtn" type="button">삭제</button>
 				</div>
@@ -199,7 +201,7 @@ $(document).ready(function() {
 				if(list[i].img == "user.png") {
 					str += "<div class='s-bbstReply-img-div'><span class='s-writer-img-span'><img class='s-writer-img' src='/resources/img/user.png' /></span></div>"
 				} else {
-					str += "<div class='s-bbstReply-img-div'><span class='s-writer-img-span'><img class='s-writer-img' src=" + list[i].img + " /></span></div>"
+					str += "<div class='s-bbstReply-img-div'><span class='s-writer-img-span' style='margin-top: 5px;'><img class='s-writer-img' src=" + list[i].img + " /></span></div>"
 				}
 				str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
 				str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";

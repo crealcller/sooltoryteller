@@ -6,16 +6,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
 <style>
-.s-about-background {
+/* .s-about-background {
 	height: 650px;
 	width: 1520px;
 	background-color: rgb(243 248 224);
 }
-
+ */
 .s-container {
-	height: 650px;
-	width: 1100px;
-	margin: 0 auto;
+	height: 750px;
+	width: 1520px;
 	position: relative;
 	color: white;
 }
@@ -26,10 +25,10 @@
 }	
 
 .s-content {
-	height: 650px;
-	width: 400px;
+	height: 750px;
+	width: 500px;
 	margin: 0 auto;
-	padding: 80px 0 0 25px;
+	padding: 100px 0 0 25px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -38,7 +37,7 @@
 }
 
 .s-content p {
-	font-size: 15px;
+	font-size: 18px;
 	line-height: 2;
 }
 
@@ -48,9 +47,10 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
-<div class="s-about-background">
+<!-- <div class="s-about-background"> -->
 	<div class="s-container">
-		<img class="s-img" src="/resources/img/beer.jpg" />
+		<!-- <img class="s-img" src="/resources/img/beer.jpg" /> -->
+		<img class="s-img" src="/resources/img/wineglass.gif" />
 		<div class="s-content">
 			<h2>술토리텔러들의 이야기</h2><br />
 			<p>안녕하세요.<br />
@@ -61,12 +61,12 @@
 			저희 사이트는 쉽게 접해보지 못한<br />
 			다양한 전통주에 대한 정보 및 술게임을 포함하여,<br />
 			코로나 시국으로 바깥 나들이를 즐기지 못하는 사람들이<br />
-			집에서 일명 <strong>'나홀로술상'</strong>을 차려<br />
+			집에서 일명 '나홀로술상'을 차려<br />
 			온라인으로 건배를 외치며 이야기를 풀어나갈 수 있는<br />
 			만남의 공간입니다.</p>
 		</div>
 	</div>
-</div>
+<!-- </div> -->
 
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 

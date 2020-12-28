@@ -81,7 +81,7 @@ response.setHeader("Pragma", "no-cache");
 <!-- 게시글 리스트 - 조회수 높은순 -->
 <div class="s-bbst-container">
 	<div class="s-bbst-div">
-		<h2 style="margin: 0 0 8px 15px;">건배의 광장 인기 게시물</h2>
+		<h2 style="margin: 0 0 8px 15px;">건배의 광장 - 인기 게시물</h2>
 		<c:if test="${empty bbstList }">
 			<p>작성된 게시글이 없습니다.</p>
 		</c:if>
@@ -109,7 +109,7 @@ response.setHeader("Pragma", "no-cache");
 </div>
 <div class="s-bbst-container" style="background-color: black">
 <div class="s-bbst-div" style="top: 100px;">
-	<h3 style="margin: 0 0 10px 15px; color:white;">전통주 둘러보기</h3>
+	<h2 style="margin: 0 0 10px 15px; color:white;">전통주 둘러보기</h2>
 	<div class="s-bbst-item-container" onclick="location.href='/liq-list?cate=탁주';">
 	<div class="s-bbst-img-div">
 	<img class="d-bbst-img" src="resources/img/main1.png"/>

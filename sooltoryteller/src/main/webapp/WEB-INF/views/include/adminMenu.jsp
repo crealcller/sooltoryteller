@@ -109,20 +109,29 @@ a {
 }
 .h-imgarea{
 width: 1520px;
-height: 320px;
+height: 550px;
 }
 .h-centerImg{
 width: 1520px;
-height: 300px;
+height: 550px;
 }
 .h-body{
 width: 1520px;
+padding: 30px 0;
+background-color: rgb(225 233 255);
+display: inline-block;
+}
+.h-column {
+width: 1300px;
+margin: 0 auto;
+padding: 30px 0 10px 0;
+background-color: white;
 }
 .h-sidebar {
-margin: 0;
+margin: 0 0 0 20px;
 padding: 0;
 width: 200px;
-height: 600px;
+height: 500px;
 text-align: center;
 overflow: hidden;
 display: inline-block;
@@ -136,18 +145,17 @@ font-weight: bold;
 text-decoration: none;
 }
 .h-sidebar a:hover {
-background-color: navy;
+background-color: rgb(80 98 140);
 color: white;
 }
         
 div.h-content {
-width: 1100px;
-height: 600px;
-padding-left:20px;
+width: 1000px;
+height: 500px;
+margin-left: 25px;
 overflow: hidden;
 display: inline-block;
 }
-        
         
  </style>
   <body>
@@ -190,20 +198,21 @@ display: inline-block;
     </div>
         
         <div class="h-imgarea">
-            <img src='/resources/img/faq3.jpg' class="h-centerImg">
+            <img src='/resources/img/garrison.jpg' class="h-centerImg">
         </div>
         
         
         <div class="h-body">
-            <div class="h-sidebar">
-              <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
-              <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
-              <!-- 다울 추가 12/12 --> 
-              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장관리</a>
-              <a href="/admin/liq-co-register" id='d-liq-co-register'>양조장 등록</a>
-              <a href="/admin/liq-list" id='d-liq-list'>전통주 관리</a>
-              <a href="/admin/liq-register" id='d-liq-register'>전통주 등록</a>
-              <a href="/admin/inquirylist" id='h-admin-inqlist'>1:1문의</a>
-              <a href="/admin/faqlist" id='h-admin-faq'>FAQ</a>
-            </div><div class="h-content">
+        	<div class="h-column">
+	            <div class="h-sidebar">
+	              <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
+	              <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
+	              <!-- 다울 추가 12/12 --> 
+	              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장관리</a>
+	              <a href="/admin/liq-co-register" id='d-liq-co-register'>양조장 등록</a>
+	              <a href="/admin/liq-list" id='d-liq-list'>전통주 관리</a>
+	              <a href="/admin/liq-register" id='d-liq-register'>전통주 등록</a>
+	              <a href="/admin/inquirylist" id='h-admin-inqlist'>1:1문의</a>
+	              <a href="/admin/faqlist" id='h-admin-faq'>FAQ</a>
+	            </div><div class="h-content">
  

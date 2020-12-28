@@ -13,7 +13,7 @@
     }
         
     tr:nth-child(even) {
-      background-color: #d8e1f1;
+      background-color: rgb(238 243 255);
     }
     
     ul{
@@ -28,7 +28,6 @@
     
     .pull-right{
       text-align: right;
-      margin-right: 100px;
     }
     
 	.h-pagination {
@@ -39,11 +38,11 @@
 	.h-pagination li {
   	  color: black;
   	  float: left;
-  	  padding: 8px 16px;
+  	  padding: 4px 10px;
   	}
   	
   	.h-pagination li.active{
-  	  background-color: navy;
+  	  background-color: rgb(10, 29, 74);
   	 
   	}
   	
@@ -52,7 +51,7 @@
   	  color: white;
 	}
 
-	.h-pagination li:hover:not(.active) {background-color: #ddd;}
+	.h-pagination li:hover:not(.active) {background-color: rgb(80 98 140);}
 
 
 	.h-faq-regbtn{
@@ -60,7 +59,7 @@
 	   width: 60px;
        height: 25px;
        border: none;
-       background-color: navy;
+       background-color: rgb(10, 29, 74);
        color: white;
      }
      
@@ -68,7 +67,7 @@
 	   width: 60px;
        height: 25px;
        border: none;
-       background-color: navy;
+       background-color: rgb(10, 29, 74);
        color: white;
      }
      #h-searchForm{
@@ -109,7 +108,7 @@
 	
 	.h-close:hover,
 	.h-close:focus {
-	  color: navy;
+	  color: rgb(10, 29, 74);
 	  text-decoration: none;
 	}
 
@@ -119,5 +118,5 @@
 	  border: none;
 	  color: white;
 	  margin: 10px;
-	  background-color: navy;
+	  background-color: rgb(10, 29, 74);
 	}

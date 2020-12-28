@@ -15,21 +15,21 @@
 </style>
 </head>
 <body>
-	<h3 style="margin: 0 0 10px 50px;">[자주묻는 질문 조회하기]</h3>
+	<h3 style="margin: 0 0 10px 50px;">[ 자주 묻는 질문 ]</h3>
     <div class="h-faq-body">
         <div>
        		<p style="text-align: left; margin: 0 0 5px 0;">번호</p>
-            <p style="margin: 0; margin: 0 0 5px 0;"><input class="h-faq-title" name="faqId" id="faqId"
+            <p style="margin: 0 0 5px 0; font-size: 15px;"><input class="h-faq-title" name="faqId" id="faqId" style="font-size: 15px;"
             value='<c:out value="${faq.faqId }"/>' readonly="readonly"></p>
         </div>
         <div>
             <p style="text-align: left; margin: 0 0 5px 0;">제목</p>
-            <p style="margin: 0 0 5px 0;"><input class="h-faq-title" name="title" id="title"
+            <p style="margin: 0 0 5px 0;"><input class="h-faq-title" name="title" id="title" style="font-size: 15px;"
             value='<c:out value="${faq.title }"/>' readonly="readonly"></p>
         </div>
         <div>
             <p style="text-align: left; margin: 0 0 5px 0;">내용</p>
-            <p style="margin: 0;"><textarea class="h-faq-content" name="cn" id="cn"
+            <p style="margin: 0;"><textarea class="h-faq-content" name="cn" id="cn" style="height: 163px; font-size: 15px;"
             readonly="readonly"><c:out value="${faq.cn }"/></textarea></p>
         </div>
         <div style="margin-top:20px;">

@@ -35,7 +35,7 @@ input[type="number"]::-webkit-inner-spin-button {
 </head>
 <body>
 <div class="d-admin-con">
-<h3 style="margin-left: 20px;">[양조장 등록]</h3>
+<h3 style="margin: 0 0 10px 15px;">[ 양조장 등록 ]</h3>
 <strong><c:out value="${result}"/></strong>
 <strong><c:out value="${error}"/></strong>
 <form action="/admin/liq-co-register" method="post">
@@ -45,11 +45,15 @@ input[type="number"]::-webkit-inner-spin-button {
 <p><label>전화번호 : <input type="number" name="telno" maxlength="15" placeholder="숫자만 입력해주세요." required="required"></label></p>
 <button type="submit">등록하기 </button>
 </form>
- </div>     
+</div>
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
+<%@include file="/WEB-INF/views/include/footer.jsp" %>     
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#d-liq-co-register").css('background-color', 'navy').css('color','white');
+	$("#d-liq-co-register").css('background-color', 'rgb(10, 29, 74)').css('color','white');
 });
 </script>
 </body>

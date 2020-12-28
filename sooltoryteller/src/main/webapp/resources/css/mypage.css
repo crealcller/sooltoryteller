@@ -58,8 +58,8 @@
 .d-mypage-profile {
 	width: 130px;
 	height: 130px;
+	margin: 40px auto 30px auto;
 	border-radius: 50%;
-	margin-top: 20px;
 }
 .d-mypage-info {
 	width: 270px;

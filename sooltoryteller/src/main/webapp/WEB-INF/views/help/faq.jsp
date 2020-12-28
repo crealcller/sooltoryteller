@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/resources/css/helpfaqHead.css">
 </head>
 <body>
-<h3 style="margin: 0 0 10px 20px;">자주묻는 질문</h3>
+<h3 style="margin: 0 0 20px 20px;">자주 묻는 질문</h3>
         <table>
         <thead>
           <tr>
@@ -68,10 +68,7 @@
 			<input type="hidden" name="keyword" value="${pageMaker.adCri.keyword }">
 		</form>
 
-
-
-
-
+    </div><!--인크루드 하는 페이지에 넣기-->
     </div><!--인크루드 하는 페이지에 넣기-->
     </div><!--인크루드 하는 페이지에 넣기-->
     
@@ -79,7 +76,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-help-faq").style="background-color: rgb(181, 135, 189); color: white;";
+		document.getElementById("h-help-faq").style="background-color: rgb(10 29 74); color: white;";
 		var actionForm = $("#h-actionForm");
 		
     	//페이지 버튼

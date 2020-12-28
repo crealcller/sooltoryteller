@@ -69,7 +69,7 @@ public class MemberController {
     
     @PostMapping("/login")
     public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
-          Model model, HttpSession session) {
+           HttpSession session, RedirectAttributes rttr) {
        
        String referer = (String) session.getAttribute("referer");
        System.out.println("이전페이지 url : "+referer);
@@ -87,12 +87,12 @@ public class MemberController {
              response.addCookie(cookie);
              // id저장 체크박스의 체크가 풀려있다면 쿠키 삭제
           } else {
-             cookie.setMaxAge(0); // 쿠키의 유효시간을 0으로 변경(쿠키삭제)
+             cookie.setMaxAge(0); //8 쿠키의 유효시간을 0으로 변경(쿠키삭제)
              response.addCookie(cookie); // 쿠키를 응답에 포함시킨다.
           }
        } else {
           String msg = "입력하신 이메일 또는 비밀번호가 일치하지 않습니다.";
-          model.addAttribute("msg", msg);
+          rttr.addFlashAttribute("msg", msg);
        }
        return "redirect:"+referer;
     }

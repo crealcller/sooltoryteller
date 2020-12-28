@@ -62,7 +62,7 @@ let msg = "${msg}";
 		<!-- 모든 게시글 조회 -->
 		<div class="s-bbst-container">
 			<c:if test="${empty bbstList }">
-				<p>작성된 게시글이 없습니다.</p>
+				<p style="width: 180px; margin: 0 auto; padding-top: 30px;">작성된 게시글이 없습니다.</p>
 			</c:if>
 			<c:if test="${not empty bbstList }">
 				<c:forEach items="${bbstList }" var="bbst">

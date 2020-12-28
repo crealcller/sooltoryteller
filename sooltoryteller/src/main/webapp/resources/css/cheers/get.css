@@ -2,8 +2,6 @@
 
 .s-main-background {
 	width: 1520px;
-	background-color: #daebe8;
-	padding-top: 50px;
 }
 
 .s-main-column {
@@ -70,13 +68,9 @@
 	float: left;
 }
 
-.s-writer-img-span {
-	margin: 10px 0 0 7px;
-}
-
 .s-writer-img {
-	height: 35px;
-	width: 35px;
+	height: 45px;
+	width: 45px;
 	border-radius: 50px;
 }
 
