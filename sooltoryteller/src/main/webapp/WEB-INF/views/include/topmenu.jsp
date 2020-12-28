@@ -60,7 +60,7 @@ a {
 }
 .h-logobar {
    width: 1520px;
-   height:90px;
+   height:70px;
    position: sticky;
    top: 0px;   
    background-color: white;
@@ -70,7 +70,7 @@ a {
 .h-logo-img {
    height: 60px;
    width: 145px;
-   margin:15px 0px 0px 30px;
+   margin:5px 0px 0px 30px;
 }
 .h-logo {
    width: 800px;
@@ -83,6 +83,8 @@ a {
    font-size: 13px;
    text-align: right;
    display: inline-block;
+   float: right;
+   padding: 40px 10px 0px 0px;
 }
 .h-dropbtn {
    background-color: Transparent;
@@ -91,6 +93,7 @@ a {
    font-size: 15px;
    font-weight: bold;
    border: none;
+   padding-bottom : 15px;
 }
 .h-dropdown {
    display: inline-block;
@@ -133,12 +136,18 @@ a {
 	background-color: white;
 	margin: 0 auto;
 }
+.d-left-con{
+float:left; 
+}
 </style>
 </head>
 <body>
    <div class="h-logobar">
         <div class="h-logo">
+        <div class="d-left-con">
         <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
+        </div>
+            <div class="d-left-con" style="padding-top:35px;">
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">
@@ -157,6 +166,7 @@ a {
             </div>
             <div id="h-dropdown4" class="h-dropdown">
             <button id="h-dropbtn4" class="h-dropbtn"><a href="/about">About</a></button>
+            </div>
             </div>
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>

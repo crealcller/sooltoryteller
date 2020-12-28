@@ -50,8 +50,4 @@ public class LiqController {
 		model.addAttribute("allLiq", service.getLiqListByCate(cate,cri));
 		model.addAttribute("pageMaker",  new BbstPageDTO(cri, total));
 	}
-	
-	
-	
-	
 }

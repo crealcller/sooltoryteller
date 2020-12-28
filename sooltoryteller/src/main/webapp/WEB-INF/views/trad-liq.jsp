@@ -384,14 +384,14 @@ li {
 	<div class="d-trad-liq-con">
 		<div class="d-trad-liq-column">
 		
-		<h1>INTRO</h1><br>
+		<h1>소개</h1><br>
 		<p>
 			<c:out value="${liq.liqCn.intro}" />
 		</p>
 		</div>
 		<c:if test="${liq.liqCn.pair ne null}">
 		<div class="d-trad-liq-column">
-		<h1>TASTING NORE & PAIRING</h1><br>
+		<h1>맛과 페어링</h1><br>
 		<p>
 			<c:out value="${liq.liqCn.pair}" />
 		</p>
@@ -399,7 +399,7 @@ li {
 		</c:if>
 		<div class="d-trad-liq-column">
 		<div class="d-revw-wrapper">
-			<h1>REVIEWS</h1><br>
+			<h1>리뷰</h1><br>
 			<div class="d-revws-con">
 				<ul class="d-revws">
 				</ul>
@@ -415,8 +415,8 @@ li {
 			지금 리뷰를 작성해보세요!
 			</li>
       	<c:choose>
-        	 <c:when test = "${member.img eq null}">
-           		<img class='d-revw-profile' src='/resources/img/noprofile.png'>
+        	 <c:when test = "${member.thumbImg eq null}">
+           		<img class='d-revw-profile' src='/imgUpload/2020/12/08/s/s_user.png'>
          	 </c:when>
          	<c:otherwise>
             	<img class='d-revw-profile' src='<c:out value="${member.thumbImg}" />'>
@@ -435,7 +435,7 @@ li {
 		</div>
 		<div class="d-trad-liq-column">
 			
-			<h1>BREWERY INFO</h1><br>
+			<h1>양조장 정보</h1><br>
 			<div class="d-trad-liq-text-con">
 			<p>
 				<c:out value="${liq.liqCo.nm}" />
@@ -449,6 +449,7 @@ li {
 			<p>
 				<c:out value="${liq.liqCo.telno}" />
 			</p>
+			
 			</div>
 			<div id="map"
 				style="width: 450px; height: 350px; display:inline-block; margin-left:50px;">

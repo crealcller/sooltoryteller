@@ -41,8 +41,10 @@ response.setHeader("Pragma", "no-cache");
 <body>
     <div class="h-logobar">
         <div class="h-logo">
+        <div class="d-left-con">
        <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-1.png'>
-        </a>
+        </a></div>
+        <div class="d-left-con" style="padding-top:35px;">
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">
@@ -61,6 +63,7 @@ response.setHeader("Pragma", "no-cache");
             </div>
             <div id="h-dropdown4" class="h-dropdown">
             <button id="h-dropbtn4" class="h-dropbtn"><a href="/about">About</button>
+            </div>
             </div>
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>
@@ -163,7 +166,7 @@ $(document).ready(function() {
 $(window).scroll(function(evt) {
 	var y=$(".h-logobar").offset().top
 	if(y>=200){
-		$(".h-logobar").css('height','90px');
+		$(".h-logobar").css('height','70px');
 		$(".h-logobar").css('box-shadow','0px -2px 8px 5px #e1e1e1');
 		$(".h-logobar").css('background-color','white');
 		$(".h-logo-img").attr('src','/resources/img/Logo_1-2.png');

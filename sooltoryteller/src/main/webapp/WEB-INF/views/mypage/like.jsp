@@ -51,7 +51,7 @@
 </style>
 </head>
 <body>
-			<h2>좋아요 누른 게시글</h2>
+			<h2>좋아요 누른 전통주</h2>
 			<div class="s-bbst-container">
 				<div class="s-bbst-container-box"></div>
 			</div>

@@ -27,7 +27,7 @@ a {
 .h-logo-img {
 	height: 60px;
 	width: 145px;
-	margin: 15px 0px 0px 30px;
+	margin: 5px 0px 0px 30px;
 }
 .h-logo {
 	width: 800px;
@@ -40,6 +40,8 @@ a {
 	font-size: 13px;
 	text-align: right;
 	display: inline-block;
+	float:right;
+	padding: 40px 10px 0px 0px;
 }
 .h-dropbtn {
 	background-color: Transparent;
@@ -171,4 +173,6 @@ a {
 	margin-top: 15px;
 	color: white;
 }
-
+.d-left-con{
+float:left; 
+}

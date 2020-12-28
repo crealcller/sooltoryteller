@@ -35,7 +35,7 @@ if(msg != ''){
 <form role="form" action="/admin/liq-register" method="post" enctype="multipart/form-data">
 <div class="inputArea">
 <label for="liqImg">사진</label>
-<input type="file" id="liqImg" name="file" required="required"/>
+<input type="file" id="liqImg" name="file" accept="image/jpeg,image/gif,image/png" required="required"/>
 <div class="select-img"><img src=""/></div>
 </div>
 <p><label>양조장을 선택해주세요. </label></p>
