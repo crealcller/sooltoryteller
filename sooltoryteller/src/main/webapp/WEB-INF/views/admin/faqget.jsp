@@ -25,7 +25,7 @@ if(msg != ''){
 	<h3 style="margin-left: 50px;">[FAQ 조회하기]</h3>
     <div class="h-faq-body">
         <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
+       		<p style="text-align: left; margin: 0;">번호</p>
             <p style="margin: 0;"><input class="h-faq-title" name="faqId" 
             value='<c:out value="${faq.faqId }"/>' readonly="readonly"></p>
         </div>

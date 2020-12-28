@@ -2,9 +2,14 @@
     pageEncoding="UTF-8"%>
      <%@include file="/WEB-INF/views/include/topmenu.jsp" %>
      <link rel="stylesheet" href="/resources/css/loginHead.css">
-     <%
-           Cookie[] cookies = request.getCookies();
-           String cookieVal ="";
+<%
+     	
+String loginCheck = (String)session.getAttribute("email");     
+     if(loginCheck != null){
+    	 out.println("<script>alert('잘못된 접근입니다.'); location.href='/';</script>");
+     }
+Cookie[] cookies = request.getCookies();
+          String cookieVal ="";
             if(cookies !=null){
             	for(Cookie i : cookies){
                     if(i.getName().equals("email")){
@@ -41,7 +46,7 @@ if(emailMsg != ""){
 	    <a style = "cursor: pointer;" id="h-findPwd-btn">비밀번호 찾기</a></p>
 	    <p class="h-login-p" style="text-align: center;"><button type="submit" class="login-btn">로그인</button></p>
 	    <p class="h-login-p" style="text-align: center;"><button type="button" class="login-btn" id="regbtn" onclick="location.href='/join'">회원가입</button></p>
-	    <p class="h-login-p" style="text-align: center;"><a href="<c:out value='${kakaoUrl}'/>">
+	    <p class="h-login-p" style="text-align: center;"><a href='${kakaoUrl}'>
 	    <img src="/resources/img/kakao_login_medium.png" class="snslogin"></a>
 	    <a href="<c:out value='${naverUrl }'/>"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
 	   <%--  <input type="hidden" name="referer" value='${referer}'> --%>

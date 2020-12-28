@@ -30,9 +30,8 @@ response.setHeader("Pragma", "no-cache");
 %>
 
 
-
-	<style>
-        * {
+<style>
+* {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
@@ -141,7 +140,7 @@ color: white;
 }
         
 div.h-content {
-width: 1100px;
+width: 1300px;
 height: 600px;
 padding-left:20px;
 overflow: hidden;

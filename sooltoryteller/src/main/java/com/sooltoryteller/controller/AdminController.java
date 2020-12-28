@@ -580,7 +580,6 @@ public class AdminController {
 		}
 		rttr.addAttribute("pageNum",  adCri.getPageNum());
 		rttr.addAttribute("amount",  adCri.getAmount());
-		rttr.addFlashAttribute("result", "fail");
 		return "redirect:/admin/inquirylist";
 	}
 	

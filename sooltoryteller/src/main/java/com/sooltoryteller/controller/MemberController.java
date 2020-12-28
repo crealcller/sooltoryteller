@@ -379,6 +379,7 @@ public class MemberController {
 				if(pwd != null) {
 					tmpPwd = UUID.randomUUID().toString().replace("-", "");
 					tmpPwd = tmpPwd.substring(0,9);
+					tmpPwd += "!@#";
 					System.out.println(tmpPwd);
 				}
 		

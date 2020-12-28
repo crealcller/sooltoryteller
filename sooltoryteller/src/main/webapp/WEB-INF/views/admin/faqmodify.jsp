@@ -33,7 +33,7 @@ if(errorMsg != ""){
         <input type="hidden" name="amount" value='<c:out value="${adCri.amount }"/>'>
         <input type="hidden" name="keyword" value='<c:out value="${adCri.keyword }"/>'>
         <div>
-       		<p style="text-align: left; margin: 0;">번호(일단 수기로 입력쓰)</p>
+       		<p style="text-align: left; margin: 0;">번호</p>
             <p style="margin: 0;"><input class="h-faq-title" name="faqId" 
             value='<c:out value="${faq.faqId }"/>' readonly="readonly"></p>
         </div>

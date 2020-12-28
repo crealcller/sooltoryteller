@@ -139,8 +139,7 @@ if(msg != ''){
 				return;
 			}
 			//이메일 전송이 성공한 경우
-			if(result === 'success'){
-				alert(result);
+			if(result == 'success'){
 				$(".h-modal-body").html("문의 답변이  전송 되었습니다.");
 				modal.style.display = "block";
 			}
