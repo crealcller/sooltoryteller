@@ -136,7 +136,7 @@ a {
 	background-color: white;
 	margin: 0 auto;
 }
-.d-left-con{
+.d-logo-left-con{
 float:left; 
 }
 </style>
@@ -144,10 +144,10 @@ float:left;
 <body>
    <div class="h-logobar">
         <div class="h-logo">
-        <div class="d-left-con">
+        <div class="d-logo-left-con">
         <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
         </div>
-            <div class="d-left-con" style="padding-top:35px;">
+            <div class="d-logo-left-con" style="padding-top:35px;">
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.AdminPageDTO;
+import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.FaqVO;
 import com.sooltoryteller.domain.InquiryAnswerVO;
@@ -78,7 +79,7 @@ public class AdminController {
 
 	// 전통주 관리페이지
 	@GetMapping("/get-liq")
-	public void getLiq(Model model, Long liqId, HttpSession session) {
+	public void getLiq(Model model, Long liqId, @ModelAttribute("adCri") AdminCriteria adCri, HttpSession session) {
 
 		String authority = (String) session.getAttribute("authority");
 		

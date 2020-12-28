@@ -82,6 +82,7 @@ a {
    font-size: 15px;
    font-weight: bold;
    border: none;
+   padding-bottom : 15px;
 }
 .h-dropdown {
    display: inline-block;
@@ -153,7 +154,7 @@ padding-left:20px;
 overflow: hidden;
 display: inline-block;
 }
-.d-left-con{
+.d-logo-left-con{
 float:left; 
 }        
  </style>
@@ -162,9 +163,9 @@ float:left;
         
          <div class="h-logobar">
         <div class="h-logo">
-         <div class="d-left-con">
+         <div class="d-logo-left-con">
         <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a></div>
-            <div class="d-left-con" style="padding-top:35px;">
+            <div class="d-logo-left-con" style="padding-top:35px;">
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">
@@ -210,7 +211,7 @@ float:left;
               <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
               <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
               <!-- 다울 추가 12/12 --> 
-              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장관리</a>
+              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장 관리</a>
               <a href="/admin/liq-co-register" id='d-liq-co-register'>양조장 등록</a>
               <a href="/admin/liq-list" id='d-liq-list'>전통주 관리</a>
               <a href="/admin/liq-register" id='d-liq-register'>전통주 등록</a>

@@ -221,3 +221,43 @@
 	height: 20px;
 	display: inline-block;
 }
+.d-revw-modal-content h2 {
+	background-color: rgb(250, 245, 255);
+	padding: 20px;
+}
+
+.d-info-con {
+	border-bottom: 1px solid #888;
+	height: 150px;
+	margin: 10px;
+}
+
+.d-modal-info {
+	float: left;
+	display: inline-block;
+	padding: 10px;
+	margin: 10px;
+}
+
+.d-modal-info p {
+	padding: 5px;
+	font-size:12px;
+}
+
+.d-revw-modal-content textarea {
+	width: 425px;
+	resize: none;
+	margin: 10px;
+	background-color: #f3f3f38f;
+}
+
+.d-revw-modal-content button {
+	float: right;
+	margin: 10px;
+	outline: 0;
+	border: 0;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: rgb(250, 245, 255);
+	font-weight: bold;
+}
