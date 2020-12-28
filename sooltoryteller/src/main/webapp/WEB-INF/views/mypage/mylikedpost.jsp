@@ -180,7 +180,7 @@ $(document).ready(function() {
 			
 			var str = "";
 			if(myLikeList == null || myLikeList.length == 0) {
-				bbstBox.html("<p>좋아요를 누른 게시글이 없습니다.</p><br />");
+				bbstBox.html("<p style='margin-top: 35px;'>좋아요를 누른 게시글이 없습니다.</p><br />");
 				return;
 			}
 			

@@ -218,7 +218,7 @@ $(document).ready(function() {
 			
 			var str = "";
 			if(myBbstList == null || myBbstList.length == 0) {
-				bbstBox.html("<p>작성된 게시글이 없습니다.</p><br />");
+				bbstBox.html("<p style='margin: 35px 0 0 25px'>작성된 게시글이 없습니다.</p><br />");
 				return;
 			}
 			
