@@ -29,11 +29,16 @@ response.setDateHeader("Expires", 0);
 response.setHeader("Pragma", "no-cache");
 %>
 
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 	<style>
         * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   font-family: 'Nanum Gothic', sans-serif;
 }
 button {
    cursor: pointer;

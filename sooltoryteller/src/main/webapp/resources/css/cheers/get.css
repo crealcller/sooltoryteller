@@ -230,6 +230,7 @@
 	border: 1px solid #888;
 	height: 350px;
 	width: 350px;
+	border-radius: 10px;
 }
 
 .s-bbstReply-modal-top {
@@ -262,6 +263,7 @@
 	height: 120px;
 	width: 230px;
 	margin-top: 5px;
+	resize: none;
 }
 
 .s-bbstReply-modal-footer {

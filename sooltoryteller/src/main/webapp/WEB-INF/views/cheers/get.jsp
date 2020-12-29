@@ -103,7 +103,7 @@ let msg = "${msg}";
 				<div class="s-bbstReply-modal-body">
 					<i class="fas fa-user"></i>&nbsp;<label id="s-bbstReply-name">작성자 </label><br />
 					<input type="text" class="s-modal-name" name="s-modal-name" readonly="readonly" /><br />
-					<input type="hidden" class="s-modal-memberId" name="s-modal-memberId" value="" />
+					<input type="hidden" class="s-modal-memberId" name="s-modal-memberId" />
 					
 					<i class="fas fa-edit"></i>&nbsp;<label>내용</label><br />
 					<textarea class="s-modal-replyCn" id="s-modal-replyCn" name="s-modal-replyCn"
@@ -133,6 +133,7 @@ if(errorMsg != "") {
 }
 </script>
 
+<!-- 댓글 모달 작업 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -146,7 +147,7 @@ $(document).ready(function() {
 	var openModalBtn = $("#s-bbstReply-openModalBtn");
 	// 모달
 	var replyModal = $("#s-bbstReply-modal-container");
-	// 댓글 닉네임
+	// 댓글 작성자 닉네임
 	var replyName = replyModal.find("input[name='s-modal-name']");
 	// 댓글 내용
 	var replyCn = replyModal.find("textarea[name='s-modal-replyCn']");
@@ -247,6 +248,7 @@ $(document).ready(function() {
 				
 				bbstReplyService.add(reply, function(result) {
 					alert("댓글이 성공적으로 등록되었습니다.");
+					$("#s-bbst-replyCnt").html(Number(replyCnt) + 1);
 					replyModal.val("");
 					replyModal.fadeOut(200);
 					showList(-1);
@@ -265,8 +267,16 @@ $(document).ready(function() {
 	// 댓글 클릭 이벤트 처리
 	replyUL.on("click", "li", function(e) {
 		var bbstReplyId = $(this).data("bbstreplyid");
-
+		
 		bbstReplyService.get(bbstReplyId, function(reply) {
+			if (reply.memberId != loginMemberId) {
+				modifyReplyBtn.hide();
+				removeReplyBtn.hide();
+			} else {
+				modifyReplyBtn.show();
+				removeReplyBtn.show();
+			}
+			
 			replyName.val(reply.name);
 			replyCn.val(reply.replyCn);
 			replyRegdate.val(bbstReplyService.displayTime(reply.regdate)).attr("readonly", "readonly");
@@ -275,11 +285,6 @@ $(document).ready(function() {
 			registerReplyBtn.hide();
 			replyRegdateTitle.show();
 			replyRegdate.show();
-			
-			if(loginMemberId == bbstReplyId) {
-				modifyReplyBtn.show();
-				removeReplyBtn.show();
-			}
 			
 			replyModal.fadeIn(100);
 		});
@@ -301,9 +306,11 @@ $(document).ready(function() {
 				var reply = {bbstReplyId : replyModal.data("bbstreplyid"), replyCn : replyCn.val()};
 				
 				bbstReplyService.update(reply, function(result) {
-					alert("댓글이 성공적으로 수정되었습니다.");
-					replyModal.fadeOut(200);
-					showList(pageNum);
+					if(result === success) {
+						alert("댓글이 성공적으로 수정되었습니다.");
+						replyModal.fadeOut(200);
+						showList(pageNum);
+					}
 				});
 			} else {
 				replyModal.hide();
@@ -313,14 +320,17 @@ $(document).ready(function() {
 	
 	// 삭제 버튼 누르면
 	removeReplyBtn.on("click", function(e) {
+		
 		if(confirm("해당 댓글을 삭제하시겠습니까?")) {
 			var bbstReplyId = replyModal.data("bbstreplyid");
 			
 			bbstReplyService.remove(bbstReplyId, function(result) {
-				$("#s-bbst-replyCnt").html(Number(replyCnt) - 1);
-				alert("댓글이 성공적으로 삭제되었습니다.");
-				replyModal.fadeOut(200);
-				showList(pageNum);
+				if(result === success) {
+					$("#s-bbst-replyCnt").html(Number(replyCnt) - 1);
+					replyModal.fadeOut(200);
+					showList(pageNum);
+					alert("댓글이 성공적으로 삭제되었습니다.");
+				}
 			});
 		} else {
 			replyModal.hide();
@@ -372,7 +382,7 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- 좋아요 -->
+<!-- 좋아요 작업 -->
 <script type="text/javascript" src="/resources/js/bbstLike.js"></script>
 <script type="text/javascript">
 
@@ -423,6 +433,7 @@ $("#s-bbst-like").on({"click" : function() {
 }});
 </script>
 
+<!-- 게시글 수정 및 삭제 버튼 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -439,7 +450,6 @@ $(document).ready(function() {
 	});
 });
 </script>
-
 </div>
 </div>
 </body>
