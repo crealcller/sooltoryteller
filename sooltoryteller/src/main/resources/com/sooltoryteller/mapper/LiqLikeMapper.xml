@@ -22,16 +22,22 @@ and liq_id=#{liqId}
 
 <select id="getMyListWithPaging" resultType="com.sooltoryteller.domain.MyLikeVO">
 	<![CDATA[
-	select lk.liq_id, lk.nm,lk.cate,lk.capct,lk.lv, lk.irdnt,lk.liq_thumb,
-	lk.liq_like_id    
- 	from(select /*+index_desc(k liq_like_pk)*/ 
-	rownum rn,l.liq_id, l.nm,l.cate,l.capct,l.lv, l.irdnt,l.liq_thumb,
-	k.liq_like_id
-	from liq l,liq_like k
-	where l.liq_id = k.liq_id
-	and k.member_id=#{memberId}
-    and rownum <=#{cri.pageNum}*#{cri.amount}
-    )lk where rn > (#{cri.pageNum} -1)*#{cri.amount}
+	select b.liq_like_id, b.liq_id, b.nm,b.cate,b.capct,b.lv, b.liq_thumb,
+	co_name 
+    from(
+    select rownum rn,a.liq_like_id, a.liq_id, a.nm,a.cate,a.capct,a.lv, a.liq_thumb,
+	co_name    
+ 	from(select
+	k.liq_like_id,l.liq_id, l.nm,l.cate,l.capct,l.lv, l.liq_thumb,
+	c.nm co_name
+	from liq l,liq_like k, liq_co c
+	where k.member_id=#{memberId}
+	and l.liq_id = k.liq_id
+	and l.liq_co_id = c.liq_co_id
+    order by k.liq_like_id desc
+    )a 
+    where rownum <=#{cri.pageNum}*#{cri.amount}
+    )b  where rn > (#{cri.pageNum} -1)*#{cri.amount}
     ]]>
 	</select>
 	

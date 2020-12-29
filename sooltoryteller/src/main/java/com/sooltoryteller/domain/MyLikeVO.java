@@ -36,5 +36,6 @@ public class MyLikeVO {
 
     // 전통주 사진 
     private String liqThumb;
-
+    
+    private String coName;
 }

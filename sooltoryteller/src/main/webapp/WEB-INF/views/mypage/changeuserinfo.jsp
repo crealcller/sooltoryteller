@@ -35,38 +35,33 @@
 <body>
         <h2>회원정보 수정 / 탈퇴</h2>
          <div class="h-con">
-			<p style="font-size:12px; color:red; margin-bottom: 10px;">선호하는 주종 외에는 수정 버튼을 눌러야 반영이 됩니다.</p>
-            <form action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
-        <div class="h-photo">
-        	<div class="h-profile-photo">
-   		      	<c:if test="${member.img eq 'user.png' }">
-					<img class="d-mypage-profile"
-					src='/resources/img/<c:out value="${member.img}" />'>
-				</c:if>
-				<c:if test="${member.img ne 'user.png' }">
-					<img class="d-mypage-profile"
-					src='<c:out value="${member.img}" />'>
-				</c:if>
-        	</div>
-        </div>
-        
-       	<p style="margin-top:10px;">
-	        <!-- 파일 확장자 설정해서 에러 막기 -->
-			<input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
-			accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${member.img }' />" />
-			<script>
-				// 게시글 썸네일사진
-				$("#h-addfile").change(function(){
-					if(this.files && this.files[0]) {
-				    var reader = new FileReader;
-				    reader.onload = function(data) {
-				    $(".h-profile-photo img").attr("src", data.target.result).width(120);        
-				    }
-				    reader.readAsDataURL(this.files[0]);
-				    }
-				});
-			</script>
-        </p>
+         	<div class="h-info-div">
+				<p class="h-comment">선호하는 주종 외에는 수정 버튼을 눌러야 반영이 됩니다.</p>
+            	<form class="h-info-form" action ="/mypage/changeuserinfo" method="post" enctype="multipart/form-data">
+        			<div class="h-photo">
+        				<div class="h-profile-photo">
+							<img class="d-mypage-profile" name="img" src='<c:out value="${member.img}" />'>
+        				</div>
+        			</div>
+
+			       	<p style="margin-top:10px;">
+				        <!-- 파일 확장자 설정해서 에러 막기 -->
+						<input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
+						accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${member.img }' />" />
+						<input type="hidden" name="img" value="<c:out value='${member.img }' />" />
+						<script>
+							// 게시글 썸네일사진
+							$("#h-addfile").change(function(){
+								if(this.files && this.files[0]) {
+							    var reader = new FileReader;
+							    reader.onload = function(data) {
+							    $(".h-profile-photo img").attr("src", data.target.result).width(120);        
+							    }
+							    reader.readAsDataURL(this.files[0]);
+							    }
+							});
+						</script>
+			        </p>
 	        
 	     <p style="margin:15px 0 15px 0; padding-right:45px;">이메일 : &nbsp<input type = "text" name="email" id="email" value="<c:out value='${member.email }'/>" readonly="readonly"></p>
              <p style="margin-bottom:20px;">닉네임 : &nbsp<input type = "text" name="name" id="name" value="<c:out value='${member.name }'/>" readonly="readonly">
@@ -79,7 +74,7 @@
                </c:forEach></span><button style="margin-left:72px;" type="button" class="h-modibtn" id="modi-favalc-btn" >수정</button>
                <p><button type="submit" id="modify" class="h-withdrawal-btn" >수정</button><button type="button" id="withdrawal" class="h-withdrawal-btn">회원탈퇴</button></p>
             </form> 
-            
+            </div>
          </div>
    </div>
 </div> <!-- h-mypagebody end -->
@@ -147,6 +142,17 @@ function checkType(obj) {
 		return false;
 	}
 }
+</script>
+
+<script>
+// 게시글 사진을 수정하지 않을 경우
+$(".h-withdrawal-btn").on("click", function() {
+	var file = $('#h-addfile').val();
+	if(file == "") {
+		$('#h-addfile').prop('type', 'text');
+		var prevFile = $('#h-addfile').val();
+	}
+});
 </script>
 
 <script>
@@ -358,7 +364,6 @@ function checkedCnt(drink){
 }
 
 </script>
-<%-- <%@include file="/WEB-INF/views/include/footer.jsp" %> --%>
 </body>
 </html>
 

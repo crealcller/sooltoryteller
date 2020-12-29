@@ -52,23 +52,29 @@ public class MemberController {
 	
 	//로그인 view
 	@GetMapping("/login")
-	public ModelAndView soollogin(HttpSession session) {
+	public ModelAndView soollogin(HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		
+
+		String referer = (String)request.getHeader("REFERER");
 		String kakaoUrl = kakaoController.getAuthorizationUrl(session);
-		
+
 		mav.setViewName("login");
 		mav.addObject("kakaoUrl", kakaoUrl);
-		
+		request.getSession().setAttribute("referer", referer);
+
 		return mav;
 	}
-	
+
 	@PostMapping("/login")
 	public String soollogin(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes rttr) {
+			RedirectAttributes rttr, HttpSession session) {
+
+		String referer = (String) session.getAttribute("referer");
+		System.out.println("이전페이지 url : "+referer);
+
 		// id저장 체크박스
 		String save = request.getParameter("save");
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 		Cookie cookie = new Cookie("email", email);
 		// 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
 		if (service.loginCheck(email, pwd)) {
@@ -87,9 +93,9 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", msg);
 			return "redirect:/login";
 		}
-		return "redirect:/";
+		return "redirect:"+referer;
 	}
-	
+	 
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr ) {
@@ -259,15 +265,14 @@ public class MemberController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
-		if(file != null || !file.getOriginalFilename().equalsIgnoreCase("user.png")) { 
+		if(file != null) { 
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			member.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 			member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-			// user.png 파일로 대체
-			fileName = File.separator + "images" + File.separator + "user.png";
+			fileName = member.getImg();
 			member.setImg(fileName);
-			member.setThumbImg(fileName);
+			member.setThumbImg(member.getThumbImg());
 		}
 
 		if(!loginEmail.equals(member.getEmail())) {
@@ -323,18 +328,20 @@ public class MemberController {
 	}
 	
 	//비밀번호 변경
-	@PostMapping("/mypage/changepwd")
-	public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
-		String email = (String) session.getAttribute("email");
-		
-		//회원의 현재 비밀번호 검사
-		if(service.examinePwd(email, pwd)) {
-			service.modifyPwd(email, newpwd);
-			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
-		}else {
-			model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
-		}
-	}
+	   @PostMapping("/mypage/changepwd")
+	   public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
+	      String email = (String) session.getAttribute("email");
+	      
+	      System.out.println("새로운 비밀번호 : "+newpwd);
+	      //회원의 현재 비밀번호 검사
+	      if(service.examinePwd(email, pwd)) {
+	         service.modifyPwd(email, newpwd);
+	         model.addAttribute("member", service.get(email));
+	         model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
+	      }else {
+	         model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
+	      }
+	   }
 	
 	
 	//비밀번호 찾기 ->임시비밀번호 생성

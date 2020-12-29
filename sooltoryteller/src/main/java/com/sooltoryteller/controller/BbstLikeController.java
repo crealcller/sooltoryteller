@@ -53,9 +53,6 @@ public class BbstLikeController {
 		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-//		return service.likeBbst(bbstId, memberId)
-//			? new ResponseEntity<>("success", HttpStatus.OK)
-//			: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	// 좋아요 취소
@@ -80,7 +77,7 @@ public class BbstLikeController {
 		@PathVariable("page") int page,
 		@PathVariable("memberId") Long memberId) {
 		
-		BbstLikeCriteria cri = new BbstLikeCriteria(page, 12);
+		BbstLikeCriteria cri = new BbstLikeCriteria(page, 9);
 		log.info("========== MEMBERID " + memberId + "'S LIKED BBST PAGE");
 		log.info("========== CRI: " + cri + " ==========");
 		

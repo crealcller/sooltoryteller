@@ -47,4 +47,7 @@ public interface BbstMapper {
 	
 	// 내가 쓴 게시글 리스트 - 전체 데이터 개수 처리
 	public int getMyBbstListTotalCount(Long memberId);
+	
+	// 메인페이지 게시글 리스트 - 조회수 높은순
+	public List<BbstJoinVO> getBbstByView();
 }

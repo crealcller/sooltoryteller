@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<html>
+<head>
 <script type="text/javascript">
 // 로그인이 안된 상태면 로그인페이지로 넘어가게
 let msg = "${msg}";
@@ -9,14 +10,15 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
-    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 <link rel="stylesheet" href="/resources/css/cheers/get.css">
+</head>
+</html>
+<body>
+<%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
-<div class="s-main-background">
+<div class="s-main-background" style="background-color: #daebe8;">
 	<div class="s-main-column">
 	
 		<div class="s-bbst-container">
@@ -57,7 +59,7 @@ let msg = "${msg}";
 							<span class="s-writer-img-span"><img src="" /><i class="fas fa-user-circle" style="font-size:35px;"></i></span>
 						</c:when>
 						<c:when test="${bbst.img != 'user.png'}"> --%>
-							<span class="s-writer-img-span"><img class="s-writer-img" src="/resources/img/<c:out value='${bbst.img }' />" /></span>
+							<span class="s-writer-img-span"><img class="s-writer-img" src="<c:out value='${bbst.img }' />" /></span>
 					<%-- 	</c:when>
 					</c:choose> --%>
 				</div>
@@ -162,6 +164,8 @@ $(document).ready(function() {
 	var cancelReplyBtn = $("#s-modal-cancelBtn");
 	var modifyReplyBtn = $("#s-modal-modifyBtn");
 	var removeReplyBtn = $("#s-modal-removeBtn");
+	// 댓글수
+	var replyCnt = $("#s-bbst-replyCnt").html();
 	
 	var pageNum = 1;
 	var replyPageFooter = $(".s-bbstReplyList-footer");
@@ -284,15 +288,6 @@ $(document).ready(function() {
 			}
 			
 			replyModal.fadeIn(100);
-			/* // 모달 바깥부분 클릭하면
-			$(document).on("click", function(e) {
-				// 모달 닫기
-				if(replyModal.is(e.target)) {
-					replyModal.css({visibility : "hidden", opacity : 0});
-				} else {
-					replyModal.css({visibility : "visible", opacity : 1});
-				}
-			}); */
 		});
 	});
 	

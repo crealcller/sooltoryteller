@@ -6,333 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.d-con {
-	width: 100%;
-	height: 100%;
-	padding-top: 20px;
-}
-/* 구메정보부분 배경 */
-.d-trad-liq-info {
-	width: 70%;
-	height: 400px;
-	background-color: white;
-	margin: 0 auto 25px auto;
-	box-shadow: 10px 10px 13px -1px #c8c2c2;
-}
-/* 구메정보부분 */
-.d-trad-liq-info-con {
-	width: 800px;
-	height: 100%;
-	display: inline-block;
-	margin-left: 120px;
-}
-
-.d-trad-liq-info-con-heart {
-	float: right;
-	width: 120px;
-	height: 100%;
-	padding-top: 30px;
-	display: inline-block;
-}
-
-/* 구매정보부분 - 사진 */
-.d-trad-liq-img-con {
-	width: 230px;
-	height: 320px;
-	display: inline-block;
-	float: left;
-	margin: 40px;
-}
-/* 구매정보부분 - 글 */
-.d-trad-liq-text-con {
-	padding-top: 50px;
-	width: 450px;
-	height: 100%;
-	display: inline-block;
-	float: left;
-}
-.d-trad-liq-text-con p{
-	padding:10px;
- }
-
-/* 전통주상세 컨테이너 */
-.d-trad-liq-con {
-	margin: 0 auto;
-	padding: 0;
-	width: 70%;
-}
-
-/* 전통주상세 */
-.d-trad-liq-column {
-	width: 100%;
-	border-bottom-style: solid;
-	border-bottom-color: #844ce321;
-	background-color: white;
-	padding: 50px;
-	margin-bottom: 20px;
-}
-
-.d-revw-wrapper {
-	width: 100%;
-	min-width: 1000px;
-	overflow: auto;
-}
-/* 리뷰 부분 con*/
-.d-revws-con {
-	width: 600px;
-	float: left;
-	display: inline-block;
-}
-/* 리뷰  리스트*/
-.d-revws {
-	list-style: none;
-	width: 600px;
-}
-/* 리뷰 */
-.d-revw-con {
-	box-shadow: 5px 5px 13px -1px #F2EFF9;
-	border-style: solid;
-	border-color: rgb(245, 245, 245);
-	padding: 20px;
-	margin: 40px;
-}
-
-.d-paging {
-	float: right;
-}
-
-.d-paging ul {
-	list-style: none;
-}
-
-.d-paging li {
-	float: left;
-	margin: 0;
-}
-
-.d-new-revw-con {
-	float: left;
-	width: 300px;
-	height: 300px;
-	display: inline-block;
-	margin-top: 20px;
-}
-
-.d-new-revw-con ul {
-	width: 260px;
-	padding: 10px;
-	list-style: none;
-}
-
-.d-new-revw-con li {
-	border-bottom: solid 2px #F2EFF9;
-	padding: 10px;
-}
-
-.d-new-revw-con button {
-	float: left;
-	background-color: Transparent;
-	border: 0;
-	outline: 0;
-}
-
-.d-new-revw-con img {
-	float: left;
-}
-
-.d-revw-cnt {
-	margin-left: 10px;
-	font-size: 7px;
-}
-
-.d-revw-cnt-msg {
-	font-size: 7px;
-}
-
-.d-revw-profile {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	border: solid 1px #ccaeff;
-}
-
-.d-revw-rate {
-	font-size: 30px;
-}
-
-.d-paging-btn-active {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background-color: rgb(181, 135, 189);
-	border-radius: 50%;
-	margin: 10px;
-}
-
-.d-paging-btn-active a {
-	color: white;
-}
-
-.d-paging-btn-none {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-	margin: 10px;
-}
-
-/* The Modal (background) */
-.d-revw-modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.d-revw-modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 500px;
-	height: 600px;
-}
-
-/* The Close Button */
-.d-revw-modal-close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.d-revw-modal-close:hover, .d-revw-modal-close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.d-star_grade span {
-	text-decoration: none;
-	font-size: 30px;
-	color: grey;
-}
-
-.d-star_grade span.on {
-	color: orange;
-}
-
-.star_grade span {
-	text-decoration: none;
-	font-size: 30px;
-	color: grey;
-}
-
-.star_grade span.on {
-	color: orange;
-}
-
-.star_grade :hover {
-	cursor: pointer;
-}
-
-.d-revw-star {
-	font-size: 20px;
-	color: orange;
-}
-
-.d-star-box {
-	display: inline-block;
-	padding: 3px 8px 3px 8px;
-	background-color: #f9f7d6;
-	border-style: none;
-	border-radius: 10px 10px 10px 10px;
-	margin: 10px;
-}
-
-#like {
-	font-size: 30px;
-}
-
-li {
-	list-style: none;
-}
-
-.clearfix {
-	overflow: auto;
-}
-
-.clearfix::after {
-	content: "";
-	clear: both;
-	display: table;
-}
-
-.clear {
-	clear: both;
-}
-
-.gallery {
-	width: 800px;
-	height: 400px;
-	margin: 20px auto;
-	border: 1px solid #ccc;
-	overflow: hidden;
-	padding-left: 0;
-}
-
-.gallery ul {
-	width: 300%;
-	position: relative;
-	left: -300px;
-}
-
-.gallery ul li {
-	float: left;
-	width: 220px;
-	height: 400px;
-	box-sizing: border-box;
-	padding: 15px;
-	text-align: center;
-	line-height: 150px;
-}
-
-.gallery ul li .img {	
-	width: 180px;
-	height: 230px;
-	border: 3px solid #ccc;
-}
-
-.g_item {
-	width: 900px;
-	margin: 0 auto;
-	text-align: center;
-}
-
-.g_item ul li {
-	display: inline-block;
-	margin-right: 10px;
-	background: #ccc;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-}
-
-.g_item ul li.on {
-	background: #f00;
-}
-</style>
 <meta charset="UTF-8">
 <title>전통주 상세</title>
+<link rel="stylesheet" href="/resources/css/trad-liq-info.css">
 </head>
 <body>
 <div class="s-main-background">
@@ -384,14 +60,14 @@ li {
 	<div class="d-trad-liq-con">
 		<div class="d-trad-liq-column">
 		
-		<h1>INTRO</h1><br>
+		<h1>소개</h1><br>
 		<p>
 			<c:out value="${liq.liqCn.intro}" />
 		</p>
 		</div>
 		<c:if test="${liq.liqCn.pair ne null}">
 		<div class="d-trad-liq-column">
-		<h1>TASTING NORE & PAIRING</h1><br>
+		<h1>맛과 페어링</h1><br>
 		<p>
 			<c:out value="${liq.liqCn.pair}" />
 		</p>
@@ -399,7 +75,7 @@ li {
 		</c:if>
 		<div class="d-trad-liq-column">
 		<div class="d-revw-wrapper">
-			<h1>REVIEWS</h1><br>
+			<h1>리뷰</h1><br>
 			<div class="d-revws-con">
 				<ul class="d-revws">
 				</ul>
@@ -415,11 +91,11 @@ li {
 			지금 리뷰를 작성해보세요!
 			</li>
       	<c:choose>
-        	 <c:when test = "${member.img eq null}">
-           		<img class='d-revw-profile' src='/resources/img/noprofile.png'>
+        	 <c:when test = "${member.thumbImg eq null}">
+           		<img class='d-revw-profile' src='/imgUpload/2020/12/08/s/s_user.png'>
          	 </c:when>
          	<c:otherwise>
-            	<img class='d-revw-profile' src='/resources/img/<c:out value="${member.img}" />'>
+            	<img class='d-revw-profile' src='<c:out value="${member.thumbImg}" />'>
          	</c:otherwise>
       	</c:choose>
 			<button id='addRevwBtn' class="d-star_grade">
@@ -435,7 +111,7 @@ li {
 		</div>
 		<div class="d-trad-liq-column">
 			
-			<h1>BREWERY INFO</h1><br>
+			<h1>양조장 정보</h1><br>
 			<div class="d-trad-liq-text-con">
 			<p>
 				<c:out value="${liq.liqCo.nm}" />
@@ -443,12 +119,11 @@ li {
 			<p>
 				<c:out value="${liq.liqCo.addr}" />
 			</p>
-			<p>
-				<c:out value="${liq.liqCo.hmpg}" />
-			</p>
+				<a class="d-hmpg-a" href='<c:out value="${liq.liqCo.hmpg}" />' target="blank"><c:out value="${liq.liqCo.hmpg}" /></a>
 			<p>
 				<c:out value="${liq.liqCo.telno}" />
 			</p>
+			
 			</div>
 			<div id="map"
 				style="width: 450px; height: 350px; display:inline-block; margin-left:50px;">
@@ -460,8 +135,11 @@ li {
 
   <!-- Modal content -->
   <div class="d-revw-modal-content">
-    <span class="d-revw-modal-close">&times;</span>
-	<div><img style='width:100px;height:150px;' src='<c:out value="${liq.liqThumb}" />'><c:out value="${liq.nm}" /></div>
+  <h2>리뷰 작성하기!<span class="d-revw-modal-close">&times;</span></h2>
+    
+    <div class="d-info-con">
+	<div class="d-modal-info"><img style='width:70px;height:100px;' src='<c:out value="${liq.liqThumb}" />'></div>
+	<div class="d-modal-info" style="padding-top:40px;"><h4 style="padding: 5px;"><c:out value="${liq.nm}" /></h4><p><c:out value="${liq.liqCo.nm}" /></p></div></div>
     
      <p class="star_grade">
         <span value=1>★</span>
@@ -470,10 +148,9 @@ li {
         <span value=4>★</span>
         <span value=5>★</span>
     </p>
-    <p><textarea maxlength="500" style='width:450px; resize: none;' rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
-    <button id='revwRegBtn' type='submit'>작성하기</button>
+    <p><textarea maxlength="500" rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
+    <button id='revwRegBtn' type='submit'>등록</button>
   </div>
-
 </div>
 </div>
 </div>
@@ -549,7 +226,7 @@ $(document).ready(function(){
 				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+list[i].rate+"</div>"
 				str += "<span>"+list[i].cn+"</span>"
 				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
-				str += "<div><div class='d-revw-member'><img class='d-revw-profile' src='/resources/img/"+list[i].member.img+"'>";
+				str += "<div><div class='d-revw-member'><img class='d-revw-profile' src='"+list[i].member.thumbImg+"'>";
 				str += "<strong>"+list[i].member.name+"</strong></li></div></div>";
 			}
 			revwUL.html(str);

@@ -279,6 +279,7 @@ function checkForm() {
 	var chk = confirm("게시글을 등록하시겠습니까?");
 	if(chk) {
 		alert("게시글이 등록되었습니다.");
+		history.replaceState({}, null, "register");
 		formObj.attr("action", "/cheers/list");
 		formObj.submit();
 	}
