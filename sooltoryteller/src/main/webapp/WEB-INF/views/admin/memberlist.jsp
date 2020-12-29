@@ -20,7 +20,7 @@ if(msg != ''){
 <title>회원관리</title>
 </head>
 <body>
-    <h3 style="margin-left: 20px;">[회원관리]</h3>
+    <h3 style="margin: 0 0 10px 15px;">[ 회원관리 ]</h3>
         <table>
         <thead>
           <tr>
@@ -83,6 +83,7 @@ if(msg != ''){
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
 		</form>
 
+	</div><!--인크루드 하는 페이지에 넣기-->
     </div><!--인크루드 하는 페이지에 넣기-->
     </div><!--인크루드 하는 페이지에 넣기-->
     
@@ -102,7 +103,7 @@ if(msg != ''){
  
     $(document).ready(function(){
     	//회원관리 버튼 눌린 표시
-		document.getElementById("h-admin-list").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-list").style="background-color: rgb(10, 29, 74); color: white;";
 		
 		var actionForm = $("#h-actionForm");
 		
@@ -149,12 +150,6 @@ if(msg != ''){
  */
  	
 });	
-    
-    
-
-
-
-    
     
     </script>
 </body>

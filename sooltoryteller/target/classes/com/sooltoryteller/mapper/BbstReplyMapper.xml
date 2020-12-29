@@ -56,15 +56,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시글의 모든 댓글 조회 -->
 <select id="getBbstReplyList" resultType="com.sooltoryteller.domain.BbstReplyJoinVO">
 	<![CDATA[
-	select * from (
-		select /*+ index(r idx_bbst_reply) */
-		rownum rn, r.*, m.name, m.img
-		from bbst b, bbst_reply r, member m
-		where r.bbst_id = b.bbst_id
-		and r.member_id = m.member_id
-		and r.bbst_id = #{bbstId}
-		and r.bbst_reply_id > 0
-		and rownum <= #{cri.pageNum} * #{cri.amount})
+	select o.* from (
+		select /*+ index_asc (i bbst_reply_pk) */
+		rownum rn, i.*
+		from (
+	        select r.*, m.name, m.img
+			from bbst b, bbst_reply r, member m
+			where r.bbst_id = b.bbst_id
+			and r.member_id = m.member_id
+			and r.bbst_id = 337
+			and r.bbst_reply_id > 0
+	        order by r.bbst_reply_id asc) i
+        where rownum <= #{cri.pageNum} * #{cri.amount}) o
 	where rn > (#{cri.pageNum} -1) * #{cri.amount}
 	]]>
 </select>

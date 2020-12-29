@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
+
 <html>
 <head>
 <script type="text/javascript">
@@ -15,135 +16,7 @@
 		location.href = "/login";
 	}
 </script>
-
-<style>
-
-.s-bbst-container {
-	width: 100%;
-	height: 700px;
-	margin: 0 auto;
-}
-
-.s-bbst-item-container {
-	height: 212px;
-	width: 177px;
-	margin: 10px 0 5px 80px;
-	display: inline-block;
-	border: 1px #f1f1f1 solid;
-	position: relative;
-	float: left;
-	cursor: pointer;
-	font-size: 10px;
-}
-
-.s-bbst-img {
-	height: 175px;
-	width: 175px;
-	display: block;
-}
-
-.s-bbst-item-overlay {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 175px;
-	width: 175px;
-	opacity: 0;
-	transition: .3s ease;
-	background-color: rgb(181, 135, 189);
-}
-
-.s-bbst-item-container:hover .s-bbst-item-overlay {
-	opacity: 0.9;
-}
-
-.s-bbst-item-overlay-info {
-	font-size: 14px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	display: inline-block;
-}
-
-.s-bbst-info-div {
-	height: 35px;
-	width: 175px;
-	margin-top: 3px;
-	font-size: 10px;
-}
-
-.s-bbst-item-overlay-info {
-	width: 175px;
-}
-
-.s-bbst-item-overlay-span {
-	color: white;
-	font-size: 10px;
-}
-
-.s-paging-container {
-	height: 30px;
-	margin: 0 auto;
-}
-
-.s-paging-ul {
-	display: inline-block;
-}
-
-.s-paging-ul li {
-	height: 16px;
-	width: 8px;
-	list-style-type: none;
-}
-
-.s-paging-ul li>a {
-	color: black;
-	padding: 8px 16px;
-}
-
-.s-paging-ul li>a:hover {
-	color: white;
-	padding: 8px 16px;
-	background-color: rgb(181, 135, 189);
-}
-
-.d-paging {
-	float: right;
-}
-
-.d-paging ul {
-	list-style: none;
-	margin: 10px;
-}
-
-.d-paging li {
-	float: left;
-}
-
-.d-paging-btn-active {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background-color: rgb(181, 135, 189);
-	border-radius: 50%;
-}
-
-.d-paging-btn-active a {
-	color: white;
-}
-
-.d-paging-btn-none {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-}
-
-</style>
+<link rel="stylesheet" href="/resources/css/mypage/mypost.css">
 </head>
 
 <body>
@@ -218,7 +91,7 @@ $(document).ready(function() {
 			
 			var str = "";
 			if(myBbstList == null || myBbstList.length == 0) {
-				bbstBox.html("<p>작성된 게시글이 없습니다.</p><br />");
+				bbstBox.html("<p style='margin: 35px 0 0 25px'>작성된 게시글이 없습니다.</p><br />");
 				return;
 			}
 			

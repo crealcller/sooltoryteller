@@ -6,9 +6,8 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
+<html>
 <head>
-<link rel="stylesheet" href="/resources/css/cheers/list.css">
-
 <!-- 로그인이 안된 상태면 로그인페이지로 넘어가게 -->
 <script type="text/javascript">
 let msg = "${msg}";
@@ -17,14 +16,17 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
+<link rel="stylesheet" href="/resources/css/cheers/list.css">
 </head>
 
 <body>
 <!-- topmenu.jsp에 css만 공통으로 넣고, div는 각자 페이지에 알아서 적용 -->
 <div class="s-main-background">
 	<!-- 게시판 메인 이미지 -->
-	<div class="s-bbst-main-img-container">
-		<img class="s-bbst-main-img" src="/resources/img/beach.jpg" />
+	<div class="s-bbst-main-img-container" id="s-slide" val="1" mx="3">
+		<li id="s-img1"><img class="s-bbst-main-img" src="/resources/img/beach-edit.jpg" /></li>
+		<li id="s-img2"><img class="s-bbst-main-img" src="/resources/img/splash-edit.jpg" /></li>
+		<li id="s-img3"><img class="s-bbst-main-img" src="/resources/img/can-edit.jpg" /></li>
 	</div>
 	
 	<!-- 게시판 검색창 & 글쓰기 버튼 -->
@@ -62,7 +64,7 @@ let msg = "${msg}";
 		<!-- 모든 게시글 조회 -->
 		<div class="s-bbst-container">
 			<c:if test="${empty bbstList }">
-				<p>작성된 게시글이 없습니다.</p>
+				<p style="width: 180px; margin: 0 auto; padding-top: 30px;">작성된 게시글이 없습니다.</p>
 			</c:if>
 			<c:if test="${not empty bbstList }">
 				<c:forEach items="${bbstList }" var="bbst">
@@ -103,7 +105,7 @@ let msg = "${msg}";
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next }">
-				<li class="s-paginate_button next" style="width: 50px;">
+				<li class="s-paginate_button next" style="width: 30px;">
 					<a href="${pageMaker.endPage + 1 }"><i class="fas fa-arrow-circle-right"></i></a>
 				</li>
 			</c:if>
@@ -120,8 +122,25 @@ let msg = "${msg}";
 
 </div>
 </div>
-
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
+
+<!-- 이미지 슬라이드쇼 -->
+<script type="text/javascript">
+imgSlide();
+function imgSlide() {
+	$val = $("#s-slide").attr("val");
+	$mx = $("#s-slide").attr("mx");
+	$("#s-img" + $val).hide();
+	if($val == $mx) {
+		$val = 1;
+	} else {
+		$val++;
+	}
+	$("#s-img" + $val).fadeIn(500);
+	$("#s-slide").attr("val", $val);
+	setTimeout("imgSlide()", 3000);
+}
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {

@@ -33,7 +33,7 @@ if(msg != ''){
     }
         
     tr:nth-child(even) {
-      background-color: #d8e1f1;;
+      background-color: rgb(238 243 255);
     }
     
     ul{
@@ -45,6 +45,11 @@ if(msg != ''){
       color: black;
     }
     
+    .pull-right{
+      padding-top: 13px;
+      text-align: right;
+    }
+    
 	.h-pagination {
   	  display: inline-block;
 	}
@@ -52,11 +57,11 @@ if(msg != ''){
 	.h-pagination li {
   	  color: black;
   	  float: left;
-  	  padding: 8px 16px;
+  	  padding: 4px 10px;
   	}
   	
   	.h-pagination li.active{
-  	  background-color: navy;
+  	  background-color: rgb(10, 29, 74);
   	}
   	
 	.h-pagination li.active >a {
@@ -64,12 +69,12 @@ if(msg != ''){
   	  color: white;
 	}
 
-.h-pagination li:hover:not(.active) {background-color: #ddd;}
+.h-pagination li:hover:not(.active) {background-color: rgb(80 98 140);}
 </style>
 </head>
 <body>
 
- <h3 style="margin-left: 20px;">[양조장 관리]</h3>
+ <h3 style="margin: 0 0 10px 15px;">[ 양조장 관리 ]</h3>
         <table>
         <thead>
           <tr>
@@ -119,15 +124,19 @@ if(msg != ''){
 	<form id="h-actionForm" action="/admin/liq-co-list" method='get'>
 			<input type="hidden" name="pageNum" value="${pageMaker.adCri.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
-		</form>
+	</form>
 		
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
         
  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  
     $(document).ready(function(){
     	
-		$("#d-liq-co-list").css('background-color', 'navy').css('color','white');
+		$("#d-liq-co-list").css('background-color', 'rgb(10, 29, 74)').css('color','white');
 		
     	$(".h-paginate_button a").on("click", function(e){
     		
@@ -148,8 +157,6 @@ if(msg != ''){
     	actionForm.submit();
     	}); 
     });	
-    		
-    
     
     </script>
 </body>

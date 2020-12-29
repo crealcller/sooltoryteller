@@ -2,8 +2,6 @@
 
 .s-main-background {
 	width: 1520px;
-	background-color: #daebe8;
-	padding-top: 50px;
 }
 
 .s-main-column {
@@ -70,13 +68,9 @@
 	float: left;
 }
 
-.s-writer-img-span {
-	margin: 10px 0 0 7px;
-}
-
 .s-writer-img {
-	height: 35px;
-	width: 35px;
+	height: 45px;
+	width: 45px;
 	border-radius: 50px;
 }
 
@@ -236,6 +230,7 @@
 	border: 1px solid #888;
 	height: 350px;
 	width: 350px;
+	border-radius: 10px;
 }
 
 .s-bbstReply-modal-top {
@@ -268,6 +263,7 @@
 	height: 120px;
 	width: 230px;
 	margin-top: 5px;
+	resize: none;
 }
 
 .s-bbstReply-modal-footer {

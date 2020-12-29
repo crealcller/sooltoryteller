@@ -23,7 +23,7 @@ if(msg != ''){
 </head>
 <body>
 <div>
-    <h3 style="margin-left: 20px;">[FAQ]</h3>
+    <h3 style="margin: 0 0 10px 15px;">[ FAQ ]</h3>
     <button class="h-faq-regbtn" type="button">등록</button></div>
         
         <table>
@@ -56,9 +56,6 @@ if(msg != ''){
           	 <button type='submit' class="h-faq-searchbtn">검색</button>
            </form>
         </div>
-        
-        
-        
         
         <div class="pull-right">
         	<ul class="h-pagination">
@@ -94,14 +91,11 @@ if(msg != ''){
    			</div>
 			</div>
 			<!-- /.modal -->
-    </div><!--인크루드 하는 페이지에 넣기-->
-    </div><!--인크루드 하는 페이지에 넣기-->
-    
     
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-admin-faq").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-faq").style="background-color: rgb(10, 29, 74); color: white;";
 		
 		var result = '<c:out value="${result}"/>';
 		var modal = document.getElementById("h-myModal");
@@ -183,6 +177,10 @@ if(msg != ''){
 			
  });
      </script>
-</body>
+     
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
+</body>
 </html>

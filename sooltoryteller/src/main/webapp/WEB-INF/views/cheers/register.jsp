@@ -1,17 +1,3 @@
-<!-- jquery script src -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- fontawesome -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
-<script type="text/javascript">
-// 로그인이 안된 상태면 로그인페이지로 넘어가게
-let msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-		location.href = "/login";
-}
-</script>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -20,152 +6,20 @@ let msg = "${msg}";
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
+<html>
+<head>
+<script type="text/javascript">
+// 로그인이 안된 상태면 로그인페이지로 넘어가게
+let msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+		location.href = "/login";
+}
+</script>
 <link rel="stylesheet" href="/resources/css/cheers/register.css">
+</head>
 
-<style>
-
-.s-main-background {
-	width: 1520px;
-	background-color: #daebe8;
-	padding-top: 50px;
-}
-
-.s-main-column {
-	height: auto;
-	width: 1000px;
-	background-color: white;
-	margin: 0 auto;
-}
-
-.s-register-container {
-	height: 550px;
-	width: 800px;
-	margin: 0 auto;
-	padding-top: 30px;
-	border: none;
-}
-
-.s-register-topbar {
-	border: 3px solid #eef3f3;
-	height: 40px;
-	width: 100%;
-	margin: 0 0 10px 0;
-	display: inline-block;
-	font-size: 20px;
-}
-
-.s-topbar-title-div {
-	height: 100%;
-	width: 580px;
-	float: left;
-}
-
-.s-title {
-	width: 60px;
-	margin: 4.5px 0 0 6px;
-	display: inline-block;
-	color: white;
-	background-color: #77a8a8;
-}
-
-.s-topbar-btn-div {
-	height: 100%;
-	width: 200px;
-	float: right;
-}
-
-#s-bbst-cancelBtn {
-	height: 30px;
-	width: 60px;
-	border: none;
-	border-radius: 10px;
-	margin: 2.5px 15px 0 0;
-	cursor: pointer;
-	float: right;
-	transition: 0.3s;
-	color: white;
-	background-color: #96ceb4;
-}
-
-#s-bbst-registerBtn {
-	height: 30px;
-	width: 60px;
-	border: none;
-	border-radius: 10px;
-	margin: 2.5px 15px 0 0;
-	cursor: pointer;
-	float: right;
-	transition: 0.3s;
-	color: white;
-	background-color: #ff6f69;
-}
-
-.s-form-title-div {
-	height: 33px;
-	width: 100%;
-	margin-bottom: 10px;
-	border: 3px solid #eef3f3;
-}
-
-.s-cn-container {
-	height: 400px;
-	width: 800px;
-	margin: 10px auto 0 auto;
-	background-color: #eef3f3;
-}
-
-.s-form-cnImg-div {
-	height: 350px;
-	width: 350px;
-	margin: 25px 33px 0 33px;
-	border: 3px solid #eef3f3;
-	display: inline-block;
-	float: left;
-	background-color: white;
-}
-
-.s-select-cnImg {
-	height: 280px;
-	width: 280px;
-	margin: 0 auto;
-	background: url("/resources/img/bbst-bg.png");
-	background-repeat: no-repeat;
-	background-size: 280px 280px;
-}
-
-.s-select-cnImg img {
-	min-height: 280px;
-	min-width: 280px;
-	max-height: 280px;
-	max-width: 280px;
-}
-
-.s-cnImg-required {
-	width: 120px;
-	margin: 5px auto;
-	font-size: 10px;
-	color: crimson;
-}
-
-.s-form-cn-div {
-	height: 350px;
-	width: 350px;
-	margin-top: 25px;
-	padding: 15px 15px;
-	display: inline-block;
-	background-color: white;
-}
-
-.s-form-cn {
-	height: 350px;
-	width: 350px;
-	margin-top: 25px;
-	padding: 25px;
-}
-
-</style>
 <body>
-
 <div class="s-main-background">
 	<div class="s-main-column">
 

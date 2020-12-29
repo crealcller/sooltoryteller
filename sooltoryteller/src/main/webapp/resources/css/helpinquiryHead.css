@@ -3,6 +3,7 @@
 		.h-inq-body{
             width: 900px;
             height: 600px;
+            margin-left: 70px;
             padding-left: 20px;
         }
 
@@ -12,7 +13,7 @@
         }
         .h-inq-content{
             width: 700px;
-            height: 300px;
+            height: 205px;
             resize: none;
             font-size: 18px;
         }

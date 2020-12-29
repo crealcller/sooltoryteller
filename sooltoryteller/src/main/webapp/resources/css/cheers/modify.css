@@ -37,7 +37,7 @@
 }
 
 .s-title {
-	width: 110px;
+	width: 100px;
 	margin: 4.5px 0 0 6px;
 	display: inline-block;
 	color: white;
@@ -116,7 +116,7 @@
 .s-select-cnImg {
 	height: 280px;
 	width: 280px;
-	margin: 20px auto 10px auto;
+	margin: 20px auto 10px 30px;
 	background: url("/resources/img/bbst-bg.png");
 	background-repeat: no-repeat;
 	background-size: 280px 280px;
@@ -143,4 +143,5 @@
 	width: 350px;
 	margin-top: 25px;
 	padding: 25px;
+	resize: none;
 }

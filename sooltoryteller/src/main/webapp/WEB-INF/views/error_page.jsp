@@ -180,4 +180,5 @@ a {
 		</div>
 	</div>
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

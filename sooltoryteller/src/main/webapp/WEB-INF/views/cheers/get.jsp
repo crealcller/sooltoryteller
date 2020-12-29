@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <html>
 <head>
 <script type="text/javascript">
@@ -10,15 +13,13 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="/resources/css/cheers/get.css">
 </head>
-</html>
+
 <body>
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
-<div class="s-main-background" style="background-color: #daebe8;">
+<div class="s-main-background" style="background-color: #daebe8; padding: 50px 0 30px 0">
 	<div class="s-main-column">
 	
 		<div class="s-bbst-container">
@@ -54,14 +55,9 @@ let msg = "${msg}";
 				
 				<!-- 회원 프로필 사진 -->
 				<div class="s-writer-img-div">
-					<%-- <c:choose>
-						<c:when test="${bbst.img == 'user.png'}">
-							<span class="s-writer-img-span"><img src="" /><i class="fas fa-user-circle" style="font-size:35px;"></i></span>
-						</c:when>
-						<c:when test="${bbst.img != 'user.png'}"> --%>
-							<span class="s-writer-img-span"><img class="s-writer-img" src="<c:out value='${bbst.img }' />" /></span>
-					<%-- 	</c:when>
-					</c:choose> --%>
+					<span class="s-writer-img-span" style="margin: 4px 0 0 7px;">
+						<img class="s-writer-img" src="<c:out value='${bbst.img }' />" />
+					</span>
 				</div>
 			</div>
 			
@@ -107,7 +103,7 @@ let msg = "${msg}";
 				<div class="s-bbstReply-modal-body">
 					<i class="fas fa-user"></i>&nbsp;<label id="s-bbstReply-name">작성자 </label><br />
 					<input type="text" class="s-modal-name" name="s-modal-name" readonly="readonly" /><br />
-					<input type="hidden" class="s-modal-memberId" name="s-modal-memberId" value="" />
+					<input type="hidden" class="s-modal-memberId" name="s-modal-memberId" />
 					
 					<i class="fas fa-edit"></i>&nbsp;<label>내용</label><br />
 					<textarea class="s-modal-replyCn" id="s-modal-replyCn" name="s-modal-replyCn"
@@ -115,19 +111,18 @@ let msg = "${msg}";
 				</div>
 				
 				<div class="s-bbstReply-modal-footer">
-					<button class="s-modalBtn" id="s-modal-registerBtn" type="button">등록</button>
 					<button class="s-modalBtn" id="s-modal-cancelBtn" type="button">취소</button>
+					<button class="s-modalBtn" id="s-modal-registerBtn" type="button">등록</button>
 					<button class="s-modalBtn" id="s-modal-modifyBtn" type="button">수정</button>
 					<button class="s-modalBtn" id="s-modal-removeBtn" type="button">삭제</button>
 				</div>
 			</div>
 		</div>
-
 </div>
 </div>
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
-<!-- 댓글 -->
+<!-- 댓글 javascript -->
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
 
 <!-- 서버단 유효성 검사 -->
@@ -138,8 +133,8 @@ if(errorMsg != "") {
 }
 </script>
 
+<!-- 댓글 모달 작업 -->
 <script type="text/javascript">
-
 $(document).ready(function() {
 	
 	var bbstIdValue = "<c:out value='${bbst.bbstId}' />";
@@ -152,7 +147,7 @@ $(document).ready(function() {
 	var openModalBtn = $("#s-bbstReply-openModalBtn");
 	// 모달
 	var replyModal = $("#s-bbstReply-modal-container");
-	// 댓글 닉네임
+	// 댓글 작성자 닉네임
 	var replyName = replyModal.find("input[name='s-modal-name']");
 	// 댓글 내용
 	var replyCn = replyModal.find("textarea[name='s-modal-replyCn']");
@@ -199,7 +194,7 @@ $(document).ready(function() {
 				if(list[i].img == "user.png") {
 					str += "<div class='s-bbstReply-img-div'><span class='s-writer-img-span'><img class='s-writer-img' src='/resources/img/user.png' /></span></div>"
 				} else {
-					str += "<div class='s-bbstReply-img-div'><span class='s-writer-img-span'><img class='s-writer-img' src=" + list[i].img + " /></span></div>"
+					str += "<div class='s-bbstReply-img-div'><span class='s-writer-img-span' style='margin-top: 5px;'><img class='s-writer-img' src=" + list[i].img + " /></span></div>"
 				}
 				str += "<div class='s-bbstReply-info-div'><strong class='s-bbstReply-name'>" + list[i].name + "</strong>";
 				str += "<p class='s-bbstReply-cn'>" + list[i].replyCn + "</p>";
@@ -253,6 +248,7 @@ $(document).ready(function() {
 				
 				bbstReplyService.add(reply, function(result) {
 					alert("댓글이 성공적으로 등록되었습니다.");
+					$("#s-bbst-replyCnt").html(Number(replyCnt) + 1);
 					replyModal.val("");
 					replyModal.fadeOut(200);
 					showList(-1);
@@ -271,8 +267,16 @@ $(document).ready(function() {
 	// 댓글 클릭 이벤트 처리
 	replyUL.on("click", "li", function(e) {
 		var bbstReplyId = $(this).data("bbstreplyid");
-
+		
 		bbstReplyService.get(bbstReplyId, function(reply) {
+			if (reply.memberId != loginMemberId) {
+				modifyReplyBtn.hide();
+				removeReplyBtn.hide();
+			} else {
+				modifyReplyBtn.show();
+				removeReplyBtn.show();
+			}
+			
 			replyName.val(reply.name);
 			replyCn.val(reply.replyCn);
 			replyRegdate.val(bbstReplyService.displayTime(reply.regdate)).attr("readonly", "readonly");
@@ -281,11 +285,6 @@ $(document).ready(function() {
 			registerReplyBtn.hide();
 			replyRegdateTitle.show();
 			replyRegdate.show();
-			
-			if(loginMemberId == bbstReplyId) {
-				modifyReplyBtn.show();
-				removeReplyBtn.show();
-			}
 			
 			replyModal.fadeIn(100);
 		});
@@ -307,9 +306,11 @@ $(document).ready(function() {
 				var reply = {bbstReplyId : replyModal.data("bbstreplyid"), replyCn : replyCn.val()};
 				
 				bbstReplyService.update(reply, function(result) {
-					alert("댓글이 성공적으로 수정되었습니다.");
-					replyModal.fadeOut(200);
-					showList(pageNum);
+					if(result === success) {
+						alert("댓글이 성공적으로 수정되었습니다.");
+						replyModal.fadeOut(200);
+						showList(pageNum);
+					}
 				});
 			} else {
 				replyModal.hide();
@@ -319,14 +320,17 @@ $(document).ready(function() {
 	
 	// 삭제 버튼 누르면
 	removeReplyBtn.on("click", function(e) {
+		
 		if(confirm("해당 댓글을 삭제하시겠습니까?")) {
 			var bbstReplyId = replyModal.data("bbstreplyid");
 			
 			bbstReplyService.remove(bbstReplyId, function(result) {
-				$("#s-bbst-replyCnt").html(Number(replyCnt) - 1);
-				alert("댓글이 성공적으로 삭제되었습니다.");
-				replyModal.fadeOut(200);
-				showList(pageNum);
+				if(result === success) {
+					$("#s-bbst-replyCnt").html(Number(replyCnt) - 1);
+					replyModal.fadeOut(200);
+					showList(pageNum);
+					alert("댓글이 성공적으로 삭제되었습니다.");
+				}
 			});
 		} else {
 			replyModal.hide();
@@ -378,7 +382,7 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- 좋아요 -->
+<!-- 좋아요 작업 -->
 <script type="text/javascript" src="/resources/js/bbstLike.js"></script>
 <script type="text/javascript">
 
@@ -429,6 +433,7 @@ $("#s-bbst-like").on({"click" : function() {
 }});
 </script>
 
+<!-- 게시글 수정 및 삭제 버튼 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -445,8 +450,7 @@ $(document).ready(function() {
 	});
 });
 </script>
-
-	</div>
+</div>
 </div>
 </body>
 </html>

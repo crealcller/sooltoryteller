@@ -24,7 +24,7 @@ if(msg != ''){
 </head>
 <body>
 <div>
-    <h3 style="margin-left: 20px;">[1:1문의]</h3>
+    <h3 style="margin: 0 0 10px 15px;">[ 1:1문의 ]</h3>
         
         <table>
         <thead>
@@ -103,13 +103,8 @@ if(msg != ''){
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">
 			<input type="hidden" name="type" value='<c:out value="${pageMaker.adCri.type }"/>'>
 			<input type="hidden" name="keywoed" value='<c:out value="${pageMaker.adCri.keyword }"/>'>
-			
-			
 		</form>
-
-
-    </div><!--인크루드 하는 페이지에 넣기-->
-    </div><!--인크루드 하는 페이지에 넣기-->
+		
   <!-- Modal  추가 -->   
 <div id="h-myModal" class="h-modal">
   <div class="h-modal-content">
@@ -122,7 +117,7 @@ if(msg != ''){
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-admin-inqlist").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-inqlist").style="background-color: rgb(10, 29, 74); color: white;";
 		
 		var result = '<c:out value="${result}"/>';
 		var modal = document.getElementById("h-myModal");
@@ -204,10 +199,14 @@ if(msg != ''){
      		}
      
     	});
-    	
-  
  });
-     </script>
-</body>
+</script>
+
+</div>
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
+</div><!--인크루드 하는 페이지에 넣기-->
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
+		
+</body>
 </html>

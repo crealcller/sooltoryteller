@@ -51,50 +51,51 @@ public class MemberController {
 	private String uploadPath;
 	
 	//로그인 view
-	@GetMapping("/login")
-	public ModelAndView soollogin(HttpSession session, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-
-		String referer = (String)request.getHeader("REFERER");
-		String kakaoUrl = kakaoController.getAuthorizationUrl(session);
-
-		mav.setViewName("login");
-		mav.addObject("kakaoUrl", kakaoUrl);
-		request.getSession().setAttribute("referer", referer);
-
-		return mav;
-	}
-
-	@PostMapping("/login")
-	public String soollogin(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes rttr, HttpSession session) {
-
-		String referer = (String) session.getAttribute("referer");
-		System.out.println("이전페이지 url : "+referer);
-
-		// id저장 체크박스
-		String save = request.getParameter("save");
-		//HttpSession session = request.getSession();
-		Cookie cookie = new Cookie("email", email);
-		// 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
-		if (service.loginCheck(email, pwd)) {
-			session.setAttribute("email", email);
-			session.setAttribute("authority", service.getAuthority(email));
-			// id저장 체크박스가 체크되어 있다면 쿠키 저장
-			if (save != null) {
-				response.addCookie(cookie);
-				// id저장 체크박스의 체크가 풀려있다면 쿠키 삭제
-			} else {
-				cookie.setMaxAge(0); // 쿠키의 유효시간을 0으로 변경(쿠키삭제)
-				response.addCookie(cookie); // 쿠키를 응답에 포함시킨다.
-			}
-		} else {
-			String msg = "입력하신 이메일 또는 비밀번호가 일치하지 않습니다.";
-			rttr.addFlashAttribute("msg", msg);
-			return "redirect:/login";
-		}
-		return "redirect:"+referer;
-	}
+    @GetMapping("/login")
+    public ModelAndView login(HttpSession session, HttpServletRequest request) {
+       ModelAndView mav = new ModelAndView();
+       
+       String referer = (String)request.getHeader("REFERER");
+       String kakaoUrl = kakaoController.getAuthorizationUrl(session);
+       //String naverUrl = naverLoginController.getAuthorizationUrl(session);
+       
+       mav.setViewName("login");
+       mav.addObject("kakaoUrl", kakaoUrl);
+      // mav.addObject("naverUrl", naverUrl);
+       request.getSession().setAttribute("referer", referer);
+       
+       return mav;
+    }
+    
+    @PostMapping("/login")
+    public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
+           HttpSession session, RedirectAttributes rttr) {
+       
+       String referer = (String) session.getAttribute("referer");
+       System.out.println("이전페이지 url : "+referer);
+       
+       // id저장 체크박스
+       String save = request.getParameter("save");
+       //HttpSession session = request.getSession();
+       Cookie cookie = new Cookie("email", email);
+       // 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
+       if (service.loginCheck(email, pwd)) {
+          session.setAttribute("email", email);
+          session.setAttribute("authority", service.getAuthority(email));
+          // id저장 체크박스가 체크되어 있다면 쿠키 저장
+          if (save != null) {
+             response.addCookie(cookie);
+             // id저장 체크박스의 체크가 풀려있다면 쿠키 삭제
+          } else {
+             cookie.setMaxAge(0); //8 쿠키의 유효시간을 0으로 변경(쿠키삭제)
+             response.addCookie(cookie); // 쿠키를 응답에 포함시킨다.
+          }
+       } else {
+          String msg = "입력하신 이메일 또는 비밀번호가 일치하지 않습니다.";
+          rttr.addFlashAttribute("msg", msg);
+       }
+       return "redirect:"+referer;
+    }
 	 
 	// 로그아웃
 	@GetMapping("/logout")

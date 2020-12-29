@@ -21,7 +21,6 @@ if(authority == null || !authority.equalsIgnoreCase("admin")){
 	out.println("<script>alert('접근 권한이 없는 사용자 입니다.'); location.href='/';</script>");
 }
 
-
 //로그아웃시 캐시삭제
 response.setHeader("Cache-Control", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -29,13 +28,16 @@ response.setDateHeader("Expires", 0);
 response.setHeader("Pragma", "no-cache");
 %>
 
-
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 	<style>
         * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   font-family: 'Nanum Gothic', sans-serif;
 }
 button {
    cursor: pointer;
@@ -116,20 +118,29 @@ a {
 }
 .h-imgarea{
 width: 1520px;
-height: 320px;
+height: 550px;
 }
 .h-centerImg{
 width: 1520px;
-height: 300px;
+height: 550px;
 }
 .h-body{
 width: 1520px;
+padding: 30px 0;
+background-color: rgb(225 233 255);
+display: inline-block;
+}
+.h-column {
+width: 1300px;
+margin: 0 auto;
+padding: 30px 0 10px 0;
+background-color: white;
 }
 .h-sidebar {
-margin: 0;
+margin: 0 0 0 20px;
 padding: 0;
 width: 200px;
-height: 600px;
+height: 500px;
 text-align: center;
 overflow: hidden;
 display: inline-block;
@@ -143,14 +154,14 @@ font-weight: bold;
 text-decoration: none;
 }
 .h-sidebar a:hover {
-background-color: navy;
+background-color: rgb(80 98 140);
 color: white;
 }
         
 div.h-content {
-width: 1100px;
-height: 600px;
-padding-left:20px;
+width: 1000px;
+height: 500px;
+margin-left: 25px;
 overflow: hidden;
 display: inline-block;
 }
@@ -160,7 +171,6 @@ float:left;
  </style>
   <body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        
          <div class="h-logobar">
         <div class="h-logo">
          <div class="d-logo-left-con">
@@ -202,20 +212,20 @@ float:left;
     </div>
         
         <div class="h-imgarea">
-            <img src='/resources/img/faq3.jpg' class="h-centerImg">
+            <img src='/resources/img/garrison.jpg' class="h-centerImg">
         </div>
         
-        
         <div class="h-body">
-            <div class="h-sidebar">
-              <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
-              <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
-              <!-- 다울 추가 12/12 --> 
-              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장 관리</a>
-              <a href="/admin/liq-co-register" id='d-liq-co-register'>양조장 등록</a>
-              <a href="/admin/liq-list" id='d-liq-list'>전통주 관리</a>
-              <a href="/admin/liq-register" id='d-liq-register'>전통주 등록</a>
-              <a href="/admin/inquirylist" id='h-admin-inqlist'>1:1문의</a>
-              <a href="/admin/faqlist" id='h-admin-faq'>FAQ</a>
-            </div><div class="h-content">
+        	<div class="h-column">
+	            <div class="h-sidebar">
+	              <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
+	              <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
+	              <!-- 다울 추가 12/12 --> 
+	              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장관리</a>
+	              <a href="/admin/liq-co-register" id='d-liq-co-register'>양조장 등록</a>
+	              <a href="/admin/liq-list" id='d-liq-list'>전통주 관리</a>
+	              <a href="/admin/liq-register" id='d-liq-register'>전통주 등록</a>
+	              <a href="/admin/inquirylist" id='h-admin-inqlist'>1:1문의</a>
+	              <a href="/admin/faqlist" id='h-admin-faq'>FAQ</a>
+	            </div><div class="h-content">
  

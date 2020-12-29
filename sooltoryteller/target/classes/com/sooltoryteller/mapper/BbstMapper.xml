@@ -153,7 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from bbst b, bbst_cnt c, member m
 	where b.bbst_id = c.bbst_id
 	and b.member_id = m.member_id
-	order by c.view_cnt desc, b.bbst_id desc)
+	order by c.view_cnt desc, c.like_cnt desc)
 	where rownum <= 4
 	]]>
 </select>

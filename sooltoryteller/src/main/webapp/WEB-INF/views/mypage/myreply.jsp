@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
+
 <html>
 <head>
 <script type="text/javascript">
@@ -15,92 +16,7 @@
 		location.href = "/login";
 	}
 </script>
-
-<style>
-
-.s-myBbstReply-container {
-	width: 800px;
-	height: 700px;
-	margin: 0 auto;
-}
-
-.s-myBbstReply-ul {
-	margin-top: 40px;
-}
-
-.s-bbstReply-li {
-	width: 800px;
-	height: 120px;
-	margin: 15px auto;
-	list-style: none;
-	border-bottm: 1px solid black;
-}
-
-.s-bbstReply-item {
-	width: 750px;
-	height: 100%;
-	margin: 0 auto;
-}
-
-.s-bbstReply-cnImg-div {
-	margin-right: 25px;
-	display: inline-block;
-	float: left;
-}
-
-.s-bbstReply-cnImg {
-	width: 120px;
-	height: 120px;
-	cursor: pointer;
-}
-
-.s-bbstReply-cn-div {
-	width: 500px;
-	height: 120px;
-	display: inline-block;
-	font-size: 14px;
-}
-
-.s-bbstReply-date-div {
-	width: 100px;
-	height: 120px;
-	display: inline-block;
-	font-size: 14px;
-	text-align: right;
-}
-
-.d-paging {
-	float: right;
-}
-
-.d-paging ul {
-	list-style: none;
-	margin: 10px;
-}
-
-.d-paging li {
-	float: left;
-}
-
-.d-paging-btn-active {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background-color: rgb(181, 135, 189);
-	border-radius: 50%;
-}
-
-.d-paging-btn-active a {
-	color: white;
-}
-
-.d-paging-btn-none {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-}
-</style>
+<link rel="stylesheet" href="/resources/css/mypage/myreply.css">
 </head>
 <body>
 			<h2>내가 작성한 댓글</h2>
@@ -110,6 +26,32 @@
 			
 			<!-- 페이징 처리 -->
 			<div class="d-paging" style="width: 700px; margin-right: 35px;"></div>
+			
+			<!-- 댓글 모달 -->
+			<div class="s-bbstReply-modal-container" id="s-bbstReply-modal-container">
+				<div class="s-bbstReply-modal-content">
+					<div class="s-bbstReply-modal-top">
+						<input class="s-modal-regdate" id="s-modal-regdate" name="s-modal-regdate" />
+					</div>
+					
+					<div class="s-bbstReply-modal-body">
+						<i class="fas fa-user"></i>&nbsp;<label id="s-bbstReply-name">작성자 </label><br />
+						<input type="text" class="s-modal-name" name="s-modal-name" readonly="readonly" /><br />
+						<input type="hidden" class="s-modal-memberId" name="s-modal-memberId" value="" />
+						
+						<i class="fas fa-edit"></i>&nbsp;<label>내용</label><br />
+						<textarea class="s-modal-replyCn" id="s-modal-replyCn" name="s-modal-replyCn"
+						placeholder="내용을 입력해주세요." maxlength=100></textarea><br />
+					</div>
+					
+					<div class="s-bbstReply-modal-footer">
+						<button class="s-modalBtn" id="s-modal-cancelBtn" type="button">취소</button>
+						<!-- <button class="s-modalBtn" id="s-modal-registerBtn" type="button">등록</button> -->
+						<button class="s-modalBtn" id="s-modal-modifyBtn" type="button">수정</button>
+						<button class="s-modalBtn" id="s-modal-removeBtn" type="button">삭제</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -117,10 +59,14 @@
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	var memberIdValue = "<c:out value='${member.memberId}' />";
 	var myReplyUL = $(".s-myBbstReply-ul");
+	var myReply = $(".s-bbstReply-cn-div");
+	var loginMemberId = "<c:out value='${memberId}' />";
+	var loginName = "<c:out value='${name}' />";
 	var paging = $(".d-paging");
 	var pageNum = 1;
 	showMyList(1);
@@ -158,7 +104,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		let targetPageNum =$(this).attr("href");
 		pageNum = targetPageNum;
-		showMyList( 	pageNum);
+		showMyList(pageNum);
 	});
 	
 	// 리스트 출력
@@ -179,9 +125,9 @@ $(document).ready(function() {
 			}
 			
 			for(var i = 0, len = myReplyList.length || 0; i < len; i++) {
-				str += "<li class='s-bbstReply-li'>";
+				str += "<li class='s-bbstReply-li' id='s-bbstReply-li'>";
 				str += "<div class='s-bbstReply-item'><div class='s-bbstReply-cnImg-div'><img class='s-bbstReply-cnImg' data-bbstid='" + myReplyList[i].bbstId + "'src='" + myReplyList[i].cnImg + "' /></div>";
-				str += "<div class='s-bbstReply-cn-div'><p class='s-bbstReply-cn'>" + myReplyList[i].replyCn + "</p></div>";
+				str += "<div class='s-bbstReply-cn-div' style='cursor:pointer;' data-bbstreplyid='" + myReplyList[i].bbstReplyId + "'><p class='s-bbstReply-cn'>" + myReplyList[i].replyCn + "</p></div>";
 				str += "<div class='s-bbstReply-date-div'><small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(myReplyList[i].regdate) + "</small></div></div></li>";
 			}
 			myReplyUL.html(str);
@@ -194,9 +140,92 @@ $(document).ready(function() {
 		var targetBbstId = $(this).data("bbstid");
 		location.href = location.href = "/cheers/get?bbstId=" + targetBbstId;
 	});
+	
+	// 내가 작성한 댓글 모달
+	var replyModal = $("#s-bbstReply-modal-container");
+	// 댓글 닉네임
+	var replyName = replyModal.find("input[name='s-modal-name']");
+	// 댓글 내용
+	var replyCn = replyModal.find("textarea[name='s-modal-replyCn']");
+	// 댓글 등록 일시
+	var replyRegdateTitle = $(".s-modal-regdate-title");
+	var replyRegdate = replyModal.find("input[name='s-modal-regdate']");
+	// 모달 버튼
+	/* var registerReplyBtn = $("#s-modal-registerBtn"); */
+	var cancelReplyBtn = $("#s-modal-cancelBtn");
+	var modifyReplyBtn = $("#s-modal-modifyBtn");
+	var removeReplyBtn = $("#s-modal-removeBtn");
+	
+	// 내가 작성한 댓글 내용 클릭하면
+	myReplyUL.on("click", ".s-bbstReply-cn-div", function(e) {
+		var bbstReplyId = $(this).data("bbstreplyid");
+		console.log("bbstReplyId: " + bbstReplyId);
+
+		bbstReplyService.get(bbstReplyId, function(reply) {
+			replyName.val(reply.name);
+			replyCn.val(reply.replyCn);
+			replyRegdate.val(bbstReplyService.displayTime(reply.regdate)).attr("readonly", "readonly");
+			replyModal.data("bbstreplyid", reply.bbstReplyId);
+			
+			/* registerReplyBtn.hide(); */
+			replyRegdateTitle.show();
+			replyRegdate.show();
+			
+			if(loginMemberId == bbstReplyId) {
+				modifyReplyBtn.show();
+				removeReplyBtn.show();
+			}
+			replyModal.fadeIn(100);
+		});
+	});
+	
+	// 취소 버튼 누르면 모달 닫힘
+	cancelReplyBtn.on("click", function(e) {
+		replyModal.fadeOut(100);
+	});
+	
+	// 수정 버튼 누르면
+	modifyReplyBtn.on("click", function(e) {
+		// 유효성 검사
+		if($.trim(replyCn.val()).length < 2) {
+			alert("최소 2자 이상의 댓글을 입력해주세요.");
+			replyCn.val();
+			return false;
+		} else if($.trim(replyCn.val()).length > 100) {
+			alert("최대 100자 이하의 댓글을 입력해주세요.");
+			replyCn.val();
+			return false;
+		} else {
+			if(confirm("해당 댓글을 수정하시겠습니까?")) {
+				var reply = {bbstReplyId : replyModal.data("bbstreplyid"), replyCn : replyCn.val()};
+				
+				bbstReplyService.update(reply, function(result) {
+					showMyList(1);
+					replyModal.fadeOut(200);
+					alert("댓글이 성공적으로 수정되었습니다.");
+				});
+			} else {
+				replyModal.hide();
+			}
+		}
+	});
+	
+	// 삭제 버튼 누르면
+	removeReplyBtn.on("click", function(e) {
+		if(confirm("해당 댓글을 삭제하시겠습니까?")) {
+			var bbstReplyId = replyModal.data("bbstreplyid");
+			
+			bbstReplyService.remove(bbstReplyId, function(result) {
+				location.reload();
+				replyModal.fadeOut(200);
+				showMyList(pageNum);
+				alert("댓글이 성공적으로 삭제되었습니다.");
+			});
+		} else {
+			replyModal.hide();
+		}
+	});
 });
-
 </script>
-
 </body>
 </html>

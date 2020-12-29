@@ -13,7 +13,7 @@
     }
         
     tr:nth-child(even) {
-      background-color:  #f2eff9;
+      background-color: rgb(238 243 255);
     }
     ul{
       list-style:none;
@@ -27,7 +27,6 @@
     
     .pull-right{
       text-align: right;
-      margin-right: 20px;
     }
     
 	.h-pagination {
@@ -37,11 +36,11 @@
 	.h-pagination li {
   	  color: black;
   	  float: left;
-  	  padding: 8px 16px;
+  	  padding: 4px 10px;
   	}
   	
   	.h-pagination li.active{
-  	  background-color: rgb(181, 135, 189);
+  	  background-color: rgb(10, 29, 74);
   	 
   	}
   	
@@ -50,13 +49,13 @@
   	  color: white;
 	}
 
-	.h-pagination li:hover:not(.active) {background-color: #ddd;}
+	.h-pagination li:hover:not(.active) {background-color: rgb(80 98 140);}
         
      .h-faq-searchbtn{
 	   width: 60px;
        height: 25px;
        border: none;
-       background-color: rgb(181, 135, 189);
+       background-color: rgb(10, 29, 74);
        color: white;
      }
      #h-searchForm{
