@@ -166,6 +166,7 @@ $(document).ready(function(){
 	var revwUL = $(".d-revws");
 	var pageNum = 1;
 	var revwPageFooter =$(".d-paging");
+	var submitted = false;
 	showList(1);
 	
 	function showRevwPage(revwCnt){
@@ -278,8 +279,11 @@ $(document).ready(function(){
 	
 	//리뷰 작성후 제출 버튼
 	revwRegBtn.on("click",function(e){
-		let revwCntHtml = $("#d-revw-cnt");
-		let revwCnt = $(".d-revw-cnt");
+		const revwCntHtml = $("#d-revw-cnt");
+		const revwCnt = $(".d-revw-cnt");
+		if(submitted == true){
+			return;
+		}
 		if(newRevwCn.val().trim().length==0){
 			alert("내용을 입력해주세요 ");
 			return;
@@ -300,12 +304,15 @@ $(document).ready(function(){
 				cn:newRevwCn.val(),
 				rate:newRevwRate
 		};
+		submitted = true;
 		revwService.add(revw,function(result){
+			if(result == "success"){
 			alert("리뷰가 등록 되었습니다");
 			revwModal.fadeOut(100);
 			revwCntHtml.html(Number(revwCntHtml.html())+1);
 			revwCnt.html(Number(revwCnt.html())+1);
 			showList(1);
+			}
 		});
 	});
 	   

@@ -17,7 +17,8 @@
 		<result column="member_name" property="name" />
 		<result column="pwd" property="pwd" />
 		<result column="telno" property="telno" />
-		<result column="member_img" property="img" />
+		<result column="img" property="img" />
+		<result column="member_thumb" property="thumbImg" />
 		<result column="regdate" property="regdate" />
 		<result column="updatedate" property="updatedate" />
 		</association>
@@ -51,16 +52,18 @@
 	<select id="getListWithPaging" resultMap="LiqRevwVO">
 		<!-- 조인조건 순서에 따라 index 힌트가 안먹을 수 있음 조인문을 먼저 작성시 member순으로 정렬됨(sql에선 상관없었음)-->		
 		<![CDATA[
-		select rv.liq_id,rv.revw_id,rv.member_name,rv.cn,rv.rate,rv.regdate,rv.member_img
-		from(
-		select /*+INDEX(r idx_revw) */
-		rownum rn, r.liq_id,r.revw_id, r.cn, r.rate, r.regdate, m.img member_img, m.name member_name
+		select a.liq_id, a.revw_id, a.member_name, a.cn, a.rate, a.regdate, a.member_thumb
+		from (
+		select rownum rn, rv.liq_id,rv.revw_id,rv.member_name,rv.cn,rv.rate,rv.regdate,rv.member_thumb
+		from( 
+		select r.liq_id,r.revw_id, r.cn, r.rate, r.regdate, m.thumbimg member_thumb, m.name member_name
 		from liq_revw r, member m
-        where r.member_id=m.member_id
-		and liq_id = #{liqId}
+        where liq_id = #{liqId}
+		and r.member_id=m.member_id
 		and revw_id>0
-		and rownum <=#{cri.pageNum}*#{cri.amount}
-		)rv where rn > (#{cri.pageNum} -1)*#{cri.amount}
+		order by revw_id desc
+		)rv where rownum <=#{cri.pageNum}*#{cri.amount})a
+        where rn >  (#{cri.pageNum} -1)*#{cri.amount}
 		]]>
 	</select>
 	
