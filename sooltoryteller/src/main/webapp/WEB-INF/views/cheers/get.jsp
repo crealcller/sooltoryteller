@@ -33,7 +33,7 @@ let msg = "${msg}";
 				<div class="s-writer-info-btn-div">
 					<button data-oper="list" class="s-listBtn" style="">목록</button>
 					<!-- 본인이 쓴 게시물만 수정 가능 -->
-					<c:if test="${memberId == bbst.memberId }">
+					<c:if test="${memberId == bbst.memberId || admin != null }">
 						<button data-oper="modify" class="s-modifyBtn">수정</button>
 					</c:if>
 					<!-- 데이터 이동시키기 -->
@@ -172,8 +172,6 @@ $(document).ready(function() {
 		
 		bbstReplyService.getList({bbstId : bbstIdValue, page : page || 1 }, function(replyCnt, list) {
 			console.log("replyCnt: " + replyCnt);
-			console.log("list: " + list);
-			console.log(list);
 		
 			if(page == -1) {
 				pageNum = Math.ceil(replyCnt / 5.0);
@@ -267,9 +265,10 @@ $(document).ready(function() {
 	// 댓글 클릭 이벤트 처리
 	replyUL.on("click", "li", function(e) {
 		var bbstReplyId = $(this).data("bbstreplyid");
+		console.log(admin);
 		
 		bbstReplyService.get(bbstReplyId, function(reply) {
-			if (reply.memberId != loginMemberId) {
+			if(reply.memberId != loginMemberId) {
 				modifyReplyBtn.hide();
 				removeReplyBtn.hide();
 			} else {
@@ -363,8 +362,6 @@ $(document).ready(function() {
 			str += "<li class='s-bbstReplyList-pageItem next'><a class='s-bbstReplyList-pageLink' href='" + (endNum + 1) + "'><i class='fas fa-arrow-circle-right'></i></a></li>";
 		}
 		str += "</ul></div>";
-		
-		console.log(str);
 		replyPageFooter.html(str);
 	}
 	

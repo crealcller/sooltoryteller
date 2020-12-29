@@ -11,6 +11,7 @@ import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.MyBbstPageDTO;
+import com.sooltoryteller.domain.MyCntVO;
 import com.sooltoryteller.mapper.BbstLikeMapper;
 import com.sooltoryteller.mapper.BbstMapper;
 import com.sooltoryteller.mapper.BbstReplyMapper;
@@ -93,6 +94,20 @@ public class BbstServiceImpl implements BbstService {
 	}
 	
 	// 마이페이지
+	// 내 게시글 활동 현황
+	@Override
+	public Long[] getMyCnt(Long memberId) {
+		log.info("========== GET MY ACTIVITY ==========");
+		
+		MyCntVO myCnt = mapper.getMyCnt(memberId);
+		Long[] cnt = new Long[3];
+		cnt[0]=	myCnt.getBCnt();
+		cnt[1]=	myCnt.getRCnt();
+		cnt[2]=	myCnt.getLCnt();
+		
+		return cnt;
+	}
+	
 	// 내가 쓴 게시글 리스트
 	@Override
 	public MyBbstPageDTO getMyBbstList(

@@ -112,7 +112,6 @@ public class AdminController {
 		}
 		
 		model.addAttribute("coList", adService.coNm());
-		
 	}
 	
 	// 전통주 등록

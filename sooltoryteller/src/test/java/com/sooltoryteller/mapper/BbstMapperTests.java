@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
+import com.sooltoryteller.domain.MyCntVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -108,5 +109,12 @@ public class BbstMapperTests {
 	public void testGetBbstByView() {
 		List<BbstJoinVO> list = mapper.getBbstByView();
 		list.forEach(viewList -> log.info(viewList));
+	}
+	
+	@Test
+	public void testGetMyCnt() {
+		Long memberId = 3L;
+		MyCntVO myCnt = mapper.getMyCnt(memberId);
+		log.info(myCnt);
 	}
 }

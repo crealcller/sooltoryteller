@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
+import com.sooltoryteller.domain.MyCntVO;
 
 public interface BbstMapper {
 
@@ -40,6 +41,9 @@ public interface BbstMapper {
 		@Param("cnt") int cnt);
 	
 	// 마이페이지
+	// 내 게시글 활동 현황
+	public MyCntVO getMyCnt(Long memberId);
+	
 	// 내가 쓴 게시글 리스트
 	public List<BbstJoinVO> getMyBbstList(
 		@Param("cri") BbstCriteria cri,
