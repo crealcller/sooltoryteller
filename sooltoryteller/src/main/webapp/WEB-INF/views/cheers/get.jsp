@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <html>
 <head>
 <script type="text/javascript">
@@ -10,11 +13,9 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="/resources/css/cheers/get.css">
 </head>
-</html>
+
 <body>
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
@@ -54,16 +55,9 @@ let msg = "${msg}";
 				
 				<!-- 회원 프로필 사진 -->
 				<div class="s-writer-img-div">
-					<%-- <c:choose>
-						<c:when test="${bbst.img == 'user.png'}">
-							<span class="s-writer-img-span"><img src="" /><i class="fas fa-user-circle" style="font-size:35px;"></i></span>
-						</c:when>
-						<c:when test="${bbst.img != 'user.png'}"> --%>
-							<span class="s-writer-img-span" style="margin: 4px 0 0 7px;">
-								<img class="s-writer-img" src="<c:out value='${bbst.img }' />" />
-							</span>
-					<%-- 	</c:when>
-					</c:choose> --%>
+					<span class="s-writer-img-span" style="margin: 4px 0 0 7px;">
+						<img class="s-writer-img" src="<c:out value='${bbst.img }' />" />
+					</span>
 				</div>
 			</div>
 			
@@ -124,12 +118,11 @@ let msg = "${msg}";
 				</div>
 			</div>
 		</div>
-
 </div>
 </div>
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
-<!-- 댓글 -->
+<!-- 댓글 javascript -->
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
 
 <!-- 서버단 유효성 검사 -->
@@ -141,7 +134,6 @@ if(errorMsg != "") {
 </script>
 
 <script type="text/javascript">
-
 $(document).ready(function() {
 	
 	var bbstIdValue = "<c:out value='${bbst.bbstId}' />";
@@ -448,7 +440,7 @@ $(document).ready(function() {
 });
 </script>
 
-	</div>
+</div>
 </div>
 </body>
 </html>

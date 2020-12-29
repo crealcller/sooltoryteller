@@ -49,6 +49,6 @@
 		<button class="s-mainBtn"><a href="/">메인으로 돌아가기</a></button>
 	</div>
 </div>
-
 </body>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 </html>

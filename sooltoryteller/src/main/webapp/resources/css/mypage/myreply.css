@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+.s-myBbstReply-container {
+	width: 800px;
+	height: 700px;
+	margin: 0 auto;
+}
+
+.s-myBbstReply-ul {
+	margin-top: 40px;
+}
+
+.s-bbstReply-li {
+	width: 800px;
+	height: 120px;
+	margin: 15px auto;
+	list-style: none;
+	border-bottm: 1px solid black;
+}
+
+.s-bbstReply-item {
+	width: 750px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.s-bbstReply-cnImg-div {
+	margin-right: 25px;
+	display: inline-block;
+	float: left;
+}
+
+.s-bbstReply-cnImg {
+	width: 120px;
+	height: 120px;
+	cursor: pointer;
+}
+
+.s-bbstReply-cn-div {
+	width: 500px;
+	height: 120px;
+	padding-top: 50px;
+	display: inline-block;
+	font-size: 14px;
+}
+
+.s-bbstReply-date-div {
+	width: 100px;
+	height: 120px;
+	display: inline-block;
+	font-size: 14px;
+	text-align: right;
+}
+
+.d-paging {
+	float: right;
+}
+
+.d-paging ul {
+	list-style: none;
+	margin: 10px;
+}
+
+.d-paging li {
+	float: left;
+}
+
+.d-paging-btn-active {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	background-color: rgb(181, 135, 189);
+	border-radius: 50%;
+}
+
+.d-paging-btn-active a {
+	color: white;
+}
+
+.d-paging-btn-none {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+}
+
+
+
+
+.s-bbstReply-modal-container {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px; /* 모달 내부창 위치 */
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.s-bbstReply-modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	border: 1px solid #888;
+	height: 350px;
+	width: 350px;
+}
+
+.s-bbstReply-modal-top {
+	height: 20px;
+	width: 235px;
+	margin: 20px auto 0 auto;
+}
+
+.s-modal-regdate {
+	width: 145px;
+	text-align: right;
+	border: none;
+	float: right;
+}
+
+.s-bbstReply-modal-body {
+	height: 210px;
+	width: 300px;
+	margin: 5px auto 15px auto;
+	text-align: center;
+}
+
+.s-modal-name {
+	width: 165px;
+	margin: 5px 0 15px 0;
+	text-align: center;
+}
+
+.s-modal-replyCn {
+	height: 120px;
+	width: 230px;
+	margin-top: 5px;
+}
+
+.s-bbstReply-modal-footer {
+	width: 230px;
+	margin: 0 auto;
+}
+
+.s-modalBtn {
+	height: 30px;
+	width: 50px;
+	margin-left: 10px;
+	border: none;
+	border-radius: 10px;
+	float: right;
+	cursor: pointer;
+	transition: 0.3s;	
+}
+
+#s-modal-cancelBtn {
+	color: white;
+	background-color: #96ceb4;
+}
+
+#s-modal-modifyBtn {
+	color: white;
+	background-color: #ffcc5c;
+}
+
+#s-modal-removeBtn {
+	color: white;
+	background-color: #ff6f69;
+}

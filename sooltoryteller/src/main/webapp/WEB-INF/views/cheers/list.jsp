@@ -6,9 +6,8 @@
 
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
+<html>
 <head>
-<link rel="stylesheet" href="/resources/css/cheers/list.css">
-
 <!-- 로그인이 안된 상태면 로그인페이지로 넘어가게 -->
 <script type="text/javascript">
 let msg = "${msg}";
@@ -17,6 +16,7 @@ let msg = "${msg}";
 		location.href = "/login";
 }
 </script>
+<link rel="stylesheet" href="/resources/css/cheers/list.css">
 </head>
 
 <body>

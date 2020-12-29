@@ -1,13 +1,3 @@
-
-<script type="text/javascript">
-	// 로그인이 안된 상태면 로그인페이지로 넘어가게
-	let msg = "${msg}";
-	if (msg != "") {
-		alert(msg);
-		location.href = "/login";
-	}
-</script>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -16,98 +6,19 @@
 
 <%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
 
-<style>
-
-.s-bbst-container {
-	width: 800px;
-	height: 700px;
-	margin: 0 auto;
-}
-
-.s-bbst-item-container {
-	height: 180px;
-	width: 180px;
-	margin: 20px 0 30px 60px;
-	display: inline-block;
-	position: relative;
-	float: left;
-	cursor: pointer;
-}
-
-.s-bbst-img {
-	height: 180px;
-	width: 180px;
-	display: block;
-}
-
-.s-bbst-item-overlay {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 180px;
-	width: 180px;
-	opacity: 0;
-	transition: .3s ease;
-	background-color: rgb(181, 135, 189);
-}
-
-.s-bbst-item-container:hover .s-bbst-item-overlay {
-	opacity: 0.9;
-}
-
-.s-bbst-item-overlay-info {
-	font-size: 12px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 180px;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	display: inline-block;
-}
-
-.s-bbst-item-overlay-span {
-	color: white;
-	font-size: 12px;
-}
-
-
-.d-paging {
-	float: right;
-}
-
-.d-paging ul {
-	list-style: none;
-	margin: 10px;
-}
-
-.d-paging li {
-	float: left;
-}
-
-.d-paging-btn-active {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background-color: rgb(181, 135, 189);
-	border-radius: 50%;
-}
-
-.d-paging-btn-active a {
-	color: white;
-}
-
-.d-paging-btn-none {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-}
-
-</style>
+<html>
+<head>
+<script type="text/javascript">
+	// 로그인이 안된 상태면 로그인페이지로 넘어가게
+	let msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+		location.href = "/login";
+	}
+</script>
+<link rel="stylesheet" href="/resources/css/mypage/mylikedpost.css">
 </head>
+
 <body>
 			<h2>좋아요 누른 게시글</h2>
 			<div class="s-bbst-container">
