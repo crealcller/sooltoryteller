@@ -33,6 +33,9 @@ height:150px;
 
 <div class="d-con">
 <span><img class="d-img-con" src="<c:out value='${liq.liqThumb}'/>"></span>
+<input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
+accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${liq.liqThumb }' />" />
+<input type="hidden" name="liqThumb" value="<c:out value='${liq.liqThumb }' />" />
 <p>
 양조장 : <input type="text" class="liqCoNm" name='liqCoNm' value='<c:out value="${liq.liqCo.nm }"/>'>
 </p>
@@ -60,6 +63,8 @@ height:150px;
 </div>
 <script>
 $(document).ready(function(){
+	 $('input[name="cate"]:radio[value="${liq.cate}"]').prop('checked',true);
+
 	var formObj = $("#modify");
 	$('button').on("click", function(e){
 		e.preventDefault();

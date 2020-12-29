@@ -94,6 +94,7 @@
 
 .d-paging {
 	float: right;
+	margin-right: 40px;
 }
 
 .d-paging ul {
@@ -161,7 +162,6 @@
 	height: 25px;
 	background-color: rgb(181, 135, 189);
 	border-radius: 50%;
-	margin: 10px;
 }
 
 .d-paging-btn-active a {
@@ -173,7 +173,6 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	margin: 10px;
 }
 
 /* The Modal (background) */
