@@ -103,4 +103,10 @@ public class BbstMapperTests {
 		List<BbstJoinVO> list = mapper.getMyBbstList(cri, 2L);
 		list.forEach(myList -> log.info(myList.getMemberId()));
 	}
+	
+	@Test
+	public void testGetBbstByView() {
+		List<BbstJoinVO> list = mapper.getBbstByView();
+		list.forEach(viewList -> log.info(viewList));
+	}
 }

@@ -12,14 +12,7 @@
 			<div class="d-mypage-left">
 				<div class="d-left-con">
 					<div class="d-mypage-profile-con">
-						<c:if test="${member.img eq 'user.png' }">
-							<img class="d-mypage-profile"
-							src='/resources/img/<c:out value="${member.img}" />'>
-						</c:if>
-						<c:if test="${member.img ne 'user.png' }">
-							<img class="d-mypage-profile"
-							src='<c:out value="${member.img}" />'>
-						</c:if>
+						<img class="d-mypage-profile" src='<c:out value="${member.img}" />'>
 						<div class="d-mypage-info">
 							<h1>
 								<c:out value="${member.name}" />
@@ -30,10 +23,10 @@
 					<ul class="d-mypage-menu-con">
 						<li class="d-mypage-ref"><a href='/mypage/like'>전통주</a></li>
 						<ul class="d-mypage-menu">
-							<li class="d-mypage-li"><a href='/mypage/like'>좋아요한 전통주 </a>
-							</li>
 							<li class="d-mypage-li"><a href='/mypage/revw'>내가 작성한 리뷰
 							</a></li>
+							<li class="d-mypage-li"><a href='/mypage/like'>좋아요 누른 전통주 </a>
+							</li>
 						</ul>
 					</ul>
 					<ul class="d-mypage-menu-con">

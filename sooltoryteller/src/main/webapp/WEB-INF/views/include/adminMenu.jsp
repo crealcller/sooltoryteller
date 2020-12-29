@@ -50,13 +50,16 @@ a {
 }
 .h-logobar {
    width: 1520px;
-   height:90px;
-   border-bottom:solid 2px #E1E1E1;
-}
+   height:70px;
+   position: sticky;
+   top: 0px;
+   background-color: white; 
+   box-shadow : 0px -2px 8px 5px #e1e1e1;
+  }
 .h-logo-img {
    height: 60px;
    width: 145px;
-   margin:15px 0px 0px 30px;
+   margin:5px 0px 0px 30px;
 }
 .h-logo {
    width: 800px;
@@ -69,6 +72,8 @@ a {
    font-size: 13px;
    text-align: right;
    display: inline-block;
+   float:right;
+   padding: 40px 10px 0px 0px;
 }
 .h-dropbtn {
    background-color: Transparent;
@@ -77,6 +82,7 @@ a {
    font-size: 15px;
    font-weight: bold;
    border: none;
+   padding-bottom : 15px;
 }
 .h-dropdown {
    display: inline-block;
@@ -93,6 +99,7 @@ a {
    padding: 12px 16px;
    text-decoration: none;
    display: block;
+   font-size:13px;
 }
 .d-main-con {
    width: 100%;
@@ -147,25 +154,29 @@ padding-left:20px;
 overflow: hidden;
 display: inline-block;
 }
-        
-        
+.d-logo-left-con{
+float:left; 
+}        
  </style>
   <body>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         
          <div class="h-logobar">
         <div class="h-logo">
-        <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a>
+         <div class="d-logo-left-con">
+        <a href="/" id="h-company-name"><img class="h-logo-img" src='/resources/img/Logo_1-2.png'></a></div>
+            <div class="d-logo-left-con" style="padding-top:35px;">
             <div id="h-dropdown" class="h-dropdown">
             <button id="h-dropbtn1" class="h-dropbtn">전통주</button>
             <div id="h-dropdown-content" class="h-dropdown-content">
-                <a href="/all-liq">전체</a>
-                <a href="/liq-list?kind=탁주">탁주</a>
-                <a href="/liq-list?kind=약주 청주">약주/청주</a>
-                <a href="/liq-list?kind=과실주">과실주</a>
-                <a href="/liq-list?kind=증류주">증류주</a>
-                <a href="/liq-list?kind=기타류">기타류</a>
+                <a href="/liq-list">전체</a>
+                <a href="/liq-list?cate=탁주">탁주</a>
+                <a href="/liq-list?cate=약주 청주">약주/청주</a>
+                <a href="/liq-list?cate=과실주">과실주</a>
+                <a href="/liq-list?cate=증류주">증류주</a>
+                <a href="/liq-list?cate=기타류">기타류</a>
             </div>
+            
             </div>
             <div id="h-dropdown2" class="h-dropdown">
             <button id="h-dropbtn2" class="h-dropbtn">술BTI</button>
@@ -175,6 +186,7 @@ display: inline-block;
             </div>
             <div id="h-dropdown4" class="h-dropdown">
             <button id="h-dropbtn4" class="h-dropbtn">About</button>
+            </div>
             </div>
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>
@@ -199,7 +211,7 @@ display: inline-block;
               <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
               <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
               <!-- 다울 추가 12/12 --> 
-              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장관리</a>
+              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장 관리</a>
               <a href="/admin/liq-co-register" id='d-liq-co-register'>양조장 등록</a>
               <a href="/admin/liq-list" id='d-liq-list'>전통주 관리</a>
               <a href="/admin/liq-register" id='d-liq-register'>전통주 등록</a>

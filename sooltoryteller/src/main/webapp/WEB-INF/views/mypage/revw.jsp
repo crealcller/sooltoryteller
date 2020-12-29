@@ -27,7 +27,7 @@
 <div id="getRevw" class="d-revw-modal">
   <!-- Modal content -->
   <div class="d-revw-modal-content">
-    <span class="d-revw-modal-close">&times;</span>
+    <h2>리뷰 수정하기!<span class="d-revw-modal-close">&times;</span></h2>
      <p class="star_grade">
         <span value=1>★</span>
         <span value=2>★</span>
@@ -35,7 +35,7 @@
         <span value=4>★</span>
         <span value=5>★</span>
     </p>
-    <p> <textarea maxlength="500" style='width:450px;' rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
+    <p> <textarea maxlength="500" rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
     <button id='revwUpdateBtn' type='submit'>등록</button>
   </div>
 </div>

@@ -42,10 +42,10 @@ public class MemberVO {
 	private String telno;
 
 	// 프로필 사진
-	private String img = "user.png";
+	private String img = "/imgUpload/2020/12/08/user.png";
 	
 	// 프로필 썸네일사진
-	private String thumbImg = "user.png";
+	private String thumbImg = "/imgUpload/2020/12/08/user.png";
 
 	// 가입일시 
 	private Date regdate;

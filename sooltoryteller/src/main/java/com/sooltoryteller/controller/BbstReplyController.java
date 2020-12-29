@@ -34,7 +34,6 @@ import lombok.extern.log4j.Log4j;
 public class BbstReplyController {
 
 	private BbstReplyService service;
-	private MemberService memberService;
 	
 	// 댓글 등록
 	@PostMapping(value = "/new",

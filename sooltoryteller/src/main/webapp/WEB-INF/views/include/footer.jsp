@@ -7,15 +7,16 @@
     	display: block;
    		align-items: center;
     	border: 2px solid #E1E1E1;
+    	background-color: #efefef;
 	}
 	
 	.h-footer-content{
-		padding-top: 20px;
+		padding-top: 24px;
 		width: 700px;
 		height: 40px;
 		text-align: center;
 		margin:0 auto;
-		font-size: 20px;
+		font-size: 15px;
 	}
 </style>
 
@@ -23,7 +24,7 @@
 
 	<div class="h-footer">
 		<div class="h-footer-content">
-      		2020 By Dynamic Trio. Proudly created with Sooltoryteller.
+      		© 2020 By Dynamic Trio. Proudly created with Sooltoryteller.
 		</div>
     </div>
 </body>

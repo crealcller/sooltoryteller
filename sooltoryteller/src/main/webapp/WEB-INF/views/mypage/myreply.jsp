@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
+<html>
+<head>
 <script type="text/javascript">
 	// 로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = "${msg}";
@@ -7,15 +16,13 @@
 	}
 </script>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
-
 <style>
+
+.s-myBbstReply-container {
+	width: 800px;
+	height: 700px;
+	margin: 0 auto;
+}
 
 .s-myBbstReply-ul {
 	margin-top: 40px;
@@ -114,12 +121,12 @@
 $(document).ready(function() {
 	var memberIdValue = "<c:out value='${member.memberId}' />";
 	var myReplyUL = $(".s-myBbstReply-ul");
-	var pageNum = 1;
 	var paging = $(".d-paging");
+	var pageNum = 1;
 	showMyList(1);
 	
 	// 페이지 번호 출력
-	function showMyLikePage(myReplyCnt) {
+	function showMyReplyPage(myReplyCnt) {
 		console.log(myReplyCnt);
 		var endNum = Math.ceil(pageNum / 5.0) * 5;
 		var startNum = endNum - 4;
@@ -151,7 +158,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		let targetPageNum =$(this).attr("href");
 		pageNum = targetPageNum;
-		showMyList(pageNum);
+		showMyList( 	pageNum);
 	});
 	
 	// 리스트 출력
@@ -178,7 +185,7 @@ $(document).ready(function() {
 				str += "<div class='s-bbstReply-date-div'><small class='s-bbstReply-regdate'>" + bbstReplyService.displayTime(myReplyList[i].regdate) + "</small></div></div></li>";
 			}
 			myReplyUL.html(str);
-			showMyLikePage(myReplyCnt);
+			showMyReplyPage(myReplyCnt);
 		});
 	}
 	

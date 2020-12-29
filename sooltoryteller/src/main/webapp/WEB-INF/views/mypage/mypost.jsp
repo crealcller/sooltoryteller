@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
+<html>
+<head>
 <script type="text/javascript">
 	// 로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = "${msg}";
@@ -7,25 +16,16 @@
 	}
 </script>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
-
 <style>
 
 .s-bbst-container {
 	width: 100%;
-	/* height: 750px; */
-	height: auto;
+	height: 700px;
 	margin: 0 auto;
 }
 
 .s-bbst-item-container {
-	height: 220px;
+	height: 212px;
 	width: 177px;
 	margin: 10px 0 5px 80px;
 	display: inline-block;
@@ -33,6 +33,7 @@
 	position: relative;
 	float: left;
 	cursor: pointer;
+	font-size: 10px;
 }
 
 .s-bbst-img {
@@ -72,7 +73,7 @@
 	height: 35px;
 	width: 175px;
 	margin-top: 3px;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 .s-bbst-item-overlay-info {
@@ -110,6 +111,38 @@
 	background-color: rgb(181, 135, 189);
 }
 
+.d-paging {
+	float: right;
+}
+
+.d-paging ul {
+	list-style: none;
+	margin: 10px;
+}
+
+.d-paging li {
+	float: left;
+}
+
+.d-paging-btn-active {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	background-color: rgb(181, 135, 189);
+	border-radius: 50%;
+}
+
+.d-paging-btn-active a {
+	color: white;
+}
+
+.d-paging-btn-none {
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+}
+
 </style>
 </head>
 
@@ -132,8 +165,8 @@
 $(document).ready(function() {
 	var memberIdValue = "<c:out value='${member.memberId}' />";
 	var bbstBox = $(".s-bbst-container-box");
-	var pageNum = 1;
 	var paging = $(".d-paging");
+	var pageNum = 1;
 	showMyList(1);
 	
 	// 페이지 번호 출력
@@ -144,10 +177,10 @@ $(document).ready(function() {
 		var prev = startNum != 1;
 		var next = false;
 		
-		if(endNum * 5 >= myBbstCnt) {
-			endNum = Math.ceil(myBbstCnt / 5.0);
+		if(endNum * 9 >= myBbstCnt) {
+			endNum = Math.ceil(myBbstCnt / 9.0);
 		}
-		if(endNum * 5 < myBbstCnt){
+		if(endNum * 9 < myBbstCnt){
 			next = true;
 		}
 		

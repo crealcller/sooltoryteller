@@ -1,6 +1,7 @@
 package com.sooltoryteller.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sooltoryteller.domain.AdminCriteria;
+import com.sooltoryteller.domain.AdminPageDTO;
 import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.BbstPageDTO;
 import com.sooltoryteller.domain.BbstVO;
-import com.sooltoryteller.service.BbstReplyService;
 import com.sooltoryteller.service.BbstService;
 import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
@@ -95,15 +98,22 @@ public class BbstController {
 			
 			bbst.setMemberId(memberId);
 			
-			// 에러 발생 시
-//		if(result.hasErrors()) {
-//			rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
-//			return "/cheers/register";
-//		}
-			
 			log.info("========== REGISTER: " + bbst + " ==========");
 			service.registerBbst(bbst, cnt);
 			rttr.addFlashAttribute("result", bbst.getBbstId());
+			
+			// 에러 발생 시
+			if(result.hasErrors()) {
+				List<ObjectError> errorList = result.getAllErrors();
+		        log.info(result.getFieldError());
+		        for(ObjectError error : errorList) {
+	               log.info("===== ERROR: " + error.getDefaultMessage());
+	               rttr.addFlashAttribute("result", error.getDefaultMessage());
+		        }
+		        
+				rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+				return "/cheers/register";
+			}
 		}
 		return "redirect:/cheers/list";
 	}
@@ -154,16 +164,23 @@ public class BbstController {
 			File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		log.info(bbst.getCnImg() + bbst.getCnThumbimg());
 
-		// 에러 발생 시
-		if(result.hasErrors()) {
-			rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
-			model.addAttribute("bbst", bbst);
-			return "/cheers/modify";
-		}
-
 		log.info("========== MODIFY: " + bbst + " ==========");
 		if (service.modifyBbst(bbst)) {
 			rttr.addFlashAttribute("result", "success");
+		}
+		
+		// 에러 발생 시
+		if(result.hasErrors()) {
+			List<ObjectError> errorList = result.getAllErrors();
+	        log.info(result.getFieldError());
+	        for(ObjectError error : errorList) {
+               log.info("===== ERROR: " + error.getDefaultMessage());
+               rttr.addFlashAttribute("result", error.getDefaultMessage());
+	        }
+	        
+	        rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+			model.addAttribute("bbst", bbst);
+			return "/cheers/modify";
 		}
 
 		return "redirect:/cheers/get" + cri.getBbstListLink() + "&bbstId=" + bbst.getBbstId();

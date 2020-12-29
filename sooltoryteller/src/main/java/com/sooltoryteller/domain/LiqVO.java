@@ -2,19 +2,16 @@ package com.sooltoryteller.domain;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class LiqVO {
 
     // 전통주 일련번호 
@@ -71,6 +68,15 @@ public class LiqVO {
     
     //전통주 카운트
     private LiqCntVO liqCnt;
+
+	public String getCate() {
+		return cate;
+	}
+
+	public void setCate(String cate) {
+		this.cate = cate;
+	}
+    
     
 
 }

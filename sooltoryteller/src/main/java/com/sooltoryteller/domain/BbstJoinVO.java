@@ -23,7 +23,6 @@ public class BbstJoinVO {
 	private Long memberId;
 
 	// 회원닉네임
-	@NotBlank
 	private String name; 
 	
 	// 회원 프로필사진
@@ -35,11 +34,9 @@ public class BbstJoinVO {
 	private String title;
 
 	// 게시글 사진
-	@NotBlank
 	private String cnImg;
 	
 	// 게시글 썸네일사진
-	@NotBlank
 	private String cnThumbimg;
 
 	// 게시글 내용
