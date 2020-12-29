@@ -36,7 +36,7 @@ let success = '${success}';
             <form action="/mypage/changepwd" method="post" onsubmit="return validate()">
                 <p class="h-pwd-p"><input type="password" id ="pwd" name="pwd" placeholder="현재 비밀번호"></p>
                 <p class="h-pwd-p" style="font-size:15px;">비밀번호는 대문자 또는 소문자 및 특수문자 1개 이상 포함해서 5자리~16자리로 입력하여주세요</p>
-                <p class="h-pwd-p"><input type="password" id ="newpwd" name="newpwd" placeholder="새 비밀번호"></p>
+                <p class="h-pwd-p"><input type="password" id ="newPwd" name="newPwd" placeholder="새 비밀번호"></p>
                 <p class="h-pwd-p"><input type="password" id="repwd" placeholder="새 비밀번호 확인" onblur="checkPwd()"></p>
                 <p class="h-pwd-p" id="repwdmsg"></p>
                 <div style="text-align: center;"><button type="submit" class="h-passbtn">변경</button> <button type="button" class="h-passbtn" onclick="location.href='/mypage/like'">취소</button></div>
@@ -60,12 +60,12 @@ let success = '${success}';
 			     
 			}else{
 				
-				if($("#newpwd").val() == $("#repwd").val()){
+				if($("#newPwd").val() == $("#repwd").val()){
 					document.getElementById("repwdmsg").innerHTML = "비밀번호가 일치합니다.";
 		    		document.getElementById("repwdmsg").style.color = 'red'; 
 				} 
 			
-				if($("#newpwd").val() != $("#repwd").val()){
+				if($("#newPwd").val() != $("#repwd").val()){
 					$("#repwd").val("");
 					document.getElementById("repwdmsg").innerHTML = "비밀번호가 일치하지 않습니다 다시 입력해주세요";
 		    		document.getElementById("repwdmsg").style.color = 'red'; 
@@ -82,14 +82,14 @@ let success = '${success}';
 				return false;
 			}
 			
-			 if(!jPwd.test($("#newpwd").val()) && blank.test($("#newpwd").val())){
+			 if(!jPwd.test($("#newPwd").val()) && blank.test($("#newPwd").val())){
 				alert('비밀번호 형식에 맞지 않습니다');
-				$("#newpwd").val("");
-				$("#newpwd").focus();
+				$("#newPwd").val("");
+				$("#newPwd").focus();
 				return false;
 			}
 			
-			if($("#newpwd").val() != $("#repwd").val()){
+			if($("#newPwd").val() != $("#repwd").val()){
 				alert('비밀번호 확인과 일치하지 않습니다.');
 				$("#repwd").val("");
 				$("#repwd").focus();

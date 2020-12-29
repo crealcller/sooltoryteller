@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script>
+
+//로그인이 안된 상태면 로그인페이지로 넘어가게
+let msg = '${msg}';
+	if(msg != ""){
+		alert(msg);
+		location.href = '/login';
+	}
+</script>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>

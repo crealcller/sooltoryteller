@@ -24,5 +24,16 @@ if(msg != ''){
 <p><c:out value='${liqCo.addr }'/></p>
 <p><c:out value='${liqCo.telno }'/></p>
 <p><c:out value='${liqCo.hmpg }'/></p>
+
+</div>
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
+<script>
+$(document).ready(function(){
+
+	$("#d-liq-co-list").css('background-color', 'rgb(10, 29, 74)').css('color','white');
+});
+</script>
 </body>
 </html>

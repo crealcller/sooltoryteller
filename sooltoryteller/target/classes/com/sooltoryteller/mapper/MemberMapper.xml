@@ -37,13 +37,11 @@ values (member_hist_seq.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno
 	where email = #{email}
 </select>
 
-<!-- 로그인시 이메일, 비밀번호 체크 -->
-<select id="getLoginInfo" resultType="com.sooltoryteller.domain.MemberVO">
-	select email, pwd
+<!-- 로그인시 탈퇴회원인지 체크 -->
+<select id="getRegStus" resultType="String">
+	select regstus
 	from member
 	where email = #{email}
-	and pwd = #{pwd}
-	and regstus = 'JN'
 </select>
 
 <!-- 이메일 중복확인 제외-->
@@ -81,7 +79,7 @@ values (member_hist_seq.nextval, #{memberId}, #{email}, #{name}, #{pwd}, #{telno
 <!-- 비밀번호 변경 -->
 <update id="updatePwd">
 	update member
-	set pwd = #{pwd},
+	set pwd = #{encPwd},
 	updatedate = sysdate
 	where email = #{email}
 </update>

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%
+response.setHeader("Cache-Control", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setHeader("Pragma", "no-cache");
+
 String email = (String) session.getAttribute("email");
 String authority = (String) session.getAttribute("authority");
 String loginDisplay = "";
@@ -171,7 +176,7 @@ float:left;
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>
          <!-- 현수 추가 관리자 페이지로 이동 -->
-            <a href='/admin/memberlist' style="display:<%=authorityDisplay%>">관리자페이지 ㅣ</a>
+            <a href='/admin/' style="display:<%=authorityDisplay%>">관리자페이지 ㅣ</a>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>

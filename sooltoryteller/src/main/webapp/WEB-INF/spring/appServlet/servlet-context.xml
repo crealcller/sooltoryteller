@@ -21,6 +21,8 @@
 	<context:component-scan base-package="com.sooltoryteller.controller" />
 	<context:component-scan base-package="com.sooltoryteller.exception" />
 	
+	<!-- 네이버 로그인 -->
+   <beans:bean id="naverLoginBO" class="com.sooltoryteller.controller.NaverLoginBO"/>
 	
 	<!-- 게시판 첨부파일 업로드 패스 설정 --> 
 	<beans:bean class="java.lang.String" id="uploadPath">

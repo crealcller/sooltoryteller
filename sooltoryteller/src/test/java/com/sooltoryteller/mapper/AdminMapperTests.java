@@ -39,6 +39,7 @@ public class AdminMapperTests {
 		list.forEach(member -> log.info(member.getMemberId()));
 	}
 	
+<<<<<<< HEAD
 	public void testGetLiqExist() {
 		
 		log.info("result : "+mapper.getliqExist("술취한 원숭이"));
@@ -96,4 +97,18 @@ public class AdminMapperTests {
 		log.info("result : " + result);
 	}
 	
+=======
+	@Test
+	public void testSearch() {
+		
+		AdminCriteria adCri = new AdminCriteria();
+		adCri.setKeyword("ff");
+		adCri.setType("E");
+		
+		List<MemberVO> list = mapper.getListWithPaging(adCri);
+		
+		list.forEach(member -> log.info(member));
+	
+	}
+>>>>>>> origin/hyeonsu3
 }

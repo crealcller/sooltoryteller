@@ -133,11 +133,11 @@ if(msg != ''){
 			if(result === '' || history.state){
 				return;
 			}
-			
-			if(result){
+			//이메일 전송이 성공한 경우
+			if(result == 'success'){
 				$(".h-modal-body").html("문의 답변이  전송 되었습니다.");
+				modal.style.display = "block";
 			}
-			modal.style.display = "block";
 			
 		}
 		//모달창 닫기버튼
@@ -168,22 +168,11 @@ if(msg != ''){
     	
   	
     	//검색 유효성 검사
-    	
     	$("#h-searchForm button").on("click", function(e){
     		
     	let searchForm = $("#h-searchForm");
     	let keyword = $("#h-keyword").val();
     	
-    	/*	if(!searchForm.find("option:selected").val()){
-				alert("검색 종류를 선택하세요.");
-				return false;
-			}
-    		if(!searchForm.find("input[name='keyword']").val()){
-    			alert("키워드를 입력하세요");
-    			return false;
-    		}
-    		*/
-    		
     	searchForm.find("input[name='pageNum']").val("1");
     	$('#h-keyword').val(keyword.trim());
     	e.preventDefault();

@@ -1,6 +1,7 @@
 package com.sooltoryteller.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -74,15 +75,31 @@ public class MemberFavDrkServiceImpl implements MemberFavDrkService{
 		
 		String[] drink = new String[arr.length];
 		System.out.println("service arr : " + arr);
-		if(arr.length == 2) {
+		if(arr.length != 0) {
 			for (int i = 0; i < arr.length; i++) {
 				drink[i] = mapper.getFavNameList(arr[i]);
 			}
 		}
 		
-		System.out.println("service drink :" +drink);
+		System.out.println("service drink :" +Arrays.toString(drink));
 		
 		return drink;
+	}
+
+	@Override
+	public int[] getFavCnt(int[] arr) {
+		
+		int[] drkCnt = new int[arr.length];
+		
+		if(arr.length != 0) {
+			for (int i = 0; i < arr.length; i++) {
+				drkCnt[i] = mapper.getFavCnt(arr[i]);
+			}
+		}
+		
+		System.out.println("service drink :" +Arrays.toString(drkCnt));
+		
+		return drkCnt;
 	}
 
 

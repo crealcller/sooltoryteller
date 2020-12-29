@@ -2,9 +2,14 @@
     pageEncoding="UTF-8"%>
      <%@include file="/WEB-INF/views/include/topmenu.jsp" %>
      <link rel="stylesheet" href="/resources/css/loginHead.css">
-     <%
-           Cookie[] cookies = request.getCookies();
-           String cookieVal ="";
+<%
+     	
+String loginCheck = (String)session.getAttribute("email");     
+     if(loginCheck != null){
+    	 out.println("<script>alert('잘못된 접근입니다.'); location.href='/';</script>");
+     }
+Cookie[] cookies = request.getCookies();
+          String cookieVal ="";
             if(cookies !=null){
             	for(Cookie i : cookies){
                     if(i.getName().equals("email")){
@@ -36,14 +41,15 @@ if(emailMsg != ""){
 	    <form action="/login" method="POST">
 	    <p class="h-login-p">이메일 &nbsp<input type="text" id="email" name="email" value =<%=cookieVal !="" ? cookieVal : "" %>></p>
 	    <p class="h-login-p">비밀번호 &nbsp<input type="password" id="pwd" name="pwd"></p>
-	    <p  class="h-login-p" style="color:red;">${msg }</p>
+	    <p  class="h-login-p" style="color:red;"><c:out value='${msg }'/></p>
 	    <p style="text-align: center; margin-bottom: 10px"><input type="checkbox" name = "save"<%=cookieVal!=""?"checked" : ""%>>이메일 저장 ㅣ
 	    <a style = "cursor: pointer;" id="h-findPwd-btn">비밀번호 찾기</a></p>
 	    <p class="h-login-p" style="text-align: center;"><button type="submit" class="login-btn">로그인</button></p>
 	    <p class="h-login-p" style="text-align: center;"><button type="button" class="login-btn" id="regbtn" onclick="location.href='/join'">회원가입</button></p>
-	    <p class="h-login-p" style="text-align: center;"><a href="${kakaoUrl}">
+	    <p class="h-login-p" style="text-align: center;"><a href='${kakaoUrl}'>
 	    <img src="/resources/img/kakao_login_medium.png" class="snslogin"></a>
-	    <a href="#" onclick="alert('준비중입니다...')"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
+	    <a href="${naverUrl }"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
+	   <%--  <input type="hidden" name="referer" value='${referer}'> --%>
 	    </form>
     
     </div>
@@ -57,7 +63,7 @@ if(emailMsg != ""){
   <div class="h-modal-content">
     <div class="h-modal-top">
       <div class="h-modal-topleft">비밀번호 찾기
-      </div><div class="h-modal-topright"><a class="h-close">&times;</a></div>
+      </div><div class="h-modal-topright"><a class="h-close" style="cursor: pointer;">&times;</a></div>
     </div> <!-- modal top -->
     <div class="h-modal-bottom">
       <p style="margin-bottom: 20px;">이메일 &nbsp<input type ='email' name='email'></p>

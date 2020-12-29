@@ -54,11 +54,11 @@
 	.h-modal-content {
       width: 400px;
       height: 200px;
-	  background-color: #f2eff9;
+	  background-color: white;
+	  border-radius:10px;
 	  margin: auto;
 	  padding: 20px;
       text-align: center;
-	  border: 3px solid rgb(181, 135, 189);
       border-radius: 3%;
 	}
 

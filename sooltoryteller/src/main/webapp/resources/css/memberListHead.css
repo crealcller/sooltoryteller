@@ -47,9 +47,20 @@
   	  color: white;
 	}
 
-.h-pagination li:hover:not(.active) {background-color: rgb(80 98 140);}
+	.h-pagination li:hover:not(.active) {background-color: rgb(80 98 140);}
 
-.h-modal {
+	.h-faq-searchbtn{
+	   width: 60px;
+       height: 25px;
+       border: none;
+       background-color: navy;
+       color: white;
+     }
+     #h-searchForm{
+       margin: 10px 0 0 22px;
+     
+     }
+	.h-modal {
 	  display: none;
 	  position: fixed; 
 	  z-index: 1;
@@ -64,10 +75,10 @@
 	}
 	
 	.h-modal-content {
-	  background-color: #f2eff9;
+	  background-color: white;
+	  border-radius:10px;
 	  margin: auto;
 	  padding: 20px;
-	  border: 1px solid #888;
 	  width: 450px;
 	  height: 150px;
 	}

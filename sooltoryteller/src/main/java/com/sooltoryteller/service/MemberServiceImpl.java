@@ -60,21 +60,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		if(result !=null) {
 			if(encoder.matches(pwd, result)) {
+				if(mapper.getRegStus(email).equalsIgnoreCase("JN")) {
 				return true;
+				}
 			}
 		}
 		
 		return false;
-/*		
-		MemberVO member = mapper.getLoginInfo(email, pwd);
-		
-		if(member == null) {
-			return false;
-		}else {
-			
-			return true;
-		}
-*/
 	}
 
 	@Override
@@ -123,7 +115,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int checkEmail(String email) {
-		
+		log.info("이메일~~~"+email);
 		return mapper.checkEmail(email);
 	}
 
@@ -139,24 +131,24 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Transactional
-	   @Override
-	   public boolean modifyPwd(String email, String pwd) {
-	      
-	      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	      
-	      boolean validPwd = Pattern.matches("^(?=.*[a-zA-Z])(?=.*[#?!@$%^&*-]).{5,16}$", pwd);
-	      
-	      String encPwd = encoder.encode(pwd);
-	      
-	      System.out.println("새로운 비밀번호 : "+ encPwd);
-	      
-	      if(!validPwd && mapper.updatePwd(email, encPwd) == 1) {
-	         mapper.insertHist(mapper.read(email));
-	         return true;
-	      }
-	      
-	      return false;
-	   }
+	@Override
+	public boolean modifyPwd(String email, String pwd) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		boolean validPwd = Pattern.matches("^(?=.*[a-zA-Z])(?=.*[#?!@$%^&*-]).{5,16}$", pwd);
+		
+		String encPwd = encoder.encode(pwd);
+		
+		System.out.println("새로운 비밀번호 인코딩 : "+encPwd);
+		
+		if(validPwd && mapper.updatePwd(email, encPwd) == 1) {
+			mapper.insertHist(mapper.read(email));
+			return true;
+		}
+		
+		return false;
+	}
 
 	@Override
 	public Long getMemberId(String email) {

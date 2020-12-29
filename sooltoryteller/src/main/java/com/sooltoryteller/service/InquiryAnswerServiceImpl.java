@@ -45,10 +45,15 @@ public class InquiryAnswerServiceImpl implements InquiryAnswerService{
 	public boolean register(InquiryAnswerVO inqAn, String inqstus) {
 		log.info("Answer register...."+inqAn);
 		
-		if(inqAnMapper.update(inqAn) ==1) {
-			inqMapper.update(inqAn.getInquiryId(), inqstus);
-			return true;
+		String regStus = inqMapper.readStus(inqAn.getInquiryId());
+		
+		if(!regStus.equalsIgnoreCase("IC")) {
+			if(inqAnMapper.update(inqAn) == 1) {
+				inqMapper.update(inqAn.getInquiryId(), inqstus);
+				return true;
+			}
 		}
+		
 		return false;
 	}
 

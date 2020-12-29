@@ -31,9 +31,8 @@ response.setHeader("Pragma", "no-cache");
 <!-- font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
-	<style>
-        * {
+<style>
+* {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
@@ -201,7 +200,7 @@ float:left;
         <!-- ----------------------------------------------------------------------------------------------------- -->
         </div><div class='h-usermenu'>
         <!-- 현수 추가 관리자 페이지로 이동 -->
-            <a href='/admin/memberlist' style="display:<%=authorityDisplay%>">관리자페이지 ㅣ</a>
+            <a href='/admin/' style="display:<%=authorityDisplay%>">관리자페이지 ㅣ</a>
             <a href='/login' style="display:<%=loginDisplay%>">로그인 ㅣ</a>
             <a href='/logout' style="display:<%=logoutDisplay%>" onclick="kakaoLogout()">로그아웃 ㅣ</a>
             <a href='/join' style="display:<%=loginDisplay%>">회원가입 ㅣ</a>
@@ -218,7 +217,7 @@ float:left;
         <div class="h-body">
         	<div class="h-column">
 	            <div class="h-sidebar">
-	              <!-- <a href="/admin" id='h-admin-home'>Home</a>     보류-->
+	              <a href="/admin/" id='h-admin-home'>Home</a>
 	              <a href="/admin/memberlist" id='h-admin-list'>회원관리</a>
 	              <!-- 다울 추가 12/12 --> 
 	              <a href="/admin/liq-co-list" id='d-liq-co-list'>양조장관리</a>

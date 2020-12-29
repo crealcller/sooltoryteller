@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class MemberVO {
 	
 	//회원아이디

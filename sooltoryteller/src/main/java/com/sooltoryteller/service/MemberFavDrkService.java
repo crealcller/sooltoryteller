@@ -19,5 +19,8 @@ public interface MemberFavDrkService {
 	
 	//회원정보 수정시 변경할 선호하는 술 이름 가져오기
 	public String[] getFavNameList(int[] arr);
+	
+	//선호한는 술 통계
+	public int[] getFavCnt(int[] arr);
 
 }

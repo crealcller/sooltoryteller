@@ -55,6 +55,8 @@ if(msg != ""){
 
 </div>
   </div>
+  <%@include file="/WEB-INF/views/include/footer.jsp" %>
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
   
@@ -281,5 +283,5 @@ if(msg != ""){
   </script>
   
 </body>
-<%@include file="/WEB-INF/views/include/footer.jsp" %>
+
 </html>

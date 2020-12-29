@@ -30,8 +30,6 @@ height:150px;
 </head>
 <body>
 <div class="d-con">
-
-<div class="d-con">
 <span><img class="d-img-con" src="<c:out value='${liq.liqThumb}'/>"></span>
 <input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
 accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${liq.liqThumb }' />" />
@@ -61,8 +59,15 @@ accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out
 <button type="submit" data-oper='modify'>수정</button><button type="submit" data-oper='remove'>삭제</button><button type="submit" data-oper='list'>목록</button>
 </form>
 </div>
+
+</div>
+</div>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
 <script>
 $(document).ready(function(){
+
+	$("#d-liq-list").css('background-color', 'rgb(10, 29, 74)').css('color','white');
 	 $('input[name="cate"]:radio[value="${liq.cate}"]').prop('checked',true);
 
 	var formObj = $("#modify");

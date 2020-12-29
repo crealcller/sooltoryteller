@@ -26,8 +26,8 @@ public interface MemberMapper {
 	//회원 이력관리
 	public void insertHist(MemberVO member);
 	
-	// 로그인 체크
-	public MemberVO getLoginInfo(@Param("email") String email, @Param("pwd") String pwd);
+	// 로그인시 상태 체크
+	public String getRegStus(String email);
 
 	//회원정보 불러오기
 	public MemberVO read(String email);
@@ -39,7 +39,7 @@ public interface MemberMapper {
 	public String getPwd(String email);
 	
 	//비밀번호 변경
-	public int updatePwd(@Param("email")String email, @Param("pwd")String pwd);
+	public int updatePwd(@Param("email")String email, @Param("encPwd")String encPwd);
 	
 	//회원탈퇴
 	public int updateRegstus(String email);

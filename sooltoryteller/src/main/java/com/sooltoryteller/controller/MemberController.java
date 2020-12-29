@@ -1,18 +1,20 @@
 package com.sooltoryteller.controller;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.UUID;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.sooltoryteller.domain.EmailVO;
 import com.sooltoryteller.domain.MemberVO;
 import com.sooltoryteller.service.MailService;
@@ -35,68 +39,103 @@ import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
-@Controller
 @Log4j
-@AllArgsConstructor
+//@AllArgsConstructor
+@Controller
 public class MemberController {
+	
 	private MailService mailService;
 	private EmailVO e_mail;
 	private MemberService service;
 	private MemberFavDrkService favDrkService;
 	private KakaoLoginController kakaoController;
-	
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+	
+	@Autowired
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
+	}
+
+	@Autowired
+	public void setE_mail(EmailVO e_mail) {
+		this.e_mail = e_mail;
+	}
+
+	@Autowired
+	public void setService(MemberService service) {
+		this.service = service;
+	}
+
+	@Autowired
+	public void setFavDrkService(MemberFavDrkService favDrkService) {
+		this.favDrkService = favDrkService;
+	}
+
+	@Autowired
+	public void setKakaoController(KakaoLoginController kakaoController) {
+		this.kakaoController = kakaoController;
+	}
+	
+
 	//로그인 view
-    @GetMapping("/login")
-    public ModelAndView login(HttpSession session, HttpServletRequest request) {
-       ModelAndView mav = new ModelAndView();
-       
-       String referer = (String)request.getHeader("REFERER");
-       String kakaoUrl = kakaoController.getAuthorizationUrl(session);
-       //String naverUrl = naverLoginController.getAuthorizationUrl(session);
-       
-       mav.setViewName("login");
-       mav.addObject("kakaoUrl", kakaoUrl);
-      // mav.addObject("naverUrl", naverUrl);
-       request.getSession().setAttribute("referer", referer);
-       
-       return mav;
-    }
-    
-    @PostMapping("/login")
-    public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
-           HttpSession session, RedirectAttributes rttr) {
-       
-       String referer = (String) session.getAttribute("referer");
-       System.out.println("이전페이지 url : "+referer);
-       
-       // id저장 체크박스
-       String save = request.getParameter("save");
-       //HttpSession session = request.getSession();
-       Cookie cookie = new Cookie("email", email);
-       // 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
-       if (service.loginCheck(email, pwd)) {
-          session.setAttribute("email", email);
-          session.setAttribute("authority", service.getAuthority(email));
-          // id저장 체크박스가 체크되어 있다면 쿠키 저장
-          if (save != null) {
-             response.addCookie(cookie);
-             // id저장 체크박스의 체크가 풀려있다면 쿠키 삭제
-          } else {
-             cookie.setMaxAge(0); //8 쿠키의 유효시간을 0으로 변경(쿠키삭제)
-             response.addCookie(cookie); // 쿠키를 응답에 포함시킨다.
-          }
-       } else {
-          String msg = "입력하신 이메일 또는 비밀번호가 일치하지 않습니다.";
-          rttr.addFlashAttribute("msg", msg);
-       }
-       return "redirect:"+referer;
-    }
-	 
+	   @GetMapping("/login")
+	   public ModelAndView login(HttpSession session, HttpServletRequest request) {
+	      ModelAndView mav = new ModelAndView();
+	      
+	      String referer = (String)request.getHeader("REFERER");
+	      String kakaoUrl = kakaoController.getAuthorizationUrl(session);
+	      String naverUrl = naverLoginBO.getAuthorizationUrl(session);
+	      
+	      mav.setViewName("login");
+	      mav.addObject("kakaoUrl", kakaoUrl);
+	      mav.addObject("naverUrl", naverUrl);
+	      request.getSession().setAttribute("referer", referer);
+	      
+	      return mav;
+	   }
+	   
+
+	@PostMapping("/login")
+	   public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
+	         HttpSession session, RedirectAttributes rttr) {
+	      
+	      String referer = (String) session.getAttribute("referer");
+	      System.out.println("이전페이지 url : "+referer);
+	      
+	      // id저장 체크박스
+	      String save = request.getParameter("save");
+	      //HttpSession session = request.getSession();
+	      Cookie cookie = new Cookie("email", email);
+	      // 입력받은 이메일, 비밀번호 정보가 db상의 정보와 일치하는 것이 있는지 조회
+	      if (service.loginCheck(email, pwd)) {
+	         session.setAttribute("email", email);
+	         session.setAttribute("authority", service.getAuthority(email));
+	         // id저장 체크박스가 체크되어 있다면 쿠키 저장
+	         if (save != null) {
+	            response.addCookie(cookie);
+	            // id저장 체크박스의 체크가 풀려있다면 쿠키 삭제
+	         } else {
+	            cookie.setMaxAge(0); // 쿠키의 유효시간을 0으로 변경(쿠키삭제)
+	            response.addCookie(cookie); // 쿠키를 응답에 포함시킨다.
+	         }
+	      } else {
+	         String msg = "입력하신 이메일 또는 비밀번호가 일치하지 않습니다.";
+	         rttr.addFlashAttribute("msg", msg);
+	      }
+	      return "redirect:"+referer;
+	   }
+	
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr ) {
@@ -154,22 +193,22 @@ public class MemberController {
 		if(arr == null || arr.length !=2) {
 			model.addAttribute("member", member);
 			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
-			return "/join";
-		}
+		}else {
 		
 			//회원가입이 성공했다면
-		if(service.join(member)) {
-			//회원아이디를 가져와서 선호하는 술 등록
-			Long memberId = service.getMemberId(member.getEmail());
-			favDrkService.registerFavDrk(memberId, arr);
-			
-			//세션에 회원 닉네임, 이메일 저장 ->로그인상태로
-			HttpSession session = request.getSession();
-			session.setAttribute("name", member.getName());
-			session.setAttribute("email", member.getEmail());
-			return "redirect:/userInfo";
+			if(service.join(member)) {
+				//회원아이디를 가져와서 선호하는 술 등록
+				Long memberId = service.getMemberId(member.getEmail());
+				favDrkService.registerFavDrk(memberId, arr);
+				
+				//세션에 회원 닉네임, 이메일 저장 ->로그인상태로 userinfo(보류)
+				HttpSession session = request.getSession();
+				session.setAttribute("name", member.getName());
+				session.setAttribute("email", member.getEmail());
+				//return "redirect:/userInfo";
+				  return "redirect:/";
+			}
 		}
-		
 		return "/join";
 		
 	}
@@ -223,7 +262,7 @@ public class MemberController {
 		int[] result = new int[favalc.length];
 		
 		System.out.println(Arrays.toString(favalc));
-		
+		System.out.println("memberId : "+memberId);
 		if(favalc != null) {
 			for (int i = 0; i < favalc.length; i++) {
 				result[i] =Integer.parseInt(favalc[i]);
@@ -256,7 +295,7 @@ public class MemberController {
 	}
 	// 회원정보수정
 	@PostMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
+		public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
 		String loginEmail = (String) session.getAttribute("email");
 		System.out.println("changeUserInfo: " + member);
 		System.out.println("changeUserInfo: " + loginEmail);
@@ -329,25 +368,25 @@ public class MemberController {
 	}
 	
 	//비밀번호 변경
-	   @PostMapping("/mypage/changepwd")
-	   public void changepwd(String pwd, String newpwd, HttpSession session, Model model) {
-	      String email = (String) session.getAttribute("email");
-	      
-	      System.out.println("새로운 비밀번호 : "+newpwd);
-	      //회원의 현재 비밀번호 검사
-	      if(service.examinePwd(email, pwd)) {
-	         service.modifyPwd(email, newpwd);
-	         model.addAttribute("member", service.get(email));
-	         model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
-	      }else {
-	         model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
-	      }
-	   }
+	@PostMapping("/mypage/changepwd")
+	public void changepwd(String pwd, String newPwd, HttpSession session, Model model) {
+		String email = (String) session.getAttribute("email");
+		
+		System.out.println("새로운 비밀번호 : "+newPwd);
+		//회원의 현재 비밀번호 검사
+		if(service.examinePwd(email, pwd)) {
+			service.modifyPwd(email, newPwd);
+			model.addAttribute("member", service.get(email));
+			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
+		}else {
+			model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
+		}
+	}
 	
 	
 	//비밀번호 찾기 ->임시비밀번호 생성
 	@PostMapping("/findPwd")
-	public String sendpwd(String email,   RedirectAttributes rttr) throws Exception {
+	public String sendpwd(String email, RedirectAttributes rttr) throws Exception {
 		
 		String pwd = service.getPwd(email);
 		String tmpPwd = "";
@@ -356,6 +395,7 @@ public class MemberController {
 				if(pwd != null) {
 					tmpPwd = UUID.randomUUID().toString().replace("-", "");
 					tmpPwd = tmpPwd.substring(0,9);
+					tmpPwd += "!@#";
 					System.out.println(tmpPwd);
 				}
 		
@@ -401,9 +441,9 @@ public class MemberController {
 		String kimg = null;
 		
 		JsonNode properties = userInfo.path("properties");
-		JsonNode kakao_account = userInfo.path("kakao_account");
+		JsonNode kakaoAccount = userInfo.path("kakao_account");
 		
-		kemail = kakao_account.path("email").asText();
+		kemail = kakaoAccount.path("email").asText();
 		kimg = properties.path("profile_image").asText();
 		
 		System.out.println("userInfo:"+userInfo);
@@ -420,5 +460,46 @@ public class MemberController {
 		}
 	}
 	
+	//네이버 로그인
+	@RequestMapping(value = "/Noauth", produces = "application/json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String naverLogin(Model model, @RequestParam("code") String code,
+			@RequestParam("state") String state,HttpSession session) throws IOException, ParseException {
+		
+		String referer = (String) session.getAttribute("referer");
+		System.out.println("이전페이지 url : "+referer);
+		
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		
+		//로그인 사용자 정보를 읽어옴
+		apiResult = naverLoginBO.getUserProfile(oauthToken);
+		
+		//apiResult를 string -> json
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject)obj;
+		
+		//데이터 파싱
+		JSONObject responseObj = (JSONObject)jsonObj.get("response");
+		String nemail = (String)responseObj.get("email");
+		String mobile = (String)responseObj.get("mobile");
+		String nimg = (String)responseObj.get("profile_image");
+		
+		mobile = mobile.replaceAll("-", "");
+		
+		System.out.println(nemail);
+		System.out.println(mobile);
+		System.out.println(nimg);
+		
+		if(service.checkEmail(nemail) == 1) {
+			session.setAttribute("email", nemail);
+			return "redirect:"+referer;
+		}else {
+		
+			model.addAttribute("email", nemail);
+			model.addAttribute("img", nimg);
+			model.addAttribute("telno", mobile);
+			return "snsJoin";
+		}
+	}
 	}
 

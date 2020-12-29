@@ -45,4 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from drk_cd
 	where drk_cd_id = #{drkCdId}
 </select>
+
+<!-- 선호하는 주종 통계 -->
+<select id="getFavCnt" resultType="Integer">
+	select count(*)
+	from member_fav_drk
+	where drk_cd_id = #{drkCdId}
+</select>
 </mapper>

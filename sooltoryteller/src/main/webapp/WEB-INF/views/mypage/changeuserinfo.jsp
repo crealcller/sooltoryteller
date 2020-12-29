@@ -84,8 +84,8 @@
 	<div id="h-withdrawal-Modal" class="h-modal">
     <div class="h-modal-content">
     <span class="h-close" style="cursor: pointer;">&times;</span>
-	<p style="text-align: center;">정말 탈퇴하시겠습니까??</p>
-	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES...</button> <button type="button" class="h-btn" id="h-NObtn">NO!!!!</button></p>
+	<p style="text-align: center; margin-bottom:20px;">정말 탈퇴하시겠습니까??</p>
+	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES</button> <button type="button" class="h-btn" id="h-NObtn">NO</button></p>
    </div>
    </div>
    

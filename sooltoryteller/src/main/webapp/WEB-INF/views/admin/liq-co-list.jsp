@@ -118,9 +118,6 @@ if(msg != ''){
 			</c:if>
 		</ul>
 	</div>
-	    </div><!--인크루드 하는 페이지에 넣기-->
-    </div><!--인크루드 하는 페이지에 넣기-->
-<%@include file="/WEB-INF/views/include/footer.jsp" %>
 	<form id="h-actionForm" action="/admin/liq-co-list" method='get'>
 			<input type="hidden" name="pageNum" value="${pageMaker.adCri.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.adCri.amount }">

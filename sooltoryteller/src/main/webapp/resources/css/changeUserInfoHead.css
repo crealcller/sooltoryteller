@@ -57,10 +57,10 @@
 	}
 	
 	.h-modal-content {
-	  background-color: #f2eff9;
+	  background-color: white;
+	  border-radius:10px;
 	  margin: auto;
 	  padding: 20px;
-	  border: 1px solid #888;
 	  width: 450px;
 	  height: 150px;
 	}
