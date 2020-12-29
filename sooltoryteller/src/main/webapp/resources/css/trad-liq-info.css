@@ -150,6 +150,7 @@
 	height: 50px;
 	border-radius: 50%;
 	border: solid 1px #ccaeff;
+	float: left;
 }
 
 .d-revw-rate {
@@ -307,4 +308,17 @@ li {
 	padding: 10px;
 	background-color: rgb(250, 245, 255);
 	font-weight: bold;
+}
+.d-revw-member{
+	width: 400px;
+	height: 50px;
+	margin-left: 10px;
+}
+.d-revw-member-nm{
+	float:left;
+	padding: 20px 10px;
+}
+.d-revw-time{
+	float: right;
+    padding: 18px 7px 0px 0px;
 }

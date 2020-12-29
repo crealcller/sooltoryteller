@@ -3,7 +3,7 @@
 .s-main-background {
 	height: 1080px;
 	width: 1520px;
-	background-color: rgb(250 245 255);
+	background-color: rgb(250, 245, 255);
 	padding-top: 80px;
 }
 
@@ -11,11 +11,11 @@
 	width: 1210px;
 	height: 900px;
 	margin: 0 auto;
-	border-style: solid;
-	border-color: #e1e1e1;
+	border: solid #e1e1e1;
 	background-color: white;
 	box-shadow: 5px 5px 5px 5px #e1e1e1;
 }
+
 .d-mypage-left {
 	float: left;
 	width: 350px;
@@ -23,82 +23,93 @@
 	border-style: none;
 	display: inline-block;
 }
+
 .d-mypage-right {
 	float: left;
 	width: 850px;
 	height: 900px;
 	border-style: none;
-	border-left-style: none;
 	display: inline-block;
 }
+
 .d-mypage-right h2 {
 	padding: 20px;
-	border-bottom-style: solid;
-	border-bottom-color: rgb(170, 168, 168);
+	border-bottom-color: solid rgb(170, 168, 168);
 	margin: 20px;
 }
+
 .d-mypage-footer {
 	height: 200px;
 	background-color: rgba(196, 150, 204, 0.562);
 }
+
 .d-left-con {
 	width: 350px;
 	height: 850px;
 	margin: auto;
 }
+
 .d-mypage-profile-con {
 	text-align: center;
 	margin: auto;
 	margin-top: 50px;
 	width: 300px;
 	height: 300px;
-	border-style: solid;
-	border-color: #E1E1E1;
+	border: solid #E1E1E1;
 }
+
 .d-mypage-profile {
 	width: 130px;
 	height: 130px;
 	margin: 40px auto 30px auto;
 	border-radius: 50%;
 }
+
 .d-mypage-info {
 	width: 270px;
 	height: 150px;
 	margin: auto;
 	font-size: 20px;
 }
+
 .d-mypage-menu-con {
 	width: 200px;
-	border-bottom-style: solid;
-	border-bottom-color: rgb(170, 168, 168);
+	border-bottom: solid rgb(170, 168, 168);
 	margin: auto;
 	padding: 20px;
 	list-style: none;
 }
+
 .d-mypage-menu {
 	width: 200px;
 	margin: auto;
 	padding: 0;
 	list-style: none;
 }
+
 .d-mypage-ref {
 	font-size: 20px;
 	font-weight: 700;
 	padding-bottom: 20px;
 }
+
 .d-mypage-li {
 	padding-bottom: 10px;
 }
+
 .d-paging {
 	float: right;
 }
+
 .d-paging ul {
 	list-style: none;
 	margin: 10px;
 }
+
 .d-paging li {
 	float: left;
 }
+
 .d-paging-btn-active {
 	text-align: center;
 	width: 25px;
@@ -106,48 +117,51 @@
 	background-color: rgb(181, 135, 189);
 	border-radius: 50%;
 }
+
 .d-paging-btn-active a {
 	color: white;
 }
+
 .d-paging-btn-none {
 	text-align: center;
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
 }
-.d-my-revw-img {
-	width: 40px;
-	height: 60px;
+
+.d-myrevw-img {
+	width: 90px;
+	height: 110px;
 }
+
 .d-con {
 	width: 700px;
 	height: 800px;
 	margin: auto;
 }
+
 .d-like {
 	list-style: none;
 	margin-top: 50px;
 }
+
 .d-like li {
 	padding: 20px;
 }
+
 .d-revw {
 	list-style: none;
-	margin-top: 50px;
 }
-.d-revw li {
-	padding: 20px;
-}
-.d-con button {
-	float: right;
-	border-style: none;
-	background-color: white;
-	padding: 10px;
-	color: rgb(181, 135, 189);
-}
+
 .d-revw-con {
-	border-bottom-style: solid;
-	border-bottom-color: rgb(245, 245, 245);
+	width: 700px;
+	height: 170px;
+	border-bottom: 1px solid black;
+	padding: 10px;
+}
+
+.d-myrevew-liq-con {
+	
 }
 /* The Modal (background) */
 .d-revw-modal {
@@ -179,48 +193,65 @@
 	font-size: 28px;
 	font-weight: bold;
 }
+
 .d-revw-modal-close:hover, .d-revw-modal-close:focus {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
 }
+
 .d-like-cancel-btn {
 	float: right;
 	font-size: 15px;
 	color: rgb(181, 135, 189);
-	font-weight:bold;
+	font-weight: bold;
 }
+
 .star_grade span {
 	text-decoration: none;
 	font-size: 30px;
 	color: gray;
 }
+
 .star_grade span.on {
 	color: orange;
 }
+
 .star_grade :hover {
 	cursor: pointer;
 }
+
 .d-revw-star {
 	font-size: 20px;
 	color: orange;
 }
+
 .d-star-box {
+	float: left;
 	display: inline-block;
 	padding: 3px 8px 3px 8px;
 	background-color: #F9F7D6;
 	border-style: none;
 	border-radius: 10px 10px 10px 10px;
 	margin: 10px;
-}
-.d-revw-cn-con {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 500px;
-	height: 20px;
 	display: inline-block;
 }
+
+.d-revw-cn-span {
+	width: 500px;
+	margin-top: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	line-height: 1.2;
+	height: 6em;
+	text-align: left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+}
+
 .d-revw-modal-content h2 {
 	background-color: rgb(250, 245, 255);
 	padding: 20px;
@@ -241,7 +272,7 @@
 
 .d-modal-info p {
 	padding: 5px;
-	font-size:12px;
+	font-size: 12px;
 }
 
 .d-revw-modal-content textarea {
@@ -252,12 +283,47 @@
 }
 
 .d-revw-modal-content button {
-	float: right;
-	margin: 10px;
 	outline: 0;
 	border: 0;
 	border-radius: 5px;
 	padding: 10px;
 	background-color: rgb(250, 245, 255);
 	font-weight: bold;
+}
+
+.d-myrevw-liq-con {
+	float: left;
+	display: inline-block;
+	width: 90px;
+	height: 140px;
+	box-shadow: 5px 5px 12px -7px #938f8f;
+	cursor:pointer;
+}
+.d-myrevw-liq-nm{
+	text-align: center;
+	font-size:12px;
+	font-weight: bold;
+	width: 90px;
+	height: 30px;
+}
+
+.d-myrevw-eval {
+	float: left;
+	display: inline-block;
+	width: 570px;
+	height: 130px;
+	margin-left: 20px;
+	cursor:pointer;
+}
+
+.d-myrevw-cn {
+	float: left;
+}
+.d-modal-btn{
+	float: right;
+	margin-right: 25px;
+}
+.d-modal-btn button{
+	margin-left: 10px;
+    padding: 13px 18px;
 }

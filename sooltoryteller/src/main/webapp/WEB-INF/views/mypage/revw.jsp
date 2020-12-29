@@ -36,7 +36,7 @@ let msg = '${msg}';
 <div id="getRevw" class="d-revw-modal">
   <!-- Modal content -->
   <div class="d-revw-modal-content">
-    <h2>리뷰 수정하기!<span class="d-revw-modal-close">&times;</span></h2>
+    <h2>리뷰 상세<span class="d-revw-modal-close">&times;</span></h2>
      <p class="star_grade">
         <span value=1>★</span>
         <span value=2>★</span>
@@ -44,8 +44,11 @@ let msg = '${msg}';
         <span value=4>★</span>
         <span value=5>★</span>
     </p>
-    <p> <textarea maxlength="500" rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
-    <button id='revwUpdateBtn' type='submit'>등록</button>
+    <p> <textarea maxlength="500" rows='20' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
+    <div class="d-modal-btn">
+    <button id='revwUpdateBtn' type='submit'>수정</button> 
+    <button id='revwDeleteBtn' type='submit'>삭제</button>
+     </div>
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -109,15 +112,12 @@ $(document).ready(function(){
 				return;
 			}
 			for(let i=0,len = myList.length || 0; i<len; i++){
-				str += "<li id='move' style='cursor:pointer;' class='d-revw-con' data-liqid = '"+myList[i].liqId+"'>";
-				str += "<img class='d-my-revw-img' src='"+myList[i].liqThumb+"'/>"
-				str += "<span>"+myList[i].nm+"</span></li>"
-				//리뷰 삭제 버튼
-				str += "<button style='cursor:pointer;' data-revwid = '"+myList[i].revwId+"' id='deleteBtn'>&times;</button>";
-				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+myList[i].rate+"</div>"
-				str += "<span class='d-revw-cn-con'>"+myList[i].cn+"</span>"
-				//리뷰목록의 수정하기 버튼
-				str += "<button style='cursor:pointer;'  data-liqid = '"+myList[i].liqId+"' data-revwid = '"+myList[i].revwId+"' id='revwB'>수정하기</button></li>";
+				str += "<li  class='d-revw-con' >";
+				str += "<div class='d-myrevw-liq-con' id='move' data-liqid = '"+myList[i].liqId+"'>";
+				str += "<img class='d-myrevw-img' src='"+myList[i].liqThumb+"'/>";
+				str += "<div class='d-myrevw-liq-nm'><span>"+myList[i].nm+"</span></div></div>";
+				str += "<div class='d-myrevw-eval' id='getRevw' data-revwid = '"+myList[i].revwId+"'><div class='d-star-box'><span class='d-revw-star'>★</span>"+myList[i].rate+"</div>";
+				str += "<div class='d-myrevw-cn'><span class='d-revw-cn-span'>"+myList[i].cn+"</span></div></div></li>";
 			}
 			
 			dRevw.html(str);
@@ -129,25 +129,14 @@ $(document).ready(function(){
 		let targetId = $(this).data('liqid');
 		location.href=location.href ="/trad-liq?liqId="+targetId;
 	});
-	//리뷰의 X버튼 클릭시 해당리뷰삭제
-	dRevw.on("click","#deleteBtn",function(e){
-		let targetRevw = $(this).data('revwid');
-		console.log("target"+targetRevw);
-		revwService.remove(targetRevw,function(result){
-			if(result === "success"){
-				alert("리뷰가 삭제 되었습니다");
-				location.reload();
-			}else{
-				alert("실패");
-			}
-		});
-	});
 	// 버튼 생성해서 수정하기
 	//리뷰상세모달
 	let revwModal = $('#getRevw');
 	//모달에서의 수정하기 버튼
 	let revwUpdateBtn = $('#revwUpdateBtn');
-	//모달 
+	//모달에서의 삭제하기 버튼
+	let revwDeleteBtn = $('#revwDeleteBtn');
+	//모달 닫기
 	let closeBtn = $('.d-revw-modal-close');
 	//리뷰 코멘트
 	let cn = revwModal.find("textarea[name='revwCn']");
@@ -155,7 +144,7 @@ $(document).ready(function(){
 	let rate = 0;
 	let targetRevwId=0;
 	let targetLiqId =0;
-	dRevw.on("click","#revwB",function(e){
+	dRevw.on("click","#getRevw",function(e){
 		targetRevwId = $(this).data('revwid');
 		targetLiqId = $(this).data('liqid');
 		console.log("targetRevwId : "+targetRevwId);
@@ -164,7 +153,7 @@ $(document).ready(function(){
 			rate = revw.rate;
 			$('.star_grade').children().eq(rate-1).parent().children("span").removeClass("on");
 			$('.star_grade').children().eq(rate-1).addClass("on").prevAll("span").addClass("on");
-			$('#getRevw').fadeIn(100);
+			revwModal.fadeIn(100);
 		});
 	});
 		//클릭시 별점 채우고 update revw에 들어갈 rate값에 선택된 값 넣어줌
@@ -207,6 +196,18 @@ $(document).ready(function(){
 					revwModal.fadeOut(100);
 					showMyList(1);
 					alert("수정완료");
+				}
+			});
+		});
+		
+		//해당리뷰삭제
+		revwDeleteBtn.on("click", function(e){
+			revwService.remove(targetRevwId,function(result){
+				if(result === "success"){
+					alert("리뷰가 삭제 되었습니다");
+					location.reload();
+				}else{
+					alert("실패");
 				}
 			});
 		});

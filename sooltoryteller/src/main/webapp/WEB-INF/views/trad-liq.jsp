@@ -224,11 +224,11 @@ $(document).ready(function(){
 			}
 			for(var i=0,len = list.length || 0; i<len; i++){
 				str += "<li class='d-revw-con' data-revwId = '"+list[i].revwId+"'>";
-				str += "<div class='d-star-box'><span class='d-revw-star'>★</span>"+list[i].rate+"</div>"
-				str += "<span>"+list[i].cn+"</span>"
-				str += "<small style='float:right;'>"+revwService.displayTime(list[i].regdate)+"</small></div>";
-				str += "<div><div class='d-revw-member'><img class='d-revw-profile' src='"+list[i].member.thumbImg+"'>";
-				str += "<strong>"+list[i].member.name+"</strong></li></div></div>";
+				str += "<div><div class='d-star-box'><span class='d-revw-star'>★</span>"+list[i].rate+"</div>"
+				str += "<small class='d-revw-time'>"+revwService.displayTime(list[i].regdate)+"</small></div>"
+				str += "<p style='padding:10px;'>"+list[i].cn+"</p></div>";
+				str += "<div class='d-revw-member'><img class='d-revw-profile' src='"+list[i].member.thumbImg+"'>";
+				str += "<div class='d-revw-member-nm'><strong>"+list[i].member.name+"</strong></div></div></li>";
 			}
 			revwUL.html(str);
 			showRevwPage(revwCnt);
