@@ -48,7 +48,7 @@ if(emailMsg != ""){
 	    <p class="h-login-p" style="text-align: center;"><button type="button" class="login-btn" id="regbtn" onclick="location.href='/join'">회원가입</button></p>
 	    <p class="h-login-p" style="text-align: center;"><a href='${kakaoUrl}'>
 	    <img src="/resources/img/kakao_login_medium.png" class="snslogin"></a>
-	    <a href="<c:out value='${naverUrl }'/>"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
+	    <a href="${naverUrl }"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
 	   <%--  <input type="hidden" name="referer" value='${referer}'> --%>
 	    </form>
     

@@ -115,7 +115,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int checkEmail(String email) {
-		
+		log.info("이메일~~~"+email);
 		return mapper.checkEmail(email);
 	}
 

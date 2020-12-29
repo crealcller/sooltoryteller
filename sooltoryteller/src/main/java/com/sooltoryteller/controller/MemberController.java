@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,11 +36,12 @@ import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
-@Controller
 @Log4j
-@AllArgsConstructor
+//@AllArgsConstructor
+@Controller
 public class MemberController {
 	
 	private MailService mailService;
@@ -47,22 +49,45 @@ public class MemberController {
 	private MemberService service;
 	private MemberFavDrkService favDrkService;
 	private KakaoLoginController kakaoController;
-	/*
-	private NaverLoginController naverLoginController;
+	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
-	*/
 	/*
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	*/
 	
-	/*
 	@Autowired
-	private void setNaverLoginController(NaverLoginController naverLoginController) {
-		this.naverLoginController = naverLoginController;
-	} 
-	*/
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	
+	@Autowired
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
+	}
+
+	@Autowired
+	public void setE_mail(EmailVO e_mail) {
+		this.e_mail = e_mail;
+	}
+
+	@Autowired
+	public void setService(MemberService service) {
+		this.service = service;
+	}
+
+	@Autowired
+	public void setFavDrkService(MemberFavDrkService favDrkService) {
+		this.favDrkService = favDrkService;
+	}
+
+	@Autowired
+	public void setKakaoController(KakaoLoginController kakaoController) {
+		this.kakaoController = kakaoController;
+	}
+	
+
+
 	//로그인 view
 	   @GetMapping("/login")
 	   public ModelAndView login(HttpSession session, HttpServletRequest request) {
@@ -70,17 +95,18 @@ public class MemberController {
 	      
 	      String referer = (String)request.getHeader("REFERER");
 	      String kakaoUrl = kakaoController.getAuthorizationUrl(session);
-	      //String naverUrl = naverLoginController.getAuthorizationUrl(session);
+	      String naverUrl = naverLoginBO.getAuthorizationUrl(session);
 	      
 	      mav.setViewName("login");
 	      mav.addObject("kakaoUrl", kakaoUrl);
-	     // mav.addObject("naverUrl", naverUrl);
+	      mav.addObject("naverUrl", naverUrl);
 	      request.getSession().setAttribute("referer", referer);
 	      
 	      return mav;
 	   }
 	   
-	   @PostMapping("/login")
+
+	@PostMapping("/login")
 	   public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
 	         HttpSession session, RedirectAttributes rttr) {
 	      
@@ -425,9 +451,9 @@ public class MemberController {
 		String kimg = null;
 		
 		JsonNode properties = userInfo.path("properties");
-		JsonNode kakao_account = userInfo.path("kakao_account");
+		JsonNode kakaoAccount = userInfo.path("kakao_account");
 		
-		kemail = kakao_account.path("email").asText();
+		kemail = kakaoAccount.path("email").asText();
 		kimg = properties.path("profile_image").asText();
 		
 		System.out.println("userInfo:"+userInfo);
@@ -443,19 +469,19 @@ public class MemberController {
 			return "snsJoin";
 		}
 	}
-/*	
+	
 	//네이버 로그인
-	@RequestMapping(value = "/Noauth", method = {RequestMethod.POST, RequestMethod.GET})
-	public String naverLogin(Model model, @RequestParam String code,
-			@RequestParam String state,HttpSession session) throws IOException, ParseException {
+	@RequestMapping(value = "/Noauth", produces = "application/json", method = {RequestMethod.POST, RequestMethod.GET})
+	public String naverLogin(Model model, @RequestParam("code") String code,
+			@RequestParam("state") String state,HttpSession session) throws IOException, ParseException {
 		
 		String referer = (String) session.getAttribute("referer");
 		System.out.println("이전페이지 url : "+referer);
 		
-		OAuth2AccessToken oauthToken = naverLoginController.getAccessToken(session, code, state);
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		
 		//로그인 사용자 정보를 읽어옴
-		apiResult = naverLoginController.getUserProfile(oauthToken);
+		apiResult = naverLoginBO.getUserProfile(oauthToken);
 		
 		//apiResult를 string -> json
 		JSONParser parser = new JSONParser();
@@ -467,6 +493,8 @@ public class MemberController {
 		String nemail = (String)responseObj.get("email");
 		String mobile = (String)responseObj.get("mobile");
 		String nimg = (String)responseObj.get("profile_image");
+		
+		mobile = mobile.replaceAll("-", "");
 		
 		System.out.println(nemail);
 		System.out.println(mobile);
@@ -483,6 +511,5 @@ public class MemberController {
 			return "snsJoin";
 		}
 	}
-	*/
 	}
 
