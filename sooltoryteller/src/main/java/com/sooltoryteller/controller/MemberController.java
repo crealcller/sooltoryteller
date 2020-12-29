@@ -193,7 +193,6 @@ public class MemberController {
 		if(arr == null || arr.length !=2) {
 			model.addAttribute("member", member);
 			model.addAttribute("msg", "server : 선호하는 주종은 2개 선택해야 합니다.");
-			return "/join";
 		}else {
 		
 			//회원가입이 성공했다면
@@ -202,11 +201,12 @@ public class MemberController {
 				Long memberId = service.getMemberId(member.getEmail());
 				favDrkService.registerFavDrk(memberId, arr);
 				
-				//세션에 회원 닉네임, 이메일 저장 ->로그인상태로
+				//세션에 회원 닉네임, 이메일 저장 ->로그인상태로 userinfo(보류)
 				HttpSession session = request.getSession();
 				session.setAttribute("name", member.getName());
 				session.setAttribute("email", member.getEmail());
-				return "redirect:/userInfo";
+				//return "redirect:/userInfo";
+				  return "redirect:/";
 			}
 		}
 		return "/join";
