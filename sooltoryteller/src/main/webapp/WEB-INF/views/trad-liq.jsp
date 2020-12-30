@@ -166,7 +166,6 @@ $(document).ready(function(){
 	var revwUL = $(".d-revws");
 	var pageNum = 1;
 	var revwPageFooter =$(".d-paging");
-	var submitted = false;
 	showList(1);
 	
 	function showRevwPage(revwCnt){
@@ -250,7 +249,10 @@ $(document).ready(function(){
         newRevwRate = $(this).attr('value');
         console.log(newRevwRate);
     });
-	
+	$(".d-star_grade span").click(function(){
+		 newRevwRate = $(this).attr('value');
+		 $('.star_grade').children().eq(newRevwRate-1).addClass("on").prevAll("span").addClass("on");
+	});
 	$(".d-star_grade span").hover(function(){
         $(this).parent().children("span").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
         $(this).addClass("on").prevAll("span").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
@@ -264,7 +266,7 @@ $(document).ready(function(){
 	//리뷰작성하기 버튼
 	addRevwBtn.on("click",function(e){
 		if(memberIdValue!=-1){
-			resetRevw();
+			
 			$('#addRevw').fadeIn(300);
 		}else{
 			alert("로그인이 필요합니다");
@@ -275,10 +277,12 @@ $(document).ready(function(){
 	//모달 끄기 버튼
 	closeBtn.on("click",function(e){
 	revwModal.fadeOut(300);
+	resetRevw();
 	});
 	
 	//리뷰 작성후 제출 버튼
 	revwRegBtn.on("click",function(e){
+		var submitted = false;
 		const revwCntHtml = $("#d-revw-cnt");
 		const revwCnt = $(".d-revw-cnt");
 		if(submitted == true){
@@ -305,10 +309,12 @@ $(document).ready(function(){
 				rate:newRevwRate
 		};
 		submitted = true;
+		console.log(submitted);
 		revwService.add(revw,function(result){
 			if(result == "success"){
 			alert("리뷰가 등록 되었습니다");
 			revwModal.fadeOut(100);
+			resetRevw();
 			revwCntHtml.html(Number(revwCntHtml.html())+1);
 			revwCnt.html(Number(revwCnt.html())+1);
 			showList(1);

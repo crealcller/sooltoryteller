@@ -30,6 +30,7 @@ height:150px;
 </head>
 <body>
 <div class="d-con">
+<form id="modify" action="/admin/modify-liq" method="post">
 <span><img class="d-img-con" src="<c:out value='${liq.liqThumb}'/>"></span>
 <input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
 accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${liq.liqThumb }' />" />
@@ -52,7 +53,7 @@ accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out
 <p><label>맛 페어링 : <input type="text" name="liqCn.pair" maxlength="300" placeholder="0~300자" value="<c:out value='${liq.liqCn.pair }'/>"></label></p>
 <input type="hidden" name="liqCnt.revwCnt" value=0>
 
-<form id="modify" action="/admin/modify-liq" method="post">
+
 <input type="hidden" name="liqId" value="<c:out value='${liq.liqId }'/>" >
 <input type="hidden" name="pageNum" value="<c:out value='${adCri.pageNum }'/>" >
 <input type="hidden" name="amount" value="<c:out value='${adCri.amount }'/>" >
