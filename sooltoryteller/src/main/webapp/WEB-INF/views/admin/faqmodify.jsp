@@ -70,7 +70,7 @@ if(errorMsg != ""){
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-	document.getElementById("h-admin-faq").style="background-color: navy;color: white;";
+	document.getElementById("h-admin-faq").style="background-color: rgb(10, 29, 74); color: white;";
 	
 	var formObj = $("form");
 	

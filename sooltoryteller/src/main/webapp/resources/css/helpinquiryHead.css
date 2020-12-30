@@ -1,5 +1,9 @@
 @charset "UTF-8";
-
+		
+		.h-column {
+			margin-bottom: 30px;
+		}
+		
 		.h-inq-body{
             width: 900px;
             height: 600px;

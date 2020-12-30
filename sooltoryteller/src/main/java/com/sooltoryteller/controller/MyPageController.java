@@ -157,6 +157,9 @@ public class MyPageController {
 			}
 			str += "]";
 			model.addAttribute("data", str);
+			model.addAttribute("bCnt", cnt[0]);
+			model.addAttribute("rCnt", cnt[1]);
+			model.addAttribute("lCnt", cnt[2]);
 			model.addAttribute("member", memberService.get(email));
 		}
 	}

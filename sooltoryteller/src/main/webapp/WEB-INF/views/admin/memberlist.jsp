@@ -38,8 +38,8 @@ if(msg != ''){
          <tr>
          <td><c:out value='${member.memberId }'/></td>
          <!-- 251p get 만들어야함 [보류]-->
-         <!-- <td><a class='h-move' href="<c:out value='${member.memberId }'/>"><c:out value="${member.email }"/></a></td> -->
-		 <td><c:out value="${member.email }"/></td>
+         <%-- <td><a class='h-move' href="<c:out value='${member.memberId }'/>"><c:out value="${member.email }"/></a></td> --%>
+		 <td class="s-email"><c:out value="${member.email }"/></td>
          <td><c:out value="${member.name }"/></td>
          <td><c:out value="${member.telno }"/></td>
          <td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.regdate }"/></td>
@@ -115,10 +115,35 @@ if(msg != ''){
 	<div id="h-withdrawal-Modal" class="h-modal">
     <div class="h-modal-content">
     <span class="h-close"  style="cursor: pointer;">&times;</span>
-	<p style="text-align: center;">해당 회원을 탈퇴 시키겠습니까??</p>
+	<p style="text-align: center;">해당 회원을 탈퇴시키겠습니까?</p>
 	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES</button> <button type="button" class="h-btn" id="h-NObtn">NO</button></p>
    </div>
    </div>
+   
+	<%-- <!-- 회원 게시글 모달창 -->
+	<div class="s-bbst-modal">
+		<table>
+			<thead>
+				<!-- 제목, 작성일시, 조회수, 좋아요수, 댓글수 -->
+				<tr>	
+					<th>제목</th>
+					<th>작성일시</th>
+					<th>조회수</th>
+					<th>좋아요수</th>
+					<th>댓글수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<c:if test="${ }"
+					<td><c:out value="${}"</td>
+					<td><c:out value="${}"</td>
+					<td><c:out value="${}"</td>
+					<td><c:out value="${}"</td>
+				</tr>
+			</tbody>
+		</table>
+	</div> --%>
    
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">

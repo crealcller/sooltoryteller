@@ -23,9 +23,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		log.info("========== GET BBST LIST BY VIEW ==========");
 		model.addAttribute("bbstList", bbstService.getBbstByView());
-		
 		return "home";
 	}
 }

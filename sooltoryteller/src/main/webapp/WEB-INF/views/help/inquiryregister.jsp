@@ -25,7 +25,7 @@ let errorMsg = '<c:out value="${errorMsg}"/>';
 </script>
 </head>
 <body>
-<h3 style="margin: 0 0 10px 20px;">[1:1문의 등록]</h3>
+<h3 style="margin: 0 0 10px 20px;">[1:1 문의 등록]</h3>
         <div class="h-inq-body">
           <form action="/help/inquiryregister" id='h-inqRegForm' method="POST">
           <div>
@@ -51,7 +51,7 @@ let errorMsg = '<c:out value="${errorMsg}"/>';
 <div id="h-myModal" class="h-modal">
   <div class="h-modal-content">
     <span class="h-close">&times;</span>
-   <p style="text-align: center;" class="h-modal-body">1:1문의 접수되었습니다.</p>
+   <p style="text-align: center;" class="h-modal-body">1:1 문의가 접수되었습니다.</p>
    <p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">확인</button></p>
    </div>
 </div>

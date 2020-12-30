@@ -17,12 +17,58 @@
 		location.href = "/login";
 	}
 </script>
+
+<style>
+.s-chart-div {
+	height: 400px;
+	width: 600px;
+	margin: 0 auto;
+}
+
+#columnchart_values {
+	height: 400px;
+	width: 600px;
+}
+
+.s-myactivity-table {
+	height: 150px;
+	width: 400px;
+	margin: 20px auto 0 auto;
+}
+
+th, td {
+	border: 1px solid rgb(240 240 240);
+	padding: 8px;
+	text-align: left;
+}
+
+tr:nth-child(even) {
+	background-color: rgb(250 245 255);
+}
+</style>
 </head>
 
 <body>
-<div>
-	<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+<h2 style="width: 780px;">내 게시글 활동 현황</h2>
+<div class="s-chart-div">
+	<div id="columnchart_values"></div>
 </div>
+
+<table class="s-myactivity-table">
+	<tr>
+		<th>내가 작성한 게시글수</th>
+		<td><c:out value="${bCnt }" /></td>
+		
+	</tr>
+	<tr>
+		<th>내가 작성한 댓글수</th>
+		<td><c:out value="${rCnt }" /></td>
+	</tr>
+	<tr>
+		<th>좋아요 누른 게시글수</th>
+		<td><c:out value="${lCnt }" /></td>
+	</tr>
+</table>
 
 </div>
 </div>
@@ -44,7 +90,7 @@ function drawChart() {
     view.setColumns([0, 1]);
                     
     var options = {
-      title: "내 게시글 활동 현황",
+      /* title: "내 게시글 활동 현황", */
       width: 600,
       height: 400,
       bar: {groupWidth: "95%"},

@@ -38,7 +38,7 @@ if(errorMsg != ""){
             <p style="text-align: left; margin: 0;">내용</p>
             <p style="margin: 0;"><textarea class="h-faq-content" id="cn" name="cn" maxlength="330" ><c:out value="${faq.cn}"/></textarea></p>
         </div>
-        <div style="margin-top:20px;">
+        <div style="margin-top:20px; float: right; margin-right: 150px;">
             <button type="submit" class="h-faq-btn" id='regbtn'>등록</button>
             <button type="button" class="h-faq-btn" id='listbtn' onclick="location.href='/admin/faqlist'">목록</button>
         </div>
@@ -48,12 +48,12 @@ if(errorMsg != ""){
 
 </div><!--인크루드 하는 페이지에 넣기-->
 </div><!--인크루드 하는 페이지에 넣기-->
-
+</div><!--인크루드 하는 페이지에 넣기-->
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-admin-faq").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-faq").style="background-color: rgb(10, 29, 74); color: white;";
 
 	//제목 글자수 30자가 넘으면 경고창	
 	$("#title").keyup(function(){

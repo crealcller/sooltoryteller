@@ -35,8 +35,10 @@ if(msg != ''){
             <p style="margin: 0;"><textarea class="h-inq-content" name="cn"
             readonly="readonly"><c:out value="${answer.cn }"/></textarea></p>
         </div>
+        <div style="float: right; margin-right: 150px;">
             <button type="button" class="h-inq-btn" data-oper="list" onclick="location.href='/admin/inquirylist'">목록</button>
         </div>
+     </div>
 
     </div>
 
@@ -47,7 +49,7 @@ if(msg != ''){
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-admin-inqlist").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-inqlist").style="background-color: rgb(10 29 74); color: white;";
  
  });
 		</script>

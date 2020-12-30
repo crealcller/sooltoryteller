@@ -166,4 +166,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where rownum <= 4
 	]]>
 </select>
+
+<!-- 관리자 페이지 -->
+<!-- 한 회원이 작성한 게시글 리스트 -->
+
 </mapper>

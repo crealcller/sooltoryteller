@@ -8,6 +8,7 @@
 
 <html>
 <head>
+<title>내가 작성한 게시글</title>
 <script type="text/javascript">
 	// 로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = "${msg}";
@@ -20,7 +21,7 @@
 </head>
 
 <body>
-			<h2>내가 작성한 게시글</h2>
+			<h2 style="width: 780px;">내가 작성한 게시글</h2>
 			<div class="s-bbst-container">
 				<div class="s-bbst-container-box"></div>
 			</div>
@@ -94,7 +95,7 @@ $(document).ready(function() {
 				bbstBox.html("<p style='margin: 35px 0 0 25px'>작성된 게시글이 없습니다.</p><br />");
 				return;
 			}
-			
+			// 내가 쓴 게시글 목록
 			for(var i = 0, len = myBbstList.length || 0; i < len; i++) {
 				str += '<div class="s-bbst-item-container" data-bbstid="' + myBbstList[i].bbstId + '">';
 				str += '<div class="s-bbst-img-div"><img class="s-bbst-img" src="' + myBbstList[i].cnImg + '" /></div>';
