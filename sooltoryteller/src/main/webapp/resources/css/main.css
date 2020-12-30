@@ -102,6 +102,31 @@ a {
 	top: 70px;
 	position: relative;
 }
+.h-bbst-div-left{
+	width: 700px;
+	height: 500px;
+	display: inline-block;
+	float: left;
+	text-align: center;
+}
+
+.s-chart-img {
+	width: 400px;
+	margin: 60px 0 0 80px ;
+}
+
+.s-chart-text {
+	margin: 20px 0 0 70px;
+	font-size: 20px;
+	font-weight: bold;	
+}
+
+.h-bbst-div-right{
+	width: 700px;
+	height: 500px;
+	display: inline-block;
+	float: left;
+}
 
 .s-bbst-item-container {
 	height: 325px;

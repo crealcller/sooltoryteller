@@ -36,6 +36,7 @@ import com.sooltoryteller.domain.MemberVO;
 import com.sooltoryteller.service.MailService;
 import com.sooltoryteller.service.MemberFavDrkService;
 import com.sooltoryteller.service.MemberService;
+import com.sooltoryteller.service.NaverLoginBO;
 import com.sooltoryteller.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;

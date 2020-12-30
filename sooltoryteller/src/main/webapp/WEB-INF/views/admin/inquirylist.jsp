@@ -54,7 +54,7 @@ if(msg != ''){
         		 	답변 대기
         		 </c:when>
         		 <c:when test="${inq.anstus  == 'AC'.toString()}">
-        		 <a href="/admin/getanswer?inquiryId=<c:out value='${inq.inquiryId}'/>">답변 완료</a>
+        		 <a href="/admin/getanswer?inquiryId=<c:out value='${inq.inquiryId}'/>" style="cursor: pointer;">답변 완료</a>
         		 </c:when>	
         	 </c:choose>
      	  	</td>
@@ -108,7 +108,7 @@ if(msg != ''){
   <!-- Modal  추가 -->   
 <div id="h-myModal" class="h-modal">
   <div class="h-modal-content">
-    <span class="h-close">&times;</span>
+    <span class="h-close" style="cursor: pointer;">&times;</span>
    <p style="text-align: center;" class="h-modal-body">처리가 완료되었습니다.</p>
    <p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">확인</button></p>
    </div>

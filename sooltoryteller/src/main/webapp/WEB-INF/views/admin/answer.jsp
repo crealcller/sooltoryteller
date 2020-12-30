@@ -49,7 +49,6 @@ if(errorMsg != ""){
 </div><!--인크루드 하는 페이지에 넣기-->
 </div><!--인크루드 하는 페이지에 넣기-->   
 
-
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){

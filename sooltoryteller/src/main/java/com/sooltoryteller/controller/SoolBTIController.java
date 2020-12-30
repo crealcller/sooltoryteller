@@ -17,4 +17,5 @@ public class SoolBTIController {
 	public void roulette() {
 		log.info("roulette page");
 	}
+	
 }

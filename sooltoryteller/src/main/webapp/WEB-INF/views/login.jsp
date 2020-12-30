@@ -49,7 +49,6 @@ if(emailMsg != ""){
 	    <p class="h-login-p" style="text-align: center;"><a href='${kakaoUrl}'>
 	    <img src="/resources/img/kakao_login_medium.png" class="snslogin" style="width: 95px;"></a>
 	    <a href="${naverUrl }"><img src="/resources/img/Log in with NAVER_Short_Green.PNG" class="snslogin"></a></p>
-	   <%--  <input type="hidden" name="referer" value='${referer}'> --%>
 	    </form>
     
     </div>
