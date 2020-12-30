@@ -89,6 +89,20 @@ let msg = '${msg}';
 <div class="d-main-img-con">
 </div>
 
+<!-- 현수 추가 선호하는 술 통계 -->
+<div class="s-bbst-container">
+	<div class="h-bbst-div-left">
+		
+		
+	</div><div class="h-bbst-div-right">
+	<div style="display: inline-block; overflow: hidden; width: 1200px">
+	<div id="donutchart" style="width: 760px; height: 500px; display: inline-block;">
+	</div>
+	</div>
+	</div>
+</div>
+
+
 <!-- 게시글 리스트 - 조회수 높은순 -->
 <div class="s-bbst-container">
 	<div class="s-bbst-div">
@@ -190,7 +204,29 @@ $(document).ready(function() {
 });
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+/* 현수 추가 구글차트 */
+google.charts.load("current", {packages:["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+		
+function drawChart() {
+  var data = google.visualization.arrayToDataTable(
+		${data}
+  );
+
+  var options = {
+    title: '술토리텔러들의 선택',
+    pieHole: 0.4,
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+  chart.draw(data, options);
+}
+/* ----------------- */
+
+
 $(window).scroll(function(evt) {
 	var y=$(".h-logobar").offset().top
 	if(y>=200){

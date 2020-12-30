@@ -102,6 +102,17 @@ a {
 	top: 70px;
 	position: relative;
 }
+.h-bbst-div-left{
+	width: 760px;
+	height: 500px;
+	background-color: red;
+	display: inline-block;
+}
+.h-bbst-div-right{
+	width: 760px;
+	height: 500px;
+	display: inline-block;
+}
 
 .s-bbst-item-container {
 	height: 325px;

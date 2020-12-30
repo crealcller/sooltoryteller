@@ -75,10 +75,10 @@
 	}
 	
 	.h-modal-content {
-	  background-color: white;
+	  background-color: #d8e1f1;
 	  border-radius:10px;
 	  margin: auto;
-	  padding: 20px;
+	  padding: 10px;
 	  width: 450px;
 	  height: 150px;
 	}
@@ -100,5 +100,5 @@
 	  border: none;
 	  color: white;
 	  margin: 10px;
-	  background-color: rgb(181, 135, 189);
+	  background-color: rgb(10, 29, 74);
 	}

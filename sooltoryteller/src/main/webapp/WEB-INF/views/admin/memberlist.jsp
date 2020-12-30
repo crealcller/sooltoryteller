@@ -114,8 +114,8 @@ if(msg != ''){
     <!-- 회원 탈퇴 모달창 -->
 	<div id="h-withdrawal-Modal" class="h-modal">
     <div class="h-modal-content">
-    <span class="h-close"  style="cursor: pointer;">&times;</span>
-	<p style="text-align: center;">해당 회원을 탈퇴 시키겠습니까??</p>
+    <span class="h-close"  style="cursor: pointer; margin-right: 10px">&times;</span>
+	<p style="text-align: center; margin: 30px 0 10px 0;">해당 회원을 탈퇴 시키겠습니까??</p>
 	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES</button> <button type="button" class="h-btn" id="h-NObtn">NO</button></p>
    </div>
    </div>

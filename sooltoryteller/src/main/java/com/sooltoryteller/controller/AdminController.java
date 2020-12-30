@@ -299,7 +299,7 @@ public class AdminController {
 		
 		mav.addObject("data", str);
 		mav.setViewName("/admin");
-		
+		mav.setViewName("home");
 		return mav;
 		
 	}
