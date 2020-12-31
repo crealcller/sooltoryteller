@@ -3,8 +3,8 @@
 <%@include file="/WEB-INF/views/include/topmenu.jsp"  %>
 <!DOCTYPE html>
 <html>
-<title>술BTI - 룰렛</title>
 <head>
+<title>돌려 돌려 돌림판!</title>
 <meta charset="UTF-8">
 <script type="text/javascript" src="/resources/js/Winwheel.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
