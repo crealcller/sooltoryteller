@@ -57,14 +57,22 @@ public interface AdminMapper {
 	//양조장 등록
 	public int insertLiqCo(LiqCoVO co);
 	
+	//양조장 업데이트
+	public int updateLiqCo(LiqCoVO co);
+	
+	//양조장 삭세
+	public int deleteLiqCo(Long liqCoId);
+	
 	//모든 양조장 리스트
 	public List<LiqCoVO> getLiqCoListWithPaging(AdminCriteria adCri);
 	
 	//양조장아이디로 양조장 정보가져오기
 	public LiqCoVO getLiqCoById(Long liqCoId);
 	
+	//등록된 양조장 개수
 	public int liqCoCnt();
 	
+	//양조장 리스트
 	public List<String> getCoNm();
 
 }

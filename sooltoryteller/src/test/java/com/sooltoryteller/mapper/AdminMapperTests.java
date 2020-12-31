@@ -27,6 +27,21 @@ public class AdminMapperTests {
 	private AdminMapper mapper;
 	
 	@Test
+	public void testDeleteLiqCo() {
+		log.info("delete liq co");
+		log.info("result : "+mapper.deleteLiqCo(68L));
+	}
+	
+	public void testUpdateLiqCo() {
+		LiqCoVO co = new LiqCoVO();
+		co.setLiqCoId(68L);
+		co.setNm("수정된 이름");
+		co.setAddr("주소오");
+		co.setTelno("010101");
+		mapper.updateLiqCo(co);
+	}
+	
+	
 	public void testPaging() {
 		
 		AdminCriteria adCri = new AdminCriteria();
@@ -84,7 +99,7 @@ public class AdminMapperTests {
 	public void testGetLiqCo() {
 		log.info(mapper.getLiqCoById(1L));
 	}
-	@Test
+	
 	public void testGetLiqCoList() {
 		AdminCriteria adCri = new AdminCriteria(1,5);
 		List<LiqCoVO> list = mapper.getLiqCoListWithPaging(adCri);
@@ -96,7 +111,7 @@ public class AdminMapperTests {
 		log.info("result : " + result);
 	}
 	
-	@Test
+	
 	public void testSearch() {
 		
 		AdminCriteria adCri = new AdminCriteria();

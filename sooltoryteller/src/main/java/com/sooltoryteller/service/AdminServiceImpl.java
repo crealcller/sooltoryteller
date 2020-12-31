@@ -71,7 +71,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Transactional
 	@Override
-	public boolean modify(LiqVO liq, LiqCnVO cn) {
+	public boolean modifyLiq(LiqVO liq, LiqCnVO cn) {
 		int liqResult = mapper.updateLiq(liq);
 		int cnResult = mapper.updateCn(cn);
 		if (liqResult == 1 && cnResult == 1) {
@@ -111,6 +111,18 @@ public class AdminServiceImpl implements AdminService {
 	public boolean registerLiqCo(LiqCoVO vo) {
 		log.info("register liq co");
 		return mapper.insertLiqCo(vo)==1;
+	}
+
+	@Override
+	public boolean modifyLiqCo(LiqCoVO vo) {
+		log.info("update liq co");
+		return mapper.updateLiqCo(vo)==1;
+	}
+	
+	@Override
+	public boolean removeLiqCo(Long liqCoId) {
+		log.info("remove liq co");
+		return mapper.deleteLiqCo(liqCoId)==1;
 	}
 
 	@Override

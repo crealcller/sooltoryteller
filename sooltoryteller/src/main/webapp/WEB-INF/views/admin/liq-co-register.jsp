@@ -6,6 +6,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.d-admin-half-con input{
+	line-height: 25px;
+	width: 280px;
+}
+</style>
 <script>
 //권한체크
 let msg ='${msg}';
@@ -18,32 +29,21 @@ if(msg != ''){
 <%@include file="/WEB-INF/views/include/adminMenu.jsp" %>
 <meta charset="UTF-8">
 <title>양조장 등록</title>
-<style>
-.d-admin-con{
-margin-left:20px;
-}
-.d-admin-con input{
-	width:200px;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-</style>
 </head>
 <body>
-<div class="d-admin-con">
 <h3 style="margin: 0 0 10px 15px;">[ 양조장 등록 ]</h3>
-<strong><c:out value="${result}"/></strong>
-<strong><c:out value="${error}"/></strong>
+<div class="d-admin-con">
 <form action="/admin/liq-co-register" method="post">
-<p><label>이름 : <input type="text" name="nm" maxlength="20" placeholder="1~20자" required="required"></label></p>
-<p><label>주소 : <input type="text" name="addr" maxlength="30" placeholder="1~30자" required="required"></label></p>
-<p><label>홈페이지주소 : <input type="url" name="hmpg" maxlength="100" placeholder="0~100자"></label></p>
-<p><label>전화번호 : <input type="number" name="telno" maxlength="15" placeholder="숫자만 입력해주세요." required="required"></label></p>
-<button type="submit">등록하기 </button>
+<div class="d-admin-half-con">
+이름<p><input type="text" name="nm" maxlength="20" placeholder="1~20자" required="required"></p>
+주소<p><input type="text" name="addr" maxlength="30" placeholder="1~30자" required="required"></p>
+홈페이지<p><input type="url" name="hmpg" maxlength="100" placeholder="0~100자"></p>
+전화번호<p><input type="number" name="telno" maxlength="15" placeholder="숫자만 입력해주세요." required="required"></p>
+</div>
+<div class="d-reg-btn" >
+<button type="submit">등록 </button>
+</div>
+
 </form>
 </div>
 </div><!--인크루드 하는 페이지에 넣기-->

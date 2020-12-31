@@ -34,7 +34,7 @@
 
 .d-mypage-right h2 {
 	padding: 20px;
-	border-bottom-color: solid rgb(170, 168, 168);
+	border-bottom: solid rgb(170, 168, 168);
 	margin: 20px;
 }
 
@@ -156,7 +156,6 @@
 .d-revw-con {
 	width: 700px;
 	height: 170px;
-	border-bottom: 1px solid black;
 	padding: 10px;
 }
 
@@ -208,6 +207,7 @@
 }
 
 .star_grade span {
+ 	cursor: pointer;
 	text-decoration: none;
 	font-size: 30px;
 	color: gray;

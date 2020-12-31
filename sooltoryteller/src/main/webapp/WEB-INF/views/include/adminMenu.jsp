@@ -33,141 +33,320 @@ response.setHeader("Pragma", "no-cache");
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <style>
 * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   font-family: 'Nanum Gothic', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Nanum Gothic', sans-serif;
 }
+
 button {
-   cursor: pointer;
-   outline: 0;
+	cursor: pointer;
+	outline: 0;
 }
+
 #h-company-name {
-   padding:20px;
+	padding: 20px;
 }
+
 a {
-   text-decoration: none;
-   color: black;
+	text-decoration: none;
+	color: black;
 }
+
 .h-logobar {
-   width: 1520px;
-   height:70px;
-   position: sticky;
-   top: 0px;
-   background-color: white; 
-   box-shadow : 0px -2px 8px 5px #e1e1e1;
-  }
+	width: 1520px;
+	height: 70px;
+	position: sticky;
+	top: 0px;
+	background-color: white;
+	box-shadow: 0px -2px 8px 5px #e1e1e1;
+}
+
 .h-logo-img {
-   height: 60px;
-   width: 145px;
-   margin:5px 0px 0px 30px;
+	height: 60px;
+	width: 145px;
+	margin: 5px 0px 0px 30px;
 }
+
 .h-logo {
-   width: 800px;
-   text-align: left;
-   display: inline-block;
-   margin-bottom: 10px;
+	width: 800px;
+	text-align: left;
+	display: inline-block;
+	margin-bottom: 10px;
 }
+
 .h-usermenu {
-   width: 700px;
-   font-size: 13px;
-   text-align: right;
-   display: inline-block;
-   float:right;
-   padding: 40px 10px 0px 0px;
+	width: 700px;
+	font-size: 13px;
+	text-align: right;
+	display: inline-block;
+	float: right;
+	padding: 40px 10px 0px 0px;
 }
+
 .h-dropbtn {
-   background-color: Transparent;
-   width: 120px;
-   color: black;
-   font-size: 15px;
-   font-weight: bold;
-   border: none;
-   padding-bottom : 15px;
+	background-color: Transparent;
+	width: 120px;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+	border: none;
+	padding-bottom: 15px;
 }
+
 .h-dropdown {
-   display: inline-block;
+	display: inline-block;
 }
+
 .h-dropdown-content {
-   display: none;
-   position: absolute;
-   background-color: white;
-   width: 120px;
-   z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: white;
+	width: 120px;
+	z-index: 1;
 }
+
 .h-dropdown-content a {
-   color: black;
-   padding: 12px 16px;
-   text-decoration: none;
-   display: block;
-   font-size:13px;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	font-size: 13px;
 }
+
 .d-main-con {
-   width: 100%;
-   height: 1000px;
+	width: 100%;
+	height: 1000px;
 }
+
 #h-dropdown-content a:hover {
-   background-color: #F2EFF9;
+	background-color: #F2EFF9;
 }
+
 #h-dropdown:hover #h-dropdown-content {
-   display: block;
+	display: block;
 }
+
 #h-dropdown:hover .h-dropbtn {
-   border-bottom: 3px solid purple;
+	border-bottom: 3px solid purple;
 }
-.h-imgarea{
-width: 1520px;
-height: 550px;
+
+.h-imgarea {
+	width: 1520px;
+	height: 550px;
 }
-.h-centerImg{
-width: 1520px;
-height: 550px;
+
+.h-centerImg {
+	width: 1520px;
+	height: 550px;
 }
-.h-body{
-width: 1520px;
-padding: 30px 0;
-background-color: rgb(225 233 255);
-display: inline-block;
+
+.h-body {
+	width: 1520px;
+	padding: 30px 0;
+	background-color: rgb(225, 233, 255);
+	display: inline-block;
 }
+
 .h-column {
-width: 1300px;
-margin: 0 auto;
-padding: 30px 0 10px 0;
-background-color: white;
+	width: 1300px;
+	margin: 0 auto;
+	padding: 30px 0 10px 0;
+	background-color: white;
 }
+
 .h-sidebar {
-margin: 0 0 0 20px;
-padding: 0;
-width: 200px;
-height: 500px;
-text-align: center;
-overflow: hidden;
-display: inline-block;
+	margin: 0 0 0 20px;
+	padding: 0;
+	width: 200px;
+	height: 500px;
+	text-align: center;
+	overflow: hidden;
+	display: inline-block;
 }
-        
+
 .h-sidebar a {
-display: block;
-color: black;
-padding: 16px;
-font-weight: bold;
-text-decoration: none;
+	display: block;
+	color: black;
+	padding: 16px;
+	font-weight: bold;
+	text-decoration: none;
 }
+
 .h-sidebar a:hover {
-background-color: rgb(80 98 140);
-color: white;
+	background-color: rgb(80, 98, 140);
+	color: white;
 }
-        
+
 div.h-content {
-width: 1000px;
-height: 500px;
-margin-left: 25px;
-overflow: hidden;
-display: inline-block;
+	width: 1000px;
+	height: 500px;
+	margin-left: 25px;
+	overflow: hidden;
+	display: inline-block;
 }
-.d-logo-left-con{
-float:left; 
-}        
- </style>
+
+.d-logo-left-con {
+	float: left;
+}
+
+.d-admin-con {
+	width: 900px;
+	height: 420px;
+	margin: 50px;
+	border: solid 10px #e1e9ff;
+}
+
+.d-admin-half-con {
+	float: left;
+	width: 453px;
+	height: 385px;
+	padding: 20px;
+}
+
+.d-admin-half-con p {
+	padding: 5px 0px 5px 0px;
+}
+
+.d-admin-half-con textarea {
+	width: 400px;
+}
+
+.d-admin-half-con span {
+	width: 300px;
+}
+
+textarea {
+	resize: none;
+}
+/* The Modal (background) */
+.d-revw-modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.d-revw-modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 25px;
+	width: 500px;
+	height: 400px;
+	border-radius: 10px;
+}
+/* The Close Button */
+.d-revw-modal-close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.d-revw-modal-close:hover, .d-revw-modal-close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.d-co-list {
+	margin: 20px auto 20px auto;
+	width: 445px;
+	height: 400px;
+	overflow: auto;
+	border: solid #e1e1e1;
+}
+
+.d-revw-modal-content h2 {
+	background-color: #e1e9ff;
+	padding: 20px;
+}
+
+.d-revw-modal-content button {
+	outline: 0;
+	border: 0;
+	padding: 10px;
+	background-color: #e1e9ff;
+	font-weight: bold;
+	display: inline;
+	margin-left: -47px;
+}
+
+.d-modal-input {
+	text-align: center;
+	padding: 20px;
+}
+
+.d-modal-input input {
+	width: 250px;
+	line-height: 35px;
+	display: inline;
+	border: #e1e9ff solid;
+}
+
+.select-img {
+	margin-bottom: 10px;
+	width: 80px;
+	height: 100px;
+	background: url("/resources/img/bbst-bg.png");
+	background-size: 80px 100px;
+	display: inline-block;
+	float: left;
+}
+
+.d-file-area {
+	float: left;
+	display: inline-block;
+	width: 200px;
+}
+
+.inputArea {
+	width: 300px;
+	height: 120px;
+}
+
+.d-file-area {
+	padding: 20px;
+}
+
+.d-file-area input {
+	width: 200px;
+}
+
+.d-inputs input {
+	width: 280px;
+	line-height: 25px;
+}
+
+.d-co-search-btn {
+	margin-left: -36px;
+	border: none;
+	padding: 5px;
+	background-color: #e1e9ff;
+}
+
+.d-reg-btn {
+	float: right;
+	padding: 10px 10px 0px 0px;
+	width: 70px;
+	height: 300px;
+}
+
+.d-reg-btn button {
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #e1e9ff;
+	margin: 3px;
+}
+</style>
   <body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <div class="h-logobar">

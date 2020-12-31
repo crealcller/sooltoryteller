@@ -22,13 +22,17 @@ public interface AdminService {
 
 	public boolean removeLiq(Long liqId);
 
-	public boolean modify(LiqVO liq, LiqCnVO cn);
+	public boolean modifyLiq(LiqVO liq, LiqCnVO cn);
+	
+	public boolean removeLiqCo(Long liqCoId);
 
 	public int getliqExist(String liqNm);
 	
 	public Long checkExistLiqCo(String liqCoNm);
 	
 	public boolean registerLiqCo(LiqCoVO vo);
+	
+	public boolean modifyLiqCo(LiqCoVO vo);
 	
 	public List<LiqCoVO> getLiqCoListWithPaging(AdminCriteria adCri);
 	

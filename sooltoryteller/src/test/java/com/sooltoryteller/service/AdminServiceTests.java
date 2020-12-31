@@ -1,7 +1,5 @@
 package com.sooltoryteller.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.sooltoryteller.domain.AdminCriteria;
 import com.sooltoryteller.domain.LiqCnVO;
 import com.sooltoryteller.domain.LiqCntVO;
+import com.sooltoryteller.domain.LiqCoVO;
 import com.sooltoryteller.domain.LiqVO;
 
 import lombok.Setter;
@@ -27,6 +26,21 @@ public class AdminServiceTests {
 	private AdminService service;
 	
 	@Test
+	public void testRemoveLiqCo() {
+		log.info("remove liq co");
+		service.removeLiqCo(69L);
+	}
+	
+	public void testModifyLiqCo() {
+		log.info("modify liq co");
+		LiqCoVO co = new LiqCoVO();
+		co.setLiqCoId(68L);
+		co.setNm("tnwjdtnwjd");
+		co.setAddr("ss");
+		co.setTelno("222");
+		service.modifyLiqCo(co);
+	}
+	
 	public void getList() {
 		service.getList(new AdminCriteria(2,10)).forEach(member -> log.info(member));
 	}

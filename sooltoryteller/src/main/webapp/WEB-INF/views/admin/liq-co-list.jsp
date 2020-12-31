@@ -132,7 +132,6 @@ if(msg != ''){
  <script type="text/javascript">
  
     $(document).ready(function(){
-    	
 		$("#d-liq-co-list").css('background-color', 'rgb(10, 29, 74)').css('color','white');
 		
     	$(".h-paginate_button a").on("click", function(e){
@@ -153,6 +152,8 @@ if(msg != ''){
     	actionForm.attr("action", "/admin/get-liq-co");
     	actionForm.submit();
     	}); 
+  	var rs = "${result}";
+
     });	
     
     </script>

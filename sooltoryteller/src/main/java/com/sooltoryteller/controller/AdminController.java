@@ -97,6 +97,7 @@ public class AdminController {
 		}else if(authority.equalsIgnoreCase("admin")) {
 			log.info("liq : " + liqId);
 			model.addAttribute("liq", adService.getLiq(liqId));
+			model.addAttribute("coList", adService.coNm());
 		}
 	}
 
@@ -153,11 +154,8 @@ public class AdminController {
 		if (liqCoId != null) {
 			if(liqExist != 1) {
 			if (adService.registerLiq(liq, liqCoId)) {
-				rttr.addAttribute("result", "success");
+				rttr.addFlashAttribute("result", "success");
 				log.info("성공");
-			} else {
-				rttr.addAttribute("result", "fail");
-				log.info("실패");
 			}
 			return "redirect:/admin/liq-list";
 			
@@ -179,7 +177,9 @@ public class AdminController {
 	public String removeLiq(Long liqId, RedirectAttributes rttr) {
 		
 		log.info("remove "+liqId);
-		adService.removeLiq(liqId);
+		if(adService.removeLiq(liqId)){
+			rttr.addFlashAttribute("result", "success");
+		}
 		return "redirect:/admin/liq-list";
 	}
 	
@@ -187,7 +187,7 @@ public class AdminController {
 	@PostMapping("/modify-liq")
 	public String modifyLiq(LiqVO liq, LiqCnVO cn, RedirectAttributes rttr) {
 		
-		adService.modify(liq, cn);
+		adService.modifyLiq(liq, cn);
 		
 		return "redirect:/admin/";
 	}
@@ -214,7 +214,7 @@ public class AdminController {
 	}
 	// 양조장 관리페이지
 	@GetMapping("/get-liq-co")
-	public void getLiqCo(Model model, Long liqCoId, HttpSession session) {
+	public void getLiqCo(Model model, @ModelAttribute("adCri") AdminCriteria adCri, Long liqCoId, HttpSession session) {
 
 		String authority = (String) session.getAttribute("authority");
 		
@@ -243,7 +243,7 @@ public class AdminController {
 
 	// 양조장 등록
 	@PostMapping("/liq-co-register")
-	public String liqCoRegister(@Valid LiqCoVO vo, BindingResult result,RedirectAttributes rttr) {
+	public String liqCoRegister(@Valid LiqCoVO vo, BindingResult result,RedirectAttributes rttr, @ModelAttribute("adCri") AdminCriteria adCri) {
 		
 		if(result.hasErrors()) { 
 			List<ObjectError> errorList = result.getAllErrors();
@@ -265,6 +265,27 @@ public class AdminController {
 		
 		log.info("result : " + adService.registerLiqCo(vo));
 		return "redirect:/admin/liq-co-list";
+	}
+	
+	//양조장 수정
+	@PostMapping("/modify-liq-co")  
+	public String modifyLiqCo(LiqCoVO co, RedirectAttributes rttr, @ModelAttribute("adCri") AdminCriteria adCri) {
+		log.info("modify liq co");
+		log.info(co);
+		if(adService.modifyLiqCo(co)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:/admin/liq-co-list?pageNum="+adCri.getPageNum()+"&amount="+adCri.getAmount();
+	}
+	
+	//양조장 삭제
+	@PostMapping("/remove-liq-co") 
+	public String removeLiqCo(Long liqCoId, RedirectAttributes rttr, @ModelAttribute("adCri") AdminCriteria adCri) {
+		log.info("remove liq co");
+		if(adService.removeLiqCo(liqCoId)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:/admin/liq-co-list?pageNum="+adCri.getPageNum()+"&amount="+adCri.getAmount();
 	}
 	
 	//관리자-home
