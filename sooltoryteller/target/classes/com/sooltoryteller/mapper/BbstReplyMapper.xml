@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from bbst b, bbst_reply r, member m
 			where r.bbst_id = b.bbst_id
 			and r.member_id = m.member_id
-			and r.bbst_id = 337
+			and r.bbst_id = #{bbstId}
 			and r.bbst_reply_id > 0
 	        order by r.bbst_reply_id asc) i
         where rownum <= #{cri.pageNum} * #{cri.amount}) o

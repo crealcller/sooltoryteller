@@ -3,11 +3,11 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
 
 <html>
 <head>
+<title>내가 좋아요 누른 게시글</title>
 <script type="text/javascript">
 	// 로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = "${msg}";
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-			<h2>좋아요 누른 게시글</h2>
+			<h2 style="width: 780px;">좋아요 누른 게시글</h2>
 			<div class="s-bbst-container">
 				<div class="s-bbst-container-box"></div>
 			</div>
@@ -30,7 +30,6 @@
 		</div>
 	</div>
 </div>
-
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <script type="text/javascript" src="/resources/js/bbstLike.js"></script>

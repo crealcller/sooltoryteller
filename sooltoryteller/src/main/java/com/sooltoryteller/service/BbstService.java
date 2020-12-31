@@ -8,6 +8,7 @@ import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.MyBbstPageDTO;
+import com.sooltoryteller.domain.MyCntVO;
 
 public interface BbstService {
 
@@ -30,6 +31,9 @@ public interface BbstService {
 	public int getBbstTotal(BbstCriteria cri);
 	
 	// 마이페이지
+	// 내 게시글 활동 현황
+	public Long[] getMyCnt(Long memberId);
+	
 	// 내가 쓴 게시글 리스트
 	public MyBbstPageDTO getMyBbstList(
 		@Param("cri") BbstCriteria cri,

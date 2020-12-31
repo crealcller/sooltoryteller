@@ -37,7 +37,7 @@ if(errorMsg != ""){
             <p style="text-align: left; margin: 0;">내용</p>
             <p style="margin: 0;"><textarea class="h-faq-content" id="cn" name="cn" maxlength="330"></textarea></p>
         </div>
-        <div style="margin-top:20px;">
+        <div style="margin:20px 150px 0 0; float: right;">
             <button type="submit" class="h-faq-btn">등록</button>
             <button type="button" class="h-faq-btn" onclick="location.href='/admin/inquirylist'">목록</button>
         </div>
@@ -47,13 +47,12 @@ if(errorMsg != ""){
 
 </div><!--인크루드 하는 페이지에 넣기-->
 </div><!--인크루드 하는 페이지에 넣기-->
-   
-
+</div><!--인크루드 하는 페이지에 넣기-->   
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-		document.getElementById("h-admin-inqlist").style="background-color: navy;color: white;";
+		document.getElementById("h-admin-inqlist").style="background-color: rgb(10, 29, 74); color: white;";
 
 	//내용최대글자수 넘으면 더이상 쓰지 못 하게 막음	
 	$("#cn").keyup(function(){

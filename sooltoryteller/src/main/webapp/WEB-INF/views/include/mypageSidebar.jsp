@@ -21,7 +21,7 @@
 						</div>
 					</div>
 					<ul class="d-mypage-menu-con">
-						<li class="d-mypage-ref"><a href='/mypage/like'>전통주</a></li>
+						<li class="d-mypage-ref"><a href='/mypage/revw'>전통주</a></li>
 						<ul class="d-mypage-menu">
 							<li class="d-mypage-li"><a href='/mypage/revw'>내가 작성한 리뷰
 							</a></li>
@@ -30,7 +30,7 @@
 						</ul>
 					</ul>
 					<ul class="d-mypage-menu-con">
-						<li class="d-mypage-ref"><a href='#'>게시글 </a></li>
+						<li class="d-mypage-ref"><a href='/mypage/myactivity'>게시글 </a></li>
 						<ul class="d-mypage-menu">
 							<li class="d-mypage-li"><a href='/mypage/mypost'>내가 작성한
 									게시글</a></li>

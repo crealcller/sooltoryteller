@@ -113,7 +113,6 @@ public class AdminController {
 		}
 		
 		model.addAttribute("coList", adService.coNm());
-		
 	}
 	
 	// 전통주 등록
@@ -320,7 +319,6 @@ public class AdminController {
 		
 		mav.addObject("data", str);
 		mav.setViewName("/admin");
-		
 		return mav;
 		
 	}

@@ -19,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sooltoryteller.domain.AdminCriteria;
-import com.sooltoryteller.domain.AdminPageDTO;
 import com.sooltoryteller.domain.BbstCntVO;
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.BbstJoinVO;
 import com.sooltoryteller.domain.BbstPageDTO;
 import com.sooltoryteller.domain.BbstVO;
+import com.sooltoryteller.service.AdminService;
 import com.sooltoryteller.service.BbstService;
 import com.sooltoryteller.service.MemberService;
 import com.sooltoryteller.utils.UploadFileUtils;
@@ -124,14 +123,19 @@ public class BbstController {
 		@ModelAttribute("cri") BbstCriteria cri, Model model) {
 
 		String email = (String)session.getAttribute("email");
+		String authority = (String)session.getAttribute("authority");
+		
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
 			Long memberId = memberService.getMemberIdName(email).getMemberId();
 			String name = memberService.getMemberIdName(email).getName();
-			
 			model.addAttribute("memberId", memberId);
 			model.addAttribute("name", name);
+			
+			if(authority.equalsIgnoreCase("admin")) {
+				model.addAttribute("admin", authority);
+			}
 		}
 		
 		log.info("/get or modify");

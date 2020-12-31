@@ -1,22 +1,18 @@
 package com.sooltoryteller.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sooltoryteller.domain.BbstCriteria;
-import com.sooltoryteller.domain.BbstPageDTO;
-import com.sooltoryteller.domain.MyBbstPageDTO;
-import com.sooltoryteller.service.BbstReplyService;
+import com.sooltoryteller.domain.MyCntVO;
 import com.sooltoryteller.service.BbstService;
 import com.sooltoryteller.service.MemberService;
 
@@ -30,6 +26,7 @@ import lombok.extern.log4j.Log4j;
 public class MyPageController {
 
 	private MemberService memberService;
+	private BbstService bbstService;
 	
 	@GetMapping("/like")
 	public void myLikeList(Model model, Long memberId, HttpServletRequest request) {
@@ -121,6 +118,49 @@ public class MyPageController {
 			memberId = memberService.getMemberId(email);
 			model.addAttribute("member", memberService.get(email));
 			log.info("MEMBERID " + memberId + "'S LIKED BBST PAGE");
+		}
+	}
+	
+	// 마이페이지 - 게시글 (main)
+	// 내 게시글 활동 현황
+	@RequestMapping(value="/myactivity", method=RequestMethod.GET)
+	public void getMyCnt(HttpSession session, Model model) {
+		
+		String email = (String)session.getAttribute("email");
+		Long memberId = memberService.getMemberId(email);
+		
+		if(email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			// 게시글수, 댓글수, 좋아요수 이름
+			String[] getCntName = {"게시글수", "댓글수", "좋아요수"};
+			// 게시글수, 댓글수, 좋아요수 수치
+			Long[] cnt = bbstService.getMyCnt(memberId);
+			log.info("========== MY CNT LIST: " + cnt + " ==========");
+			
+			String str = "[";
+			str += "['내 게시글 활동 현황', '개수'],";
+			int num = 0;
+			
+			for(int i = 0; i < getCntName.length; i++) {
+				str += "['";
+				str += getCntName[i];
+				str += "', ";
+				str += cnt[i];
+				str += "]";
+				
+				num++;
+				
+				if(num < getCntName.length) {
+					str += ", ";
+				}
+			}
+			str += "]";
+			model.addAttribute("data", str);
+			model.addAttribute("bCnt", cnt[0]);
+			model.addAttribute("rCnt", cnt[1]);
+			model.addAttribute("lCnt", cnt[2]);
+			model.addAttribute("member", memberService.get(email));
 		}
 	}
 }

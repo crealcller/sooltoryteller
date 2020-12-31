@@ -84,7 +84,7 @@
 	<div id="h-withdrawal-Modal" class="h-modal">
     <div class="h-modal-content">
     <span class="h-close" style="cursor: pointer;">&times;</span>
-	<p style="text-align: center; margin-bottom:20px;">정말 탈퇴하시겠습니까??</p>
+	<p style="text-align: center; margin:20px;">정말 탈퇴하시겠습니까??</p>
 	<p style="text-align: center;"><button type="button" class="h-btn" id="h-YESbtn">YES</button> <button type="button" class="h-btn" id="h-NObtn">NO</button></p>
    </div>
    </div>
@@ -93,7 +93,7 @@
    <div id="h-name-Modal" class="h-modal">
     <div class="h-modal-content" >
     <span class="h-close" style="cursor: pointer;">&times;</span>
-	<p style="margin: 20px 0 20px 0;">변경할 닉네임 &nbsp<input type="text" id="modi-name"><button type="button" class="h-overlap-btn">중복확인</button></p>
+	<p style="margin: 30px 0 20px 20px;">변경할 닉네임 &nbsp<input type="text" id="modi-name"><button type="button" class="h-overlap-btn">중복확인</button></p>
 	<p style="text-align: center;"><button type="button" id="h-name-ok">확인</button></p>
    </div>
    </div>
@@ -102,7 +102,7 @@
    <div id="h-telno-Modal" class="h-modal">
     <div class="h-modal-content">
     <span class="h-close" style="cursor: pointer;">&times;</span>
-	<p style="margin: 20px 0 20px 0;">변경할 핸드폰 번호 &nbsp<input type="text" id="modi-telno"></p>
+	<p style="margin: 30px 0 20px 25px;">변경할 핸드폰 번호 &nbsp<input type="text" id="modi-telno"></p>
 	<p style="text-align: center;"><button type="button" id="h-telno-ok">확인</button></p>
    </div>
    </div>
@@ -112,18 +112,20 @@
     <div class="h-modal-content">
     <span class="h-close" style="cursor: pointer;">&times;</span>
 	<div class="h-fav-drink">
-      <h5 style="margin:5px">선호하는 주종(2가지 선택)</h5>
-    <p class='h-modi-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='1'>소주
-  							    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='2'>맥주
-    						    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='3'>막걸리
-    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='4'>칵테일 </p>
+      <h5 style="margin:5px 5px 10px 5px">선호하는 주종(2가지 선택)</h5>
+    <p class='h-modi-p' style="margin-bottom: 10px;">
+    		<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='1' id='a'> <label for='a'>소주</label>
+	  		<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='2' id='b'> <label for='b'>맥주</label>
+	    	<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='3' id='c'> <label for='c'>막걸리</label>
+	    	<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='4' id='d'> <label for='d'>칵테일</label> </p>
     
-    <p class='h-modi-p'><input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name="drink" value='5'>보드카
-   							    <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='6'>양주
-    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='7'>와인
-    							<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8'>기타 </p>
+    <p class='h-modi-p'>
+            <input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name="drink" value='5' id='e'> <label for='e'>보드카</label>
+	   		<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='6' id='f'> <label for='f'>양주</label>
+	    	<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='7' id='g'> <label for='g'>와인</label>
+	    	<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8' id='h'> <label for='h'>기타</label> </p>
     </div>
-	<p style="text-align: right;"><button type="button" id="h-favalc-ok">확인</button></p>
+	<p style="text-align: right; margin-right: 20px;"><button type="button" id="h-favalc-ok">확인</button></p>
    </div>
 </div>
 

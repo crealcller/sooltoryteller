@@ -111,7 +111,7 @@ public class AdminMapperTests {
 		log.info("result : " + result);
 	}
 	
-	
+	@Test
 	public void testSearch() {
 		
 		AdminCriteria adCri = new AdminCriteria();
