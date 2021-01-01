@@ -3,37 +3,72 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName"
-			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" />
-		<property name="username" value="test" />
-		<property name="password" value="1234" />
+  <!-- emil 관련 -->
+	<bean id="javaMailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="sooltoryteller@gmail.com" />
+		<property name="password" value="oudbhyuedsrzzewp" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
 	</bean>
-
-	<!-- HikariCP configuration -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-		destroy-method="close">
-		<constructor-arg ref="hikariConfig" />
+	<bean class="com.sooltoryteller.domain.EmailVO" id="email">
 	</bean>
+	<bean class="com.sooltoryteller.service.MailServiceImpl"
+		id="mailService">
+	</bean>
+<!-- Root Context: defines shared resources visible to all other web components -->
+<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<property name="driverClassName"
+		value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+	<property name="jdbcUrl"
+		value="jdbc:log4jdbc:oracle:thin:@3.35.37.236:1521:XE" /> 
+<!-- 			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" /> -->
+	<property name="username" value="sool" />
+	<property name="password" value="1234" />
+</bean>
 
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
+<!-- HikariCP configuration -->
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+	destroy-method="close">
+	<constructor-arg ref="hikariConfig" />
+</bean>
+
+<bean id="sqlSessionFactory"
+	class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="configLocation"
+		value="classpath:mybatis-config.xml"></property>
+</bean>
+
+<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation"
-			value="classpath:mybatis-config.xml"></property>
-	</bean>
+</bean>
+<!-- 현수추가 트랜잭션 어노테이션설정 -->
+<tx:annotation-driven/>   
 
-	<mybatis-spring:scan
-		base-package="com.sooltoryteller.mapper" />
-	<context:component-scan
-		base-package="com.sooltoryteller.service" />
-	<context:component-scan
-		base-package="com.sooltoryteller.mapper" />
+
+<mybatis-spring:scan
+	base-package="com.sooltoryteller.mapper" />
+<context:component-scan
+	base-package="com.sooltoryteller.service" />
+<context:component-scan
+	base-package="com.sooltoryteller.utils" />
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>

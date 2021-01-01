@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.MemberFavDrkMapper">
+
+<!-- 회원 가입시 선호하는 술 등록 -->
+<insert id="insert">
+	Insert into member_fav_drk(fav_drk_id, member_id, drk_cd_id)
+	values (member_fav_drk_seq.nextval, #{memberId}, #{drkCdId})
+</insert>
+
+<!-- 회원의 선호하는 술 목록(id) 가져오기 -->
+<select id ="get" resultType="Integer">
+	select drk_cd_id
+	from member_fav_drk
+	where member_id = #{memberId}
+</select>
+
+<!-- 술 일련번호(시퀀스) 가져오기 -->
+<select id ="getFavDrkId" resultType="Long">
+	select fav_drk_id
+	from member_fav_drk
+	where member_id = #{memberId}
+</select>
+
+<!-- 회원의 선호하는 술 종류 변경하기 -->
+<update id="updateFavDrk">
+	update member_fav_drk
+	set drk_cd_id = #{drkCdId}
+	where fav_drk_id = #{favDrkId}
+</update>
+
+<!-- 회원이 선호하는 술 종류 가져오기 -->
+<select id="getFavList" resultType="String">
+	select d.drk_cate
+	from member_fav_drk fd, drk_cd d
+	where fd.drk_cd_id = d.drk_cd_id
+	and fd.member_id = #{memberId}
+</select>
+
+<!-- 회원정보 수정시 변경할 선호하는 술 이름 가져오기 -->
+<select id="getFavNameList" resultType="String">
+	select drk_cate
+	from drk_cd
+	where drk_cd_id = #{drkCdId}
+</select>
+
+<!-- 선호하는 주종 통계 -->
+<select id="getFavCnt" resultType="Integer">
+	select count(*)
+	from member_fav_drk
+	where drk_cd_id = #{drkCdId}
+</select>
+</mapper>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.AdminMapper">
+	<resultMap id="LiqVO" type="com.sooltoryteller.domain.LiqVO">
+		<result column="liq_id" property="liqId" />
+		<result column="liq_co_id" property="liqCoId" />
+		<result column="nm" property="nm" />
+		<result column="cate" property="cate" />
+		<result column="capct" property="capct" />
+		<result column="lv" property="lv" />
+		<result column="irdnt" property="irdnt" />
+		<result column="ards" property="ards" />
+		<result column="regdate" property="regdate" />
+		<result column="updatedate" property="updatedate" />
+		<result column="liq_img" property="liqImg" />
+		<result column="liq_thumb" property="liqThumb" />
+
+		<!-- 전통주내용 -->
+		<association property="liqCn"
+			javaType="com.sooltoryteller.domain.LiqCnVO">
+			<result column="liq_id" property="liqId" />
+			<result column="intro" property="intro" />
+			<result column="pair" property="pair" />
+		</association>
+
+		<!-- 양조장 -->
+		<association property="liqCo"
+			javaType="com.sooltoryteller.domain.LiqCoVO">
+			<result column="liq_co_id" property="liqCoId" />
+			<result column="co_name" property="nm" />
+			<result column="addr" property="addr" />
+			<result column="hmpg" property="hmpg" />
+			<result column="telno" property="telno" />
+		</association>
+
+		<!-- 전통주 카운트 -->
+		<association property="liqCnt"
+			javaType="com.sooltoryteller.domain.LiqCntVO">
+			<result column="liq_id" property="liqId" />
+			<result column="like_cnt" property="likeCnt" />
+			<result column="revw_cnt" property="revwCnt" />
+			<result column="avg_rate" property="avgRate" />
+			<result column="inqr_cnt" property="inqrCnt" />
+		</association>
+	</resultMap>
+
+<sql id="adminCriteria">
+<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+   		  <foreach item='type' collection="typeArr">
+   		  	<trim prefix="OR">
+   		  		<choose>
+   		  			<when test="type == 'E'.toString()">
+   		  				email like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'N'.toString()">
+   		  				name like '%' || #{keyword} || '%'
+   		  			</when>
+   		  			<when test="type == 'T'.toString()">
+   		  				telno like '%' || #{keyword} || '%'
+   		  			</when>
+   		  		</choose>
+   		  	</trim>
+   		  </foreach>
+   		</trim>
+   	</sql>
+
+
+
+<!-- 회원 리스트 페이징 처리 -->
+<select id="getListWithPaging" resultType="com.sooltoryteller.domain.MemberVO">
+	<![CDATA[
+	select member_id, email, name, telno, regdate, updatedate, regstus
+	from( select /*+INDEX_DESC(member member_pk) */
+		rownum rn, member_id, email, name, telno, regdate, updatedate, regstus
+		from member
+		where 
+		]]>
+		
+		<include refid="adminCriteria"></include>
+		
+<![CDATA[
+		rownum <= #{pageNum} * #{amount}
+		and authority = 'USER'
+		)
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+	</select>
+
+<!-- 모든 회원 수 -->
+<select id="getTotalCount" resultType="int">
+	select count(*) from member
+	where 
+	
+	<include refid="adminCriteria"></include>
+	
+	authority = 'USER'
+	and	member_id > 0
+</select>
+
+ <insert id="insertLiq">
+      <selectKey keyProperty="liqId" order="BEFORE"
+         resultType="long">
+         select liq_seq.nextval from dual
+      </selectKey>
+      insert into
+      liq(liq_id,liq_co_id,nm,cate,capct,lv,irdnt,ards,liq_thumb,liq_img)
+      values(#{liqId},#{liqCoId},#{liq.nm},#{liq.cate},#{liq.capct},#{liq.lv},#{liq.irdnt},#{liq.ards},#{liq.liqThumb},#{liq.liqImg})
+   </insert>
+
+   <insert id="insertLiqCn">
+      <selectKey keyProperty="liqId" order="BEFORE"
+         resultType="long">
+         select liq_seq.currval from dual
+      </selectKey>
+      insert into liq_cn(liq_id,intro,pair)
+      values(#{liqId},#{intro},#{pair})
+   </insert>
+
+   <insert id="insertLiqCnt">
+      <selectKey keyProperty="liqId" order="BEFORE"
+         resultType="long">
+         select liq_seq.currval from dual
+      </selectKey>
+      insert into liq_cnt(liq_id)
+      values(#{liqId})
+   </insert>
+
+
+   <select id="get" resultMap="LiqVO">
+      select
+      l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,
+      n.intro,n.pair,
+      c.nm co_name,
+      t.avg_rate,t.inqr_cnt,t.like_cnt,t.revw_cnt
+      from liq l, liq_cn n,
+      liq_co c,liq_cnt t
+      where l.liq_id=n.liq_id
+      and l.liq_co_id=c.liq_co_id
+      and l.liq_id=t.liq_id
+      and l.liq_id =#{liqId}
+   </select>
+
+   <select id="getLiqListWithPaging" resultMap="LiqVO">
+      <![CDATA[
+      select c.liq_id, c.nm, c.cate,c.regdate,c.updatedate,c.liq_thumb,c.co_name
+      from (select rownum rn,a.liq_id, a.nm, a.cate,a.regdate,a.updatedate, a.liq_thumb,a.co_name
+      from (select l.liq_id, l.nm, l.cate,l.regdate,l.updatedate,l.liq_thumb,co.nm co_name
+      from liq l, liq_co co
+      where l.liq_co_id =co.liq_co_id
+        order by liq_id desc)a
+        where rownum<=#{pageNum}*#{amount}
+        ) c
+      where rn>(#{pageNum} -1)*#{amount}
+      ]]>
+   </select>
+
+   <update id="updateLiq">
+      update liq
+      set
+      nm=#{nm}
+      cate=#{cate},
+      capct=#{capct},
+      lv=#{lv},
+      irdnt=#{irdnt},
+      ards=#{ards},
+      liq_thumb=#{liqThumb},
+      liq_img=#{liqImg},
+      updatedate = sysdate
+      where liq_id = #{liqId}
+   </update>
+
+   <update id="updateCn">
+      update liq_cn
+      set intro=#{intro},
+      pair=#{pair},
+      updatedate = sysdate
+      where liq_id = #{liqId}
+   </update>
+
+   <delete id="deleteLiq">
+      delete liq
+      where liq_id=#{liqId}
+   </delete>
+
+   <delete id="deleteLiqCn">
+      delete liq_cn
+      where liq_id=#{liqId}
+   </delete>
+
+   <delete id="deleteLiqCnt">
+      delete liq_cnt
+      where liq_id=#{liqId}
+   </delete>
+
+   <select id="getliqExist" resultType="Integer">
+      select count(*) from liq
+      where nm =#{liqNm}
+   </select>
+
+   <select id="getLiqCoId" resultType="Long">
+      select liq_co_id
+      from liq_co
+      where nm = #{liqCoNm}
+   </select>
+
+   <insert id="insertLiqCo">
+      insert into liq_co(liq_co_id,nm,addr,hmpg,telno)
+      values(LIQ_CO_SEQ.nextval,#{nm},#{addr},#{hmpg},#{telno})
+   </insert>
+   
+   <update id="updateLiqCo">
+   update liq_co
+   set nm =#{nm},
+   addr=#{addr},
+   telno=#{telno},
+   hmpg=#{hmpg},
+   updatedate=sysdate
+   where liq_co_id = #{liqCoId}
+   </update>
+   
+   <delete id="deleteLiqCo">
+   delete liq_co
+   where liq_co_id = #{liqCoId}
+   </delete>
+
+   <select id="getLiqCoListWithPaging"
+      resultType="com.sooltoryteller.domain.LiqCoVO">
+   <![CDATA[
+   select co.liq_co_id,co.nm,co.telno,co.regdate,co.updatedate
+   from (
+   select /*+index_desc(liq_co liq_co_pk)*/
+   rownum rn, liq_co_id, nm, telno, regdate, updatedate
+   from liq_co
+   where liq_co_id > 0
+   and rownum <= #{pageNum}*#{amount}
+   )co where rn > (#{pageNum} -1)*#{amount}
+   ]]>
+   </select>
+
+   <select id="getLiqCoById"
+      resultType="com.sooltoryteller.domain.LiqCoVO">
+      select liq_co_id, nm, addr, hmpg, telno,regdate, updatedate
+      from liq_co
+      where liq_co_id = #{liqCoId}
+   </select>
+
+   <select id="liqCoCnt" resultType="int">
+   <![CDATA[
+   select count(*)
+   from liq_co
+   where liq_co_id >0
+   ]]>
+   </select>
+   <select id="getCoNm" resultType="String">
+   <![CDATA[
+   select nm
+   from liq_co
+   where liq_co_id >0
+   ]]>
+   </select>
+</mapper>

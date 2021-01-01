@@ -3,7 +3,6 @@ package com.sooltoryteller.service;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.junit.runners.Parameterized.Parameters;
 
 import com.sooltoryteller.domain.BbstReplyCriteria;
 import com.sooltoryteller.domain.BbstReplyJoinVO;

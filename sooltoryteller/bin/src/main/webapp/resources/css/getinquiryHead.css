@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+	.h-inq-body{
+      width: 900px;
+      height: 600px;
+	  margin: 30px 0 0 100px;
+      padding-left: 50px;
+	}
+
+	.h-inq-title{
+      width: 700px;
+	}
+	
+	.h-inq-content{
+      width: 700px;
+      height: 300px;
+      resize: none;
+    }
+    .h-inq-btn{
+      width: 50px;
+      height: 25px;
+      border: none;
+      margin-top: 10px;
+      background-color: rgb(10, 29, 74);
+      color: white;
+    }
