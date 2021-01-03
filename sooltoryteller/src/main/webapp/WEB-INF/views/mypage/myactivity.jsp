@@ -83,7 +83,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     var data = google.visualization.arrayToDataTable(
-    	${data}
+    	${data},
     );
 
     var view = new google.visualization.DataView(data);
@@ -93,8 +93,10 @@ function drawChart() {
       /* title: "내 게시글 활동 현황", */
       width: 600,
       height: 400,
+      /* 정수형으로만 나오도록 */
+      vAxis: {format: "#"},
       bar: {groupWidth: "95%"},
-      legend: { position: "none" },
+      legend: { position: "none" }
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
     chart.draw(view, options);
