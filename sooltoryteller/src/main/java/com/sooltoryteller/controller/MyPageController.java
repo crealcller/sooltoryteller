@@ -127,11 +127,12 @@ public class MyPageController {
 	public void getMyCnt(HttpSession session, Model model) {
 		
 		String email = (String)session.getAttribute("email");
-		Long memberId = memberService.getMemberId(email);
 		
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
+			Long memberId = memberService.getMemberId(email);
+			
 			// 게시글수, 댓글수, 좋아요수 이름
 			String[] getCntName = {"게시글수", "댓글수", "좋아요수"};
 			// 게시글수, 댓글수, 좋아요수 수치
