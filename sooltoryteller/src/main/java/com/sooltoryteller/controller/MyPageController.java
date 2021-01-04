@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sooltoryteller.domain.MyCntVO;
 import com.sooltoryteller.service.BbstService;
+import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -27,13 +28,13 @@ public class MyPageController {
 
 	private MemberService memberService;
 	private BbstService bbstService;
+	private LiqService liqService;
 	
 	@GetMapping("/like")
-	public void myLikeList(Model model, Long memberId, HttpServletRequest request) {
+	public void myLikeList(Model model, Long memberId, HttpSession session) {
 
 		//세션에서 회원 email 가져옴
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
+		String email = (String)session.getAttribute("email");
 		
 		//로그인 상태일때만 접근가능
 		if (email == null) {
@@ -47,11 +48,10 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/revw")
-	public void myRevwList(Model model, Long memberId, HttpServletRequest request) {
+	public void myRevwList(Model model, Long memberId, HttpSession session) {
 		
 			//세션에서 회원 email 가져옴
-			HttpSession session = request.getSession();
-			String email = (String) session.getAttribute("email");
+			String email = (String)session.getAttribute("email");
 			
 			//로그인 상태일때만 접근가능
 			if (email == null) {
@@ -62,6 +62,46 @@ public class MyPageController {
 				model.addAttribute("member", memberService.get(email));
 				log.info(memberId+" : my revw page");
 			}
+	}
+	
+	@RequestMapping(value="/my-liq-activity", method=RequestMethod.GET)
+	public void getMyLiqCnt(HttpSession session, Model model) {
+		
+		String email = (String)session.getAttribute("email");
+		
+		if(email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			Long memberId = memberService.getMemberId(email);
+			// 게시글수, 댓글수, 좋아요수 이름
+			String[] getLiqCntName = {"리뷰수", "좋아요수"};
+			// 게시글수, 댓글수, 좋아요수 수치
+			Long[] cnt = liqService.getMyLiqCnt(memberId);
+			log.info("========== MY CNT LIST: " + cnt + " ==========");
+			
+			String str = "[";
+			str += "['내 게시글 활동 현황', '개수'],";
+			int num = 0;
+			
+			for(int i = 0; i < getLiqCntName.length; i++) {
+				str += "['";
+				str += getLiqCntName[i];
+				str += "', ";
+				str += cnt[i];
+				str += "]";
+				
+				num++;
+				
+				if(num < getLiqCntName.length) {
+					str += ", ";
+				}
+			}
+			str += "]";
+			model.addAttribute("data", str);
+			model.addAttribute("liqRCnt", cnt[0]);
+			model.addAttribute("liqLCnt", cnt[1]);
+			model.addAttribute("member", memberService.get(email));
+		}
 	}
 	
 	// 내가 쓴 게시글 리스트
@@ -127,11 +167,12 @@ public class MyPageController {
 	public void getMyCnt(HttpSession session, Model model) {
 		
 		String email = (String)session.getAttribute("email");
-		Long memberId = memberService.getMemberId(email);
 		
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
+			Long memberId = memberService.getMemberId(email);
+			
 			// 게시글수, 댓글수, 좋아요수 이름
 			String[] getCntName = {"게시글수", "댓글수", "좋아요수"};
 			// 게시글수, 댓글수, 좋아요수 수치

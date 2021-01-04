@@ -19,4 +19,6 @@ public interface LiqService {
 		
 		public List<LiqVO> getOtherLiq(Long liqId);
 		
+		public Long[] getMyLiqCnt(Long memberId);
+		
 }

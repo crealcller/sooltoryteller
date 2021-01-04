@@ -62,8 +62,8 @@
 		</a>
 		<a href="/soolbti/random">
 			<div class="s-game">
-				<img src="/resources/img/alcohol-type.gif" class="s-game-img" />
-				<p class="s-game-title">랜덤 뽑기!</p>
+				<img src="/resources/img/random-edit.gif" class="s-game-img" />
+				<p class="s-game-title">랜덤 벌칙 뽑기!</p>
 			</div>
 		</a>
 	</div>

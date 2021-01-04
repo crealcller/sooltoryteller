@@ -137,4 +137,10 @@
 	select liq_co_id from liq
 	where liq_id=#{liqId})
 	</select>
+	
+	<select id="getMyLiqCnt" resultType="com.sooltoryteller.domain.MyLiqCntVO">
+	select * from 
+	    (select count(*) liqRCnt from liq_revw where member_id = #{memberId}),
+	    (select count(*) liqLCnt from liq_like where member_id = #{memberId})
+	</select>
 </mapper>

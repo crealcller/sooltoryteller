@@ -148,7 +148,9 @@
         <span value=4>★</span>
         <span value=5>★</span>
     </p>
-    <p><textarea maxlength="500" rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
+    <div class="wrap">
+    <p><textarea id="content" maxlength="500" rows='15' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea> <span id="counter"></span></p>
+   </div>
     <button id='revwRegBtn' type='submit'>등록</button>
   </div>
 </div>
@@ -421,6 +423,16 @@ geocoder.addressSearch(targetAddr , function(result, status) {
         map.setCenter(coords);
     } 
 });    
+</script>
+<script>
+$(function() {
+      $('#content').keyup(function (e){
+          var content = $(this).val();
+          $('#counter').html(content.length + '/500');
+      });
+      $('#content').keyup();
+});
+
 </script>
 </body>
 </html>

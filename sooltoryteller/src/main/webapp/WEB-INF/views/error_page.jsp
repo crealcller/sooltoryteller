@@ -147,7 +147,7 @@ a {
 			<div id="h-dropdown" class="h-dropdown">
 				<button id="h-dropbtn1" class="h-dropbtn">전통주</button>
 				<div id="h-dropdown-content" class="h-dropdown-content">
-					<a href="/all-liq">전체</a> <a href="/liq-list?cate=탁주">탁주</a> <a
+					<a href="/liq-list">전체</a> <a href="/liq-list?cate=탁주">탁주</a> <a
 						href="/liq-list?cate=약주 청주">약주/청주</a> <a href="/liq-list?cate=과실주">과실주</a>
 					<a href="/liq-list?cate=증류주 리큐르">증류주/리큐르</a>
 				</div>
