@@ -372,7 +372,7 @@ textarea {
             <button id="h-dropbtn3" class="h-dropbtn"><a href="/cheers/list">건배의 광장</a></button>
             </div>
             <div id="h-dropdown4" class="h-dropdown">
-            <button id="h-dropbtn4" class="h-dropbtn">About</button>
+            <button id="h-dropbtn4" class="h-dropbtn"><a href="/about">About</a></button>
             </div>
             </div>
         <!-- ----------------------------------------------------------------------------------------------------- -->

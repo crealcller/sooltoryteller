@@ -206,6 +206,7 @@ public class MemberController {
 				HttpSession session = request.getSession();
 				session.setAttribute("name", member.getName());
 				session.setAttribute("email", member.getEmail());
+				session.setAttribute("authority", service.getAuthority(member.getEmail()));
 				//return "redirect:/userInfo";
 				  return "redirect:/";
 			}
@@ -239,19 +240,17 @@ public class MemberController {
 					HttpSession session = request.getSession();
 					session.setAttribute("name", member.getName());
 					session.setAttribute("email", member.getEmail());
-					return "redirect:/userInfo";
+					session.setAttribute("authority", service.getAuthority(member.getEmail()));
+					return "redirect:/";
 				}
 				model.addAttribute("name", member.getName());
 				model.addAttribute("email", member.getEmail());
+				
 				
 				return "/snsJoin";
 				
 			}
 		
-	
-	//회원가입 후 회원정보 view
-	@GetMapping("/userInfo")
-	public void userInfo() {}
 	
 	//선호하는 주종 꺼내오기
 	@RequestMapping(value = "/mypage/getFavAlc", method = RequestMethod.POST) 
