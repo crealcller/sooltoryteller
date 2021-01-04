@@ -13,10 +13,10 @@
         }
         .game-content{
         	height: 600px;
-        	padding-top:100px;
+        	padding-top:50px;
         }
         .game-top{
-            height: 180px;
+            height: 150px;
             /* width: 430px; */
             /* background-image: url("img/game3.png") ; */
             background-position: center;
@@ -31,7 +31,7 @@
 <div class="s-main-background">
 	<div class="s-main-column" style="height:750px; text-align: center;">
 		<div class='game-content'>
-	  	 <div class='game-top'><h2 class='result'>...</h2></div>
+	  	 <div class='game-top'><h2 class='result'>랜덤 벌칙 뽑기! (이미지를 클릭해주세요.)</h2></div>
       	 <div class='game-botton'><a class='btn'><img src="/resources/img/game1.jpeg" class='btn-img'></a></div>
   		</div>
     </div>
@@ -55,7 +55,6 @@ $(document).ready(function(){
     
 })
 })
-
 
 </script>
 </body>

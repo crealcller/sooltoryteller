@@ -26,12 +26,12 @@ if(msg != ''){
 <h3 style="margin: 0 0 10px 15px;">[ 전통주 등록 ]</h3>
 
 <div class="d-admin-con">
-<form id="registerForm" role="form" action="/admin/liq-register" method="post" enctype="multipart/form-data">
+<form id="registerForm" role="form" action="/admin/register-liq" method="post" enctype="multipart/form-data">
 <div class="d-admin-half-con" style="width: 350px;">
 <div class="inputArea">
 <div class="select-img"><img src=""/></div>
 <div class="d-file-area">
-<input type="file" id="liqImg" name="file" accept="image/jpeg,image/gif,image/png" required="required"/></div>
+<input type="file" id="liqImg" name="file" onchange="checkType(this)" accept="image/jpeg,image/gif,image/png" required="required"/></div>
 </div>
 <div>
 </div>
@@ -134,6 +134,18 @@ closeBtn.on("click",function(e){
 	$("#liqCoList").fadeOut(300);
 	$("#liqCoList").find("input[name='coNm']").val("");
 });
+</script>
+<!-- 이미지 확장자 타입 검사 -->
+<script type="text/javascript">
+function checkType(obj) {
+   var file = $("#liqImg").val().split(".").pop().toLowerCase();
+   
+   if($.inArray(file, ["jpg","gif","png","jpeg","bmp"]) == -1) {
+      alert("이미지 파일만 선택하실 수 있습니다.");
+      $("#liqImg").val("");
+      return false;
+   }
+}
 </script>
 </body>
 </html>

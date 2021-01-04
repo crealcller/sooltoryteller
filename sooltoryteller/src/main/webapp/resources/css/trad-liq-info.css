@@ -291,14 +291,25 @@ li {
 	padding: 5px;
 	font-size:12px;
 }
-
-.d-revw-modal-content textarea {
-	width: 425px;
-	resize: none;
-	margin: 10px;
-	background-color: #f3f3f38f;
+.wrap {
+    width: 425px;
+    height: auto;
+    position: relative;
+    display: inline-block;
+    padding:10px 10px 0px 10px;
 }
-
+.wrap textarea {
+	width: 425px;
+	background-color: #f3f3f38f;
+	resize: none;
+    line-height:1.6em;
+    max-height: 14em;
+}
+.wrap span {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
 .d-revw-modal-content button {
 	float: right;
 	margin: 10px;

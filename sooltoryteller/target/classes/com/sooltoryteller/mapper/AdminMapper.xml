@@ -130,7 +130,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    <select id="get" resultMap="LiqVO">
       select
-      l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,
+      l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,l.liq_img,
       n.intro,n.pair,
       c.nm co_name,
       t.avg_rate,t.inqr_cnt,t.like_cnt,t.revw_cnt
@@ -159,7 +159,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <update id="updateLiq">
       update liq
       set
-      nm=#{nm}
       cate=#{cate},
       capct=#{capct},
       lv=#{lv},
@@ -167,7 +166,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ards=#{ards},
       liq_thumb=#{liqThumb},
       liq_img=#{liqImg},
-      updatedate = sysdate
+      updatedate=sysdate
       where liq_id = #{liqId}
    </update>
 

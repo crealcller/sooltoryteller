@@ -26,6 +26,22 @@ public class AdminServiceTests {
 	private AdminService service;
 	
 	@Test
+	public void testUpdateLiq() {
+		LiqVO liq = new LiqVO();
+		liq.setCate("탁주");
+		liq.setArds("sszxzx");
+		liq.setCapct(100);
+		liq.setLv(13);
+		liq.setLiqImg("asdfasdf");
+		liq.setLiqThumb("asas");
+		liq.setIrdnt("adsf");
+		liq.setLiqId(91L);
+		LiqCnVO cn = new LiqCnVO();
+		cn.setIntro("asdf");
+		liq.setLiqCn(cn);
+		service.modifyLiq(liq);
+	}
+	
 	public void testRemoveLiqCo() {
 		log.info("remove liq co");
 		service.removeLiqCo(69L);
@@ -46,7 +62,7 @@ public class AdminServiceTests {
 	}
 	
 	
-	public void testInsert() {
+	public void testRegister() {
 		LiqVO liq = new LiqVO();
 		liq.setNm("123");
 		liq.setCapct(133);

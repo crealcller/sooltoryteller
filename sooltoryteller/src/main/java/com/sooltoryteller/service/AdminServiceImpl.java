@@ -71,8 +71,10 @@ public class AdminServiceImpl implements AdminService {
 
 	@Transactional
 	@Override
-	public boolean modifyLiq(LiqVO liq, LiqCnVO cn) {
+	public boolean modifyLiq(LiqVO liq) {
 		int liqResult = mapper.updateLiq(liq);
+		LiqCnVO cn = liq.getLiqCn();
+		cn.setLiqId(liq.getLiqId());
 		int cnResult = mapper.updateCn(cn);
 		if (liqResult == 1 && cnResult == 1) {
 			return true;

@@ -27,6 +27,19 @@ public class AdminMapperTests {
 	private AdminMapper mapper;
 	
 	@Test
+	public void testUpdateLiq() {
+		LiqVO liq = new LiqVO();
+		liq.setCate("탁주");
+		liq.setArds("ss");
+		liq.setCapct(100);
+		liq.setLv(13);
+		liq.setLiqImg("asdfasdf");
+		liq.setLiqThumb("asdfasdf");
+		liq.setIrdnt("adsf");
+		liq.setLiqId(91L);
+		mapper.updateLiq(liq);
+	}
+	
 	public void testDeleteLiqCo() {
 		log.info("delete liq co");
 		log.info("result : "+mapper.deleteLiqCo(68L));
@@ -111,7 +124,7 @@ public class AdminMapperTests {
 		log.info("result : " + result);
 	}
 	
-	@Test
+	
 	public void testSearch() {
 		
 		AdminCriteria adCri = new AdminCriteria();
