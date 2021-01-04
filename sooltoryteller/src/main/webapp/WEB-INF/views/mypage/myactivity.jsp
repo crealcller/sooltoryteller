@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
-<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
-
-<html>
-<head>
-<meta charset="UTF-8">
-<title>내 게시글 활동 현황</title>
+    
 <script type="text/javascript">
 	// 로그인이 안된 상태면 로그인페이지로 넘어가게
 	let msg = "${msg}";
@@ -18,6 +10,14 @@
 	}
 </script>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
+<%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>내 게시글 활동 현황</title>
 <style>
 .s-chart-div {
 	height: 400px;
@@ -83,7 +83,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     var data = google.visualization.arrayToDataTable(
-    	${data}
+    	${data},
     );
 
     var view = new google.visualization.DataView(data);
@@ -93,8 +93,10 @@ function drawChart() {
       /* title: "내 게시글 활동 현황", */
       width: 600,
       height: 400,
+      /* 정수형으로만 나오도록 */
+      vAxis: {format: "#"},
       bar: {groupWidth: "95%"},
-      legend: { position: "none" },
+      legend: { position: "none" }
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
     chart.draw(view, options);

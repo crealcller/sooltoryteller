@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<script type="text/javascript">
+	// 로그인이 안된 상태면 로그인페이지로 넘어가게
+	let msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+		location.href = "/login";
+	}
+</script>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -9,14 +18,6 @@
 <html>
 <head>
 <title>내가 작성한 게시글</title>
-<script type="text/javascript">
-	// 로그인이 안된 상태면 로그인페이지로 넘어가게
-	let msg = "${msg}";
-	if (msg != "") {
-		alert(msg);
-		location.href = "/login";
-	}
-</script>
 <link rel="stylesheet" href="/resources/css/mypage/mypost.css">
 </head>
 
