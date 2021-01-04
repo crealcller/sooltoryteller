@@ -5,32 +5,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.sooltoryteller.mapper.BbstMapper">
 
-<!-- <resultMap id="BbstVO" type="com.sooltoryteller.domain.BbstVO">
-	<result column="bbst_id" property="bbstId" />
-	<result column="member_id" property="memberId" />
-	<result column="title" property="title" />
-	<result column="img" property="img" />
-	<result column="cn" property="cn" />
-	<result column="regdate" property="regdate" />
-	<result column="updatedate" property="updatedate" />
-	<result column="inqr_num" property="inqrNum" />
-	<result column="likes_num" property="likesNum" />
-	<result column="reply_num" property="replyNum" />
-	
-	회원 닉네임
-	<associaton property="member" javaType="com.sooltoryteller.domain.MemberVO">
-		<result column="name" property="name" /> 
-	</associaton>
-</resultMap> -->
+<!-- 검색 데이터 개수 처리 -->
+<sql id="bbstCriteria">
+	<trim prefix="(" suffix=") and " prefixOverrides="or">
+		<foreach item="type" collection="typeArr">
+			<trim prefix="or">
+				<choose>
+					<when test="type == 'T'.toString()">
+						b.title like '%'||#{keyword}||'%'
+					</when>
+					<when test="type == 'C'.toString()">
+						b.cn like '%'||#{keyword}||'%'
+					</when>
+					<when test="type == 'W'.toString()">
+						m.name like '%'||#{keyword}||'%'
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+</sql>
 
-<!-- 모든 게시글 조회 (무한스크롤) -->
-<select id="getBbstList" resultType="com.sooltoryteller.domain.BbstMemberJoinVO">
+<!-- 모든 게시글 조회 -->
+<select id="getBbstList" resultType="com.sooltoryteller.domain.BbstJoinVO">
 	<![CDATA[
-		select b.bbst_id, m.name, b.title, b.img, b.cn, b.regdate, b.inqr_num, b.likes_num, b.reply_num
-		from bbst b, member m
-		where b.member_id = m.member_id
-		and b.bbst_id > 0
-		order by b.bbst_id desc
+	select o.* from (
+	    select /*+ index_desc (i bbst_pk) */ rownum rn, i.* from (
+	        select b.bbst_id, m.member_id, m.name, b.title, b.cn_img, b.cn_thumbImg, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+			from bbst b, member m, bbst_cnt c
+			where
+	]]>
+	
+	<include refid="bbstCriteria"></include>
+	
+	<![CDATA[
+			b.member_id = m.member_id
+			and b.bbst_id = c.bbst_id
+			and b.bbst_id > 0
+	        order by b.bbst_id desc) i
+	    where rownum <= #{pageNum} * #{amount}) o
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
+
+<!-- 전체 데이터 개수 처리 -->
+<select id="getBbstTotalCount" resultType="int">
+	<![CDATA[
+	select count(*) from bbst b, member m
+	where
+	]]>
+	
+	<include refid="bbstCriteria"></include>
+	
+	<![CDATA[
+	b.member_id = m.member_id
+	and b.bbst_id > 0
 	]]>
 </select>
 
@@ -40,18 +69,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select bbst_seq.nextval from dual
 	</selectKey>
 	
-	insert into bbst (bbst_id, member_id, title, img, cn, regdate, updatedate, inqr_num, likes_num, reply_num)
-	values (#{bbstId}, #{memberId}, #{title}, #{img}, #{cn}, sysdate, sysdate, #{inqrNum}, #{likesNum}, #{replyNum})
+	insert into bbst(bbst_id, member_id, title, cn_img, cn_thumbimg, cn, regdate, updatedate)
+	values(#{bbstId}, #{memberId}, #{title}, #{cnImg}, #{cnThumbimg}, #{cn}, sysdate, sysdate)
 </insert>
 
+<!-- 게시글 집계 등록 -->
+<insert id="insertBbstCnt">
+	<selectKey keyProperty="bbstId" order="BEFORE" resultType="Long">
+		select bbst_seq.currval from dual
+	</selectKey>
+	
+	insert into bbst_cnt(bbst_id)
+	values(#{bbstId})
+</insert>
+
+<delete id="deleteBbstCnt">
+	delete bbst_cnt
+	where bbst_id = #{bbstId}
+</delete>
+
 <!-- 게시글 조회 -->
-<select id="readBbst" resultType="com.sooltoryteller.domain.BbstVO">
-	select * from bbst
-	where bbst_id = #{bbstId} 
+<select id="getBbst" resultType="com.sooltoryteller.domain.BbstJoinVO">
+	select b.bbst_id, m.member_id, m.name, m.img, b.title, b.cn_img, b.cn_thumbimg, b.cn, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+	from bbst b, bbst_cnt c, member m
+	where b.member_id = m.member_id
+	and b.bbst_id = c.bbst_id(+)
+	and b.bbst_id = #{bbstId}
 </select>
 
 <!-- 게시글 삭제 -->
-<delete id="deleteBbst">
+<delete id="deleteBbst" parameterType="Long">
 	delete from bbst
 	where bbst_id = #{bbstId}
 </delete>
@@ -60,15 +107,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="updateBbst">
 	update bbst
 	set	title = #{title},
-	img = #{img},
+	cn_img = #{cnImg},
+	cn_thumbimg = #{cnThumbimg},
 	cn = #{cn},
 	updatedate = sysdate
 	where bbst_id = #{bbstId}
 </update>
 
+<!-- 게시글 조회수 업데이트 -->
+<update id="updateViewCnt">
+	update bbst_cnt
+	set view_cnt = view_cnt + #{cnt}
+	where bbst_id = #{bbstId}
+</update>
 
+<!-- 마이페이지 -->
+<!-- 내 게시글 활동 현황 - 내가 쓴 게시글수, 내가 쓴 댓글수, 내가 누른 좋아요수 -->
+<select id="getMyCnt" resultType="com.sooltoryteller.domain.MyCntVO">
+	select * from 
+	    (select count(*) bCnt from bbst where member_id = #{memberId}),
+	    (select count(*) rCnt from bbst_reply where member_id = #{memberId}),
+	    (select count(*) lCnt from bbst_like where member_id = #{memberId})
+</select>
 
+<!-- 내가 쓴 게시물 리스트 -->
+<select id="getMyBbstList" resultType="com.sooltoryteller.domain.BbstJoinVO">
+	<![CDATA[
+	select o.* from (
+	    select /*+ index_desc (i bbst_pk) */ rownum rn, i.* from (
+	        select b.bbst_id, m.member_id, b.title, b.cn_img, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+			from bbst b, member m, bbst_cnt c
+			where b.member_id = #{memberId}
+	        and b.member_id = m.member_id
+			and b.bbst_id = c.bbst_id
+			and b.bbst_id > 0
+	        order by b.bbst_id desc) i
+    	where rownum <= #{cri.pageNum} * #{cri.amount}) o
+	where rn > (#{cri.pageNum} -1) * #{cri.amount}
+	]]>
+</select>
 
+<!-- 내가 쓴 게시물 리스트 - 전체 데이터 개수 처리 -->
+<select id="getMyBbstListTotalCount" resultType="int">
+	select count(*) from bbst
+	where member_id = #{memberId}
+</select>
 
+<!-- 메인페이지 -->
+<!-- 메인페이지 게시글 리스트 - 조회수 높은순 -->
+<select id="getBbstByView" resultType="com.sooltoryteller.domain.BbstJoinVO">
+	<![CDATA[
+	select * from (
+		select rownum rn, b.bbst_id, b.title, m.member_id, b.cn_img, b.regdate, c.view_cnt, c.reply_cnt, c.like_cnt
+		from bbst b, bbst_cnt c, member m
+		where b.bbst_id = c.bbst_id
+		and b.member_id = m.member_id
+		order by c.view_cnt desc, c.like_cnt desc)
+	where rownum <= 4
+	]]>
+</select>
+
+<!-- 관리자 페이지 -->
+<!-- 한 회원이 작성한 게시글 리스트 -->
 
 </mapper>

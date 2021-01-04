@@ -10,7 +10,6 @@ import com.sooltoryteller.mapper.InquiryMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import oracle.net.aso.f;
 
 @Log4j
 @Service

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooltoryteller.mapper.LiqLikeMapper">
+
+<select id="getCount" resultType="Integer">
+select count(*)
+from liq_like
+where member_id =#{memberId}
+and liq_id=#{liqId}
+</select>
+
+<insert id="insert">
+insert into liq_like(liq_like_id,member_id,liq_id,regdate)
+values(liq_like_seq.nextval,#{memberId},#{liqId},sysdate)
+</insert>
+
+<delete id="delete">
+delete from liq_like
+where member_id =#{memberId}
+and liq_id=#{liqId}
+</delete>
+
+<select id="getMyListWithPaging" resultType="com.sooltoryteller.domain.MyLikeVO">
+	<![CDATA[
+	select b.liq_like_id, b.liq_id, b.nm,b.cate,b.capct,b.lv, b.liq_thumb,
+	co_name 
+    from(
+    select rownum rn,a.liq_like_id, a.liq_id, a.nm,a.cate,a.capct,a.lv, a.liq_thumb,
+	co_name    
+ 	from(select
+	k.liq_like_id,l.liq_id, l.nm,l.cate,l.capct,l.lv, l.liq_thumb,
+	c.nm co_name
+	from liq l,liq_like k, liq_co c
+	where k.member_id=#{memberId}
+	and l.liq_id = k.liq_id
+	and l.liq_co_id = c.liq_co_id
+    order by k.liq_like_id desc
+    )a 
+    where rownum <=#{cri.pageNum}*#{cri.amount}
+    )b  where rn > (#{cri.pageNum} -1)*#{cri.amount}
+    ]]>
+	</select>
+	
+	<select id="getCountMemberId" resultType="int">
+		<![CDATA[
+		select count(liq_like_id) from liq_like 
+		where member_id = #{memberId}
+		]]>
+	</select>
+</mapper>

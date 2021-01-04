@@ -289,37 +289,44 @@ public class AdminController {
 	
 	//관리자-home
 	@RequestMapping(value="/" ,method=RequestMethod.GET)
-	public ModelAndView admin() {
+	public ModelAndView admin(HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView();
+		String authority = (String) session.getAttribute("authority");
 		
-		int[] drkId = {1,2,3,4,5,6,7,8};
-		String[] drkNameArr = favDrkService.getFavNameList(drkId);//주종이름
-		int[] cntArr = favDrkService.getFavCnt(drkId); //주종 카운트
+		if (authority == null || !authority.equalsIgnoreCase("admin")) {
+			mav.addObject("msg", "권한이 필요한 페이지 입니다.");
+		}else {
 		
-		String str = "[";
-		str += "['선호하는 주종', 'COUNT'],";
-		int num = 0;
 		
-		for (int i = 0; i < drkId.length; i++) {
+			int[] drkId = {1,2,3,4,5,6,7,8};
+			String[] drkNameArr = favDrkService.getFavNameList(drkId);//주종이름
+			int[] cntArr = favDrkService.getFavCnt(drkId); //주종 카운트
 			
-			str +="['";
-			str += drkNameArr[i];
-			str +="' , ";
-			str += cntArr[i];
-			str +=" ]";
+			String str = "[";
+			str += "['선호하는 주종', 'COUNT'],";
+			int num = 0;
 			
-			num++;
-			
-			if(num < drkId.length) {
-				str += ",";
+			for (int i = 0; i < drkId.length; i++) {
+				
+				str +="['";
+				str += drkNameArr[i];
+				str +="' , ";
+				str += cntArr[i];
+				str +=" ]";
+				
+				num++;
+				
+				if(num < drkId.length) {
+					str += ",";
+				}
 			}
-		}
-		
-		str += "]";
-		
-		mav.addObject("data", str);
-		mav.setViewName("/admin");
-		return mav;
+			
+			str += "]";
+			mav.addObject("data", str);
+		}		
+			mav.setViewName("/admin");
+			return mav;
 		
 	}
 

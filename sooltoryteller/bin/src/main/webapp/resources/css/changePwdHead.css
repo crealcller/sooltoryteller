@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+	.h-back{
+      width: 100%;
+      height: 600px;
+      display: inline-block;
+      background-color:  rgb(245, 245, 245);
+      padding-left: 30px;
+      overflow: hidden;
+	}
+	.h-imgarea{
+      width: 430px;
+      height: 550px;
+      display: inline-block;
+	}
+	#h-backImg{
+      width: 430px;
+      height: 550px;
+      opacity: 0.5;
+	}
+	.h-pass-content{
+      width: 380px;
+      height: 430px;
+      margin: 0 0 50px 70px; 
+      text-align: center;
+      border-radius: 5%;
+      border: 2px solid  rgb(181, 135, 189);
+      background-color:  rgb(250, 250, 250);
+      padding: 30px;
+      display: inline-block;
+      overflow: hidden;
+	}
+	.h-passbtn{
+      height: 30px;
+	  width: 80px;
+	  border: none;
+	  color: white;
+      margin: 20px;
+	  background-color: rgb(181, 135, 189);
+	}
+	.h-photo{
+      height: 120px;
+      width: 100px;
+      border: 1px solid;
+      display: inline-block;
+	}
+	.h-pwd-p{
+	  margin: 10px 0 10px 0;'
+	}
+	.h-con {
+      width: 700px;
+	  height: 800px;
+	  margin: auto;
+	  padding: 10px;
+	}
+	#pwd, #newPwd, #repwd{
+	  height: 25px;
+      width: 200px;
+	}

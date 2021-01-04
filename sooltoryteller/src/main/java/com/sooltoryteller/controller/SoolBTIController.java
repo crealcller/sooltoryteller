@@ -23,5 +23,9 @@ public class SoolBTIController {
 	public void roulette() {
 		log.info("roulette page");
 	}
-	
+
+	@GetMapping("/random")
+	public void random() {
+		log.info("random page");
+	}
 }

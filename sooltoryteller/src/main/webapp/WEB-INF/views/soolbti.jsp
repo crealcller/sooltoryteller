@@ -60,10 +60,10 @@
 				<p class="s-game-title">내 주사 유형 테스트</p>
 			</div>
 		</a>
-		<a href="https://1boon.kakao.com/quiz/alcohol">
+		<a href="/soolbti/random">
 			<div class="s-game">
 				<img src="/resources/img/alcohol-type.gif" class="s-game-img" />
-				<p class="s-game-title">나와 비슷한 술은?</p>
+				<p class="s-game-title">랜덤 뽑기!</p>
 			</div>
 		</a>
 	</div>
