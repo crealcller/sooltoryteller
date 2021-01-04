@@ -13,10 +13,9 @@ let msg = '${msg}';
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="/WEB-INF/views/include/mypageSidebar.jsp"%>
-
-
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>마이페이지 > 좋아요</title>
 <style>

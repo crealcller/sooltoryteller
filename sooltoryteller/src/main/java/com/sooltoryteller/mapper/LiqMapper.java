@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sooltoryteller.domain.BbstCriteria;
 import com.sooltoryteller.domain.LiqVO;
+import com.sooltoryteller.domain.MyLiqCntVO;
 
 public interface LiqMapper {
 
@@ -32,4 +33,8 @@ public interface LiqMapper {
 	
 	//같은 양조장의 전통주들
 	public List<LiqVO> getOtherLiq(Long liqId);
+	
+	//내 전통주 활동 현황
+	public MyLiqCntVO getMyLiqCnt(Long memberId);
+
 }

@@ -1,12 +1,8 @@
 package com.sooltoryteller.controller;
 
-import java.awt.PageAttributes.MediaType;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -102,7 +98,7 @@ public class AdminController {
 	}
 
 	// 전통주 등록 페이지
-	@GetMapping("/liq-register")
+	@GetMapping("/register-liq")
 	public void liqRegister(Model model, HttpSession session) {
 		
 		String authority = (String) session.getAttribute("authority");
@@ -116,8 +112,8 @@ public class AdminController {
 	}
 	
 	// 전통주 등록
-	@PostMapping("/liq-register")
-	public String liqRegister(@Valid LiqVO liq, BindingResult result,String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws IOException, Exception {
+	@PostMapping("/register-liq")
+	public String liqRegister(@Valid LiqVO liq, BindingResult result, String liqCoNm,  Model model,  RedirectAttributes rttr, MultipartFile file) throws Exception {
 		
 		log.info("liq register : "+liq);
 		
@@ -128,7 +124,7 @@ public class AdminController {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
-		
+		log.info("file : ========================================"+file);
 		if(file != null) { 
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			
@@ -147,7 +143,7 @@ public class AdminController {
 	            log.info("=====error: " + error.getDefaultMessage());
 	            rttr.addFlashAttribute("result", error.getDefaultMessage());
 	        }
-				return "redirect:/admin/liq-register"; 
+				return "redirect:/admin/register-liq"; 
 		}
 		
 		if (liqCoId != null) {
@@ -160,13 +156,13 @@ public class AdminController {
 			
 			}else {
 				rttr.addFlashAttribute("liqError", "이미 존재하는 전통주입니다.");
-				return "redirect:/admin/liq-register";
+				return "redirect:/admin/register-liq";
 			}
 			
 			
 		}else {
 			rttr.addFlashAttribute("error", "존재하지않는 양조장입니다.");
-			return "redirect:/admin/liq-register";
+			return "redirect:/admin/register-liq";
 		}
 	}
 	
@@ -184,11 +180,53 @@ public class AdminController {
 	
 	// 전통주 수정
 	@PostMapping("/modify-liq")
-	public String modifyLiq(LiqVO liq, LiqCnVO cn, RedirectAttributes rttr) {
+	public String modifyLiq(@Valid LiqVO liq, BindingResult result, String liqCoNm, RedirectAttributes rttr, MultipartFile file) throws Exception {
 		
-		adService.modifyLiq(liq, cn);
+		log.info("liq modify : "+liq);
+		log.info("file:"+file);
+		//양조장이름으로 존재하는 양조장인지 liqCoId체크
+		Long liqCoId = adService.checkExistLiqCo(liqCoNm);
+		// 첨부파일 업로드 설정
+		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
+		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
+		log.info(file);
+		if(file != null) { 
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			liq.setLiqImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			liq.setLiqThumb(
+					File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+			
+		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+			liq.setLiqImg(liq.getLiqImg());
+			liq.setLiqThumb(liq.getLiqThumb());
+		}
+
+		log.info("============================");
+		log.info("liq modify : "+liq);
+		if(result.hasErrors()) { 
+			List<ObjectError> errorList = result.getAllErrors();
+			log.info(result.getFieldError());
+	        for (ObjectError error : errorList) {
+	            log.info("=====error: " + error.getDefaultMessage());
+	            rttr.addFlashAttribute("result", error.getDefaultMessage());
+	        }
+				return "redirect:/admin/modify-liq"; 
+		}
 		
-		return "redirect:/admin/";
+		if (liqCoId != null) {
+			if (adService.modifyLiq(liq)) {
+				rttr.addFlashAttribute("result", "success");
+				log.info("성공");
+			}else {
+				log.info("실패");
+			}
+			return "redirect:/admin/liq-list";
+			
+		}else {
+			rttr.addFlashAttribute("error", "존재하지않는 양조장입니다.");
+			return "redirect:/admin/modify-liq";
+		}
 	}
 
 	// 양조장 리스트페이지
@@ -228,7 +266,7 @@ public class AdminController {
 	}
 
 	// 양조장 등록페이지
-	@GetMapping("/liq-co-register")
+	@GetMapping("/register-liq-co")
 	public void liqCoRegister(Model model, HttpSession session) {
 		
 		String authority = (String) session.getAttribute("authority");
@@ -241,7 +279,7 @@ public class AdminController {
 	}
 
 	// 양조장 등록
-	@PostMapping("/liq-co-register")
+	@PostMapping("/register-liq-co")
 	public String liqCoRegister(@Valid LiqCoVO vo, BindingResult result,RedirectAttributes rttr, @ModelAttribute("adCri") AdminCriteria adCri) {
 		
 		if(result.hasErrors()) { 
@@ -252,7 +290,7 @@ public class AdminController {
 	        	log.info(error);
 	        	rttr.addFlashAttribute("result", "양식에 맞게 작성해주세요.");
 	        
-				return "redirect:/admin/liq-co-register"; 
+				return "redirect:/admin/register-liq-co"; 
 		}
 		
 		Long liqCoId = adService.checkExistLiqCo(vo.getNm());

@@ -32,21 +32,23 @@ width:80px;
 <body>
 <h3 style="margin: 0 0 10px 15px;">[ 전통주 수정/삭제 ]</h3>
 <div class="d-admin-con">
-<form id="modify" action="/admin/modify-liq" method="post">
+<form id="modify" action="/admin/modify-liq" method="post" enctype="multipart/form-data">
 <div class="d-admin-half-con" style="width: 350px; border:none;">
 <div class="inputArea">
 <div class="select-img"><img class="d-img-con" src="<c:out value='${liq.liqThumb}'/>"></div>
 <div class="d-file-area">
-<input type="file" name="file" class="h-addfile" id="h-addfile" style="border:none;"
-accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out value='${liq.liqThumb }' />" />
+<input type="file" name="file" id="liqImg" 
+                  accept="image/jpeg,image/gif,image/png" value="<c:out value='${liq.liqThumb }' />"
+                  onchange="checkType(this)" required />
+<input type="hidden" name="liqImg" value="<c:out value='${liq.liqImg }' />" />
 <input type="hidden" name="liqThumb" value="<c:out value='${liq.liqThumb }' />" />
 </div>
 </div>
 <div>
 </div>
 <div class="d-inputs">
-양조장<p><input type="text" class="liqCoNm" name='liqCoNm' value='<c:out value="${liq.liqCo.nm }"/>'> <button id='liqCoModal' type='button' class="d-co-search-btn">찾기</button></p>
-이름<p><input type="text" name="nm"  maxlength="12" placeholder="1~12자" value="<c:out value='${liq.nm }'/>"></p>
+양조장<p><input type="text" class="liqCoNm" name='liqCoNm' value='<c:out value="${liq.liqCo.nm }"/>'> <button id='liqCoModal' type='button' class="d-co-search-btn" style="margin-left: -41px;">찾기</button></p>
+이름<p><input type="text" name="nm"  maxlength="12" placeholder="1~12자" value="<c:out value='${liq.nm }'/>" readonly="readonly"></p>
 용량<p><input type="text" name="capct" maxlength="6"  placeholder="숫자만 입력해주세요." value="<c:out value='${liq.capct }'/>">ml</p>
 도수<p><input type="text" name="lv" maxlength="4" placeholder="숫자만 입력해주세요." value="<c:out value='${liq.lv }'/>">%</p>
 </div>
@@ -87,6 +89,19 @@ accept="image/jpeg,image/gif,image/png" onchange="checkType(this)" value="<c:out
 </div>
 </div>
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
+<script>
+	// 게시글 썸네일사진
+	$("#liqImg").change(function(){
+	
+	if(this.files && this.files[0]) {
+    var reader = new FileReader;
+    reader.onload = function(data) {
+    $(".select-img img").attr("src", data.target.result).width(80);        
+    }
+    reader.readAsDataURL(this.files[0]);
+    }
+});
+</script> 
 <script>
 $(document).ready(function(){
 
@@ -163,5 +178,19 @@ closeBtn.on("click",function(e){
 	$("#liqCoList").find("input[name='coNm']").val("");
 });
 </script>
+
+<!-- 이미지 확장자 타입 검사 -->
+<script type="text/javascript">
+function checkType(obj) {
+   var file = $("#liqImg").val().split(".").pop().toLowerCase();
+   
+   if($.inArray(file, ["jpg","gif","png","jpeg","bmp"]) == -1) {
+      alert("이미지 파일만 선택하실 수 있습니다.");
+      $("#liqImg").val("");
+      return false;
+   }
+}
+</script>
+
 </body>
 </html>

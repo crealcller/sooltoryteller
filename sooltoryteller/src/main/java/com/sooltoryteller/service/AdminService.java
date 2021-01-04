@@ -22,7 +22,7 @@ public interface AdminService {
 
 	public boolean removeLiq(Long liqId);
 
-	public boolean modifyLiq(LiqVO liq, LiqCnVO cn);
+	public boolean modifyLiq(LiqVO liq);
 	
 	public boolean removeLiqCo(Long liqCoId);
 

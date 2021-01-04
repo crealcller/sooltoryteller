@@ -155,7 +155,7 @@ public class BbstController {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
-
+		log.info("============================file"+file);
 		if (file != null) { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			bbst.setCnImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);

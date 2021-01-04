@@ -33,7 +33,7 @@ if(msg != ''){
 <body>
 <h3 style="margin: 0 0 10px 15px;">[ 양조장 등록 ]</h3>
 <div class="d-admin-con">
-<form action="/admin/liq-co-register" method="post">
+<form action="/admin/register-liq-co" method="post">
 <div class="d-admin-half-con">
 이름<p><input type="text" name="nm" maxlength="20" placeholder="1~20자" required="required"></p>
 주소<p><input type="text" name="addr" maxlength="30" placeholder="1~30자" required="required"></p>
