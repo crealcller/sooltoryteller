@@ -40,6 +40,7 @@
 	value="jdbc:log4jdbc:oracle:thin:@3.35.37.236:1521:XE" />	
 <!--   value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" /> --> 	
 	<property name="username" value="sool" />
+
 	<property name="password" value="1234" />
 </bean>
 

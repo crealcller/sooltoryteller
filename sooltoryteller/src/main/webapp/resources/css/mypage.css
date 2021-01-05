@@ -327,9 +327,9 @@
     padding:10px 10px 0px 10px;
 }
 .wrap textarea {
-   width: 425px;
-   background-color: #f3f3f38f;
-   resize: none;
+	width: 425px;
+	background-color: #f3f3f38f;
+	resize: none;
     line-height:1.6em;
     max-height: 14em;
 }
