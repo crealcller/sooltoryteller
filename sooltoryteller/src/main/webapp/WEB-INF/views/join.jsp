@@ -47,7 +47,7 @@ if(msg != ""){
 	    					<input type="checkbox" class="h-drink" onclick = 'checkedCnt(this)' name='drink' value='8' id='h'> <label for='h'>기타</label> </p>
 	    							
 	    <p class='h-join-p' style="text-align: center; margin:20px;"><button type="submit" class="join-btn"  disabled="disabled" id="reg">회원가입</button>
-	    <button type="button" class="join-btn" >취소</button></p>
+	    <button type="button" class="join-btn" onclick="location.href='/'">취소</button></p>
 	    </div>
 	    </form>
 	    </div>
