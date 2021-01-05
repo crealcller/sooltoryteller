@@ -81,7 +81,7 @@ if(msg != ''){
 	if(this.files && this.files[0]) {
     var reader = new FileReader;
     reader.onload = function(data) {
-    $(".select-img img").attr("src", data.target.result).width(80);        
+    $(".select-img img").attr("src", data.target.result).width(80).height(100);        
     }
     reader.readAsDataURL(this.files[0]);
     }

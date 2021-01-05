@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-  </div>
+</div>
    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -51,7 +51,7 @@ $(document).ready(function(){
     $('.btn').click(function(){
         let i = Math.floor( Math.random()*15 ); //0~14
         $(".result").html(penalty[i]);
-        $(".game-top").css("background-image", 'url("/resources/img/game3.png")');
+        $(".game-top").css("background-image", 'url("/resources/img/firework1.gif")');
     
 })
 })

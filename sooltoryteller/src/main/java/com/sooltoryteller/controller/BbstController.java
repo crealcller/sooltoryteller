@@ -123,7 +123,6 @@ public class BbstController {
 		@ModelAttribute("cri") BbstCriteria cri, Model model) {
 
 		String email = (String)session.getAttribute("email");
-		String authority = (String)session.getAttribute("authority");
 		
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
@@ -132,8 +131,9 @@ public class BbstController {
 			String name = memberService.getMemberIdName(email).getName();
 			model.addAttribute("memberId", memberId);
 			model.addAttribute("name", name);
-			
-			if(authority.equalsIgnoreCase("admin")) {
+
+			String authority = (String)session.getAttribute("authority");
+			if(authority != null || authority.equalsIgnoreCase("admin")) {
 				model.addAttribute("admin", authority);
 			}
 		}

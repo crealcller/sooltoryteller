@@ -129,6 +129,7 @@ $(document).ready(function(){
 			}
 			var str="";
 			if(myList == null || myList.length==0){
+				dLike.html("<p style='margin-top: 35px;'>좋아요를 누른 전통주가 없습니다.</p><br />"); 
 				return;
 			}
 			for(var i=0,len = myList.length || 0; i<len; i++){

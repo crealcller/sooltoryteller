@@ -129,6 +129,10 @@
 	max-width: 280px;
 }
 
+.s-form-cnImg {
+	margin-left: 30px;
+}
+
 .s-form-cn-div {
 	height: 350px;
 	width: 350px;
@@ -139,9 +143,8 @@
 }
 
 .s-form-cn {
-	height: 350px;
-	width: 350px;
-	margin-top: 25px;
+	height: 322px;
+	width: 322px;
 	padding: 25px;
 	resize: none;
 }
