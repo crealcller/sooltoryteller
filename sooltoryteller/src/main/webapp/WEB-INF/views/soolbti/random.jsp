@@ -12,8 +12,8 @@
             cursor: pointer;
         }
         .game-content{
-        	height: 600px;
-        	padding-top:50px;
+           height: 600px;
+           padding-top:50px;
         }
         .game-top{
             height: 150px;
@@ -29,11 +29,11 @@
     </style>
 <body>
 <div class="s-main-background">
-	<div class="s-main-column" style="height:750px; text-align: center;">
-		<div class='game-content'>
-	  	 <div class='game-top'><h2 class='result'>랜덤 벌칙 뽑기! (이미지를 클릭해주세요.)</h2></div>
-      	 <div class='game-botton'><a class='btn'><img src="/resources/img/game1.jpeg" class='btn-img'></a></div>
-  		</div>
+   <div class="s-main-column" style="height:750px; text-align: center;">
+      <div class='game-content'>
+         <div class='game-top'><h2 class='result'>랜덤 벌칙 뽑기! (이미지를 클릭해주세요.)</h2></div>
+          <div class='game-botton'><a class='btn'><img src="/resources/img/game1.jpeg" class='btn-img'></a></div>
+        </div>
     </div>
   </div>
 </div>

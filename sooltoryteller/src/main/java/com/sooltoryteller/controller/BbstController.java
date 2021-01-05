@@ -180,31 +180,31 @@ public class BbstController {
 	        for(ObjectError error : errorList) {
                log.info("===== ERROR: " + error.getDefaultMessage());
                rttr.addFlashAttribute("result", error.getDefaultMessage());
-	        }
-	        
-	        rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
-			model.addAttribute("bbst", bbst);
-			return "/cheers/modify";
-		}
+           }
+           
+           rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+         model.addAttribute("bbst", bbst);
+         return "/cheers/modify";
+      }
 
-		return "redirect:/cheers/get" + cri.getBbstListLink() + "&bbstId=" + bbst.getBbstId();
-	}
+      return "redirect:/cheers/get" + cri.getBbstListLink() + "&bbstId=" + bbst.getBbstId();
+   }
 
-	// 게시글 삭제
-	@PostMapping("/remove")
-	public String remove(HttpSession session, BbstJoinVO bbst, @RequestParam("bbstId") Long bbstId, 
-		@ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
+   // 게시글 삭제
+   @PostMapping("/remove")
+   public String remove(HttpSession session, BbstJoinVO bbst, @RequestParam("bbstId") Long bbstId, 
+      @ModelAttribute("cri") BbstCriteria cri, RedirectAttributes rttr) {
 
-		String email = (String)session.getAttribute("email");
-		Long memberId = memberService.getMemberId(email);
-		bbst.setMemberId(memberId);
-		
-		log.info("========== REMOVE BBSTID " + bbstId + " ==========");
+      String email = (String)session.getAttribute("email");
+      Long memberId = memberService.getMemberId(email);
+      bbst.setMemberId(memberId);
+      
+      log.info("========== REMOVE BBSTID " + bbstId + " ==========");
 
-		if (service.removeBbst(bbstId)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		
-		return "redirect:/cheers/list" + cri.getBbstListLink();
-	}
+      if (service.removeBbst(bbstId)) {
+         rttr.addFlashAttribute("result", "success");
+      }
+      
+      return "redirect:/cheers/list" + cri.getBbstListLink();
+   }
 }

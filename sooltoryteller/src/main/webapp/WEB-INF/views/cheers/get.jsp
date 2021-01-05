@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
     
 <script type="text/javascript">
-	// 로그인이 안된 상태면 로그인페이지로 넘어가게
-	let msg = "${msg}";
-	if (msg != "") {
-		alert(msg);
-		location.href = "/login";
-	}
+   // 로그인이 안된 상태면 로그인페이지로 넘어가게
+   let msg = "${msg}";
+   if (msg != "") {
+      alert(msg);
+      location.href = "/login";
+   }
 </script>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -121,6 +121,7 @@
 				</div>
 			</div>
 		</div>
+
 </div>
 </div>
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
@@ -129,10 +130,10 @@
 <script type="text/javascript" src="/resources/js/bbstReply.js"></script>
 
 <!-- 서버단 유효성 검사 -->
-<script type="text/javascript">	
+<script type="text/javascript">   
 let errorMsg = "${errorMsg}";
 if(errorMsg != "") {
-	alert(errorMsg);
+   alert(errorMsg);
 }
 </script>
 
@@ -384,64 +385,64 @@ var memberIdValue = "${memberId}" == "" ? -1 : "${memberId}";
 var bbstIdValue = ${bbst.bbstId};
 
 $(document).ready(function() {
-	// 좋아요 상태
-	bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
-		if(data) {
-			$("#s-bbst-like").attr("class", "fas fa-heart");
-		} else {
-			$("#s-bbst-like").attr("class", "far fa-heart");
-		}
-	});
+   // 좋아요 상태
+   bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
+      if(data) {
+         $("#s-bbst-like").attr("class", "fas fa-heart");
+      } else {
+         $("#s-bbst-like").attr("class", "far fa-heart");
+      }
+   });
 });
 
 // 좋아요 or 좋아요 취소
 $("#s-bbst-like").on({"click" : function() {
-	
-	var likeCnt = $("#s-bbst-likeCnt").html();
-	
-	if(memberIdValue != -1) {
-		bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
-			if(data) {
-				bbstLikeService.cancelLikeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
-					console.log("CANCEL LIKE BBST");
-					
-					if(count === "success") {
-						$("#s-bbst-like").attr("class", "far fa-heart");
-						$("#s-bbst-likeCnt").html(Number(likeCnt) - 1);
-					}
-				});
-				return;
-			} else {
-				bbstLikeService.likeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
-					console.log("LIKE BBST");
-					if(count === "result") {
-						$("#s-bbst-like").attr("class", "fas fa-heart");
-						$("#s-bbst-likeCnt").html(Number(likeCnt) + 1);
-					}
-				});
-			}
-		});
-	} else {
-		window.location.href = "/login";
-	}
+   
+   var likeCnt = $("#s-bbst-likeCnt").html();
+   
+   if(memberIdValue != -1) {
+      bbstLikeService.likeStus({memberId : memberIdValue, bbstId : bbstIdValue}, function(data) {
+         if(data) {
+            bbstLikeService.cancelLikeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
+               console.log("CANCEL LIKE BBST");
+               
+               if(count === "success") {
+                  $("#s-bbst-like").attr("class", "far fa-heart");
+                  $("#s-bbst-likeCnt").html(Number(likeCnt) - 1);
+               }
+            });
+            return;
+         } else {
+            bbstLikeService.likeBbst({memberId : memberIdValue, bbstId : bbstIdValue}, function(count) {
+               console.log("LIKE BBST");
+               if(count === "result") {
+                  $("#s-bbst-like").attr("class", "fas fa-heart");
+                  $("#s-bbst-likeCnt").html(Number(likeCnt) + 1);
+               }
+            });
+         }
+      });
+   } else {
+      window.location.href = "/login";
+   }
 }});
 </script>
 
 <!-- 게시글 수정 및 삭제 버튼 -->
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	var operForm = $("#operForm");
-	
-	$("button[data-oper='list']").on("click", function(e) {
-		operForm.find("#bbstId").remove();
-		operForm.attr("action", "/cheers/list");
-		operForm.submit();
-	});
-	
-	$("button[data-oper='modify']").on("click", function(e) {
-		operForm.attr("action", "/cheers/modify").submit();
-	});
+   
+   var operForm = $("#operForm");
+   
+   $("button[data-oper='list']").on("click", function(e) {
+      operForm.find("#bbstId").remove();
+      operForm.attr("action", "/cheers/list");
+      operForm.submit();
+   });
+   
+   $("button[data-oper='modify']").on("click", function(e) {
+      operForm.attr("action", "/cheers/modify").submit();
+   });
 });
 </script>
 </div>

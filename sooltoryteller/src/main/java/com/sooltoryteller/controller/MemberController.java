@@ -246,6 +246,7 @@ public class MemberController {
 				model.addAttribute("name", member.getName());
 				model.addAttribute("email", member.getEmail());
 				
+				
 				return "/snsJoin";
 				
 			}
