@@ -39,7 +39,7 @@ width:80px;
 <div class="d-file-area">
 <input type="file" name="file" id="liqImg" 
                   accept="image/jpeg,image/gif,image/png" value="<c:out value='${liq.liqThumb }' />"
-                  onchange="checkType(this)" required />
+                  onchange="checkType(this)" />
 <input type="hidden" name="liqImg" value="<c:out value='${liq.liqImg }' />" />
 <input type="hidden" name="liqThumb" value="<c:out value='${liq.liqThumb }' />" />
 </div>
@@ -73,7 +73,7 @@ width:80px;
 <input type="hidden" name="amount" value="<c:out value='${adCri.amount }'/>" >
 </div>
 <div class="d-reg-btn" >
-<button type="submit" data-oper='modify'>수정</button><button type="submit" data-oper='remove'>삭제</button><button type="submit" data-oper='list'>목록</button>
+<button type="button" data-oper='modify'>수정</button><button type="submit" data-oper='remove'>삭제</button><button type="submit" data-oper='list'>목록</button>
 </div>
 </form>
 </div>
@@ -129,6 +129,8 @@ $(document).ready(function(){
 			formObj.empty();
 			formObj.append(pageNumTag);
 			formObj.append(amountTag);
+		}else if(operation === 'modify'){
+				return;
 		}
 		formObj.submit();
 	});

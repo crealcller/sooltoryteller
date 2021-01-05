@@ -44,7 +44,9 @@ let msg = '${msg}';
         <span value=4>★</span>
         <span value=5>★</span>
     </p>
-    <p> <textarea maxlength="500" rows='20' name='revwCn' placeholder='10자 이상 입력해주세요'></textarea></p>
+    <div class="wrap">
+    <p> <textarea id="content" rows='15' maxlength="500" name='revwCn' placeholder='10자 이상 입력해주세요'></textarea> <span id="counter"></span></p>
+    </div>
     <div class="d-modal-btn">
     <button id='revwUpdateBtn' type='submit'>수정</button> 
     <button id='revwDeleteBtn' type='submit'>삭제</button>
@@ -109,6 +111,7 @@ $(document).ready(function(){
 			}
 			let str="";
 			if(myList == null || myList.length==0){
+				dRevw.html("<p style='margin: 35px 0px 0px -52px;'>작성한 전통주 리뷰가 없습니다.</p><br />"); 
 				return;
 			}
 			for(let i=0,len = myList.length || 0; i<len; i++){
@@ -153,6 +156,13 @@ $(document).ready(function(){
 			rate = revw.rate;
 			$('.star_grade').children().eq(rate-1).parent().children("span").removeClass("on");
 			$('.star_grade').children().eq(rate-1).addClass("on").prevAll("span").addClass("on");
+			$(function() {
+			      $('#content').keyup(function (e){
+			          var content = $(this).val();
+			          $('#counter').html(content.length + '/500');
+			      });
+			      $('#content').keyup();
+			});
 			revwModal.fadeIn(100);
 		});
 	});
@@ -213,6 +223,5 @@ $(document).ready(function(){
 		});
 });
 </script>
-    
 </body>
 </html>

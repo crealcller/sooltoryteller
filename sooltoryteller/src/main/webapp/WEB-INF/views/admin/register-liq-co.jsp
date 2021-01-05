@@ -37,8 +37,8 @@ if(msg != ''){
 <div class="d-admin-half-con">
 이름<p><input type="text" name="nm" maxlength="20" placeholder="1~20자" required="required"></p>
 주소<p><input type="text" name="addr" maxlength="30" placeholder="1~30자" required="required"></p>
-홈페이지<p><input type="url" name="hmpg" maxlength="100" placeholder="0~100자"></p>
-전화번호<p><input type="number" name="telno" maxlength="15" placeholder="숫자만 입력해주세요." required="required"></p>
+홈페이지<p><input type="url" name="hmpg" maxlength="50" placeholder="0~50자"></p>
+전화번호<p><input name="telno" maxlength="15" placeholder="숫자만 입력해주세요." required="required"></p>
 </div>
 <div class="d-reg-btn" >
 <button type="submit">등록 </button>

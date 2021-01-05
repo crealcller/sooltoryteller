@@ -119,9 +119,10 @@
 			<p>
 				<c:out value="${liq.liqCo.addr}" />
 			</p>
+			<c:if test="${liq.liqCo.hmpg ne null}">
 				<a class="d-hmpg-a" href='<c:out value="${liq.liqCo.hmpg}" />' target="blank"><c:out value="${liq.liqCo.hmpg}" /></a>
-			<p>
-				<c:out value="${liq.liqCo.telno}" />
+			</c:if>
+			<p id="tel">
 			</p>
 			
 			</div>
@@ -425,14 +426,24 @@ geocoder.addressSearch(targetAddr , function(result, status) {
 });    
 </script>
 <script>
-$(function() {
-      $('#content').keyup(function (e){
-          var content = $(this).val();
-          $('#counter').html(content.length + '/500');
-      });
-      $('#content').keyup();
+$(document).ready(function() {
+	var num ="${liq.liqCo.telno}";
+	console.log(num.length);
+		console.log(num);
+	    var formatNum = '';
+	    if(num.length==11){
+	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+	    }else if(num.length==8){
+	        formatNum = num.replace(/(\d{4})(\d{4})/, '$1-$2');
+	    }else{
+	        if(num.indexOf('02')==0){
+	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
+	        }else{
+	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+	        }
+	    }
+	    $("#tel").text(formatNum);
 });
-
 </script>
 </body>
 </html>

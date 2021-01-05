@@ -28,7 +28,7 @@ public class LiqCoVO {
     private String addr;
 
     // 홈페이지 
-	@Size(min = 0, max = 15, message = "홈페이지주소가 양식에 맞지않습니다.")
+	@Size(min = 0, max = 50, message = "홈페이지주소가 양식에 맞지않습니다.")
     private String hmpg;
 
     // 전화번호 
