@@ -69,9 +69,11 @@ let msg = "${msg}";
                      });
                   </script>
                </div>
-               <!-- 내용 -->
-               <textarea class="s-form-cn" name="cn" rows="10" placeholder="내용을 입력해주세요."
-               style="border: 1px rgb(245, 245, 245) solid;" required><c:out value='${bbst.cn }' /></textarea>
+               <div class="s-form-cn-div">
+	               <!-- 내용 -->
+	               <textarea class="s-form-cn" name="cn" rows="10" placeholder="내용을 입력해주세요."
+	               style="border: 1px rgb(245, 245, 245) solid;" required><c:out value='${bbst.cn }' /></textarea>
+	           </div>
             </div>
          </div>
          

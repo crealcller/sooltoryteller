@@ -68,8 +68,11 @@ let msg = "${msg}";
 						</script>
 					</div>
 					<!-- 내용 -->
+					<div class="s-form-cn-div">
 						<textarea class="s-form-cn" id="s-form-cn" name="cn" placeholder="내용을 입력해주세요."
 						style="border: 1px rgb(245, 245, 245) solid;" required><c:out value='${bbst.cn }' /></textarea>
+						<span id="counter"></span>
+					</div>
 				</div>
 			</div>
 		</form>
@@ -140,6 +143,17 @@ function checkForm() {
 		formObj.submit();
 	}
 }
+</script>
+
+<!-- 게시글 내용 글자수 세기 -->
+<script>
+$(function() {
+      $('#s-form-cn').keyup(function (e){
+          var content = $(this).val();
+          $('#counter').html(content.length + '/500');
+      });
+      $('#s-form-cn').keyup();
+});
 </script>
 
 <!-- 서버단 유효성 검사 -->

@@ -36,7 +36,7 @@
 				<div class="s-writer-info-btn-div">
 					<button data-oper="list" class="s-listBtn" style="">목록</button>
 					<!-- 본인이 쓴 게시물만 수정 가능 -->
-					<c:if test="${memberId == bbst.memberId || admin != null }">
+					<c:if test="${memberId == bbst.memberId or admin eq 'ADMIN' }">
 						<button data-oper="modify" class="s-modifyBtn">수정</button>
 					</c:if>
 					<!-- 데이터 이동시키기 -->
@@ -245,7 +245,6 @@ $(document).ready(function() {
 	// 댓글 클릭 이벤트 처리
 	replyUL.on("click", "li", function(e) {
 		var bbstReplyId = $(this).data("bbstreplyid");
-		console.log(admin);
 		
 		bbstReplyService.get(bbstReplyId, function(reply) {
 			if(reply.memberId != loginMemberId) {

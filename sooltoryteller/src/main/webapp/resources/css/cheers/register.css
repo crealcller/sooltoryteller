@@ -138,9 +138,14 @@
 }
 
 .s-form-cn {
-	height: 350px;
-	width: 350px;
-	margin-top: 25px;
+	height: 312px;
+	width: 322px;
 	padding: 25px;
 	resize: none;
+}
+
+#counter {
+	float: right;
+	margin-top: 5px;
+	font-size: 10px;
 }
