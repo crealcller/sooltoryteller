@@ -445,5 +445,14 @@ $(document).ready(function() {
 	    $("#tel").text(formatNum);
 });
 </script>
+<script>
+$(function() {
+    $('#content').keyup(function (e){
+        var content = $(this).val();
+        $('#counter').html(content.length + '/500');
+    });
+    $('#content').keyup();
+});
+</script>
 </body>
 </html>

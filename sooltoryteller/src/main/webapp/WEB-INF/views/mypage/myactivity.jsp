@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
     
 <script type="text/javascript">
-	// 로그인이 안된 상태면 로그인페이지로 넘어가게
-	let msg = "${msg}";
-	if (msg != "") {
-		alert(msg);
-		location.href = "/login";
-	}
+   // 로그인이 안된 상태면 로그인페이지로 넘어가게
+   let msg = "${msg}";
+   if (msg != "") {
+      alert(msg);
+      location.href = "/login";
+   }
 </script>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -20,30 +20,30 @@
 <title>내 게시글 활동 현황</title>
 <style>
 .s-chart-div {
-	height: 400px;
-	width: 600px;
-	margin: 0 auto;
+   height: 400px;
+   width: 600px;
+   margin: 0 auto;
 }
 
 #columnchart_values {
-	height: 400px;
-	width: 600px;
+   height: 400px;
+   width: 600px;
 }
 
 .s-myactivity-table {
-	height: 150px;
-	width: 400px;
-	margin: 20px auto 0 auto;
+   height: 150px;
+   width: 400px;
+   margin: 20px auto 0 auto;
 }
 
 th, td {
-	border: 1px solid rgb(240 240 240);
-	padding: 8px;
-	text-align: left;
+   border: 1px solid rgb(240 240 240);
+   padding: 8px;
+   text-align: left;
 }
 
 tr:nth-child(even) {
-	background-color: rgb(250 245 255);
+   background-color: rgb(250 245 255);
 }
 </style>
 </head>
@@ -51,23 +51,23 @@ tr:nth-child(even) {
 <body>
 <h2 style="width: 780px;">내 게시글 활동 현황</h2>
 <div class="s-chart-div">
-	<div id="columnchart_values"></div>
+   <div id="columnchart_values"></div>
 </div>
 
 <table class="s-myactivity-table">
-	<tr>
-		<th>내가 작성한 게시글수</th>
-		<td><c:out value="${bCnt }" /></td>
-		
-	</tr>
-	<tr>
-		<th>내가 작성한 댓글수</th>
-		<td><c:out value="${rCnt }" /></td>
-	</tr>
-	<tr>
-		<th>좋아요 누른 게시글수</th>
-		<td><c:out value="${lCnt }" /></td>
-	</tr>
+   <tr>
+      <th>내가 작성한 게시글수</th>
+      <td><c:out value="${bCnt }" /></td>
+      
+   </tr>
+   <tr>
+      <th>내가 작성한 댓글수</th>
+      <td><c:out value="${rCnt }" /></td>
+   </tr>
+   <tr>
+      <th>좋아요 누른 게시글수</th>
+      <td><c:out value="${lCnt }" /></td>
+   </tr>
 </table>
 
 </div>
@@ -83,7 +83,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     var data = google.visualization.arrayToDataTable(
-    	${data},
+       ${data},
     );
 
     var view = new google.visualization.DataView(data);
@@ -95,7 +95,7 @@ function drawChart() {
       height: 400,
       /* 정수형으로만 나오도록 */
       vAxis: {format: "#"},
-      bar: {groupWidth: "95%"},
+      bar: {groupWidth: "40%"},
       legend: { position: "none" }
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));

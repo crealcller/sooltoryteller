@@ -450,6 +450,7 @@ public class MemberController {
 		
 		if(service.checkEmail(kemail) == 1) {
 			session.setAttribute("email", kemail);
+			session.setAttribute("authority", service.getAuthority(kemail));
 			return "home";
 		}else {
 		
@@ -491,6 +492,7 @@ public class MemberController {
 		
 		if(service.checkEmail(nemail) == 1) {
 			session.setAttribute("email", nemail);
+			session.setAttribute("authority", service.getAuthority(nemail));
 			return "redirect:"+referer;
 		}else {
 		
