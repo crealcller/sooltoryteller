@@ -158,7 +158,7 @@ public class MemberController {
 	// 회원가입 아이디 중복체크
 		@RequestMapping(value = "/idOverlapCheck", method = RequestMethod.POST)
 		@ResponseBody
-		public  int idOverlapCheck(String email ) {
+		public int idOverlapCheck(String email ) {
 			int cnt = service.checkEmail(email);
 			return cnt;
 			
@@ -167,7 +167,7 @@ public class MemberController {
 	//회원가입 닉네임 중복체크
 		@RequestMapping(value = "/nOverlapCheck", method = RequestMethod.POST)
 		@ResponseBody
-		public  int nOverlapCheck(String name) {
+		public int nOverlapCheck(String name) {
 			int cnt = service.checkName(name);
 			return cnt;
 			
@@ -202,9 +202,7 @@ public class MemberController {
 				Long memberId = service.getMemberId(member.getEmail());
 				favDrkService.registerFavDrk(memberId, arr);
 				
-				//세션에 회원 닉네임, 이메일 저장 ->로그인상태로 userinfo(보류)
 				HttpSession session = request.getSession();
-				session.setAttribute("name", member.getName());
 				session.setAttribute("email", member.getEmail());
 				session.setAttribute("authority", service.getAuthority(member.getEmail()));
 				//return "redirect:/userInfo";
