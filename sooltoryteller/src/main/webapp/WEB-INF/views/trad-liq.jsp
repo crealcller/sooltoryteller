@@ -13,6 +13,7 @@
 <body>
 <div class="s-main-background">
 <div class="d-con">
+<<<<<<< HEAD
    <div class="d-trad-liq-info">
       <div class="d-trad-liq-info-con">
          <img class="d-trad-liq-img-con" src="<c:out value='${liq.liqImg}'/>">
@@ -477,6 +478,15 @@ $(document).ready(function() {
 	$("button[data-oper='order']").on("click", function(e) {
 	      operForm.attr("action", "/shop/order").submit();
 	   });
+});
+</script>
+<script>
+$(function() {
+    $('#content').keyup(function (e){
+        var content = $(this).val();
+        $('#counter').html(content.length + '/500');
+    });
+    $('#content').keyup();
 });
 </script>
 </body>

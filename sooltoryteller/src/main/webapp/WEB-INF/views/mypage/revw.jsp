@@ -24,7 +24,7 @@ let msg = '${msg}';
       <ul class="d-revw">
       </ul>
       </div>
-        <div class="d-paging" style="width: 700px; margin-right: 25px;"></div>
+      <div class="d-paging" style="width: 700px; margin-right: 25px;"></div>
         </div>
        </div>
        </div>

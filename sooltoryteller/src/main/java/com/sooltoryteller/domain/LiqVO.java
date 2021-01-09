@@ -71,7 +71,6 @@ public class LiqVO {
     
     //전통주 카운트
     private LiqCntVO liqCnt;
-    
 
    public String getCate() {
       return cate;
