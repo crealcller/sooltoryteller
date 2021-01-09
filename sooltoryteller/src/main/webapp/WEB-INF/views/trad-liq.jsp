@@ -43,14 +43,15 @@
 				수상내역 : <c:out value="${liq.ards}" />
 				</p>
 				</c:if>
-				
-				
-				<!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
+				<p>
+				가격 : <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원
+				</p>
+				<button type="button" style="padding:0px 10px 0px 10px;">-</button>
 				<input  type="text" style="width: 30px;" value="1">
 				<button type="button" style="padding:0px 10px 0px 10px;">+</button>
 				<br>
 				<button type="submit">술바구니</button>
-				<button type="submit">구매하기</button> -->
+				<button type="submit">구매하기</button>
 			</div>
 		</div>
 		<div class="d-trad-liq-info-con-heart">
@@ -443,6 +444,15 @@ $(document).ready(function() {
 	        }
 	    }
 	    $("#tel").text(formatNum);
+});
+</script>
+<script>
+$(function() {
+    $('#content').keyup(function (e){
+        var content = $(this).val();
+        $('#counter').html(content.length + '/500');
+    });
+    $('#content').keyup();
 });
 </script>
 </body>

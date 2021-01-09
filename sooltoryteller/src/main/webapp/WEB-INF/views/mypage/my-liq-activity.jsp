@@ -86,7 +86,7 @@ function drawChart() {
       height: 400,
       /* 정수혐으로만 나오도록 */
       vAxis: {format: '#'},
-      bar: {groupWidth: "95%"},
+      bar: {groupWidth: "40%"},
       legend: { position: "none" },
     };
     

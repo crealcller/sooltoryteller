@@ -54,6 +54,9 @@ public class LiqVO {
     @Size(min =0, max = 90, message = "수상내역이 양식에 맞지않습니다.")
     private String ards;
 
+    //가격
+    private Long prc;
+    
     // 등록일시 
     private Date regdate;
 
@@ -68,6 +71,7 @@ public class LiqVO {
     
     //전통주 카운트
     private LiqCntVO liqCnt;
+    
 
 	public String getCate() {
 		return cate;

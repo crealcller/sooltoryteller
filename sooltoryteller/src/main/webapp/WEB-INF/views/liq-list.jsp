@@ -25,6 +25,7 @@
 <p>도수 : <c:out value="${allLiq.lv}"/>%</p>
 <p>원재료 : <c:out value="${allLiq.capct}"/>ml</p>
 <p>양조장 : <c:out value="${allLiq.liqCo.nm}"/></p>
+<h3><fmt:formatNumber value="${allLiq.prc }" pattern="#,###" />원</h3>
 </div>
 </li>
 </c:forEach>

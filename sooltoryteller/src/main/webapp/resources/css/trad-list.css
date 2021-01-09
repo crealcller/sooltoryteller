@@ -28,6 +28,11 @@
 .s-bbst-info-div h2 {
 	padding-bottom:10px;
 }
+.s-bbst-info-div h3 {
+	float:right;
+	margin-top:10px;
+}
+
 .s-bbst-info-div p {
 	padding-bottom:5px;
 }

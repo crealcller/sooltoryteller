@@ -48,6 +48,7 @@ let msg = '${msg}';
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
+<audio style="display:none;" src="/resources/맥주.mp3" controls autoplay loop></audio>
     <div class="h-logobar">
         <div class="h-logo">
         <div class="d-logo-left-con">

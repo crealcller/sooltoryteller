@@ -95,7 +95,7 @@ function drawChart() {
       height: 400,
       /* 정수형으로만 나오도록 */
       vAxis: {format: "#"},
-      bar: {groupWidth: "95%"},
+      bar: {groupWidth: "40%"},
       legend: { position: "none" }
     };
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));

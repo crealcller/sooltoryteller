@@ -47,7 +47,7 @@
 }
 
 .d-trad-liq-text-con p {
-	padding: 10px;
+	padding: 5px;
 }
 
 /* 전통주상세 컨테이너 */
@@ -304,6 +304,7 @@ li {
 	resize: none;
     line-height:1.6em;
     max-height: 14em;
+    padding:10px;
 }
 .wrap span {
     position: absolute;
