@@ -1,295 +1,295 @@
 @charset "UTF-8";
 
 .d-con {
-	width: 100%;
-	height: 100%;
-	padding-top: 20px;
+   width: 100%;
+   height: 100%;
+   padding-top: 20px;
 }
 /* 구메정보부분 배경 */
 .d-trad-liq-info {
-	width: 70%;
-	height: 400px;
-	background-color: white;
-	margin: 0 auto 25px auto;
-	box-shadow: 10px 10px 13px -1px #c8c2c2;
+   width: 70%;
+   height: 400px;
+   background-color: white;
+   margin: 0 auto 25px auto;
+   box-shadow: 10px 10px 13px -1px #c8c2c2;
 }
 /* 구메정보부분 */
 .d-trad-liq-info-con {
-	width: 800px;
-	height: 100%;
-	display: inline-block;
-	margin-left: 120px;
+   width: 800px;
+   height: 100%;
+   display: inline-block;
+   margin-left: 120px;
 }
 
 .d-trad-liq-info-con-heart {
-	float: right;
-	width: 120px;
-	height: 100%;
-	padding-top: 30px;
-	display: inline-block;
+   float: right;
+   width: 120px;
+   height: 100%;
+   padding-top: 30px;
+   display: inline-block;
 }
 
 /* 구매정보부분 - 사진 */
 .d-trad-liq-img-con {
-	width: 230px;
-	height: 320px;
-	display: inline-block;
-	float: left;
-	margin: 40px;
+   width: 230px;
+   height: 320px;
+   display: inline-block;
+   float: left;
+   margin: 40px;
 }
 /* 구매정보부분 - 글 */
 .d-trad-liq-text-con {
-	padding-top: 50px;
-	width: 450px;
-	height: 100%;
-	display: inline-block;
-	float: left;
+   padding-top: 50px;
+   width: 450px;
+   height: 100%;
+   display: inline-block;
+   float: left;
 }
 
 .d-trad-liq-text-con p {
-	padding: 10px;
+   padding: 5px;
 }
 
 /* 전통주상세 컨테이너 */
 .d-trad-liq-con {
-	margin: 0 auto;
-	padding: 0;
-	width: 70%;
+   margin: 0 auto;
+   padding: 0;
+   width: 70%;
 }
 
 /* 전통주상세 */
 .d-trad-liq-column {
-	width: 100%;
-	border-bottom-style: solid;
-	border-bottom-color: #844ce321;
-	background-color: white;
-	padding: 50px;
-	margin-top: 20px;
+   width: 100%;
+   border-bottom-style: solid;
+   border-bottom-color: #844ce321;
+   background-color: white;
+   padding: 50px;
+   margin-top: 20px;
 }
 
 .d-revw-wrapper {
-	width: 100%;
-	min-width: 1000px;
-	overflow: auto;
+   width: 100%;
+   min-width: 1000px;
+   overflow: auto;
 }
 /* 리뷰 부분 con*/
 .d-revws-con {
-	width: 600px;
-	float: left;
-	display: inline-block;
+   width: 600px;
+   float: left;
+   display: inline-block;
 }
 /* 리뷰  리스트*/
 .d-revws {
-	list-style: none;
-	width: 600px;
+   list-style: none;
+   width: 600px;
 }
 /* 리뷰 */
 .d-revw-con {
-	box-shadow: 5px 5px 13px -1px #F2EFF9;
-	border-style: solid;
-	border-color: rgb(245, 245, 245);
-	padding: 20px;
-	margin: 40px;
+   box-shadow: 5px 5px 13px -1px #F2EFF9;
+   border-style: solid;
+   border-color: rgb(245, 245, 245);
+   padding: 20px;
+   margin: 40px;
 }
 
 .d-paging {
-	float: right;
-	margin-right: 40px;
+   float: right;
+   margin-right: 40px;
 }
 
 .d-paging ul {
-	list-style: none;
+   list-style: none;
 }
 
 .d-paging li {
-	float: left;
-	margin: 0;
+   float: left;
+   margin: 0;
 }
 
 .d-new-revw-con {
-	float: left;
-	width: 300px;
-	height: 300px;
-	display: inline-block;
-	margin-top: 20px;
+   float: left;
+   width: 300px;
+   height: 300px;
+   display: inline-block;
+   margin-top: 20px;
 }
 
 .d-new-revw-con ul {
-	width: 260px;
-	padding: 10px;
-	list-style: none;
+   width: 260px;
+   padding: 10px;
+   list-style: none;
 }
 
 .d-new-revw-con li {
-	border-bottom: solid 2px #F2EFF9;
-	padding: 10px;
+   border-bottom: solid 2px #F2EFF9;
+   padding: 10px;
 }
 
 .d-new-revw-con button {
-	float: left;
-	background-color: Transparent;
-	border: 0;
-	outline: 0;
+   float: left;
+   background-color: Transparent;
+   border: 0;
+   outline: 0;
 }
 
 .d-new-revw-con img {
-	float: left;
+   float: left;
 }
 
 .d-revw-cnt {
-	margin-left: 10px;
-	font-size: 7px;
+   margin-left: 10px;
+   font-size: 7px;
 }
 
 .d-revw-cnt-msg {
-	font-size: 7px;
+   font-size: 7px;
 }
 
 .d-revw-profile {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	border: solid 1px #ccaeff;
-	float: left;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   border: solid 1px #ccaeff;
+   float: left;
 }
 
 .d-revw-rate {
-	font-size: 30px;
+   font-size: 30px;
 }
 
 .d-paging-btn-active {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background-color: rgb(181, 135, 189);
-	border-radius: 50%;
+   text-align: center;
+   width: 25px;
+   height: 25px;
+   background-color: rgb(181, 135, 189);
+   border-radius: 50%;
 }
 
 .d-paging-btn-active a {
-	color: white;
+   color: white;
 }
 
 .d-paging-btn-none {
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
+   text-align: center;
+   width: 25px;
+   height: 25px;
+   border-radius: 50%;
 }
 
 /* The Modal (background) */
 .d-revw-modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1; /* Sit on top */
+   padding-top: 100px; /* Location of the box */
+   left: 0;
+   top: 0;
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgb(0, 0, 0); /* Fallback color */
+   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .d-revw-modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 25px;
-	width: 500px;
-	height: 620px;
-	border-radius: 10px;
+   background-color: #fefefe;
+   margin: auto;
+   padding: 25px;
+   width: 500px;
+   height: 620px;
+   border-radius: 10px;
 }
 
 /* The Close Button */
 .d-revw-modal-close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+   color: #aaaaaa;
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
 }
 
 .d-revw-modal-close:hover, .d-revw-modal-close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
+   color: #000;
+   text-decoration: none;
+   cursor: pointer;
 }
 
 .d-star_grade span {
-	text-decoration: none;
-	font-size: 30px;
-	color: grey;
+   text-decoration: none;
+   font-size: 30px;
+   color: grey;
 }
 
 .d-star_grade span.on {
-	color: orange;
+   color: orange;
 }
 
 .star_grade {
-	margin: 10px;
+   margin: 10px;
 }
 
 .star_grade span {
-	text-decoration: none;
-	font-size: 30px;
-	color: grey;
+   text-decoration: none;
+   font-size: 30px;
+   color: grey;
 }
 
 .star_grade span.on {
-	color: orange;
+   color: orange;
 }
 
 .star_grade :hover {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 .d-revw-star {
-	font-size: 20px;
-	color: orange;
+   font-size: 20px;
+   color: orange;
 }
 
 .d-star-box {
-	display: inline-block;
-	padding: 3px 8px 3px 8px;
-	background-color: #f9f7d6;
-	border-style: none;
-	border-radius: 10px 10px 10px 10px;
-	margin: 10px;
+   display: inline-block;
+   padding: 3px 8px 3px 8px;
+   background-color: #f9f7d6;
+   border-style: none;
+   border-radius: 10px 10px 10px 10px;
+   margin: 10px;
 }
 
 #like {
-	font-size: 30px;
+   font-size: 30px;
 }
 
 li {
-	list-style: none;
+   list-style: none;
 }
 .d-hmpg-a{
-	text-decoration: underline;
-	color:#0076ff;
-	padding: 10px;
+   text-decoration: underline;
+   color:#0076ff;
+   padding: 10px;
 }
 .d-revw-modal-content h2 {
-	background-color: rgb(250, 245, 255);
-	padding: 20px;
+   background-color: rgb(250, 245, 255);
+   padding: 20px;
 }
 
 .d-info-con {
-	border-bottom: 1px solid #888;
-	height: 150px;
-	margin: 10px;
+   border-bottom: 1px solid #888;
+   height: 150px;
+   margin: 10px;
 }
 
 .d-modal-info {
-	float: left;
-	display: inline-block;
-	padding: 10px;
-	margin: 10px;
+   float: left;
+   display: inline-block;
+   padding: 10px;
+   margin: 10px;
 }
 
 .d-modal-info p {
-	padding: 5px;
-	font-size:12px;
+   padding: 5px;
+   font-size:12px;
 }
 .wrap {
     width: 425px;
@@ -299,11 +299,12 @@ li {
     padding:10px 10px 0px 10px;
 }
 .wrap textarea {
-	width: 425px;
-	background-color: #f3f3f38f;
-	resize: none;
+   width: 425px;
+   background-color: #f3f3f38f;
+   resize: none;
     line-height:1.6em;
     max-height: 14em;
+    padding:10px;
 }
 .wrap span {
     position: absolute;
@@ -311,25 +312,25 @@ li {
     right: 5px;
 }
 .d-revw-modal-content button {
-	float: right;
-	margin: 10px;
-	outline: 0;
-	border: 0;
-	border-radius: 5px;
-	padding: 10px;
-	background-color: rgb(250, 245, 255);
-	font-weight: bold;
+   float: right;
+   margin: 10px;
+   outline: 0;
+   border: 0;
+   border-radius: 5px;
+   padding: 10px;
+   background-color: rgb(250, 245, 255);
+   font-weight: bold;
 }
 .d-revw-member{
-	width: 400px;
-	height: 50px;
-	margin-left: 10px;
+   width: 400px;
+   height: 50px;
+   margin-left: 10px;
 }
 .d-revw-member-nm{
-	float:left;
-	padding: 20px 10px;
+   float:left;
+   padding: 20px 10px;
 }
 .d-revw-time{
-	float: right;
+   float: right;
     padding: 18px 7px 0px 0px;
 }

@@ -25,55 +25,56 @@
 <p>도수 : <c:out value="${allLiq.lv}"/>%</p>
 <p>원재료 : <c:out value="${allLiq.capct}"/>ml</p>
 <p>양조장 : <c:out value="${allLiq.liqCo.nm}"/></p>
+<h3><fmt:formatNumber value="${allLiq.prc }" pattern="#,###" />원</h3>
 </div>
 </li>
 </c:forEach>
 </ul>
 <!-- 페이징 처리 -->
 <ul class="s-pagination">
-	<c:if test="${pageMaker.prev }">
-		<li class="d-paging-btn-none" style="width: 50px;">
-			<a href="${pageMaker.startPage -1 }">&#60;</a>
-		</li>
-	</c:if>
-	
-	<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-		<li class="d-paging-btn-${pageMaker.cri.pageNum == num ? 'active':'none' } ">
-			<a href="${num }">${num }</a>
-		</li>
-	</c:forEach>
-	
-	<c:if test="${pageMaker.next }">
-		<li class="d-paging-btn-none" style="width: 50px;">
-			<a href="${pageMaker.endPage + 1 }">&#62;</a>
-		</li>
-	</c:if>
+   <c:if test="${pageMaker.prev }">
+      <li class="d-paging-btn-none" style="width: 50px;">
+         <a href="${pageMaker.startPage -1 }">&#60;</a>
+      </li>
+   </c:if>
+   
+   <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+      <li class="d-paging-btn-${pageMaker.cri.pageNum == num ? 'active':'none' } ">
+         <a href="${num }">${num }</a>
+      </li>
+   </c:forEach>
+   
+   <c:if test="${pageMaker.next }">
+      <li class="d-paging-btn-none" style="width: 50px;">
+         <a href="${pageMaker.endPage + 1 }">&#62;</a>
+      </li>
+   </c:if>
 </ul>
-		
+      
 </div>
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 
 <form id="s-actionForm" action="/liq-list" method="get">
-	<c:if test="${cate ne null}">
-	<input type="hidden" name="cate" value="${cate }" />
-	</c:if>
-	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
-	<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
+   <c:if test="${cate ne null}">
+   <input type="hidden" name="cate" value="${cate }" />
+   </c:if>
+   <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
+   <input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
 </form>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var actionForm = $("#s-actionForm");
-	
-	$(".s-pagination li a").on("click", function(e) {
-		e.preventDefault();
-		console.log("click");
-		
-		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		actionForm.submit();
-	});
-});	
+   var actionForm = $("#s-actionForm");
+   
+   $(".s-pagination li a").on("click", function(e) {
+      e.preventDefault();
+      console.log("click");
+      
+      actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+      actionForm.submit();
+   });
+});   
 </script>
 </body>
 </html>

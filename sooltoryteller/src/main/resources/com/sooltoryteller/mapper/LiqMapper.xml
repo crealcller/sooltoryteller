@@ -2,145 +2,146 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sooltoryteller.mapper.LiqMapper">
-	<resultMap id="LiqVO" type="com.sooltoryteller.domain.LiqVO">
-		<result column="liq_id" property="liqId" />
-		<result column="liq_co_id" property="liqCoId" />
-		<result column="nm" property="nm" />
-		<result column="cate" property="cate" />
-		<result column="capct" property="capct" />
-		<result column="lv" property="lv" />
-		<result column="irdnt" property="irdnt" />
-		<result column="ards" property="ards" />
-		<result column="regdate" property="regdate" />
-		<result column="updatedate" property="updatedate" />
-		<result column="liq_img" property="liqImg" />
-		<result column="liq_thumb" property="liqThumb" />
+   <resultMap id="LiqVO" type="com.sooltoryteller.domain.LiqVO">
+      <result column="liq_id" property="liqId" />
+      <result column="liq_co_id" property="liqCoId" />
+      <result column="nm" property="nm" />
+      <result column="cate" property="cate" />
+      <result column="capct" property="capct" />
+      <result column="lv" property="lv" />
+      <result column="irdnt" property="irdnt" />
+      <result column="ards" property="ards" />
+      <result column="regdate" property="regdate" />
+      <result column="updatedate" property="updatedate" />
+      <result column="liq_img" property="liqImg" />
+      <result column="liq_thumb" property="liqThumb" />
+      <result column="prc" property="prc" />
 
-		<!-- 전통주내용 -->
-		<association property="liqCn"
-			javaType="com.sooltoryteller.domain.LiqCnVO">
-			<result column="liq_id" property="liqId" />
-			<result column="intro" property="intro" />
-			<result column="pair" property="pair" />
-		</association>
+      <!-- 전통주내용 -->
+      <association property="liqCn"
+         javaType="com.sooltoryteller.domain.LiqCnVO">
+         <result column="liq_id" property="liqId" />
+         <result column="intro" property="intro" />
+         <result column="pair" property="pair" />
+      </association>
 
-		<!-- 양조장 -->
-		<association property="liqCo"
-			javaType="com.sooltoryteller.domain.LiqCoVO">
-			<result column="liq_co_id" property="liqCoId" />
-			<result column="co_name" property="nm" />
-			<result column="addr" property="addr" />
-			<result column="hmpg" property="hmpg" />
-			<result column="telno" property="telno" />
-		</association>
+      <!-- 양조장 -->
+      <association property="liqCo"
+         javaType="com.sooltoryteller.domain.LiqCoVO">
+         <result column="liq_co_id" property="liqCoId" />
+         <result column="co_name" property="nm" />
+         <result column="addr" property="addr" />
+         <result column="hmpg" property="hmpg" />
+         <result column="telno" property="telno" />
+      </association>
 
-		<!-- 전통주 카운트 -->
-		<association property="liqCnt"
-			javaType="com.sooltoryteller.domain.LiqCntVO">
-			<result column="liq_id" property="liqId" />
-			<result column="like_cnt" property="likeCnt" />
-			<result column="revw_cnt" property="revwCnt" />
-			<result column="avg_rate" property="avgRate" />
-			<result column="inqr_cnt" property="inqrCnt" />
-		</association>
-	</resultMap>
+      <!-- 전통주 카운트 -->
+      <association property="liqCnt"
+         javaType="com.sooltoryteller.domain.LiqCntVO">
+         <result column="liq_id" property="liqId" />
+         <result column="like_cnt" property="likeCnt" />
+         <result column="revw_cnt" property="revwCnt" />
+         <result column="avg_rate" property="avgRate" />
+         <result column="inqr_cnt" property="inqrCnt" />
+      </association>
+   </resultMap>
 
 
-	<select id="get" resultMap="LiqVO">
-		select
-		l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,l.liq_img,
-		n.intro,n.pair,
-		c.nm co_name,c.addr,c.hmpg,c.telno,
-		t.avg_rate,t.inqr_cnt,t.like_cnt,t.revw_cnt
-		from liq l, liq_cn n,
-		liq_co c,liq_cnt t
-		where l.liq_id=n.liq_id
-		and l.liq_co_id=c.liq_co_id
-		and l.liq_id=t.liq_id
-		and l.liq_id =#{liqId}
-	</select>
+   <select id="get" resultMap="LiqVO">
+      select
+      l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,l.liq_img,l.prc,
+      n.intro,n.pair,
+      c.nm co_name,c.addr,c.hmpg,c.telno,
+      t.avg_rate,t.inqr_cnt,t.like_cnt,t.revw_cnt
+      from liq l, liq_cn n,
+      liq_co c,liq_cnt t
+      where l.liq_id=n.liq_id
+      and l.liq_co_id=c.liq_co_id
+      and l.liq_id=t.liq_id
+      and l.liq_id =#{liqId}
+   </select>
 
-	<select id="getLiqListByCate" resultMap="LiqVO">
-		<![CDATA[
-		select b.liq_id, b.liq_co_id, b.nm, b.cate,b.capct,b.lv, b.irdnt,b.liq_thumb, b.liq_img,b.regdate,b.updatedate,
-		b.co_name,b.avg_rate,b.inqr_cnt,b.revw_cnt,b.like_cnt
-		from 
-		(select rownum rn,a.liq_id, a.liq_co_id, a.nm, a.cate,a.capct,a.lv, a.irdnt,a.liq_thumb,a.liq_img,a.regdate,a.updatedate,
-		a.co_name,
-		a.avg_rate,a.inqr_cnt,a.revw_cnt,a.like_cnt
+   <select id="getLiqListByCate" resultMap="LiqVO">
+      <![CDATA[
+      select b.liq_id, b.liq_co_id, b.nm, b.cate,b.capct,b.lv, b.irdnt,b.liq_thumb, b.liq_img,b.prc,b.regdate,b.updatedate,
+      b.co_name,b.avg_rate,b.inqr_cnt,b.revw_cnt,b.like_cnt
+      from 
+      (select rownum rn,a.liq_id, a.liq_co_id, a.nm, a.cate,a.capct,a.lv, a.irdnt,a.liq_thumb,a.liq_img,a.prc,a.regdate,a.updatedate,
+      a.co_name,
+      a.avg_rate,a.inqr_cnt,a.revw_cnt,a.like_cnt
         from
-        (select l.liq_id, c.liq_co_id, l.nm, l.cate,l.capct,l.lv, l.irdnt,l.liq_thumb,l.liq_img,l.regdate,l.updatedate,
-		c.nm co_name,
-		t.avg_rate,t.inqr_cnt,t.revw_cnt,t.like_cnt
-		from liq l, liq_co c, liq_cnt t
-		]]>
-		<where>
-		<if test="cate!=null and cate!=''"> 
-		l.cate = #{cate}
-		</if>
-		<trim prefix = "and" >
-		l.liq_co_id=c.liq_co_id
-		</trim>
-		</where>
-		<![CDATA[
-		and l.liq_id=t.liq_id
-		and l.liq_id>0
+        (select l.liq_id, c.liq_co_id, l.nm, l.cate,l.capct,l.lv, l.irdnt,l.liq_thumb,l.liq_img,l.prc,l.regdate,l.updatedate,
+      c.nm co_name,
+      t.avg_rate,t.inqr_cnt,t.revw_cnt,t.like_cnt
+      from liq l, liq_co c, liq_cnt t
+      ]]>
+      <where>
+      <if test="cate!=null and cate!=''"> 
+      l.cate = #{cate}
+      </if>
+      <trim prefix = "and" >
+      l.liq_co_id=c.liq_co_id
+      </trim>
+      </where>
+      <![CDATA[
+      and l.liq_id=t.liq_id
+      and l.liq_id>0
         order by liq_id desc
         )a
         where rownum <= #{cri.pageNum}*#{cri.amount})b
         where rn >(#{cri.pageNum} -1)*#{cri.amount}
-		]]>
-	</select>
+      ]]>
+   </select>
 
-	<select id="getLiqCntByCate" resultType="Integer">
-		select count(*) from liq 
-		<where>
-		<if test="cate!=null and cate!=''"> 
-		cate = #{cate}
-		</if>
-		<trim prefix = "and" >
-		liq_id > 0 
-		</trim>
-		</where>
-	</select>
+   <select id="getLiqCntByCate" resultType="Integer">
+      select count(*) from liq 
+      <where>
+      <if test="cate!=null and cate!=''"> 
+      cate = #{cate}
+      </if>
+      <trim prefix = "and" >
+      liq_id > 0 
+      </trim>
+      </where>
+   </select>
 
-	<update id="updateRevwCnt">
-		update liq_cnt
-		set revw_cnt = revw_cnt + #{amount}
-		where liq_id = #{liqId}
-	</update>
+   <update id="updateRevwCnt">
+      update liq_cnt
+      set revw_cnt = revw_cnt + #{amount}
+      where liq_id = #{liqId}
+   </update>
 
-	<update id="updateRevwRate">
-		update liq_cnt
-		set avg_rate =(select NVL(trunc(avg(rate),1), 0) from liq_revw
-		where liq_id =#{liqId})
-		where
-		liq_id=#{liqId}
-	</update>
-	
-	<update id="updateLikeCnt">
-		update liq_cnt
-		set like_cnt = like_cnt + #{amount}
-		where liq_id = #{liqId}
-	</update>
+   <update id="updateRevwRate">
+      update liq_cnt
+      set avg_rate =(select NVL(trunc(avg(rate),1), 0) from liq_revw
+      where liq_id =#{liqId})
+      where
+      liq_id=#{liqId}
+   </update>
+   
+   <update id="updateLikeCnt">
+      update liq_cnt
+      set like_cnt = like_cnt + #{amount}
+      where liq_id = #{liqId}
+   </update>
 
-	<update id="updateViewCnt">
-		update liq_cnt
-		set inqr_cnt = inqr_cnt + #{amount}
-		where liq_id = #{liqId}
-	</update>
+   <update id="updateViewCnt">
+      update liq_cnt
+      set inqr_cnt = inqr_cnt + #{amount}
+      where liq_id = #{liqId}
+   </update>
 
-	<select id="getOtherLiq" resultMap="LiqVO">
-	select l.liq_id, l.nm, l.liq_thumb, c.avg_rate from liq l, liq_cnt c 
-	where l.liq_id = c.liq_id
+   <select id="getOtherLiq" resultMap="LiqVO">
+   select l.liq_id, l.nm, l.liq_thumb, c.avg_rate from liq l, liq_cnt c 
+   where l.liq_id = c.liq_id
     and liq_co_id = (
-	select liq_co_id from liq
-	where liq_id=#{liqId})
-	</select>
-	
-	<select id="getMyLiqCnt" resultType="com.sooltoryteller.domain.MyLiqCntVO">
-	select * from 
-	    (select count(*) liqRCnt from liq_revw where member_id = #{memberId}),
-	    (select count(*) liqLCnt from liq_like where member_id = #{memberId})
-	</select>
+   select liq_co_id from liq
+   where liq_id=#{liqId})
+   </select>
+   
+   <select id="getMyLiqCnt" resultType="com.sooltoryteller.domain.MyLiqCntVO">
+   select * from 
+       (select count(*) liqRCnt from liq_revw where member_id = #{memberId}),
+       (select count(*) liqLCnt from liq_like where member_id = #{memberId})
+   </select>
 </mapper>
