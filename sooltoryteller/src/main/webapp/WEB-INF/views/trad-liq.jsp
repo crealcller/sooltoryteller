@@ -50,10 +50,11 @@
             
             <!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
             <input  type="text" style="width: 30px;" value="1">
-            <button type="button" style="padding:0px 10px 0px 10px;">+</button>
+            <button type="button" style="padding:0px 10px 0px 10px;">+</button> -->
+            <input type="number" min="1" max="10" value="1">
             <br>
             <button type="submit">술바구니</button>
-            <button type="submit">구매하기</button> -->
+            <button type="submit">구매하기</button>
          </div>
       </div>
       <div class="d-trad-liq-info-con-heart">
