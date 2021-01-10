@@ -43,12 +43,12 @@ public class KakaoService {
         params.add("partner_order_id", "1001");
         params.add("partner_user_id", "ehf");
         params.add("item_name", orderDTO.getName());
-        params.add("quantity", orderDTO.getQty());
-        params.add("total_amount", orderDTO.getAmount());
-        params.add("tax_free_amount", "100");
-        params.add("approval_url", "http://localhost:8181/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8181/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8181/kakaoPaySuccessFail");
+        params.add("quantity", orderDTO.getTtlQty());
+        params.add("total_amount", orderDTO.getTtlPrc());
+        params.add("tax_free_amount", "0");	
+        params.add("approval_url", "http://localhost:8181/shop/kakaoPaySuccess");
+        params.add("cancel_url", "http://localhost:8181/shop/kakaoPayCancel");
+        params.add("fail_url", "http://localhost:8181/shop/kakaoPaySuccessFail");
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  
@@ -87,7 +87,7 @@ public class KakaoService {
         params.add("partner_order_id", "1001");
         params.add("partner_user_id", "ehf");
         params.add("pg_token", pg_token);
-        params.add("total_amount", orderDTO.getAmount());
+        params.add("total_amount", orderDTO.getTtlPrc());
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         

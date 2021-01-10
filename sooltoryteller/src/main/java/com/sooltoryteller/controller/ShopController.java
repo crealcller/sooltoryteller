@@ -5,18 +5,23 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sooltoryteller.domain.ItemListDTO;
 import com.sooltoryteller.domain.LiqVO;
+import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MemberService;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -26,7 +31,10 @@ import lombok.extern.log4j.Log4j;
 public class ShopController {
 
 	private LiqService liqService;
-	private MemberService member;
+	private MemberService memberService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private KakaoService kakaoService;
 	
 	@GetMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model) {
@@ -61,11 +69,31 @@ public class ShopController {
 		// 배송지 정보
 		
 		// 주문자 정보
-		String orderer = member.getMemberIdName(email).getName();
+		String orderer = memberService.getMemberIdName(email).getName();
 		log.info("***** orderer: " + orderer);
 		// 주문자 닉네임
 		model.addAttribute("orderer", orderer);
 		// 주문자 이메일
 		model.addAttribute("email", email);
+
+	@GetMapping("/kakaoPay")
+	public void kakaoPayGet() {
+
+	}
+
+	@PostMapping("/kakaoPay")
+	public String kakaoPay(OrderDTO orderDTO) {
+		log.info("kakaoPay post............................................");
+		orderDTO = new OrderDTO();
+		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
+
+	}
+
+	@GetMapping("/kakaoPaySuccess")
+	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, OrderDTO orderDTO) {
+		log.info("kakaoPaySuccess get............................................");
+		log.info("kakaoPaySuccess pg_token : " + pg_token);
+		orderDTO = new OrderDTO();
+		model.addAttribute("info", kakaoService.kakaoPayInfo(pg_token, orderDTO));
 	}
 }

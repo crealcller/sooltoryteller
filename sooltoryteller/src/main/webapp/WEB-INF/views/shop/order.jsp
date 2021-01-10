@@ -39,18 +39,6 @@
 	<c:set var="ttlPrc" value="${ttlPrc + liq.prc * itemList.items[status.index].qty }" />
 </c:forEach>
 
-<!-- 배송지 정보 -->
-<%-- <h4>배송지 정보</h4>
-<form id="operForm" action="/shop/order-details" method="post">
-	<p>수령인 <input type="text" name="recipient" value="<c:out value='${dlvy.recipient }' />" placeholder="수령인 정보" /> </p>
-	<p>연락처 <input type="text" name="telno" value="<c:out value='${dlvy.telno }' />" placeholder="연락처 정보" /> </p>
-	<p>배송지 주소 </p>
-	<input type="text" name="zipcode" value="<c:out value='${dlvy.zipcode }' />" placeholder="우편번호" /> <button>우편번호</button> <br />
-	<input type="text" name="zipcode" value="<c:out value='${dlvy.adr }' />" placeholder="도로명 주소" />
-	<input type="text" name="zipcode" value="<c:out value='${dlvy.adrDtl }' />" placeholder="상세 주소" />
-</form>
- --%>
- 
 <!-- 주문자 정보 -->
 <h4>주문자 정보</h4>
 <c:out value="${orderer }" />
@@ -59,7 +47,7 @@
 <!-- 주문 전체 내역 -->
 <h4>주문 전체 내역</h4>
 <!-- 결제하기 버튼 클릭 시 이동할 데이터 -->
-<form id="operForm" action="/shop/pay" method="post">
+<form id="operForm" action="/shop/kakaoPay" method="post">
 	<p><input type="text" name="nm" value='<c:out value="${liq[0].nm }" />' /></p>
 	<p>총 <input type="text" name="ttlamount" value='<c:out value="${ttlQty }" />' />개 </p>
 	<p>총 <input type="text" name="ttlprc" value='<c:out value="${ttlPrc }" />' />원</p>
@@ -82,7 +70,7 @@ $(document).ready(function() {
 	   
 	var operForm = $("#operForm");
 	$("button[data-oper='pay']").on("click", function(e) {
-	      operForm.attr("action", "/shop/pay").submit();
+	      operForm.attr("action", "/shop/kakaoPay").submit();
 	   });
 });
 </script>

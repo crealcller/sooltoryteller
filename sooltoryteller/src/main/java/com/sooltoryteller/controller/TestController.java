@@ -17,31 +17,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class TestController {
 	
-	@Setter(onMethod_ = @Autowired)
-    private KakaoService kakaoService;
-    
-    
-    @GetMapping("/kakaoPay")
-    public void kakaoPayGet() {
-        
-    }
-    
-    @PostMapping("/kakaoPay")
-    public String kakaoPay(OrderDTO orderDTO) {
-        log.info("kakaoPay post............................................");
-        orderDTO = new OrderDTO();
-        return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
- 
-    }
-    
-    @GetMapping("/kakaoPaySuccess")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,OrderDTO orderDTO) {
-        log.info("kakaoPaySuccess get............................................");
-        log.info("kakaoPaySuccess pg_token : " + pg_token);
-        orderDTO = new OrderDTO();
-        model.addAttribute("info", kakaoService.kakaoPayInfo(pg_token,orderDTO));
-        
-    }	
+
 	@GetMapping("/jusoForm")
 	public void getAddress() {
 		
