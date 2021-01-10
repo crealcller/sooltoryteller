@@ -23,16 +23,21 @@
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
 
 <h2>주문/결제</h2>
-
-<!-- 1. 구매하기 버튼에서 바로 넘어오기 -->
-<!-- 상품 사진, 상품 정보, 주문 수량, 판매자, 배송비, 주문금액 (단가 x 수량) -->
-<p> 상품 사진 <c:out value="${liq.liqThumb }" /> </p>
-<p> 상품 정보 <c:out value="${liq.nm }" /> </p>
-<!-- ***** 수량 수정해야 함 -->
-<p> 주문 수량 1개 </p>
-<p> 판매자 <c:out value="${liq.liqCo.nm }" /> </p>
-<p> 배송비 무료 </p>
-<p> 주문금액 <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원 </p>
+<c:forEach items="${liq }" var="liq" varStatus="status">
+	<p>상품 사진 <c:out value="${liq.liqThumb }" /></p>
+	<p>상품 정보 <c:out value="${liq.nm }" /></p>
+	<p>상품 단가 <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원</p>
+	<!-- ***** 수량 수정해야 함 -->
+	<p>주문 수량 <c:out value="${itemList.items[status.index].qty }" />개</p>
+	<p>판매자 <c:out value="${liq.liqCo.nm }" /></p>
+	<p>배송비 <c:out value="${itemList.dlvyFee }" /></p>
+	<p>주문금액 <fmt:formatNumber value="${liq.prc * itemList.items[status.index].qty }" pattern="#,###" />원</p>
+	
+	<!-- 주문총수량 구하기 -->
+	<c:set var="ttlQty" value="${ttlQty + itemList.items[status.index].qty }" />
+	<!-- 주문총금액 구하기 -->
+	<c:set var="ttlPrc" value="${ttlPrc + liq.prc * itemList.items[status.index].qty }" />
+</c:forEach>
 
 <!-- 배송지 정보 -->
 <%-- <h4>배송지 정보</h4>
@@ -48,19 +53,17 @@
  
 <!-- 주문자 정보 -->
 <h4>주문자 정보</h4>
-<p> <c:out value="${orderer.name }" /> </p>
-<p> <c:out value="${email }" /> </p>
+<c:out value="${orderer }" />
+<c:out value="${email }" />
 
 <!-- 주문 전체 내역 -->
 <h4>주문 전체 내역</h4>
-<!-- 내역이 1건이면 -->
-<p><c:out value="${liq.nm }" /></p>
-<!-- ***** 수량 수정해야 함 -->
-<p>총 1개 </p>
-<p>총 <fmt:formatNumber value="${liq.prc * 1 }" pattern="#,###" />원</p>
-
-<!-- 장바구니 : 내역이 2건 이상이면 -->
-
+<!-- 결제하기 버튼 클릭 시 이동할 데이터 -->
+<form id="operForm" action="/shop/pay" method="post">
+	<p><input type="text" name="nm" value='<c:out value="${liq[0].nm }" />' /></p>
+	<p>총 <input type="text" name="ttlamount" value='<c:out value="${ttlQty }" />' />개 </p>
+	<p>총 <input type="text" name="ttlprc" value='<c:out value="${ttlPrc }" />' />원</p>
+</form>
 
 <!-- 결제수단 -->
 <h4>결제수단</h4>
@@ -68,14 +71,6 @@
 
 <!-- 결제하기 버튼 -->
 <button type="submit" data-oper="pay">결제하기</button>
-
-<!-- 결제하기 버튼 클릭 시 이동할 데이터 -->
-<form id="operForm" action="/shop/pay" method="post">
-	<input type="hidden" value="<c:out value='${liq.nm }' />" />
-	<!-- ***** 수량 수정해야 함 -->
-	<input  type="hidden" value="1" >
-	<input type="hidden" name="liqId" value="<c:out value='${liq.prc * 1}'/>" />
-</form>
 
 <!-- footer -->
 <%@include file="/WEB-INF/views/include/footer.jsp" %>

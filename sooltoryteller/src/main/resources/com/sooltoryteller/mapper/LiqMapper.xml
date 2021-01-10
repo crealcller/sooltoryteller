@@ -47,47 +47,6 @@
    </resultMap>
 
 
-<<<<<<< HEAD
-   <select id="get" resultMap="LiqVO">
-      select
-      l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,l.liq_img,l.prc,
-      n.intro,n.pair,
-      c.nm co_name,c.addr,c.hmpg,c.telno,
-      t.avg_rate,t.inqr_cnt,t.like_cnt,t.revw_cnt
-      from liq l, liq_cn n,
-      liq_co c,liq_cnt t
-      where l.liq_id=n.liq_id
-      and l.liq_co_id=c.liq_co_id
-      and l.liq_id=t.liq_id
-      and l.liq_id =#{liqId}
-   </select>
-
-   <select id="getLiqListByCate" resultMap="LiqVO">
-      <![CDATA[
-      select b.liq_id, b.liq_co_id, b.nm, b.cate,b.capct,b.lv, b.irdnt,b.liq_thumb, b.liq_img,b.prc,b.regdate,b.updatedate,
-      b.co_name,b.avg_rate,b.inqr_cnt,b.revw_cnt,b.like_cnt
-      from 
-      (select rownum rn,a.liq_id, a.liq_co_id, a.nm, a.cate,a.capct,a.lv, a.irdnt,a.liq_thumb,a.liq_img,a.prc,a.regdate,a.updatedate,
-      a.co_name,
-      a.avg_rate,a.inqr_cnt,a.revw_cnt,a.like_cnt
-        from
-        (select l.liq_id, c.liq_co_id, l.nm, l.cate,l.capct,l.lv, l.irdnt,l.liq_thumb,l.liq_img,l.prc,l.regdate,l.updatedate,
-      c.nm co_name,
-      t.avg_rate,t.inqr_cnt,t.revw_cnt,t.like_cnt
-      from liq l, liq_co c, liq_cnt t
-      ]]>
-      <where>
-      <if test="cate!=null and cate!=''"> 
-      l.cate = #{cate}
-      </if>
-      <trim prefix = "and" >
-      l.liq_co_id=c.liq_co_id
-      </trim>
-      </where>
-      <![CDATA[
-      and l.liq_id=t.liq_id
-      and l.liq_id>0
-=======
 	<select id="get" resultMap="LiqVO">
 		select
 		l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,l.liq_img,l.prc,
@@ -127,7 +86,6 @@
 		<![CDATA[
 		and l.liq_id=t.liq_id
 		and l.liq_id>0
->>>>>>> origin/daul
         order by liq_id desc
         )a
         where rownum <= #{cri.pageNum}*#{cri.amount})b

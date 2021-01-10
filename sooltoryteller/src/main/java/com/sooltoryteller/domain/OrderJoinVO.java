@@ -1,48 +1,62 @@
 package com.sooltoryteller.domain;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-// 주문/결제 1건
 public class OrderJoinVO {
 
-	// 상품 사진
-	private String liqThumb;
+	// 주문번호
+	private Long ordDtlId;
 	
-	// 상품 정보
-	private String liqNm;
+	// 고객번호
+	private Long memberId;
 	
-	// 상품 단가
-	private int prc;
+	// 주문일자
+	private Date ordDate;
 	
-	// 주문 수량
-	private int ordQty;
+	// 주문총수량
+	private int ttlQty;
 	
-	// 주문 금액 (상품 단가 x 수량)
-	private int ordPrc;
+	// 주문총금액
+	private int ttlPrc;
 	
-	// 판매자
-	private String liqCoNm;
 	
-	@Builder.Default
+	// 주문상태
+	private int ordStus;
+	
+	
 	// 배송비
 	private String dlvyFee = "무료";
 	
-	public OrderJoinVO toEntity() {
-		return OrderJoinVO.builder()
-			.liqThumb(liqThumb)
-			.liqNm(liqNm)
-			.prc(prc)
-			.ordQty(ordQty)
-			.ordPrc(prc * ordQty)
-			.liqCoNm(liqCoNm)
-			.dlvyFee(dlvyFee)
-			.build();
-	}
+	// 수령인
+	private String recipient;
+	
+	// 연락처
+	private String telno;
+	
+	// 우편번호
+	private String zipcode;
+	
+	// 도로명주소
+	private String ordAdr;
+	
+	// 상세주소
+	private String ordAdrDtl;
+	
+	
+	// 상품번호
+	private Long liqId;
+	
+	// 주문수량
+	private int ordQty;
+	
+	// 주문금액
+	private int ordPrc;
+	
 }

@@ -19,10 +19,4 @@ public class OrderServiceTests {
 	@Setter(onMethod_ = {@Autowired})
 	private OrderService order;
 	
-//	@Test
-//	public void testGetOneLiqInfo() {
-//		OrderJoinVO vo = new OrderJoinVO();
-//		Long liqId = 1L;
-//		log.info(order.getOneLiqInfo(liqId));
-//	}
 }

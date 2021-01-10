@@ -17,8 +17,4 @@ public class OrderMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private OrderMapper order;
 	
-//	@Test
-//	public void testGetOrdInfo() {
-//		log.info(order.getOrdInfo());
-//	}
 }

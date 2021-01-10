@@ -64,7 +64,6 @@
 <!-- 현수추가 트랜잭션 어노테이션설정 -->
 <tx:annotation-driven/>   
 
-
 <mybatis-spring:scan
 	base-package="com.sooltoryteller.mapper" />
 <context:component-scan
