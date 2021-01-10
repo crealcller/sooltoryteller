@@ -34,18 +34,6 @@
 <p> 배송비 무료 </p>
 <p> 주문금액 <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원 </p>
 
-<!-- 배송지 정보 -->
-<%-- <h4>배송지 정보</h4>
-<form id="operForm" action="/shop/order-details" method="post">
-	<p>수령인 <input type="text" name="recipient" value="<c:out value='${dlvy.recipient }' />" placeholder="수령인 정보" /> </p>
-	<p>연락처 <input type="text" name="telno" value="<c:out value='${dlvy.telno }' />" placeholder="연락처 정보" /> </p>
-	<p>배송지 주소 </p>
-	<input type="text" name="zipcode" value="<c:out value='${dlvy.zipcode }' />" placeholder="우편번호" /> <button>우편번호</button> <br />
-	<input type="text" name="zipcode" value="<c:out value='${dlvy.adr }' />" placeholder="도로명 주소" />
-	<input type="text" name="zipcode" value="<c:out value='${dlvy.adrDtl }' />" placeholder="상세 주소" />
-</form>
- --%>
- 
 <!-- 주문자 정보 -->
 <h4>주문자 정보</h4>
 <p> <c:out value="${orderer.name }" /> </p>
@@ -70,7 +58,7 @@
 <button type="submit" data-oper="pay">결제하기</button>
 
 <!-- 결제하기 버튼 클릭 시 이동할 데이터 -->
-<form id="operForm" action="/shop/pay" method="post">
+<form id="operForm" action="/shop/kakaoPay" method="post">
 	<input type="hidden" value="<c:out value='${liq.nm }' />" />
 	<!-- ***** 수량 수정해야 함 -->
 	<input  type="hidden" value="1" >
@@ -87,7 +75,7 @@ $(document).ready(function() {
 	   
 	var operForm = $("#operForm");
 	$("button[data-oper='pay']").on("click", function(e) {
-	      operForm.attr("action", "/shop/pay").submit();
+	      operForm.attr("action", "/shop/kakaoPay").submit();
 	   });
 });
 </script>

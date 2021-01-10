@@ -13,7 +13,6 @@
 <body>
 <div class="s-main-background">
 <div class="d-con">
-<<<<<<< HEAD
    <div class="d-trad-liq-info">
       <div class="d-trad-liq-info-con">
          <img class="d-trad-liq-img-con" src="<c:out value='${liq.liqImg}'/>">
@@ -163,14 +162,9 @@
 </div>
 
 <!-- 주문/결제 페이지로 데이터 이동 -->
-<form id="operForm" action="/shop/order" method="post">
+<form id="operForm" action="/shop/order" method="get">
 	<input type="hidden" name="liqId" value="<c:out value='${liq.liqId}'/>" />
-	<input type="hidden" name="liqThumb" value="<c:out value='${liq.liqThumb}'/>" />
-	<input type="hidden" name="liqId" value="<c:out value='${liq.nm}'/>" />
-	<!-- ***** 수량 수정해야 함 -->
-	<input  type="hidden" value="1" >
-	<input type="hidden" name="liqId" value="<c:out value='${liq.liqCo.nm}'/>" />
-	<input type="hidden" name="liqId" value="<c:out value='${liq.prc}'/>" />
+	<input  type="hidden" name="order.ttlqty" value="1" >
 </form>
 
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
@@ -478,15 +472,6 @@ $(document).ready(function() {
 	$("button[data-oper='order']").on("click", function(e) {
 	      operForm.attr("action", "/shop/order").submit();
 	   });
-});
-</script>
-<script>
-$(function() {
-    $('#content').keyup(function (e){
-        var content = $(this).val();
-        $('#counter').html(content.length + '/500');
-    });
-    $('#content').keyup();
 });
 </script>
 </body>
