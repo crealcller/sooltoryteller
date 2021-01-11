@@ -20,6 +20,7 @@ import com.sooltoryteller.service.BasketService;
 import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MemberService;
+import com.sooltoryteller.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -34,7 +35,7 @@ public class ShopController {
 	private LiqService liqService;
 	private MemberService memberService;
 	private BasketService basketService;
-	
+	private OrderService ordService;
 	@Setter(onMethod_ = @Autowired)
 	private KakaoService kakaoService;
 	
@@ -55,36 +56,49 @@ public class ShopController {
 		String email = (String)session.getAttribute("email");
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			for(int i = 0; i < itemList.size(); i++) {
+				Long liqIds = itemList.getItems().get(i).getLiqId();
+				liqs.add(liqService.get(liqIds));
+			}
+			
+			// liqVO 관련 정보
+			model.addAttribute("liq", liqs);
+			// 상품번호, 상품단가, 주문수량 리스트
+			model.addAttribute("itemList", itemList);
+			log.info(itemList);
+			
+			// 배송지 정보
+			
+			// 주문자 정보
+			model.addAttribute("member", memberService.get(email));
+			
+			// DB에 데이터 넣기
+//			ordService.insertOrd();
+//			ordService.insertOrdDtl();
+//			ordService.insertOrdHist();
 		}
-		
-		for(int i = 0; i < itemList.size(); i++) {
-			Long liqIds = itemList.getItems().get(i).getLiqId();
-			liqs.add(liqService.get(liqIds));
-		}
-		
-		// liqVO 관련 정보
-		model.addAttribute("liq", liqs);
-		// 상품번호, 상품단가, 주문수량 리스트
-		model.addAttribute("itemList", itemList);
-		log.info("itemList : "+itemList);
-		
-		// 배송지 정보
-		
-		// 주문자 정보
-		String orderer = memberService.getMemberIdName(email).getName();
-		log.info("***** orderer: " + orderer);
-		// 주문자 닉네임
-		model.addAttribute("orderer", orderer);
-		// 주문자 이메일
-		model.addAttribute("email", email);
+
 	}
+
 	
 	@PostMapping("/kakaoPay")
-	public String kakaoPay(OrderDTO orderDTO) {
+	public String kakaoPay(OrderDTO orderDTO, HttpSession session, Model model) {
 		log.info("kakaoPay post............................................");
 		log.info(orderDTO);
+		// 수빈
+		// 로그인 유무 체크
+		String email = (String)session.getAttribute("email");
+		if(email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			memberService.get(email);
+			// DB에 데이터 넣기
+			ordService.insertOrd();
+			ordService.insertOrdDtl();
+			ordService.insertOrdHist();
+		}
 		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
-
 	}
 
 	@GetMapping("/kakaoPaySuccess")

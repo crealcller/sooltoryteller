@@ -182,10 +182,10 @@ public class BbstController {
                rttr.addFlashAttribute("result", error.getDefaultMessage());
            }
            
-           rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
-         model.addAttribute("bbst", bbst);
-         return "/cheers/modify";
-      }
+	        rttr.addFlashAttribute("errorMsg", "게시글 양식에 맞게 작성해주십시오.");
+	        model.addAttribute("bbst", bbst);
+	        return "/cheers/modify";
+		}
 
       return "redirect:/cheers/get" + cri.getBbstListLink() + "&bbstId=" + bbst.getBbstId();
    }

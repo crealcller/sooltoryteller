@@ -163,8 +163,9 @@
 
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <form id="operForm" action="/shop/order" method="post">
+	<input type="hidden" name="memberId" value="<c:out value='${member.memberId }' />" />
 	<input type="hidden" name="items[0].liqId" value="<c:out value='${liq.liqId}'/>" />
-	<input  type="hidden" name="items[0].prc" value="<c:out value='${liq.prc}'/>" >
+	<input type="hidden" name="items[0].prc" value="<c:out value='${liq.prc}'/>" >
 	<!-- ***** 수량 수정해야 함 -->
 	<input  type="hidden" name="items[0].qty" value="1" >
 </form>
