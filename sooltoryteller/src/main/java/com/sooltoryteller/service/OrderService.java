@@ -8,13 +8,13 @@ public interface OrderService {
 
 	// 주문 완료 후
 	// 주문에 데이터 삽입
-	public OrdVO insertOrd();
+	public void insertOrd(OrdVO ord);
 
 	// 주문내역에 데이터 삽입
-	public OrdDtlVO insertOrdDtl();
+	public void insertOrdDtl(OrdDtlVO ordDtl);
 
 	// 주문이력에 데이터 삽입
-	public OrdHistVO insertOrdHist();
+	public void insertOrdHist(OrdHistVO ordHist);
 
 	// 각 항목 조회
 	// 주문 조회
@@ -28,5 +28,5 @@ public interface OrderService {
 
 	// 결제 완료 후
 	// 주문의 주문상태 업데이트
-	public OrdVO updateOrdStus(Long orderId);
+	public boolean updateOrdStus(Long orderId);
 }

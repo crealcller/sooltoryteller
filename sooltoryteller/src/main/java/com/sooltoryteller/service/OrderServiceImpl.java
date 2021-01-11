@@ -1,6 +1,7 @@
 package com.sooltoryteller.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sooltoryteller.domain.OrdDtlVO;
 import com.sooltoryteller.domain.OrdHistVO;
@@ -18,25 +19,25 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper mapper;
 	
 	// 주문 완료 후
-	@Override
 	// 주문에 데이터 삽입
-	public OrdVO insertOrd() {
+	@Override
+	public void insertOrd(OrdVO ord) {
 		log.info("***** insert order");
-		return mapper.insertOrd();
+		mapper.insertOrd(ord);
 	}
 
 	@Override
 	// 주문내역에 데이터 삽입
-	public OrdDtlVO insertOrdDtl() {
+	public void insertOrdDtl(OrdDtlVO ordDtl) {
 		log.info("***** insert order details");
-		return mapper.insertOrdDtl();
+		mapper.insertOrdDtl(ordDtl);
 	}
 
 	@Override
 	// 주문이력에 데이터 삽입
-	public OrdHistVO insertOrdHist() {
+	public void insertOrdHist(OrdHistVO ordHist) {
 		log.info("***** insert order history");
-		return mapper.insertOrdHist();
+		mapper.insertOrdHist(ordHist);
 	}
 
 	// 각 항목 조회
@@ -70,8 +71,8 @@ public class OrderServiceImpl implements OrderService {
 	// 결제 완료 후
 	@Override
 	// 주문의 주문상태 업데이트
-	public OrdVO updateOrdStus(Long orderId) {
+	public boolean updateOrdStus(Long orderId) {
 		log.info("***** update order status");
-		return mapper.updateOrdStus(orderId);
+		return mapper.updateOrdStus(orderId) == 1;
 	}
 }

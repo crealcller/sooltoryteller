@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sooltoryteller.domain.ItemDTO;
 import com.sooltoryteller.domain.ItemListDTO;
 import com.sooltoryteller.domain.LiqVO;
+import com.sooltoryteller.domain.OrdDtlVO;
+import com.sooltoryteller.domain.OrdHistVO;
+import com.sooltoryteller.domain.OrdVO;
 import com.sooltoryteller.domain.OrderDTO;
 import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
@@ -51,32 +55,23 @@ public class ShopController {
 	public void getOrdInfo(HttpSession session, Model model, ItemListDTO itemList) {
 		List<LiqVO> liqs = new ArrayList<>();
 		
-		// 로그인 유무 체크
 		String email = (String)session.getAttribute("email");
-		if(email == null) {
-			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		} else {
-			for(int i = 0; i < itemList.size(); i++) {
-				Long liqIds = itemList.getItems().get(i).getLiqId();
-				liqs.add(liqService.get(liqIds));
-			}
-			
-			// liqVO 관련 정보
-			model.addAttribute("liq", liqs);
-			// 상품번호, 상품단가, 주문수량 리스트
-			model.addAttribute("itemList", itemList);
-			log.info(itemList);
-			
-			// 배송지 정보
-			
-			// 주문자 정보
-			model.addAttribute("member", memberService.get(email));
-			
-			// DB에 데이터 넣기
-//			ordService.insertOrd();
-//			ordService.insertOrdDtl();
-//			ordService.insertOrdHist();
+		
+		for(int i = 0; i < itemList.size(); i++) {
+			Long liqIds = itemList.getItems().get(i).getLiqId();
+			liqs.add(liqService.get(liqIds));
 		}
+		
+		// liqVO 관련 정보
+		model.addAttribute("liq", liqs);
+		// 상품번호, 상품단가, 주문수량 리스트
+		model.addAttribute("itemList", itemList);
+		log.info(itemList);
+		
+		// 배송지 정보
+		
+		// 주문자 정보
+		model.addAttribute("member", memberService.get(email));
 	}
 
 	@GetMapping("/kakaoPay")
@@ -85,21 +80,38 @@ public class ShopController {
 	}
 
 	@PostMapping("/kakaoPay")
-	public String kakaoPay(OrderDTO orderDTO, HttpSession session, Model model) {
+	public String kakaoPay(OrderDTO orderDTO, HttpSession session, Model model,
+		OrdVO ord, OrdDtlVO ordDtl, OrdHistVO ordHist, ItemDTO item, ItemListDTO itemList) {
 		log.info("kakaoPay post............................................");
-		orderDTO = new OrderDTO();
-		// 수빈
-		// 로그인 유무 체크
+		
 		String email = (String)session.getAttribute("email");
-		if(email == null) {
-			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		} else {
-			memberService.get(email);
-			// DB에 데이터 넣기
-			ordService.insertOrd();
-			ordService.insertOrdDtl();
-			ordService.insertOrdHist();
+		Long memberId = memberService.getMemberId(email);
+		
+		ord.setMemberId(memberId);
+		ord.setRecipient(itemList.getRecipient());
+		ord.setOrdAdr(itemList.getOrdAdr());
+		ord.setTelno(itemList.getTelno());
+		ordService.insertOrd(ord);
+		
+		ordHist.setMemberId(memberId);
+		ordHist.setOrdStus(1);
+		ordHist.setChgOrdStus(1);
+		ordService.insertOrdHist(ordHist);
+		
+		List<LiqVO> liqs = new ArrayList<>();
+		for(int i = 0; i < itemList.size(); i++) {
+			Long liqIds = itemList.getItems().get(i).getLiqId();
+			int ordQty = itemList.getItems().get(i).getQty();
+			int ordPrc = itemList.getItems().get(i).getPrc();
+			liqs.add(liqService.get(liqIds));
+			ordDtl.setLiqId(liqIds);
+			ordDtl.setOrdQty(ordQty);
+			ordDtl.setOrdPrc(ordPrc);
+			ordService.insertOrdDtl(ordDtl);
 		}
+		log.info(itemList);
+		
+		orderDTO = new OrderDTO();
 		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
 	}
 

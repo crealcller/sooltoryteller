@@ -10,16 +10,16 @@
 </insert>
 
 <!-- 주문내역에 데이터 삽입 -->
-<!-- <insert id="insertOrdDtl">
+<insert id="insertOrdDtl">
 	insert into ord_dtl(ord_dtl_id, ord_id, liq_id, ord_qty, ord_prc, ord_date)
 	values(ord_dtl_seq.nextval, ord_seq.currval, #{liqId}, #{ordQty}, #{ordPrc}, sysdate)
-</insert> -->
-<insert id="insertOrdDtl" parameterType="com.sooltoryteller.domain.OrdDtlVO">
+</insert>
+<!-- <insert id="insertOrdDtl" parameterType="com.sooltoryteller.domain.OrdDtlVO">
 	<foreach item="item" index="index" collection="java.util.List" separator=" " open="insert all" close="select * from dual">
 		into ord_dtl(ord_dtl_id, ord_id, liq_id, ord_qty, ord_prc, ord_date)
 		values(ord_dtl_seq.nextval, ord_seq.currval, #{item.liqId}, #{item.ordQty}, #{item.ordPrc}, sysdate)
 	</foreach>
-</insert>
+</insert> -->
 
 <!-- 주문이력에 데이터 삽입 -->
 <insert id="insertOrdHist">
