@@ -74,5 +74,4 @@ public class BasketServiceImpl implements BasketService {
 	public BasketVO get(Long memberId, Long liqId) {
 		return mapper.get(memberId, liqId);
 	}
-
 }

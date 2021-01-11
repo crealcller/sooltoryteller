@@ -46,7 +46,6 @@
       </association>
    </resultMap>
 
-
    <select id="get" resultMap="LiqVO">
       select
       l.liq_id,l.nm,l.cate,l.capct,l.lv,l.irdnt,l.ards,l.liq_thumb,l.liq_img,l.prc,

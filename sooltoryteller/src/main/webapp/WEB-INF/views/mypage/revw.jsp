@@ -24,7 +24,7 @@ let msg = '${msg}';
       <ul class="d-revw">
       </ul>
       </div>
-        <div class="d-paging" style="width: 700px; margin-right: 25px;"></div>
+      <div class="d-paging" style="width: 700px; margin-right: 25px;"></div>
         </div>
        </div>
        </div>
@@ -110,7 +110,7 @@ $(document).ready(function(){
 			}
 			let str="";
 			if(myList == null || myList.length==0){
-				dRevw.html("<p style='margin: 35px 0px 0px -52px;'>작성한 전통주 리뷰가 없습니다.</p><br />"); 
+				dRevw.html("<p style='margin-top: 35px;'>작성한 전통주 리뷰가 없습니다.</p><br />"); 
 				return;
 			}
 			for(let i=0,len = myList.length || 0; i<len; i++){

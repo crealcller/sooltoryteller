@@ -47,65 +47,65 @@ import lombok.extern.log4j.Log4j;
 //@AllArgsConstructor
 @Controller
 public class MemberController {
-	
-	private MailService mailService;
-	private EmailVO e_mail;
-	private MemberService service;
-	private MemberFavDrkService favDrkService;
-	private KakaoLoginController kakaoController;
-	private NaverLoginBO naverLoginBO;
-	private String apiResult = null;
-	@Resource(name = "uploadPath")
-	private String uploadPath;
-	
-	@Autowired
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
-	
-	@Autowired
-	public void setMailService(MailService mailService) {
-		this.mailService = mailService;
-	}
+   
+   private MailService mailService;
+   private EmailVO e_mail;
+   private MemberService service;
+   private MemberFavDrkService favDrkService;
+   private KakaoLoginController kakaoController;
+   private NaverLoginBO naverLoginBO;
+   private String apiResult = null;
+   @Resource(name = "uploadPath")
+   private String uploadPath;
+   
+   @Autowired
+   private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+      this.naverLoginBO = naverLoginBO;
+   }
+   
+   @Autowired
+   public void setMailService(MailService mailService) {
+      this.mailService = mailService;
+   }
 
-	@Autowired
-	public void setE_mail(EmailVO e_mail) {
-		this.e_mail = e_mail;
-	}
+   @Autowired
+   public void setE_mail(EmailVO e_mail) {
+      this.e_mail = e_mail;
+   }
 
-	@Autowired
-	public void setService(MemberService service) {
-		this.service = service;
-	}
+   @Autowired
+   public void setService(MemberService service) {
+      this.service = service;
+   }
 
-	@Autowired
-	public void setFavDrkService(MemberFavDrkService favDrkService) {
-		this.favDrkService = favDrkService;
-	}
+   @Autowired
+   public void setFavDrkService(MemberFavDrkService favDrkService) {
+      this.favDrkService = favDrkService;
+   }
 
-	@Autowired
-	public void setKakaoController(KakaoLoginController kakaoController) {
-		this.kakaoController = kakaoController;
-	}
-	
+   @Autowired
+   public void setKakaoController(KakaoLoginController kakaoController) {
+      this.kakaoController = kakaoController;
+   }
+   
 
-	//로그인 view
-	   @GetMapping("/login")
-	   public ModelAndView login(HttpSession session, HttpServletRequest request) {
-	      ModelAndView mav = new ModelAndView();
-	      
-	      String referer = (String)request.getHeader("REFERER");
-	      String kakaoUrl = kakaoController.getAuthorizationUrl(session);
-	      String naverUrl = naverLoginBO.getAuthorizationUrl(session);
-	      
-	      mav.setViewName("login");
-	      mav.addObject("kakaoUrl", kakaoUrl);
-	      mav.addObject("naverUrl", naverUrl);
-	      request.getSession().setAttribute("referer", referer);
-	      
-	      return mav;
-	   }
-	   
+   //로그인 view
+      @GetMapping("/login")
+      public ModelAndView login(HttpSession session, HttpServletRequest request) {
+         ModelAndView mav = new ModelAndView();
+         
+         String referer = (String)request.getHeader("REFERER");
+         String kakaoUrl = kakaoController.getAuthorizationUrl(session);
+         String naverUrl = naverLoginBO.getAuthorizationUrl(session);
+         
+         mav.setViewName("login");
+         mav.addObject("kakaoUrl", kakaoUrl);
+         mav.addObject("naverUrl", naverUrl);
+         request.getSession().setAttribute("referer", referer);
+         
+         return mav;
+      }
+      
 
 	@PostMapping("/login")
 	   public String login(String email, String pwd, HttpServletRequest request, HttpServletResponse response,
@@ -253,170 +253,170 @@ public class MemberController {
 	@RequestMapping(value = "/mypage/getFavAlc", method = RequestMethod.POST) 
 	public @ResponseBody String[] getFavAlc(@RequestParam(value="favalc[]")String[] favalc, HttpSession session) {
 
-		String email = (String) session.getAttribute("email");
-		Long memberId = service.getMemberId(email);
-		String[] drink = {};
-		int[] result = new int[favalc.length];
-		
-		System.out.println(Arrays.toString(favalc));
-		System.out.println("memberId : "+memberId);
-		if(favalc != null) {
-			for (int i = 0; i < favalc.length; i++) {
-				result[i] =Integer.parseInt(favalc[i]);
-			}
-			
-			drink = favDrkService.getFavNameList(result);
-			
-			if(memberId != null) {
-				favDrkService.modifyFavDrk(memberId, result);
-			}
-		}
-		
-		System.out.println("drink : "+drink);
-			  return drink;
-	}
-	
-	// 회원정보 수정 view
-	@GetMapping("/mypage/changeuserinfo")
-	public void changeuserinfo(HttpSession session, Model model, RedirectAttributes rttr) {
-		// 로그인 성공 후 세션에 저장된 email 정보를 꺼내와서 member 정보를 불러옴
-		String email = (String) session.getAttribute("email");
-		if (email == null) {
-			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		} else {
-			Long memberId = service.getMemberId(email);
-			System.out.println("memberId : "+memberId);
-			model.addAttribute("favList", favDrkService.getFavList(memberId));
-			model.addAttribute("member", service.get(email));
-		}
-	}
-	// 회원정보수정
-	@PostMapping("/mypage/changeuserinfo")
-		public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
-		String loginEmail = (String) session.getAttribute("email");
-		System.out.println("changeUserInfo: " + member);
-		System.out.println("changeUserInfo: " + loginEmail);
-		
-		// 첨부파일 업로드 설정
-		String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
-		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
+      String email = (String) session.getAttribute("email");
+      Long memberId = service.getMemberId(email);
+      String[] drink = {};
+      int[] result = new int[favalc.length];
+      
+      System.out.println(Arrays.toString(favalc));
+      System.out.println("memberId : "+memberId);
+      if(favalc != null) {
+         for (int i = 0; i < favalc.length; i++) {
+            result[i] =Integer.parseInt(favalc[i]);
+         }
+         
+         drink = favDrkService.getFavNameList(result);
+         
+         if(memberId != null) {
+            favDrkService.modifyFavDrk(memberId, result);
+         }
+      }
+      
+      System.out.println("drink : "+drink);
+           return drink;
+   }
+   
+   // 회원정보 수정 view
+   @GetMapping("/mypage/changeuserinfo")
+   public void changeuserinfo(HttpSession session, Model model, RedirectAttributes rttr) {
+      // 로그인 성공 후 세션에 저장된 email 정보를 꺼내와서 member 정보를 불러옴
+      String email = (String) session.getAttribute("email");
+      if (email == null) {
+         model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+      } else {
+         Long memberId = service.getMemberId(email);
+         System.out.println("memberId : "+memberId);
+         model.addAttribute("favList", favDrkService.getFavList(memberId));
+         model.addAttribute("member", service.get(email));
+      }
+   }
+   // 회원정보수정
+   @PostMapping("/mypage/changeuserinfo")
+      public void changeuserinfo(MemberVO member, HttpSession session, MultipartFile file, Model model) throws Exception {
+      String loginEmail = (String) session.getAttribute("email");
+      System.out.println("changeUserInfo: " + member);
+      System.out.println("changeUserInfo: " + loginEmail);
+      
+      // 첨부파일 업로드 설정
+      String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+      String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성
+      String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
-		if(file != null) { 
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			member.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-			member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		} else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
-			fileName = member.getImg();
-			member.setImg(fileName);
-			member.setThumbImg(member.getThumbImg());
-		}
+      if(file != null) { 
+         fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+         member.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+         member.setThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+      } else { // input box에 첨부된 파일이 없다면 = 첨부된 파일의 이름이 없다면
+         fileName = member.getImg();
+         member.setImg(fileName);
+         member.setThumbImg(member.getThumbImg());
+      }
 
-		if(!loginEmail.equals(member.getEmail())) {
-			model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
-			model.addAttribute("member", service.get(loginEmail));
-			model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
-			model.addAttribute("img", service.get(member.getImg()));
-			model.addAttribute("thumbImg", service.get(member.getThumbImg()));
-			return;
-			
-		}else {
-		// 닉네임,  전화번호, 프로필사진만 변경
-			if(service.modify(member)) {
-				model.addAttribute("success", "회원 정보가 수정되었습니다.");
-				model.addAttribute("member", service.get(member.getEmail()));
-				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
-				model.addAttribute("img", service.get(member.getImg()));
-				model.addAttribute("thumbImg", service.get(member.getThumbImg()));
-			}else {
-				model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
-				model.addAttribute("member", service.get(loginEmail));
-				model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
-				model.addAttribute("img", service.get(member.getImg()));
-				model.addAttribute("thumbImg", service.get(member.getThumbImg()));
-			}
-		}
-	}
-	
-	//회원탈퇴
-	@GetMapping("/withdrawal")
-	public String withdrawal(HttpSession session, RedirectAttributes rttr) {
-		
-		String email = (String) session.getAttribute("email");
-		
-		//회원탈퇴가 성공하면 메인으로
-		if(service.modifyRegStus(email)) {
-			session.invalidate();
-			return "redirect:/";
-		}
-		return "redirect:/mypage/changeuserinfo";
-		
-	}
-	
-	//비밀번호 변경 view
-	@GetMapping("/mypage/changepwd")
-	public void changepwd(HttpSession session, Model model) {
-		String email = (String) session.getAttribute("email");
-		if (email == null) {
-			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		}else {
-			model.addAttribute("member", service.get(email));
-		}
-	}
-	
-	//비밀번호 변경
-	@PostMapping("/mypage/changepwd")
-	public void changepwd(String pwd, String newPwd, HttpSession session, Model model) {
-		String email = (String) session.getAttribute("email");
-		
-		System.out.println("새로운 비밀번호 : "+newPwd);
-		//회원의 현재 비밀번호 검사
-		if(service.examinePwd(email, pwd)) {
-			service.modifyPwd(email, newPwd);
-			model.addAttribute("member", service.get(email));
-			model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
-		}else {
-			model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
-		}
-	}
-	
-	
-	//비밀번호 찾기 ->임시비밀번호 생성
-	@PostMapping("/findPwd")
-	public String sendpwd(String email, RedirectAttributes rttr) throws Exception {
-		
-		String pwd = service.getPwd(email);
-		String tmpPwd = "";
-		
-		//현재비밀번호를 꺼내왔다면 임시비밀번호를 발급
-				if(pwd != null) {
-					tmpPwd = UUID.randomUUID().toString().replace("-", "");
-					tmpPwd = tmpPwd.substring(0,9);
-					tmpPwd += "!@#";
-					System.out.println(tmpPwd);
-				}
-		
+      if(!loginEmail.equals(member.getEmail())) {
+         model.addAttribute("errorMsg", "잘 못 된 접근입니다.");
+         model.addAttribute("member", service.get(loginEmail));
+         model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+         model.addAttribute("img", service.get(member.getImg()));
+         model.addAttribute("thumbImg", service.get(member.getThumbImg()));
+         return;
+         
+      }else {
+      // 닉네임,  전화번호, 프로필사진만 변경
+         if(service.modify(member)) {
+            model.addAttribute("success", "회원 정보가 수정되었습니다.");
+            model.addAttribute("member", service.get(member.getEmail()));
+            model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(member.getEmail())));
+            model.addAttribute("img", service.get(member.getImg()));
+            model.addAttribute("thumbImg", service.get(member.getThumbImg()));
+         }else {
+            model.addAttribute("errorMsg", "sever : 잘 못 된 입력 입니다.");
+            model.addAttribute("member", service.get(loginEmail));
+            model.addAttribute("favList", favDrkService.getFavList(service.getMemberId(loginEmail)));
+            model.addAttribute("img", service.get(member.getImg()));
+            model.addAttribute("thumbImg", service.get(member.getThumbImg()));
+         }
+      }
+   }
+   
+   //회원탈퇴
+   @GetMapping("/withdrawal")
+   public String withdrawal(HttpSession session, RedirectAttributes rttr) {
+      
+      String email = (String) session.getAttribute("email");
+      
+      //회원탈퇴가 성공하면 메인으로
+      if(service.modifyRegStus(email)) {
+         session.invalidate();
+         return "redirect:/";
+      }
+      return "redirect:/mypage/changeuserinfo";
+      
+   }
+   
+   //비밀번호 변경 view
+   @GetMapping("/mypage/changepwd")
+   public void changepwd(HttpSession session, Model model) {
+      String email = (String) session.getAttribute("email");
+      if (email == null) {
+         model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+      }else {
+         model.addAttribute("member", service.get(email));
+      }
+   }
+   
+   //비밀번호 변경
+   @PostMapping("/mypage/changepwd")
+   public void changepwd(String pwd, String newPwd, HttpSession session, Model model) {
+      String email = (String) session.getAttribute("email");
+      
+      System.out.println("새로운 비밀번호 : "+newPwd);
+      //회원의 현재 비밀번호 검사
+      if(service.examinePwd(email, pwd)) {
+         service.modifyPwd(email, newPwd);
+         model.addAttribute("member", service.get(email));
+         model.addAttribute("success",  "비밀번호 변경이 완료되었습니다.");
+      }else {
+         model.addAttribute("success",  "비밀번호 변경이 실패했습니다.");
+      }
+   }
+   
+   
+   //비밀번호 찾기 ->임시비밀번호 생성
+   @PostMapping("/findPwd")
+   public String sendpwd(String email, RedirectAttributes rttr) throws Exception {
+      
+      String pwd = service.getPwd(email);
+      String tmpPwd = "";
+      
+      //현재비밀번호를 꺼내왔다면 임시비밀번호를 발급
+            if(pwd != null) {
+               tmpPwd = UUID.randomUUID().toString().replace("-", "");
+               tmpPwd = tmpPwd.substring(0,9);
+               tmpPwd += "!@#";
+               System.out.println(tmpPwd);
+            }
+      
         if(!tmpPwd.equals("")) {
-        	
-        	service.modifyPwd(email, tmpPwd);
-        	
-        	e_mail.setTitle("sooltoryteller 비밀번호 찾기 메일입니다.");
+           
+           service.modifyPwd(email, tmpPwd);
+           
+           e_mail.setTitle("sooltoryteller 비밀번호 찾기 메일입니다.");
             e_mail.setContent(
-            		//줄바꿈
-            		System.getProperty("line.separator") +
-            		"안녕하세요 sooltoryteller 입니다." +
-            		System.getProperty("line.separator")+
-            		"고객님의 임시 비밀번호는 "+ tmpPwd+"입니다."+
-            		System.getProperty("line.separator")+
-            		"발급 받은 임시비밀번호로 로그인이 가능합니다."
-            		);
-        	
+                  //줄바꿈
+                  System.getProperty("line.separator") +
+                  "안녕하세요 sooltoryteller 입니다." +
+                  System.getProperty("line.separator")+
+                  "고객님의 임시 비밀번호는 "+ tmpPwd+"입니다."+
+                  System.getProperty("line.separator")+
+                  "발급 받은 임시비밀번호로 로그인이 가능합니다."
+                  );
+           
             e_mail.setTo(email);
             mailService.send(e_mail);
             rttr.addFlashAttribute("emailMsg", "이메일이 전송되었습니다.");
         }else {
-        	
-        	rttr.addFlashAttribute("emailMsg", "등록된 회원이 아닙니다. 이메일을 다시 입력하여 주세요");
+           
+           rttr.addFlashAttribute("emailMsg", "등록된 회원이 아닙니다. 이메일을 다시 입력하여 주세요");
         }
         return "redirect:/login";
     }

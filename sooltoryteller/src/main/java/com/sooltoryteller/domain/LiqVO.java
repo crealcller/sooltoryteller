@@ -80,7 +80,4 @@ public class LiqVO {
    public void setCate(String cate) {
       this.cate = cate;
    }
-    
-    
-
 }

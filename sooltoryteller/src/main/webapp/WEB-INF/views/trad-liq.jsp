@@ -47,17 +47,15 @@
             가격 : <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원
             </p>
             
-            
-            <!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
-            <input  type="text" style="width: 30px;" value="1">
-            <button type="button" style="padding:0px 10px 0px 10px;">+</button> -->
+
             <form action="/shop/basket/register" method="post">
             <input type="number" min="1" max="10" value="1" name="qty">
             <br>
             <input type="hidden" name="liqId" value=${liq.liqId }>
-            <button type="submit" class="h-basket-btn">술바구니</button>
-            <button type="button">구매하기</button>
+            <button type="submit"  class="h-basket-btn">술바구니</button>
             </form>
+            <button type="submit" data-oper="order">구매하기</button>
+
          </div>
       </div>
       <div class="d-trad-liq-info-con-heart">
@@ -164,6 +162,15 @@
 </div>
 </div>
 </div>
+
+<!-- 주문/결제 페이지로 데이터 이동 -->
+<form id="operForm" action="/shop/order" method="post">
+	<input type="hidden" name="memberId" value="<c:out value='${member.memberId }' />" />
+	<input type="hidden" name="items[0].liqId" value="<c:out value='${liq.liqId}'/>" />
+	<input type="hidden" name="items[0].prc" value="<c:out value='${liq.prc}'/>" >
+	<!-- ***** 수량 수정해야 함 -->
+	<input  type="hidden" name="items[0].qty" value="1" >
+</form>
 
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 <!-- 리뷰 -->
@@ -460,13 +467,16 @@ $(function() {
     });
     $('#content').keyup();
 });
+</script>
 
-
-$(function(){
-	$(".h-basket-btn").click(function(){
-		
-	});
-	
+<!-- 주문/결제 페이지로 데이터 이동 -->
+<script type="text/javascript">
+$(document).ready(function() {
+	   
+	var operForm = $("#operForm");
+	$("button[data-oper='order']").on("click", function(e) {
+	      operForm.attr("action", "/shop/order").submit();
+	   });
 });
 </script>
 </body>

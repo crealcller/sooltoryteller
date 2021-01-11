@@ -26,4 +26,5 @@ public interface BasketMapper {
 	
 	//한 상품 불러오기
 	public BasketVO get(@Param("memberId")Long memberId, @Param("liqId")Long liqId);
+
 }

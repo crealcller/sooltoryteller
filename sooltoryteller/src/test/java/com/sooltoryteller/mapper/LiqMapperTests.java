@@ -22,11 +22,12 @@ public class LiqMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private LiqMapper mapper;
 
-	@Test
+
 	public void getCnt() {
 		log.info(mapper.getLiqCntByCate(""));
 	}
-
+	
+	@Test
 	public void getList() {
 		BbstCriteria cri = new BbstCriteria();
 		List<LiqVO> list = mapper.getLiqListByCate("", cri);
