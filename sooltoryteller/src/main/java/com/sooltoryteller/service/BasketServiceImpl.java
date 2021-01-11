@@ -22,12 +22,29 @@ public class BasketServiceImpl implements BasketService {
 	@Override
 	public void register(BasketVO basket) {
 		log.info("장바구니 등록! : "+basket);
+		
+		int qty = basket.getQty();
+		int prc = getPrice(basket.getLiqId());
+		int amount = qty*prc;
+		
+		log.info("qty : "+qty+"prc : "+prc+"amount : "+amount);
+		
+		basket.setAmount(amount);
+		
 		mapper.insert(basket);
 	}
 
 	@Override
 	public boolean modify(BasketVO basket) {
 		log.info("장바구니 수정! : "+basket);
+		
+		int qty = basket.getQty();
+		int prc = getPrice(basket.getLiqId());
+		int amount = qty*prc;
+		
+		log.info("qty : "+qty+"prc : "+prc+"amount : "+amount);
+		
+		basket.setAmount(amount);
 		return mapper.update(basket) == 1;
 	}
 
@@ -44,8 +61,18 @@ public class BasketServiceImpl implements BasketService {
 		if(memberId == null) {
 			log.info("장바구니 불러오기 실패");
 		}
-		
+
 		return mapper.getList(memberId);
+	}
+
+	@Override
+	public int getPrice(Long liqId) {
+		return mapper.getPrice(liqId);
+	}
+
+	@Override
+	public BasketVO get(Long memberId, Long liqId) {
+		return mapper.get(memberId, liqId);
 	}
 
 }

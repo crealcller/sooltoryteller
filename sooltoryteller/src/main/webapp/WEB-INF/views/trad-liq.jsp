@@ -51,10 +51,13 @@
             <!-- <button type="button" style="padding:0px 10px 0px 10px;">-</button>
             <input  type="text" style="width: 30px;" value="1">
             <button type="button" style="padding:0px 10px 0px 10px;">+</button> -->
-            <input type="number" min="1" max="10" value="1">
+            <form action="/shop/basket/register" method="post">
+            <input type="number" min="1" max="10" value="1" name="qty">
             <br>
-            <button type="submit">술바구니</button>
-            <button type="submit">구매하기</button>
+            <input type="hidden" name="liqId" value=${liq.liqId }>
+            <button type="submit" class="h-basket-btn">술바구니</button>
+            <button type="button">구매하기</button>
+            </form>
          </div>
       </div>
       <div class="d-trad-liq-info-con-heart">
@@ -456,6 +459,14 @@ $(function() {
         $('#counter').html(content.length + '/500');
     });
     $('#content').keyup();
+});
+
+
+$(function(){
+	$(".h-basket-btn").click(function(){
+		
+	});
+	
 });
 </script>
 </body>

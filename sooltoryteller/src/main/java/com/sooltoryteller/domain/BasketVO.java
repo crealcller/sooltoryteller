@@ -20,4 +20,7 @@ public class BasketVO {
 
     // 수량 
     private int qty;
+    
+    //합계
+    private int amount;
 }

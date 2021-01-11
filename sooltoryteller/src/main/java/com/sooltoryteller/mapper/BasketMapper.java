@@ -20,4 +20,10 @@ public interface BasketMapper {
 	
 	//장바구니 수량 변경
 	public int update(BasketVO basket);
+
+	//전통주 판매금액 불러오기
+	public int getPrice(Long liqId);
+	
+	//한 상품 불러오기
+	public BasketVO get(@Param("memberId")Long memberId, @Param("liqId")Long liqId);
 }

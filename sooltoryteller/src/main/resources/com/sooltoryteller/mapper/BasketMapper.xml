@@ -5,7 +5,7 @@
   <mapper namespace="com.sooltoryteller.mapper.BasketMapper">
   
   <select id="getList" resultType="com.sooltoryteller.domain.BasketJoinVO">
-  	select lq.nm liqNm, bk.qty, lq.liq_img, bk.member_id, co.nm coNm, lq.prc 
+  	select bk.basket_id, bk.liq_id, lq.nm liqNm, bk.qty, lq.liq_img, bk.member_id, co.nm coNm, bk.amount
 	from basket bk, liq lq, liq_co co
 	where bk.liq_id = lq.liq_id
 	and lq.liq_co_id = co.liq_co_id
@@ -14,8 +14,8 @@
   
   
   <insert id="insert">
-  	insert into basket (basket_id, member_id, liq_id, qty)
-  	values(basket_seq.nextval, #{memberId}, #{liqId}, #{qty})
+  	insert into basket (basket_id, member_id, liq_id, qty, amount)
+  	values(basket_seq.nextval, #{memberId}, #{liqId}, #{qty}, #{amount})
   </insert>
   
   <delete id="delete">
@@ -26,9 +26,22 @@
   
   <update id="update">
   	update basket
-  	set qty = #{qty}
+  	set qty = #{qty},
+  	amount = #{amount}
   	where member_id = #{memberId}
   	and liq_id = #{liqId}
   
   </update>
+  
+  <select id="getPrice" resultType="Integer">
+ 	select prc from liq
+	where liq_id = #{liqId}
+  </select>
+  
+  <select id="get" resultType="com.sooltoryteller.domain.BasketVO">
+  	select * 
+	from basket
+	where member_id = #{memberId}
+	and liq_id = #{liqId}
+  </select>
   </mapper>

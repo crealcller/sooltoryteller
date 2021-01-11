@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BasketJoinVO {
 
+	//장바구니 아이디
+	private Long basketId;
+	
+	//전통주 아이디
+	private Long liqId;
+	
 	//전통주 이름
 	private String liqNm;
 	
@@ -24,6 +30,6 @@ public class BasketJoinVO {
 	//양조장 이름
 	private String coNm;
 	
-	//전통주 가격
-	private int prc;
+	//전통주 합계가격
+	private int amount;
 }
