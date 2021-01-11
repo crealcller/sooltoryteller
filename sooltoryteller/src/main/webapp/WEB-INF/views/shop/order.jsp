@@ -21,9 +21,12 @@
 <body>
 <!-- top menu -->
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
-
+<form id="operForm" action="/shop/kakaoPay" method="post">
 <h2>주문/결제</h2>
 <c:forEach items="${liq }" var="liq" varStatus="status">
+	<input type="hidden" name="items[${status.index}].liqId" value='<c:out value="${liq.liqId }" />' />
+	<input type="hidden" name="items[${status.index}].prc" value='<c:out value="${liq.prc }" />' />
+	<input type="hidden" name="items[${status.index}].qty" value='<c:out value="${itemList.items[status.index].qty }" />' />
 	<p>상품 사진 <c:out value="${liq.liqThumb }" /></p>
 	<p>상품 정보 <c:out value="${liq.nm }" /></p>
 	<p>상품 단가 <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원</p>
@@ -39,19 +42,17 @@
 	<c:set var="ttlPrc" value="${ttlPrc + liq.prc * itemList.items[status.index].qty }" />
 </c:forEach>
 
+
 <!-- 주문자 정보 -->
 <h4>주문자 정보</h4>
-<c:out value="${orderer }" />
-<c:out value="${email }" />
-
-<!-- 주문 전체 내역 -->
+<input type="text" name = "orderer" value='<c:out value="${orderer }" />'>
+<p><c:out value="${email }" /></p>
 <h4>주문 전체 내역</h4>
-<!-- 결제하기 버튼 클릭 시 이동할 데이터 -->
-<form id="operForm" action="/shop/kakaoPay" method="post">
-	<p><input type="text" name="nm" value='<c:out value="${liq[0].nm }" />' /></p>
-	<p>총 <input type="text" name="ttlamount" value='<c:out value="${ttlQty }" />' />개 </p>
-	<p>총 <input type="text" name="ttlprc" value='<c:out value="${ttlPrc }" />' />원</p>
-</form>
+
+	<p><input type="text" name="name" value='<c:out value="${liq[0].nm }" />' /></p>
+	<p>총 <input type="text" name="ttlQty" value='<c:out value="${ttlQty }" />' />개 </p>
+	<p>총 <input type="text" name="ttlPrc" value='<c:out value="${ttlPrc }" />' />원</p>
+
 
 <!-- 결제수단 -->
 <h4>결제수단</h4>
@@ -59,19 +60,8 @@
 
 <!-- 결제하기 버튼 -->
 <button type="submit" data-oper="pay">결제하기</button>
-
+</form>
 <!-- footer -->
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
-
-<!-- 결제 페이지로 데이터 이동 -->
-<script type="text/javascript">
-$(document).ready(function() {
-	   
-	var operForm = $("#operForm");
-	$("button[data-oper='pay']").on("click", function(e) {
-	      operForm.attr("action", "/shop/kakaoPay").submit();
-	   });
-});
-</script>
 </html>

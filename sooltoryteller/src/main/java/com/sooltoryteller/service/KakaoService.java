@@ -28,10 +28,12 @@ public class KakaoService {
 	private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
+	private String userId = "";
 	
 	public String kakaoPayReady(OrderDTO orderDTO) {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
+		userId = orderDTO.getOrderer();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "04b6bc56845b84db3c6f882f49ca1d47");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -40,8 +42,8 @@ public class KakaoService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "ehf");
+        params.add("partner_order_id", "10001");
+        params.add("partner_user_id", userId);
         params.add("item_name", orderDTO.getName());
         params.add("quantity", orderDTO.getTtlQty());
         params.add("total_amount", orderDTO.getTtlPrc());
@@ -67,7 +69,7 @@ public class KakaoService {
         
         return "/";
 	}
-	public KakaoPayApprovalVO kakaoPayInfo(String pg_token, OrderDTO orderDTO) {
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
 		 
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
@@ -84,10 +86,9 @@ public class KakaoService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "ehf");
+        params.add("partner_order_id", "10001");
+        params.add("partner_user_id", userId);
         params.add("pg_token", pg_token);
-        params.add("total_amount", orderDTO.getTtlPrc());
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         

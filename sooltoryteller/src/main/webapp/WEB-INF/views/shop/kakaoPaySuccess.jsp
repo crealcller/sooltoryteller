@@ -12,6 +12,7 @@
 
 <p>결제 일시 : <fmt:formatDate value="${info.approved_at}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 <p>예약 번호 : <c:out value="${info.partner_order_id}"/></p>
+<p>주문자 :<c:out value="${info.partner_user_id}"/></p>
 <p>상품명 :<c:out value="${info.item_name}"/></p>
 <p>상품수량 :<c:out value="${info.quantity}"/></p>
 <p>결제금액 : <c:out value="${info.amount.total}"/></p>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sooltoryteller.domain.ItemListDTO;
 import com.sooltoryteller.domain.LiqVO;
 import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.service.BasketService;
 import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
 import com.sooltoryteller.service.MemberService;
@@ -32,6 +33,7 @@ public class ShopController {
 
 	private LiqService liqService;
 	private MemberService memberService;
+	private BasketService basketService;
 	
 	@Setter(onMethod_ = @Autowired)
 	private KakaoService kakaoService;
@@ -64,7 +66,7 @@ public class ShopController {
 		model.addAttribute("liq", liqs);
 		// 상품번호, 상품단가, 주문수량 리스트
 		model.addAttribute("itemList", itemList);
-		log.info(itemList);
+		log.info("itemList : "+itemList);
 		
 		// 배송지 정보
 		
@@ -75,25 +77,36 @@ public class ShopController {
 		model.addAttribute("orderer", orderer);
 		// 주문자 이메일
 		model.addAttribute("email", email);
-
-	@GetMapping("/kakaoPay")
-	public void kakaoPayGet() {
-
 	}
-
+	
 	@PostMapping("/kakaoPay")
 	public String kakaoPay(OrderDTO orderDTO) {
 		log.info("kakaoPay post............................................");
-		orderDTO = new OrderDTO();
+		log.info(orderDTO);
 		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
 
 	}
 
 	@GetMapping("/kakaoPaySuccess")
-	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, OrderDTO orderDTO) {
+	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
 		log.info("kakaoPaySuccess get............................................");
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
-		orderDTO = new OrderDTO();
-		model.addAttribute("info", kakaoService.kakaoPayInfo(pg_token, orderDTO));
+		model.addAttribute("info", kakaoService.kakaoPayInfo(pg_token));
 	}
+	
+	@GetMapping("/basket")
+	public void getBasket(Model model,HttpSession session) {
+		
+		// 로그인 유무 체크
+		String email = (String) session.getAttribute("email");
+		
+		if (email == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+		} else {
+			Long memberId = memberService.getMemberId(email);
+			log.info("get basket of : "+memberId);
+			model.addAttribute("basket", basketService.get(memberId));
+		}
+	}
+	
 }
