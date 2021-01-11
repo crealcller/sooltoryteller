@@ -37,20 +37,33 @@
 	<c:set var="ttlQty" value="${ttlQty + itemList.items[status.index].qty }" />
 	<!-- 주문총금액 구하기 -->
 	<c:set var="ttlPrc" value="${ttlPrc + liq.prc * itemList.items[status.index].qty }" />
+	
+	<!-- DB에 넣을 주문내역 데이터 -->
+	<form role="form" name="ordDtlForm" id="ordDtlForm" action="/shop/kakaoPay" method="post">
+		<input type="hidden" name="liqId" value="<c:out value='${liq.liqId }' />" />
+		<input type="hidden" name="ordQty" value="<c:out value='${itemList.items[status.index].qty }' />" />
+		<input type="hidden" name="ordPrc" value="<c:out value='${liq.prc * itemList.items[status.index].qty }' />" />
+	</form>
 </c:forEach>
+
+<!-- 배송지 정보 -->
+
 
 <!-- 주문자 정보 -->
 <h4>주문자 정보</h4>
-<c:out value="${orderer }" />
-<c:out value="${email }" />
+<c:out value="${member.name }" />
+<c:out value="${member.email }" />
 
 <!-- 주문 전체 내역 -->
 <h4>주문 전체 내역</h4>
+<p><c:out value="${liq[0].nm }" /></p>
+<p>총 <c:out value="${ttlQty }" />개 </p>
+<p>총 <c:out value="${ttlPrc }" />원</p>
 <!-- 결제하기 버튼 클릭 시 이동할 데이터 -->
 <form id="operForm" action="/shop/kakaoPay" method="post">
-	<p><input type="text" name="nm" value='<c:out value="${liq[0].nm }" />' /></p>
-	<p>총 <input type="text" name="ttlamount" value='<c:out value="${ttlQty }" />' />개 </p>
-	<p>총 <input type="text" name="ttlprc" value='<c:out value="${ttlPrc }" />' />원</p>
+	<input type="hidden" name="nm" value='<c:out value="${liq[0].nm }" />' />
+	<input type="hidden" name="ttlQty" value='<c:out value="${ttlQty }" />' />
+	<input type="hidden" name="ttlPrc" value='<c:out value="${ttlPrc }" />' />
 </form>
 
 <!-- 결제수단 -->
@@ -62,16 +75,34 @@
 
 <!-- footer -->
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
-</body>
 
-<!-- 결제 페이지로 데이터 이동 -->
+<!-- DB에 넣을 데이터 목록 -->
+<form role="form" name="ordForm" id="ordForm" action="/shop/kakaoPay" method="post">
+	<input type="hidden" name="memberId" value="<c:out value='${member.memberId }' />" />
+	<input type="hidden" name="ttlQty" value="<c:out value='${ttlQty }' />" />
+	<input type="hidden" name="ttlPrc" value="<c:out value='${ttlPrc }' />" />
+	<input type="hidden" name="recipient" value="<c:out value='${recipient }' />" />
+	<input type="hidden" name="telno" value="<c:out value='${telno }' />" />
+	<input type="hidden" name="ordAdr" value="<c:out value='${ordAdr }' />" />
+</form>
+
 <script type="text/javascript">
 $(document).ready(function() {
-	   
+	//history.replaceState({}, null, "order");
+	
+	var ordDtlForm = $("#ordDtlForm");
+	var ordForm = $("#ordForm");
 	var operForm = $("#operForm");
+	
 	$("button[data-oper='pay']").on("click", function(e) {
-	      operForm.attr("action", "/shop/kakaoPay").submit();
-	   });
+		// DB에 넣을 데이터 보내기
+		ordForm.attr("action", "/shop/kakaoPay").submit();
+		ordDtlForm.attr("action", "/shop/kakaoPay").submit();
+		
+		// 결제 페이지로 데이터 이동   
+	    operForm.attr("action", "/shop/kakaoPay").submit();
+	});
 });
 </script>
+</body>
 </html>
