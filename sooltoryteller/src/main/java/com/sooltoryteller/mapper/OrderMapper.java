@@ -3,12 +3,13 @@ package com.sooltoryteller.mapper;
 import com.sooltoryteller.domain.OrdDtlVO;
 import com.sooltoryteller.domain.OrdHistVO;
 import com.sooltoryteller.domain.OrdVO;
+import com.sooltoryteller.domain.OrderDTO;
 
 public interface OrderMapper {
 
 	// 주문 완료 후
 	// 주문에 데이터 삽입
-	public OrdVO insertOrd();
+	public int insertOrd(OrderDTO order);
 	
 	// 주문내역에 데이터 삽입
 	public OrdDtlVO insertOrdDtl();

@@ -53,8 +53,8 @@
             <br>
             <input type="hidden" name="liqId" value=${liq.liqId }>
             <button type="submit"  class="h-basket-btn">술바구니</button>
-            </form>
             <button type="submit" data-oper="order">구매하기</button>
+            </form>
 
          </div>
       </div>
@@ -472,9 +472,10 @@ $(function() {
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <script type="text/javascript">
 $(document).ready(function() {
-	   
+	  
 	var operForm = $("#operForm");
 	$("button[data-oper='order']").on("click", function(e) {
+		 e.preventDefault();
 	      operForm.attr("action", "/shop/order").submit();
 	   });
 });

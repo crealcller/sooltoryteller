@@ -156,18 +156,17 @@ public class ShopController {
 	@PostMapping("/kakaoPay")
 	public String kakaoPay(OrderDTO orderDTO, HttpSession session, Model model) {
 		log.info("kakaoPay post............................................");
-		log.info(orderDTO);
 		// 수빈
 		// 로그인 유무 체크
 		String email = (String)session.getAttribute("email");
 		if(email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
-			memberService.get(email);
-			// DB에 데이터 넣기
-			ordService.insertOrd();
-			ordService.insertOrdDtl();
-			ordService.insertOrdHist();
+			Long memberId = memberService.getMemberId(email);
+			log.info("memberID : "+memberId);
+			orderDTO.setMemberId(memberId);
+			log.info(orderDTO);
+			ordService.insertOrd(orderDTO);
 		}
 		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
 	}

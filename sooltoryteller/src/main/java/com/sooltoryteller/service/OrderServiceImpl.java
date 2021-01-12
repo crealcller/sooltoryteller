@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.sooltoryteller.domain.OrdDtlVO;
 import com.sooltoryteller.domain.OrdHistVO;
 import com.sooltoryteller.domain.OrdVO;
+import com.sooltoryteller.domain.OrderDTO;
 import com.sooltoryteller.mapper.OrderMapper;
 
 import lombok.AllArgsConstructor;
@@ -20,9 +21,9 @@ public class OrderServiceImpl implements OrderService {
 	// 주문 완료 후
 	@Override
 	// 주문에 데이터 삽입
-	public OrdVO insertOrd() {
+	public boolean insertOrd(OrderDTO order) {
 		log.info("***** insert order");
-		return mapper.insertOrd();
+		return mapper.insertOrd(order) ==1;
 	}
 
 	@Override

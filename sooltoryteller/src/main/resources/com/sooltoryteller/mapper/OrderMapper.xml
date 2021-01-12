@@ -5,8 +5,12 @@
 <!-- 주문 완료 후 -->
 <!-- 주문에 데이터 삽입 -->
 <insert id="insertOrd">
-	insert into ord(ord_id, member_id, ord_date, ttl_qty, ttl_prc, ord_stus, dlvy_fee, recipient, telno, ord_adr)
-	values(ord_seq.nextval, #{memberId}, sysdate, #{ttlQty}, #{ttlPrc}, #{ordStus}, #{dlvyFee}, #{recipient}, #{telno}, #{ordAdr})
+     <selectKey keyProperty="orderId" order="BEFORE"
+         resultType="long">
+         select ord_seq.nextval from dual
+      </selectKey>
+	insert into ord(ord_id, member_id, ord_date, ttl_qty, ttl_prc)
+	values(#{orderId}, #{memberId}, sysdate, #{ttlQty}, #{ttlPrc})
 </insert>
 
 <!-- 주문내역에 데이터 삽입 -->

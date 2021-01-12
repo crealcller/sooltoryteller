@@ -22,6 +22,8 @@ public class OrderDTO {
 	// 주문총금액
 	private String ttlPrc;
 	
-	private String orderer;
+	private Long memberId;
+	
+	private Long orderId;
 
 }

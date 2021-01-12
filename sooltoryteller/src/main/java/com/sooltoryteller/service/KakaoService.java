@@ -29,11 +29,13 @@ public class KakaoService {
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	private String userId = "";
+	private String orderId = "";
 	
 	public String kakaoPayReady(OrderDTO orderDTO) {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
-		userId = orderDTO.getOrderer();
+		userId = orderDTO.getMemberId()+"";
+		orderId =orderDTO.getOrderId()+"";
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "04b6bc56845b84db3c6f882f49ca1d47");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -42,7 +44,7 @@ public class KakaoService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "10001");
+        params.add("partner_order_id", orderId);
         params.add("partner_user_id", userId);
         params.add("item_name", orderDTO.getName());
         params.add("quantity", orderDTO.getTtlQty());
@@ -58,8 +60,8 @@ public class KakaoService {
             kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
             
             log.info("" + kakaoPayReadyVO);
-            
-            return kakaoPayReadyVO.getNext_redirect_pc_url();
+            String url = kakaoPayReadyVO.getNext_redirect_pc_url();
+            return url;
  
         } catch (RestClientException e) {
             e.printStackTrace();
@@ -86,7 +88,7 @@ public class KakaoService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", "10001");
+        params.add("partner_order_id", "");
         params.add("partner_user_id", userId);
         params.add("pg_token", pg_token);
         
