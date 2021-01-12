@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.domain.OrdRequestDTO;
 import com.sooltoryteller.service.KakaoService;
 
 import lombok.Setter;

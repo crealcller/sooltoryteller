@@ -21,10 +21,10 @@ public class OrdDtlVO {
     private Long liqId;
 
     // 주문수량 
-    private int ordQty;
+    private int qty;
 
     // 주문금액 
-    private int ordPrc;
+    private int prc;
 
     // 주문일자 
     private Date ordDate;

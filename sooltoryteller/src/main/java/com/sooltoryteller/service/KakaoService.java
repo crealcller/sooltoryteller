@@ -14,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sooltoryteller.domain.KakaoPayApprovalVO;
 import com.sooltoryteller.domain.KakaoPayReadyVO;
-import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.domain.OrdVO;
+import com.sooltoryteller.domain.OrdRequestDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -31,11 +32,11 @@ public class KakaoService {
 	private String userId = "";
 	private String orderId = "";
 	
-	public String kakaoPayReady(OrderDTO orderDTO) {
+	public String kakaoPayReady(OrdRequestDTO ordRequest) {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
-		userId = orderDTO.getMemberId()+"";
-		orderId =orderDTO.getOrderId()+"";
+		userId = ordRequest.getOrd().getMemberId()+"";
+		orderId =ordRequest.getOrd().getOrdId()+"";
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "04b6bc56845b84db3c6f882f49ca1d47");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -46,9 +47,9 @@ public class KakaoService {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", orderId);
         params.add("partner_user_id", userId);
-        params.add("item_name", orderDTO.getName());
-        params.add("quantity", orderDTO.getTtlQty());
-        params.add("total_amount", orderDTO.getTtlPrc());
+        params.add("item_name", ordRequest.getOrdName());
+        params.add("quantity", (ordRequest.getOrd().getTtlQty()+""));
+        params.add("total_amount",(ordRequest.getOrd().getTtlPrc()+""));
         params.add("tax_free_amount", "0");	
         params.add("approval_url", "http://localhost:8181/shop/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8181/shop/kakaoPayCancel");
@@ -88,7 +89,7 @@ public class KakaoService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", "");
+        params.add("partner_order_id", orderId);
         params.add("partner_user_id", userId);
         params.add("pg_token", pg_token);
         

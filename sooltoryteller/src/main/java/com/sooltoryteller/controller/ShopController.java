@@ -19,7 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sooltoryteller.domain.BasketVO;
 import com.sooltoryteller.domain.ItemListDTO;
 import com.sooltoryteller.domain.LiqVO;
-import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.domain.OrdDtlVO;
+import com.sooltoryteller.domain.OrdHistVO;
+import com.sooltoryteller.domain.OrdRequestDTO;
+import com.sooltoryteller.domain.OrdVO;
 import com.sooltoryteller.service.BasketService;
 import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
@@ -42,133 +45,123 @@ public class ShopController {
 	private OrderService ordService;
 	@Setter(onMethod_ = @Autowired)
 	private KakaoService kakaoService;
-	
-	//장바구니
+
+	// 장바구니
 	@GetMapping("/basket")
 	public void basket(Model model, HttpSession session) {
-		
+
 		log.info("장바구니 목록");
-		
-		//로그인한 회원정보
+
+		// 로그인한 회원정보
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
 			Long memberId = memberService.getMemberId(email);
 			model.addAttribute("list", basketService.getList(memberId));
-			
+
 		}
 	}
-	
-	//장바구니 등록
+
+	// 장바구니 등록
 	@PostMapping("/basket/register")
 	public String register(BasketVO basket, RedirectAttributes rttr, HttpSession session) {
-		
-		log.info("장바구니 등록! : "+basket);
-		
+
+		log.info("장바구니 등록! : " + basket);
+
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
 			rttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
-			
+
 		} else {
 			Long memberId = memberService.getMemberId(email);
 			basket.setMemberId(memberId);
 			basketService.register(basket);
-			
+
 			rttr.addFlashAttribute("result", basket.getBasketId());
 		}
-		
-		
+
 		return "redirect:/shop/basket";
 	}
-	
-	//장바구니 수량 수정
+
+	// 장바구니 수량 수정
 	@RequestMapping(value = "/basket/modify", method = RequestMethod.POST)
 	@ResponseBody
 	public String modify(BasketVO basket) {
-		
-		log.info("수량 변경! : "+basket);
-		
-		if(basketService.modify(basket)) {
+
+		log.info("수량 변경! : " + basket);
+
+		if (basketService.modify(basket)) {
 			return "success";
-			}
-		return "fail";
 		}
-	
-	//장바구니 삭제
+		return "fail";
+	}
+
+	// 장바구니 삭제
 	@RequestMapping(value = "/basket/remove", method = RequestMethod.POST)
 	@ResponseBody
 	public String remove(Long memberId, Long liqId) {
-		
+
 		log.info("장바구니 삭제" + liqId);
-		
-		if(basketService.remove(memberId, liqId)) {
+
+		if (basketService.remove(memberId, liqId)) {
 			return "success";
 		}
 		return "fail";
 	}
 //--------------------------------현수작업 끝------------------------------	
-	
-	
+
 	@GetMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model) {
 		// 로그인 유무 체크
-		String email = (String)session.getAttribute("email");
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
 	}
-	
+
 	@PostMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model, ItemListDTO itemList) {
 		List<LiqVO> liqs = new ArrayList<>();
-		
-		// 로그인 유무 체크
-		String email = (String)session.getAttribute("email");
-		if(email == null) {
+
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		} else {
-			for(int i = 0; i < itemList.size(); i++) {
-				Long liqIds = itemList.getItems().get(i).getLiqId();
-				liqs.add(liqService.get(liqIds));
-			}
-			
-			// liqVO 관련 정보
-			model.addAttribute("liq", liqs);
-			// 상품번호, 상품단가, 주문수량 리스트
-			model.addAttribute("itemList", itemList);
-			log.info(itemList);
-			
-			// 배송지 정보
-			
-			// 주문자 정보
-			model.addAttribute("member", memberService.get(email));
-			
-			// DB에 데이터 넣기
-//			ordService.insertOrd();
-//			ordService.insertOrdDtl();
-//			ordService.insertOrdHist();
+		}else {
+		for (int i = 0; i < itemList.size(); i++) {
+			Long liqIds = itemList.getItems().get(i).getLiqId();
+			liqs.add(liqService.get(liqIds));
 		}
 
-	}
+		// liqVO 관련 정보
+		model.addAttribute("liq", liqs);
+		// 상품번호, 상품단가, 주문수량 리스트
+		model.addAttribute("itemList", itemList);
+		log.info(itemList);
 
-	
+		// 배송지 정보
+
+		// 주문자 정보
+		model.addAttribute("member", memberService.get(email));
+	}
+}
 	@PostMapping("/kakaoPay")
-	public String kakaoPay(OrderDTO orderDTO, HttpSession session, Model model) {
+	public String kakaoPay(OrdRequestDTO ordRequest, HttpSession session, Model model) {
 		log.info("kakaoPay post............................................");
 		// 수빈
 		// 로그인 유무 체크
-		String email = (String)session.getAttribute("email");
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
 			Long memberId = memberService.getMemberId(email);
-			log.info("memberID : "+memberId);
-			orderDTO.setMemberId(memberId);
-			log.info(orderDTO);
-			ordService.insertOrd(orderDTO);
+			ordRequest.getOrd().setMemberId(memberId);
+			ordRequest.getOrdHist().setMemberId(memberId);
+			ordService.insertOrd(ordRequest);
+			log.info(ordRequest);
 		}
-		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
+
+		return "redirect:" + kakaoService.kakaoPayReady(ordRequest);
 	}
 
 	@GetMapping("/kakaoPaySuccess")

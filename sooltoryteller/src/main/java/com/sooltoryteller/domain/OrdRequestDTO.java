@@ -7,13 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ItemListDTO {
+@NoArgsConstructor
+public class OrdRequestDTO {
+
+	private OrdVO ord;
+	
+	private String ordName;
 
 	private List<OrdDtlVO> items;
+	
+	private OrdHistVO ordHist;
 
-	public int size() {
-		return items.size();
-	}
 }
