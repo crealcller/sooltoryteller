@@ -5,7 +5,7 @@
   <mapper namespace="com.sooltoryteller.mapper.BasketMapper">
   
   <select id="getList" resultType="com.sooltoryteller.domain.BasketJoinVO">
-  	select bk.basket_id, bk.liq_id, lq.nm liqNm, bk.qty, lq.liq_img, bk.member_id, co.nm coNm, bk.amount
+  	select bk.basket_id, bk.liq_id, lq.nm liqNm, bk.qty, lq.liq_img, bk.member_id, co.nm coNm, bk.amount, lq.prc
 	from basket bk, liq lq, liq_co co
 	where bk.liq_id = lq.liq_id
 	and lq.liq_co_id = co.liq_co_id

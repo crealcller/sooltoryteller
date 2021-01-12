@@ -56,7 +56,7 @@ public class ShopController {
 		} else {
 			Long memberId = memberService.getMemberId(email);
 			model.addAttribute("list", basketService.getList(memberId));
-			
+			model.addAttribute("member", memberService.get(email));
 		}
 	}
 	
@@ -65,20 +65,24 @@ public class ShopController {
 	public String register(BasketVO basket, RedirectAttributes rttr, HttpSession session) {
 		
 		log.info("장바구니 등록! : "+basket);
+		//수량 10개만 가능한데 10개 초과가 들어온다면
+		if(basket.getQty() > 10) {
+			rttr.addFlashAttribute("msg", "server: 수량 오류!!");
+		}else {
 		
-		String email = (String) session.getAttribute("email");
-		if (email == null) {
-			rttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
-			
-		} else {
-			Long memberId = memberService.getMemberId(email);
-			basket.setMemberId(memberId);
-			basketService.register(basket);
-			
-			rttr.addFlashAttribute("result", basket.getBasketId());
+			String email = (String) session.getAttribute("email");
+			if (email == null) {
+				rttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
+				
+			} else {
+				Long memberId = memberService.getMemberId(email);
+				basket.setMemberId(memberId);
+				basketService.register(basket);
+				
+				rttr.addFlashAttribute("result", basket.getBasketId());
+			}
+		
 		}
-		
-		
 		return "redirect:/shop/basket";
 	}
 	
@@ -89,9 +93,13 @@ public class ShopController {
 		
 		log.info("수량 변경! : "+basket);
 		
-		if(basketService.modify(basket)) {
-			return "success";
+		if(basket.getQty() > 10) {
+			log.info("수량은 10개만 가능함!!");
+		}else {
+			if(basketService.modify(basket)) {
+				return "success";
 			}
+		}
 		return "fail";
 		}
 	
@@ -122,7 +130,6 @@ public class ShopController {
 	@PostMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model, ItemListDTO itemList) {
 		List<LiqVO> liqs = new ArrayList<>();
-		
 		// 로그인 유무 체크
 		String email = (String)session.getAttribute("email");
 		if(email == null) {
