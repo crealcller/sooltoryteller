@@ -48,11 +48,11 @@
             </p>
             
 
-            <form action="/shop/basket/register" method="post">
+            <form action="/shop/basket/register" method="post" id="h-basketForm">
             <input type="number" min="1" max="10" value="1" name="qty">
             <br>
             <input type="hidden" name="liqId" value=${liq.liqId }>
-            <button type="submit"  class="h-basket-btn">술바구니</button>
+            <button type="submit"  class="h-basket-btn" id="h-basket-btn">술바구니</button>
             </form>
             <button type="submit" data-oper="order">구매하기</button>
 
@@ -472,7 +472,16 @@ $(function() {
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <script type="text/javascript">
 $(document).ready(function() {
-	   
+	//현수 추가
+	$("#h-basket-btn").on("click", function(e) {
+		e.preventDefault();
+		let chk = confirm("장바구니로 이동하시겠습니까??");
+		let basketForm = $("#h-basketForm");
+		if(chk) {
+			basketForm.submit();
+		}
+	  });
+	
 	var operForm = $("#operForm");
 	$("button[data-oper='order']").on("click", function(e) {
 	      operForm.attr("action", "/shop/order").submit();

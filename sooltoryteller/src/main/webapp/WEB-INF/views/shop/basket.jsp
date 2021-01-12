@@ -115,10 +115,10 @@ td{
 <body>
 <div class='h-basket-body'>
         <div class='h-basket-content'>
-            <h2 class='h-title'>장바구니</h2>
+            <h2 class='h-title'>술바구니</h2>
            <c:choose>
     	<c:when test="${empty list}">
-       	<div class="h-msg"><h3 > 장바구니의 담긴 상품이 없습니다.</h3></div>
+       	<div class="h-msg"><h3 > 술바구니의 담긴 상품이 없습니다.</h3></div>
        	<div class="h-shopping-content"><a href="/liq-list" class="h-goto-shopping">쇼핑 계속하기</a></div>
     	</c:when>
     
