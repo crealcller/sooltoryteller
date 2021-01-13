@@ -33,8 +33,8 @@
      <selectKey keyProperty="ordId" order="BEFORE" resultType="long">
          select ord_seq.currval from dual
       </selectKey>
-	insert into ord_hist(ord_hist_id, ord_id, member_id, ord_stus, chg_ord_stus, chg_ord_date)
-	values(ord_hist_seq.nextval, #{ordId}, #{memberId}, #{ordStus}, #{chgOrdStus}, sysdate)
+	insert into ord_hist(ord_hist_id, ord_id, member_id, ord_stus, chg_ord_stus)
+	values(ord_hist_seq.nextval, #{ordId}, #{memberId}, #{ordStus}, #{chgOrdStus})
 </insert>
 
 <!-- 각 항목 조회 -->

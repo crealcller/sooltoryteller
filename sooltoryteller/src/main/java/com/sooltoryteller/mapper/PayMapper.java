@@ -1,5 +1,6 @@
 package com.sooltoryteller.mapper;
 
+import com.sooltoryteller.domain.PayHistVO;
 import com.sooltoryteller.domain.PayVO;
 
 public interface PayMapper {
@@ -12,5 +13,8 @@ public interface PayMapper {
 
 	// 결제내역 업데이트
 	public int update(PayVO pay);
+	
+	// 결제 이력 추가
+	public int insertPayHist(PayHistVO payHist);
 
 }

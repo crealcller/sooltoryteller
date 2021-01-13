@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class PayHistVO {
 
     // 결제이력 일련번호 
-    private int payHistId;
+    private Long payHistId;
 
     // 결제 일련번호 
-    private int payId;
+    private Long payId;
 
     // 변경전결제상태 
     private String bfStus;

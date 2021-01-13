@@ -158,9 +158,9 @@ public class ShopController {
 			ordRequest.getOrd().setMemberId(memberId);
 			ordRequest.getOrdHist().setMemberId(memberId);
 			ordService.insertOrd(ordRequest);
+			ordRequest.getPay().setMemberId(memberId);
 			log.info(ordRequest);
 		}
-
 		return "redirect:" + kakaoService.kakaoPayReady(ordRequest);
 	}
 

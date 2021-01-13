@@ -18,5 +18,9 @@ public class OrdRequestDTO {
 	private List<OrdDtlVO> items;
 	
 	private OrdHistVO ordHist;
-
+	
+	private PayVO pay;
+	
+	private PayHistVO payHist;
+	
 }

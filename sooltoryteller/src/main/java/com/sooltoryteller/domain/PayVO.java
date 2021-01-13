@@ -24,7 +24,7 @@ public class PayVO {
     private String payMthd;
 
     // 결제금액 
-    private Long ordPrc;
+    private int ordPrc;
 
     // 결제상태 
     private String stus;
