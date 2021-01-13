@@ -49,7 +49,7 @@
             
 
             <form action="/shop/basket/register" method="post">
-            <input type="number" min="1" max="10" value="1" name="qty">
+            <input type="number" id="qty" min="1" max="10" value="1" name="qty">
             <br>
             <input type="hidden" name="liqId" value=${liq.liqId }>
             <button type="submit"  class="h-basket-btn">술바구니</button>
@@ -169,7 +169,7 @@
 	<input type="hidden" name="items[0].liqId" value="<c:out value='${liq.liqId}'/>" />
 	<input type="hidden" name="items[0].prc" value="<c:out value='${liq.prc}'/>" >
 	<!-- ***** 수량 수정해야 함 -->
-	<input  type="hidden" name="items[0].qty" value="1" >
+	<input  type="hidden" id="listQty" name="items[0].qty" value="1" >
 </form>
 
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
@@ -472,7 +472,10 @@ $(function() {
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <script type="text/javascript">
 $(document).ready(function() {
-	  
+	$("#qty").on("click",function(e){
+		$("#listQty").val($(this).val());
+	});
+	
 	var operForm = $("#operForm");
 	$("button[data-oper='order']").on("click", function(e) {
 		 e.preventDefault();
