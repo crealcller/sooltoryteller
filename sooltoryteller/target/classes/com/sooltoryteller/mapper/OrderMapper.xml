@@ -8,8 +8,8 @@
      <selectKey keyProperty="ordId" order="BEFORE" resultType="long">
          select ord_seq.nextval from dual
       </selectKey>
-	insert into ord(ord_id, member_id, ord_date, ttl_qty, ttl_prc)
-	values(#{ordId}, #{memberId}, sysdate, #{ttlQty}, #{ttlPrc})
+	insert into ord(ord_id, member_id, ttl_qty, ttl_prc, dlvy_fee, recipient, telno, ord_adr )
+	values(#{ordId}, #{memberId}, #{ttlQty}, #{ttlPrc}, #{dlvyFee}, #{recipient}, #{telno}, #{ordAdr})
 </insert>
 
 
