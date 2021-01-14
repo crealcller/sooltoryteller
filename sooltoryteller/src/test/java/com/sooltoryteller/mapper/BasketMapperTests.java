@@ -1,5 +1,8 @@
 package com.sooltoryteller.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +23,19 @@ public class BasketMapperTests {
 	private BasketMapper mapper;
 	
 	@Test
+	public void testDeletAfterOrder() {
+		List<Long> liqId = new ArrayList<>();
+		liqId.add(13L);
+		liqId.add(11L);
+		liqId.add(12L);
+		mapper.deleteAfterOrder(1L, liqId);
+	}
+	
 	public void testGetList() {
 		mapper.getList(3L).forEach(basket -> log.info(basket));
 	}
 	
-	@Test
+	//@Test
 	public void testInsert() {
 		BasketVO basket = new BasketVO();
 		basket.setLiqId(5L);
@@ -37,12 +48,12 @@ public class BasketMapperTests {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testDelete() {
 		log.info("DELETE COUNT : "+mapper.delete(3L, 2L));
 	}
 	
-	@Test
+	//@Test
 	public void testUpdate() {
 		
 		BasketVO basket = new BasketVO();

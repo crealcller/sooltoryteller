@@ -2,15 +2,16 @@ package com.sooltoryteller.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
@@ -34,6 +35,8 @@ public class KakaoService {
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	@Setter(onMethod_ = @Autowired)
 	private PayService payService;
+	@Setter(onMethod_ = @Autowired)
+	private BasketService basketService;
 	
 	private Long userId = 0L;
 	private Long orderId = 0L;
@@ -75,6 +78,12 @@ public class KakaoService {
             	ordRequest.getPayHist().setBfStus("P");
             	ordRequest.getPayHist().setAfStus("P");
             	payService.register(ordRequest);
+            	//장바구니 비우기
+            	List<Long> liqId = new ArrayList();
+            	for(int i=0; i<ordRequest.getItems().size(); i++) {
+            		liqId.add(ordRequest.getItems().get(i).getLiqId());
+            	}
+            	basketService.removeAfterOrder(userId, liqId);
             	
             return kakaoPayReadyVO.getNext_redirect_pc_url();
  

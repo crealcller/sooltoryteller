@@ -74,4 +74,10 @@ public class BasketServiceImpl implements BasketService {
 	public BasketVO get(Long memberId, Long liqId) {
 		return mapper.get(memberId, liqId);
 	}
+
+	@Override
+	public boolean removeAfterOrder(Long memberId, List<Long> liqId) {
+		log.info("remove ordered liq list");
+		return mapper.deleteAfterOrder(memberId, liqId) == 1;
+	}
 }
