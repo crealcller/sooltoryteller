@@ -115,7 +115,7 @@
 <%@ include file="/WEB-INF/views/include/topmenu.jsp"%>
  <div class="order-container">
  <div class="order-info-container">
- <h2 style="margin-bottom: 20px;">주문/결제</h2>
+ <h2 style="margin-bottom: 20px;">결제 완료</h2>
  <div class="d-pay-msg-con">
  <h2>주문이 성공적으로 접수 되었습니다</h2>
 <p>주문 번호(<c:out value="${info.partner_order_id}"/>) | 감사합니다</p>
