@@ -62,8 +62,9 @@ public class ShopController {
 	
 	//장바구니 등록
 	@PostMapping("/basket/register")
-	public String register(BasketVO basket, RedirectAttributes rttr, HttpSession session) {
+	public String register(BasketVO basket, String move, RedirectAttributes rttr, HttpSession session) {
 		
+		log.info("어디로 이동할까? :"+move);
 		log.info("장바구니 등록! : "+basket);
 		//수량 10개만 가능한데 10개 초과가 들어온다면
 		if(basket.getQty() > 10) {
@@ -83,7 +84,7 @@ public class ShopController {
 			}
 		
 		}
-		return "redirect:/shop/basket";
+		return "redirect:"+move;
 	}
 	
 	//장바구니 수량 수정

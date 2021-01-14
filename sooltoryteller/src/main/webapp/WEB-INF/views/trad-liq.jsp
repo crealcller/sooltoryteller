@@ -472,14 +472,21 @@ $(function() {
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <script type="text/javascript">
 $(document).ready(function() {
+	var liqIdValue = '<c:out value="${liq.liqId}"/>'
 	//현수 추가
 	$("#h-basket-btn").on("click", function(e) {
 		e.preventDefault();
 		let chk = confirm("장바구니로 이동하시겠습니까??");
 		let basketForm = $("#h-basketForm");
+		let move = ""
 		if(chk) {
-			basketForm.submit();
+			move = "<input type='hidden' name='move' value='/shop/basket'>";
+			basketForm.append(move);
+		}else{
+			move = "<input type='hidden' name='move' value='/trad-liq?liqId="+liqIdValue+"'>";
+			basketForm.append(move);
 		}
+			basketForm.submit();
 	  });
 	
 	var operForm = $("#operForm");
