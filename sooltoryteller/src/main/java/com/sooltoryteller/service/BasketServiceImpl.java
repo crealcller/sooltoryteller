@@ -23,15 +23,32 @@ public class BasketServiceImpl implements BasketService {
 	public void register(BasketVO basket) {
 		log.info("장바구니 등록! : "+basket);
 		
-		int qty = basket.getQty();
-		int prc = getPrice(basket.getLiqId());
-		int amount = qty*prc;
+		//기존의 같은 전통주가 없다면
+		BasketVO tmp = mapper.get(basket.getMemberId(), basket.getLiqId());
 		
-		log.info("qty : "+qty+"prc : "+prc+"amount : "+amount);
-		
-		basket.setAmount(amount);
-		
-		mapper.insert(basket);
+		if(tmp == null) {
+			int qty = basket.getQty();
+			int prc = getPrice(basket.getLiqId());
+			int amount = qty*prc;
+			basket.setAmount(amount);
+			
+			mapper.insert(basket);
+			
+			log.info("전통주 장바구니에 넣기 성공!##########");
+			
+		//기존의 이미 담겨있다면 수량 추가 및 금액변경	
+		}else {
+			int qty = basket.getQty() + tmp.getQty();
+			int prc = getPrice(basket.getLiqId());
+			int amount = qty*prc;
+			
+			basket.setQty(qty);
+			basket.setAmount(amount);
+			
+			mapper.update(basket);
+			
+			log.info("전통주 수량추가##########");
+		}
 	}
 
 	@Override

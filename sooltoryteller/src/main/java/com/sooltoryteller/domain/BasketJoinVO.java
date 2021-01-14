@@ -33,6 +33,6 @@ public class BasketJoinVO {
 	// 전통주 합계가격
 	private int amount;
 
-	// 전통주 개별가격
+	//전통주 개별가격
 	private int prc;
 }

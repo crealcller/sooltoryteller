@@ -19,10 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sooltoryteller.domain.BasketVO;
 import com.sooltoryteller.domain.ItemListDTO;
 import com.sooltoryteller.domain.LiqVO;
-import com.sooltoryteller.domain.OrdDtlVO;
-import com.sooltoryteller.domain.OrdHistVO;
 import com.sooltoryteller.domain.OrdRequestDTO;
-import com.sooltoryteller.domain.OrdVO;
 import com.sooltoryteller.service.BasketService;
 import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
@@ -39,77 +36,88 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/shop/*")
 public class ShopController {
 
-	private BasketService basketService;
-	private MemberService memberService;
-	private LiqService liqService;
-	private OrderService ordService;
-	@Setter(onMethod_ = @Autowired)
-	private KakaoService kakaoService;
+   private BasketService basketService;
+   private MemberService memberService;
+   private LiqService liqService;
+   private OrderService ordService;
+   @Setter(onMethod_ = @Autowired)
+   private KakaoService kakaoService;
+   
+   //장바구니
+   @GetMapping("/basket")
+   public void basket(Model model, HttpSession session) {
+      
+      log.info("장바구니 목록");
+      
+      //로그인한 회원정보
+      String email = (String) session.getAttribute("email");
+      if (email == null) {
+         model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+      } else {
+         Long memberId = memberService.getMemberId(email);
+         model.addAttribute("list", basketService.getList(memberId));
+         model.addAttribute("member", memberService.get(email));
+      }
+   }
+   
+   //장바구니 등록
+   @PostMapping("/basket/register")
+   public String register(BasketVO basket, String move, RedirectAttributes rttr, HttpSession session) {
+      
+      log.info("어디로 이동할까? :"+move);
+      log.info("장바구니 등록! : "+basket);
+      //수량 10개만 가능한데 10개 초과가 들어온다면
+      if(basket.getQty() > 10) {
+         rttr.addFlashAttribute("msg", "server: 수량 오류!!");
+      }else {
+      
+         String email = (String) session.getAttribute("email");
+         if (email == null) {
+            rttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
+            
+         } else {
+            Long memberId = memberService.getMemberId(email);
+            basket.setMemberId(memberId);
+            basketService.register(basket);
+            
+            rttr.addFlashAttribute("result", basket.getBasketId());
+         }
+      
+      }
+      return "redirect:"+move;
+   }
+   
+   //장바구니 수량 수정
+   @RequestMapping(value = "/basket/modify", method = RequestMethod.POST)
+   @ResponseBody
+   public String modify(BasketVO basket) {
+      
+      log.info("수량 변경! : "+basket);
+      
+      if(basket.getQty() > 10) {
+         log.info("수량은 10개만 가능함!!");
+      }else {
+         if(basketService.modify(basket)) {
+            return "success";
+         }
+      }
+      return "fail";
+      }
+   
+   //장바구니 삭제
+   @RequestMapping(value = "/basket/remove", method = RequestMethod.POST)
+   @ResponseBody
+   public String remove(Long memberId, Long liqId) {
+      
+      log.info("장바구니 삭제" + liqId);
+      
+      if(basketService.remove(memberId, liqId)) {
+         return "success";
+      }
+      return "fail";
+   }
+//--------------------------------현수작업 끝------------------------------   
 
-	// 장바구니
-	@GetMapping("/basket")
-	public void basket(Model model, HttpSession session) {
-
-		log.info("장바구니 목록");
-
-		// 로그인한 회원정보
-		String email = (String) session.getAttribute("email");
-		if (email == null) {
-			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		} else {
-			Long memberId = memberService.getMemberId(email);
-			model.addAttribute("list", basketService.getList(memberId));
-
-		}
-	}
-
-	// 장바구니 등록
-	@PostMapping("/basket/register")
-	public String register(BasketVO basket, RedirectAttributes rttr, HttpSession session) {
-
-		log.info("장바구니 등록! : " + basket);
-
-		String email = (String) session.getAttribute("email");
-		if (email == null) {
-			rttr.addFlashAttribute("msg", "로그인이 필요한 페이지 입니다.");
-
-		} else {
-			Long memberId = memberService.getMemberId(email);
-			basket.setMemberId(memberId);
-			basketService.register(basket);
-
-			rttr.addFlashAttribute("result", basket.getBasketId());
-		}
-
-		return "redirect:/shop/basket";
-	}
-
-	// 장바구니 수량 수정
-	@RequestMapping(value = "/basket/modify", method = RequestMethod.POST)
-	@ResponseBody
-	public String modify(BasketVO basket) {
-
-		log.info("수량 변경! : " + basket);
-
-		if (basketService.modify(basket)) {
-			return "success";
-		}
-		return "fail";
-	}
-
-	// 장바구니 삭제
-	@RequestMapping(value = "/basket/remove", method = RequestMethod.POST)
-	@ResponseBody
-	public String remove(Long memberId, Long liqId) {
-
-		log.info("장바구니 삭제" + liqId);
-
-		if (basketService.remove(memberId, liqId)) {
-			return "success";
-		}
-		return "fail";
-	}
-//--------------------------------현수작업 끝------------------------------	
 
 	@GetMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model) {
@@ -123,7 +131,6 @@ public class ShopController {
 	@PostMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model, ItemListDTO itemList) {
 		List<LiqVO> liqs = new ArrayList<>();
-
 		String email = (String) session.getAttribute("email");
 		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");

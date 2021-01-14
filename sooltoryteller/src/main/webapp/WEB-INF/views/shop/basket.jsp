@@ -20,7 +20,8 @@
 <style>
 .h-basket-body{
    width: 1520px;
-    height: 1000px;
+    height: 100%;
+    min-height:1000px;
     background-color: #fff2ccff;
     display: flex;
     justify-content: center;
@@ -28,7 +29,8 @@
 }
 .h-basket-content{
     width: 1300px;
-    height: 850px;
+    height: 85%;
+    min-height:850px;
     background-color: white;
 }
 .h-title{
@@ -88,20 +90,46 @@ td{
     justify-content: flex-end;
     align-items: center;
 }
+.h-shopping-content{
+   text-align: center;
+   height: 80px;
+}
+.h-msg{
+   text-align: center;
+   margin:30px 0 0 0; 
+   height:80px;
+}
+.h-goto-shopping{
+   padding: 20px;
+    background-color: #f0f0f0;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.h-chkbox{
+   height: 20px;
+   width: 20px;
+}
 </style>
 </head>
 <body>
 <div class='h-basket-body'>
         <div class='h-basket-content'>
-            <h2 class='h-title'>장바구니</h2>
-           
+            <h2 class='h-title'>술바구니</h2>
+           <c:choose>
+       <c:when test="${empty list}">
+          <div class="h-msg"><h3 > 술바구니의 담긴 상품이 없습니다.</h3></div>
+          <div class="h-shopping-content"><a href="/liq-list" class="h-goto-shopping">쇼핑 계속하기</a></div>
+       </c:when>
+    
+    <c:otherwise>
             <table id="basket-item">
               <thead>
                 <tr>
                   <th></th>
                   <th colspan="2" align="center">상품정보</th>
                   <th>수량</th>
-                  <th>판매자</th>
+                  <th>양조장</th>
                   <th>배송비</th>
                   <th>판매가</th>
                   <th>선택</th>
@@ -110,7 +138,8 @@ td{
               
               <c:forEach items="${list}" var="basket">
                  <tr>
-                   <td><input name="chkbox" data-liqid="<c:out value='${basket.liqId }'/>" type="checkbox" onClick="itemSum()" checked="checked"></td>
+                   <td style="text-align: right;"><input class="h-chkbox" name="chkbox" data-liqid="<c:out value='${basket.liqId }'/>" 
+                   data-prc="<c:out value='${basket.prc }'/>" data-qty="<c:out value='${basket.qty }'/>" type="checkbox" onClick="itemSum()" checked="checked"></td>
                    <td><a href="/trad-liq?liqId=<c:out value='${basket.liqId }'/>">
                    <img class="h-basket-img" src='<c:out value="${basket.liqImg }"/>'></a></td>
                    <td style="text-align: left"><c:out value="${basket.liqNm }"/></td>
@@ -120,7 +149,7 @@ td{
                   <td><c:out value="${basket.coNm }"/></td>
                   <td>무료</td>
                   <td class="price"><fmt:parseNumber type='number' value="${basket.amount }" />원</td>
-                  <td><p><button class='h-s-order-btn'>주문하기</button></p>
+                  <td><p><button class='h-s-order-btn' data-oper='ind-order' data-liqid="<c:out value='${basket.liqId }'/>" data-prc="<c:out value='${basket.prc }'/>">주문하기</button></p>
                        <p><button data-liqid="<c:out value='${basket.liqId }'/>"  class='h-delete-btn'>선택상품 삭제</button></p></td>
                  </tr>
               <input type="hidden" value="<c:out value='${basket.memberId }'/>"  name='memberId' class='memberId'>
@@ -128,7 +157,8 @@ td{
               
               </c:forEach>
               </table>
-              
+       </c:otherwise>
+</c:choose>
             <div class="h-total-price"><h3 style="margin-right: 50px;" id="total"></h3></div>
             <!-- 전체상품 주문  -->
               <form action="/shop/order" method="post">
@@ -138,11 +168,23 @@ td{
                   <input type = "hidden" name="items[${status.index}].prc" value='<c:out value = "${list.prc }"/>'>
                 </c:forEach>
             <div class='h-btn-content'><button type="submit" class='h-order-btn'>전체상품 주문</button>
-                 <button type="button" class='h-order-btn' style="margin-left: 100px;">선택상품 주문</button></div>
+                 <button type="button" data-oper="selec-order"class='h-order-btn' style="margin-left: 100px;">선택상품 주문</button></div>
                </form>
+               
+            <!-- 개별상품 주문 -->
+               <form id="ind-orderForm" action="/shop/order" method="post">
+               <input type="hidden" name="memberId" value="<c:out value='${member.memberId }' />">
+               <input type="hidden" name="items[0].liqId">
+               <input type="hidden" name="items[0].prc">
+               <input  type="hidden" name="items[0].qty">
+            </form>
+            
+          <!-- 선택상품 주문 -->
+              <form id="select-orderForm" action="/shop/order" method="post">
+               <input type="hidden" name="memberId" value="<c:out value='${member.memberId }' />">
+            </form>
         </div>
     </div>
-    
 <%@include file="/WEB-INF/views/include/footer.jsp" %>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -182,11 +224,10 @@ td{
       
       $(".h-change-btn").click(function(){
          
-         var memberId = $(".memberId").val();
-         var liqId = $(this).data('liqid');
-         var className = "."+liqId;
-         var qty = $(className).val();
-         console.log(liqId);
+         let memberId = $(".memberId").val();
+         let liqId = $(this).data('liqid');
+         let className = "."+liqId;
+         let qty = $(className).val();
          
          $.ajax({
            type : 'post',
@@ -206,8 +247,8 @@ td{
    //장바구니 선택 삭제
    $(function(){
       $(".h-delete-btn").click(function(){
-         var liqId = $(this).data('liqid');
-         var memberId = $(".memberId").val();
+         let liqId = $(this).data('liqid');
+         let memberId = $(".memberId").val();
       
          console.log(liqId);
          
@@ -224,6 +265,51 @@ td{
          location.reload();
       }); //fun end
    });      
+   
+   //개별 주문하기
+$(document).ready(function() {
+   let orderForm = $("#ind-orderForm");
+   $("button[data-oper='ind-order']").on("click", function(e) {
+      e.preventDefault();
+      let liqId = $(this).data('liqid');
+      let prc = $(this).data('prc');
+      let className = "."+liqId;
+      let qty = $(className).val();
+      
+      $("input[name='items[0].liqId']").val(liqId);
+      $("input[name='items[0].qty']").val(qty);
+      $("input[name='items[0].prc']").val(prc);
+      
+      orderForm.attr("action", "/shop/order").submit();
+      });
+});
+   
+   //선택주문하기
+$(document).ready(function() {
+   let orderForm = $("#select-orderForm");
+   let chkbox = document.getElementsByName("chkbox");
+   let count = 0
+   $("button[data-oper='selec-order']").on("click", function(e) {
+        e.preventDefault();
+        
+     for(let i=0; i < chkbox.length; i++ ){
+        if( chkbox[i].checked == true ){
+          
+          let liqIdTag = "<input type='hidden' name='items["+ count +"].liqId' value='"+$(chkbox[i]).data('liqid')+"'>";
+          let prcTag = "<input type='hidden' name='items["+ count +"].prc' value='"+$(chkbox[i]).data('prc')+"'>"
+          let qtyTag = "<input type='hidden' name='items["+ count +"].qty' value='"+$(chkbox[i]).data('qty')+"'>"
+          
+          orderForm.append(liqIdTag);
+          orderForm.append(prcTag);
+          orderForm.append(qtyTag);
+          
+          count++;
+          }
+     }
+        orderForm.attr("action", "/shop/order").submit();
+     });
+});
+
 </script>
 </body>
 </html>

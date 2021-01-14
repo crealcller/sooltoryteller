@@ -47,12 +47,11 @@
             가격 : <fmt:formatNumber value="${liq.prc }" pattern="#,###" />원
             </p>
             
-
-            <form action="/shop/basket/register" method="post">
+            <form action="/shop/basket/register" method="post" id="h-basketForm">
             <input type="number" id="qty" min="1" max="10" value="1" name="qty">
             <br>
             <input type="hidden" name="liqId" value=${liq.liqId }>
-            <button type="submit"  class="h-basket-btn">술바구니</button>
+            <button type="submit"  class="h-basket-btn" id="h-basket-btn">술바구니</button>
             <button type="submit" data-oper="order">구매하기</button>
             </form>
 
@@ -469,19 +468,33 @@ $(function() {
 });
 </script>
 
+
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#qty").on("click",function(e){
-		$("#listQty").val($(this).val());
-	});
-	
-	var operForm = $("#operForm");
-	$("button[data-oper='order']").on("click", function(e) {
-		 e.preventDefault();
-	      operForm.attr("action", "/shop/order").submit();
-	   });
+   var liqIdValue = '<c:out value="${liq.liqId}"/>'
+   //현수 추가
+   $("#h-basket-btn").on("click", function(e) {
+      e.preventDefault();
+      let chk = confirm("장바구니로 이동하시겠습니까??");
+      let basketForm = $("#h-basketForm");
+      let move = ""
+      if(chk) {
+         move = "<input type='hidden' name='move' value='/shop/basket'>";
+         basketForm.append(move);
+      }else{
+         move = "<input type='hidden' name='move' value='/trad-liq?liqId="+liqIdValue+"'>";
+         basketForm.append(move);
+      }
+         basketForm.submit();
+     });
+   
+   var operForm = $("#operForm");
+   $("button[data-oper='order']").on("click", function(e) {
+         operForm.attr("action", "/shop/order").submit();
+      });
 });
+
 </script>
 </body>
 </html>

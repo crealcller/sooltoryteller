@@ -53,7 +53,7 @@ th {
 }
 
 td {
-   padding: 0 38px 0 38px;
+   padding: 0 33px 0 33px;
 }
 
 .dlvy-info-div {
@@ -111,7 +111,7 @@ td {
                      <th></th>
                      <th>상품정보</th>
                      <th>수량</th>
-                     <th>판매자</th>
+                     <th>양조장</th>
                      <th>배송비</th>
                      <th>주문금액</th>
                   </tr>
@@ -129,9 +129,9 @@ td {
                      <td><img style="width: 70px;"
                         src="<c:out value="${liq.liqThumb }" />" /></td>
                      <td><c:out value="${liq.nm }" /></td>
-                     <td><fmt:formatNumber value="${liq.prc }" pattern="#,###" />원</td>
                      <td><c:out value="${itemList.items[status.index].qty }" />개</td>
                      <td><c:out value="${liq.liqCo.nm }" /></td>
+                     <td>0원</td>
                      <td><fmt:formatNumber
                            value="${liq.prc * itemList.items[status.index].qty }"
                            pattern="#,###" />원</td>
@@ -333,7 +333,7 @@ td {
       function initLayerPosition() {
          var width = 500; //우편번호서비스가 들어갈 element의 width
          var height = 400; //우편번호서비스가 들어갈 element의 height
-         var borderWidth = 2; //샘플에서 사용하는 border의 두께
+         var borderWidth = 5; //샘플에서 사용하는 border의 두께
 
          // 위에서 선언한 값들을 실제 element에 넣는다.
          element_layer.style.width = width + 'px';

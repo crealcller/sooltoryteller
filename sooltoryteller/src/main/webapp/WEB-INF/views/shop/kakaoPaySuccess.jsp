@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -132,13 +134,13 @@
       </thead>
       <tbody>
         <tr>
-          <td><c:out value="${info.amount.total}"/></td>
+          <td><c:out value="${info.amount.total}"/>원</td>
           <td>0</td>
-          <td><c:out value="${info.amount.total}"/></td>
+          <td><c:out value="${info.amount.total}"/>원</td>
         </tr>
           <tr class="d-second-row">
           <td><c:out value="${info.item_name}"/>
-          <p><c:out value="${info.amount.total}"/></p></td>
+          <p><c:out value="${info.amount.total}"/>원</p></td>
           <td></td>
           <td>
           <c:choose>
