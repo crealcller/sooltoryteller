@@ -472,6 +472,9 @@ $(function() {
 <!-- 주문/결제 페이지로 데이터 이동 -->
 <script type="text/javascript">
 $(document).ready(function() {
+	$("#qty").on("click",function(e){
+		$("#listQty").val($(this).val());
+	});
    var liqIdValue = '<c:out value="${liq.liqId}"/>'
    //현수 추가
    $("#h-basket-btn").on("click", function(e) {
@@ -489,10 +492,11 @@ $(document).ready(function() {
          basketForm.submit();
      });
    
-   var operForm = $("#operForm");
-   $("button[data-oper='order']").on("click", function(e) {
-         operForm.attr("action", "/shop/order").submit();
-      });
+	var operForm = $("#operForm");
+	$("button[data-oper='order']").on("click", function(e) {
+		 e.preventDefault();
+	      operForm.attr("action", "/shop/order").submit();
+	   });
 });
 
 </script>
