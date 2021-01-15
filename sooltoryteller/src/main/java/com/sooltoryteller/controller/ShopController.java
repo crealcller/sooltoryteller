@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sooltoryteller.domain.BasketVO;
 import com.sooltoryteller.domain.ItemListDTO;
 import com.sooltoryteller.domain.LiqVO;
-import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.domain.OrdRequestDTO;
 import com.sooltoryteller.service.BasketService;
 import com.sooltoryteller.service.KakaoService;
 import com.sooltoryteller.service.LiqService;
@@ -118,66 +118,56 @@ public class ShopController {
 	}
 //--------------------------------현수작업 끝------------------------------	
 	
-	
 	@GetMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model) {
 		// 로그인 유무 체크
-		String email = (String)session.getAttribute("email");
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		}
 	}
-	
+
 	@PostMapping("/order")
 	public void getOrdInfo(HttpSession session, Model model, ItemListDTO itemList) {
 		List<LiqVO> liqs = new ArrayList<>();
-		// 로그인 유무 체크
-		String email = (String)session.getAttribute("email");
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
-		} else {
-			for(int i = 0; i < itemList.size(); i++) {
-				Long liqIds = itemList.getItems().get(i).getLiqId();
-				liqs.add(liqService.get(liqIds));
-			}
-			
-			// liqVO 관련 정보
-			model.addAttribute("liq", liqs);
-			// 상품번호, 상품단가, 주문수량 리스트
-			model.addAttribute("itemList", itemList);
-			log.info(itemList);
-			
-			// 배송지 정보
-			
-			// 주문자 정보
-			model.addAttribute("member", memberService.get(email));
-			
-			// DB에 데이터 넣기
-//			ordService.insertOrd();
-//			ordService.insertOrdDtl();
-//			ordService.insertOrdHist();
+		}else {
+		for (int i = 0; i < itemList.size(); i++) {
+			Long liqIds = itemList.getItems().get(i).getLiqId();
+			liqs.add(liqService.get(liqIds));
 		}
 
-	}
+		// liqVO 관련 정보
+		model.addAttribute("liq", liqs);
+		// 상품번호, 상품단가, 주문수량 리스트
+		model.addAttribute("itemList", itemList);
+		log.info(itemList);
 
-	
+		// 배송지 정보
+
+		// 주문자 정보
+		model.addAttribute("member", memberService.get(email));
+	}
+}
 	@PostMapping("/kakaoPay")
-	public String kakaoPay(OrderDTO orderDTO, HttpSession session, Model model) {
+	public String kakaoPay(OrdRequestDTO ordRequest, HttpSession session, Model model) {
 		log.info("kakaoPay post............................................");
-		log.info(orderDTO);
 		// 수빈
 		// 로그인 유무 체크
-		String email = (String)session.getAttribute("email");
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		if (email == null) {
 			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
 		} else {
-			memberService.get(email);
-			// DB에 데이터 넣기
-			ordService.insertOrd();
-			ordService.insertOrdDtl();
-			ordService.insertOrdHist();
+			Long memberId = memberService.getMemberId(email);
+			ordRequest.getOrd().setMemberId(memberId);
+			ordRequest.getOrdHist().setMemberId(memberId);
+			ordService.insertOrd(ordRequest);
+			ordRequest.getPay().setMemberId(memberId);
+			log.info(ordRequest);
 		}
-		return "redirect:" + kakaoService.kakaoPayReady(orderDTO);
+		return "redirect:" + kakaoService.kakaoPayReady(ordRequest);
 	}
 
 	@GetMapping("/kakaoPaySuccess")

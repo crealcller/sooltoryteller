@@ -48,4 +48,15 @@
 	where member_id = #{memberId}
 	and liq_id = #{liqId}
   </select>
+  
+  <!-- 다울추가 -->
+  <delete id="deleteAfterOrder" parameterType="java.util.List">
+   delete from basket 
+   where 
+   member_id =#{memberId} 
+   and
+   <foreach collection="liqId" item="item" separator="OR"> 
+   liq_id = #{item}
+   </foreach> 
+   </delete>
   </mapper>

@@ -2,7 +2,12 @@ package com.sooltoryteller.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,8 +19,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sooltoryteller.domain.KakaoPayApprovalVO;
 import com.sooltoryteller.domain.KakaoPayReadyVO;
-import com.sooltoryteller.domain.OrderDTO;
+import com.sooltoryteller.domain.OrdRequestDTO;
 
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Service
@@ -27,13 +33,21 @@ public class KakaoService {
 	
 	private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
+	@Setter(onMethod_ = @Autowired)
+	private PayService payService;
+	@Setter(onMethod_ = @Autowired)
+	private BasketService basketService;
 	
-	private String userId = "";
+	private Long userId = 0L;
+	private Long orderId = 0L;
+	private int ttlPrc = 0;
 	
-	public String kakaoPayReady(OrderDTO orderDTO) {
+	public String kakaoPayReady(OrdRequestDTO ordRequest) {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
-		userId = orderDTO.getOrderer();
+		userId = ordRequest.getOrd().getMemberId();
+		orderId =ordRequest.getOrd().getOrdId();
+		ttlPrc = ordRequest.getOrd().getTtlPrc();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "04b6bc56845b84db3c6f882f49ca1d47");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -42,11 +56,11 @@ public class KakaoService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "10001");
-        params.add("partner_user_id", userId);
-        params.add("item_name", orderDTO.getName());
-        params.add("quantity", orderDTO.getTtlQty());
-        params.add("total_amount", orderDTO.getTtlPrc());
+        params.add("partner_order_id", orderId+"");
+        params.add("partner_user_id", userId+"");
+        params.add("item_name", ordRequest.getOrdName());
+        params.add("quantity", (ordRequest.getOrd().getTtlQty()+""));
+        params.add("total_amount",ttlPrc+"");
         params.add("tax_free_amount", "0");	
         params.add("approval_url", "http://localhost:8181/shop/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8181/shop/kakaoPayCancel");
@@ -58,7 +72,19 @@ public class KakaoService {
             kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
             
             log.info("" + kakaoPayReadyVO);
-            
+            	//pay에 인서트한다
+            	ordRequest.getPay().setOrdId(orderId);
+            	ordRequest.getPay().setOrdPrc(ttlPrc);
+            	ordRequest.getPayHist().setBfStus("P");
+            	ordRequest.getPayHist().setAfStus("P");
+            	payService.register(ordRequest);
+            	//장바구니 비우기
+            	List<Long> liqId = new ArrayList();
+            	for(int i=0; i<ordRequest.getItems().size(); i++) {
+            		liqId.add(ordRequest.getItems().get(i).getLiqId());
+            	}
+            	basketService.removeAfterOrder(userId, liqId);
+            	
             return kakaoPayReadyVO.getNext_redirect_pc_url();
  
         } catch (RestClientException e) {
@@ -86,14 +112,19 @@ public class KakaoService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", "10001");
-        params.add("partner_user_id", userId);
+        params.add("partner_order_id", orderId +"");
+        params.add("partner_user_id", userId +"");
         params.add("pg_token", pg_token);
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
         try {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+            Date created_at = setDateFormat(kakaoPayApprovalVO.getCreated_at());
+            Date approved_at = setDateFormat(kakaoPayApprovalVO.getApproved_at());
+            
+            kakaoPayApprovalVO.setCreated_at(created_at);
+            kakaoPayApprovalVO.setApproved_at(approved_at);
             log.info("" + kakaoPayApprovalVO);
           
             return kakaoPayApprovalVO;
@@ -106,5 +137,11 @@ public class KakaoService {
         
         return null;
     }
-	
+	//한국시긴
+	private Date setDateFormat(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+        cal.add(Calendar.HOUR_OF_DAY, -9);
+        return new Date(cal.getTimeInMillis());
+	}
 }

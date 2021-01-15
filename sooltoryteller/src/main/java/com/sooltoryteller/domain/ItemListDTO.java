@@ -11,10 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemListDTO {
 
-	private List<ItemDTO> items;
-	
-	private String dlvyFee = "무료";
-	
+	private List<OrdDtlVO> items;
+
 	public int size() {
 		return items.size();
 	}

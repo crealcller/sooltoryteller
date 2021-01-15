@@ -5,26 +5,36 @@
 <!-- 주문 완료 후 -->
 <!-- 주문에 데이터 삽입 -->
 <insert id="insertOrd">
-	insert into ord(ord_id, member_id, ord_date, ttl_qty, ttl_prc, ord_stus, dlvy_fee, recipient, telno, ord_adr)
-	values(ord_seq.nextval, #{memberId}, sysdate, #{ttlQty}, #{ttlPrc}, #{ordStus}, #{dlvyFee}, #{recipient}, #{telno}, #{ordAdr})
+     <selectKey keyProperty="ordId" order="BEFORE" resultType="long">
+         select ord_seq.nextval from dual
+      </selectKey>
+	insert into ord(ord_id, member_id, ttl_qty, ttl_prc, dlvy_fee, recipient, telno, ord_adr )
+	values(#{ordId}, #{memberId}, #{ttlQty}, #{ttlPrc}, #{dlvyFee}, #{recipient}, #{telno}, #{ordAdr})
 </insert>
 
-<!-- 주문내역에 데이터 삽입 -->
-<!-- <insert id="insertOrdDtl">
-	insert into ord_dtl(ord_dtl_id, ord_id, liq_id, ord_qty, ord_prc, ord_date)
-	values(ord_dtl_seq.nextval, ord_seq.currval, #{liqId}, #{ordQty}, #{ordPrc}, sysdate)
-</insert> -->
-<insert id="insertOrdDtl" parameterType="com.sooltoryteller.domain.OrdDtlVO">
-	<foreach item="item" index="index" collection="java.util.List" separator=" " open="insert all" close="select * from dual">
-		into ord_dtl(ord_dtl_id, ord_id, liq_id, ord_qty, ord_prc, ord_date)
-		values(ord_dtl_seq.nextval, ord_seq.currval, #{item.liqId}, #{item.ordQty}, #{item.ordPrc}, sysdate)
-	</foreach>
+
+<insert id="insertOrdDtl" parameterType="java.util.List">
+     <selectKey keyProperty="ordId" order="BEFORE" resultType="long">
+         select ord_seq.currval from dual
+      </selectKey>
+	insert into ord_dtl(ord_dtl_id, ord_id, liq_id, qty, prc)
+	select ord_dtl_seq.nextval, A.* from(
+	<foreach item="item"  collection="list" separator="UNION ALL">
+	select  #{ordId} as ord_id,
+			#{item.liqId} as liq_id,
+			#{item.qty} as qty,
+			#{item.prc} as prc
+			from dual
+	</foreach>) A
 </insert>
 
 <!-- 주문이력에 데이터 삽입 -->
 <insert id="insertOrdHist">
-	insert into ord_hist(ord_hist_id, ord_id, member_id, ord_stus, chg_ord_stus, chg_ord_date)
-	values(ord_hist_seq.nextval, ord_seq.currval, #{memberId}, #{ordStus}, #{chgOrdStus}, sysdate)
+     <selectKey keyProperty="ordId" order="BEFORE" resultType="long">
+         select ord_seq.currval from dual
+      </selectKey>
+	insert into ord_hist(ord_hist_id, ord_id, member_id, ord_stus, chg_ord_stus)
+	values(ord_hist_seq.nextval, #{ordId}, #{memberId}, #{ordStus}, #{chgOrdStus})
 </insert>
 
 <!-- 각 항목 조회 -->

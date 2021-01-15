@@ -25,4 +25,6 @@ public interface BasketService {
 	public int getPrice(Long liqId);
 	
 	public BasketVO get(Long memberId, Long liqId);
+
+	public boolean removeAfterOrder(Long memberId, List<Long> liqId);
 }
