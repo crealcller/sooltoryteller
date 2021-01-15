@@ -158,6 +158,7 @@ if(msg != ''){
 		//회원 탈퇴 모달창 열기
 		$(".h-admin-withdraw").on("click", function(e){
 			e.preventDefault();
+			actionForm.empty();
 			actionForm.append("<input type='hidden' name='memberId' value='"+$(this).attr("href")+"'>");
 			$("#h-withdrawal-Modal").show();
 		});
